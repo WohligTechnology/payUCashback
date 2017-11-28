@@ -1,6 +1,6 @@
 {
-    "title": "Company",
-    "description": "List of Companies",
+    "title": "Merchant",
+    "description": "List of Merchants",
     "pageType": "view",
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
@@ -15,7 +15,7 @@
         "icon": "fa-pencil",
         "buttonClass": "btn-primary",
         "type": "page",
-        "action": "editCompany",
+        "action": "editMerchant",
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -24,9 +24,9 @@
         "icon": "fa-trash",
         "buttonClass": "btn-danger",
         "type": "apiCallConfirm",
-        "title": "Delete Company",
-        "content": "Are you sure you want to delete Company?",
-        "api": "Company/delete",
+        "title": "Delete Merchant",
+        "content": "Are you sure you want to delete Merchant?",
+        "api": "Merchant/delete",
         "fieldsToSend": {
             "name": "_id",
             "value": "_id"
@@ -37,10 +37,10 @@
         "icon": "plus",
         "class": "btn-success",
         "type": "page",
-        "action": "createCompany"
+        "action": "createMerchant"
     }],
     "apiCall": {
-        "url": "Company/search",
+        "url": "Merchant/search",
         "params": "_id"
     }
 }

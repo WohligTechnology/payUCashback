@@ -1,7 +1,7 @@
 {
-    "title": "Edit Company",
-    "name": "Company",
-    "jsonPage": "viewCompany",
+    "title": "Edit Merchant",
+    "name": "Merchant",
+    "jsonPage": "viewMerchant",
     "desciption": "",
     "pageType": "edit",
     "urlFields": ["_id"],
@@ -14,7 +14,7 @@
         "validation": ["required", "trim", "unique"],
         "url": ""
     },{
-        "name": "Logo of Company :",
+        "name": "Logo of Merchant :",
         "type": "image",
         "tableRef": "img",
         "placeholder": "Upload Img",
@@ -26,11 +26,11 @@
     }],
     "action": [{
         "name": "submit",
-        "action": "submitCompany",
+        "action": "submitMerchant",
         "stateName": {
             "page": "page",
             "json": {
-                "id": "viewCompany"
+                "id": "viewMerchant"
             }
         }
     }, {
@@ -39,16 +39,16 @@
         "stateName": {
             "page": "page",
             "json": {
-                "id": "viewCompany"
+                "id": "viewMerchant"
             }
         }
     }],
     "apiCall": {
-        "url": "Company/save",
+        "url": "Merchant/save",
         "params": "_id"
     },
     "preApi": {
-        "url": "Company/getOne",
+        "url": "Merchant/getOne",
         "params": "_id"
     }
 

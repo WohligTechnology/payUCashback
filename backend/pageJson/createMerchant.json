@@ -1,10 +1,10 @@
 {
-    "title": "Create Company",
-    "name": "Company",
-    "jsonPage": "viewCompany",
+    "title": "Create Merchant",
+    "name": "Merchant",
+    "jsonPage": "viewMerchant",
     "desciption": "",
     "pageType": "create",
-    "urlFields": ["Company"],
+    "urlFields": ["Merchant"],
     "fields": [{
         "name": "Name",
         "type": "text",
@@ -14,7 +14,7 @@
         "validation": ["required", "trim", "unique"],
         "url": ""
     },{
-        "name": "Logo Of Company",
+        "name": "Logo Of Merchant",
         "type": "image",
         "tableRef": "img",
         "placeholder": "Upload Img",
@@ -26,11 +26,11 @@
     }],
     "action": [{
         "name": "submit",
-        "action": "submitCompany",
+        "action": "submitMerchant",
         "stateName": {
             "page": "page",
             "json": {
-                "id": "viewCompany"
+                "id": "viewMerchant"
             }
         }
     }, {
@@ -39,11 +39,11 @@
         "stateName": {
             "page": "page",
             "json": {
-                "id": "viewCompany"
+                "id": "viewMerchant"
             }
         }
     }],
     "apiCall": {
-        "url": "Company/save"
+        "url": "Merchant/save"
     }
 }
