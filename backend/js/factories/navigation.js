@@ -10,6 +10,10 @@ myApp.factory('NavigationService', function ($http) {
         name: "Merchant",
         classis: "active",
         sref: "#!/page/viewMerchant//"
+    },{
+        name: "Rule",
+        classis: "active",
+        sref: "#!/page/viewRule//"
     }
     ];
 

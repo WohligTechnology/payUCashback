@@ -32,7 +32,7 @@
                                 <thead>
                                     <tr>
                                         <th ng-if="json.json.rowCheckBox==true">Check</th>
-                                        <th>#</th>
+                                        <th>Sr. No.</th>
                                         <th ng-repeat="field in json.json.fields">
                                             {{field.name}}
                                         </th>
@@ -41,20 +41,27 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="item in items">
-                                        <td ng-if="json.json.rowCheckBox==true">Check</td>
+                                        <td ng-if="json.json.rowCheckBox==true"><input type="checkbox" ng-model="myChkModel" ng-change="checkboxClick(item._id)"></td>
                                         <td>{{($index + 1)+((currentPage-1)*maxRow)}}</td>
                                         <td ng-repeat="field in json.json.fields">
                                             <view-field type="field" value="item"></view-field>
                                         </td>
-                                        <td ng-repeat="but in json.json.action">
-                                            <a class="btn" ng-class="but.buttonClass" ng-click="json.eventAction(but,item) ">
-                                                <i class="fa" ng-class="but.icon"></i>{{but.name}}
+                                        <td>
+                                            <a style="margin-left:5px;" ng-repeat="but in json.json.action" class="btn" ng-class="but.buttonClass" ng-click="json.eventAction(but,item) ">
+                                                <i class="fa" ng-class="but.icon"></i>
                                             </a>
+                                            <!-- <a style="margin-left:5px;" ng-if="json.json.viewButton" class="btn" ng-class="json.json.viewButton.buttonClass" ng-click="">
+                                                    <i class="fa" ng-class="json.json.viewButton.icon"></i>
+                                            </a> -->
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+                        <div ng-if="json.json.bottomButton">
+                                <a class="btn btn-primary" ng-class="btn.class " ng-click="playSelectedClick()">{{json.json.bottomButton[0].name}}</a>
+                                
+                        </div><br>
                         <div class="tableData " ng-show="totalItems===0 ">
                             <h5>No data found</h5>
                         </div>

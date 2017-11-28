@@ -279,6 +279,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.json = JsonService;
         $scope.template = TemplateService;
         var i = 0;
+        $scope.selectArr=[];
         if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
             $scope.currentPage = $stateParams.page;
         } else {
@@ -290,6 +291,24 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         };
         if ($stateParams.keyword) {
             $scope.search.keyword = $stateParams.keyword;
+        }
+        $scope.checkboxClick=function(id){
+            console.log("id in avinashClick",id);
+            var idx = $.inArray(id, $scope.selectArr);
+            if (idx == -1) {
+                $scope.selectArr.push(id);
+                console.log("in if after push",$scope.selectArr);
+            } else {
+                $scope.selectArr.splice(idx, 1);
+                console.log("in else after splice",$scope.selectArr);
+            }
+        }
+        $scope.playSelectedClick=function(){
+            if($scope.selectArr.length == 0){
+                console.log("empty array inside playSelectedClick if");
+            }else{
+                console.log("inside playSelectedClick else");
+            }
         }
         $scope.changePage = function (page) {
             var goTo = "page";

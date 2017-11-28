@@ -1,6 +1,6 @@
 apps:
   - script: "app.js"
-    name: "overdrive - 85"
+    name: "payUCashback - 8080"
     watch: false
     args: "--prod"
     exec_mode: "cluster"

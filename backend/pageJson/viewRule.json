@@ -1,0 +1,79 @@
+{
+    "title": "Rule",
+    "description": "List of Rules",
+    "pageType": "view",
+    "rowCheckBox":true,
+    "sendIdWithCreate": true,
+    "urlFields": ["_id"],
+    "fields": [{
+        "name": "Name",
+        "isSort": "",
+        "tableRef": "name"
+    },{
+        "name": "Merchant",
+        "isSort": "",
+        "tableRef": "merchant",
+        "type":"objectName"
+    },{
+        "name": "Start Date",
+        "isSort": "",
+        "tableRef": "validFrom",
+        "type":"formattedDate"
+    },{
+        "name": "End Date",
+        "isSort": "",
+        "tableRef": "validTo",
+        "type":"formattedDate"
+    }
+    ],
+    "action": [{
+        "name": "View",
+        "icon": "fa-search",
+        "buttonClass": "btn-primary",
+        "type": "page",
+        "action": "viewSingleRule",
+        "fieldsToSend": {
+            "_id": "_id"
+        }
+    }, {
+        "name": "edit",
+        "icon": "fa-pencil",
+        "buttonClass": "btn-primary",
+        "type": "page",
+        "action": "editRule",
+        "fieldsToSend": {
+            "_id": "_id"
+        }
+    }, {
+        "name": "delete",
+        "icon": "fa-trash",
+        "buttonClass": "btn-danger",
+        "type": "apiCallConfirm",
+        "title": "Delete Rule",
+        "content": "Are you sure you want to delete Rule?",
+        "api": "Rule/delete",
+        "fieldsToSend": {
+            "name": "_id",
+            "value": "_id"
+        }
+    }],
+    "button": [{
+        "name": "Add Rule",
+        "icon": "plus",
+        "class": "btn-success",
+        "type": "page",
+        "action": "createRule"
+    }],
+    "bottomButton": [{
+        "name": "Play Selected",
+        "icon": "plus",
+        "class": "btn-success",
+        "type": "page",
+        "action": "",
+        "functionName":"playSelectedClick()"
+    }],
+    "apiCall": {
+        "url": "Rule/search",
+        "params": "_id"
+    }
+}

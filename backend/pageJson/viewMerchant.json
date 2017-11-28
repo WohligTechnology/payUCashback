@@ -33,7 +33,7 @@
         }
     }],
     "button": [{
-        "name": "Create",
+        "name": "Add",
         "icon": "plus",
         "class": "btn-success",
         "type": "page",
