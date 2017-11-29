@@ -41,6 +41,14 @@
         "id": "amount",
         "url": ""
     }, {
+        "name": "Minimum Accumulated Spend",
+        "type": "text",
+        "tableRef": "minimumAccumulatedSpend",
+        "placeholder": "Enter Minimum Accumulated Spend",
+        "id": "minimumAccumulatedSpend",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
         "name": "Maximum Cashback",
         "type": "text",
         "tableRef": "maximumCashback",

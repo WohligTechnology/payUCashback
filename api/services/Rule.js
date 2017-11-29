@@ -13,6 +13,9 @@ var schema = new Schema({
     amount: {
         type: Number
     },
+    minimumAccumulatedSpend:{
+        type:Number
+    },
     maximumCashback: {
         type: Number
     },

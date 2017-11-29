@@ -26,16 +26,12 @@
         "type":"formattedDate"
     }
     ],
-    "action": [{
+    "viewButton":{
         "name": "View",
         "icon": "fa-search",
-        "buttonClass": "btn-primary",
-        "type": "page",
-        "action": "viewSingleRule",
-        "fieldsToSend": {
-            "_id": "_id"
-        }
-    }, {
+        "buttonClass": "btn-primary"
+    },
+    "action": [{
         "name": "edit",
         "icon": "fa-pencil",
         "buttonClass": "btn-primary",

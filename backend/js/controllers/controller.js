@@ -275,7 +275,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
     })
 
-    .controller('ViewCtrl', function ($scope, TemplateService, NavigationService, JsonService, $timeout, $state, $stateParams) {
+    .controller('ViewCtrl', function ($scope, TemplateService, NavigationService, JsonService, $timeout, $state, $stateParams, $uibModal) {
         $scope.json = JsonService;
         $scope.template = TemplateService;
         var i = 0;
@@ -308,7 +308,18 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 console.log("empty array inside playSelectedClick if");
             }else{
                 console.log("inside playSelectedClick else");
+                console.log("selected id inside playSelectedClick else",$scope.selectArr);
             }
+        }
+        $scope.viewSingleRuleModal=function(singleRule){
+            console.log("viewSingleRuleModal",singleRule);
+            $scope.singleRuleForModal=singleRule;
+            $scope.singleRuleModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/SingleRuleModal.html',
+                size: 'md',
+                scope: $scope
+            });
         }
         $scope.changePage = function (page) {
             var goTo = "page";
@@ -373,6 +384,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         };
 
         $scope.saveData = function (formData) {
+            // console.log("formData on save",formData);
             NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
                 var messText = "created";
                 if (data.value === true) {

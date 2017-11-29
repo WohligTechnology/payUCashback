@@ -1,0 +1,106 @@
+<form name="modalForm" ng-submit="submitModal(data);$dismiss()" class="min-hit">
+        <div class="modal-header blue-bg  ">
+            <div class="pull-right">
+                <a class="btn btn-clear" ng-click="$dismiss()">
+                    <i class="ln-cross"></i>
+                </a>
+            </div>
+            <h5 class="modal-title"><b>{{singleRuleForModal.merchant.name}}</b>-{{singleRuleForModal.name}}</h5>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    Merchant- {{singleRuleForModal.merchant.name}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    Rule Name- {{singleRuleForModal.name}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.percentage">
+                <div class="col-md-12">
+                    Percentage - {{singleRuleForModal.percentage}}
+                </div>
+            </div>
+            <div class="row"ng-if="singleRuleForModal.amount">
+                <div class="col-md-12">
+                    Amount - {{singleRuleForModal.amount}}
+                </div>
+            </div>
+            <div class="row"ng-if="singleRuleForModal.minimumAccumulatedSpend">
+                <div class="col-md-12">
+                        Minimum Accumulated Spend - {{singleRuleForModal.minimumAccumulatedSpend}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.maximimCashback">
+                <div class="col-md-12">
+                    Maximum Cashback - {{singleRuleForModal.maximumCashback}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.promoCode">
+                <div class="col-md-12">
+                    Promo Code - {{singleRuleForModal.promoCode}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.validFrom">
+                <div class="col-md-12">
+                    Valid From - {{singleRuleForModal.validFrom | date : "dd/MM/y"}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.validTo">
+                <div class="col-md-12">
+                    Valid To - {{singleRuleForModal.validTo | date : "dd/MM/y"}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.processingStartDate">
+                <div class="col-md-12">
+                    Processing Start Date - {{singleRuleForModal.processingStartDate | date : "dd/MM/y"}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.processingEndDate">
+                <div class="col-md-12">
+                    Processing End Date - {{singleRuleForModal.processingEndDate | date : "dd/MM/y"}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.isFirstTransaction">
+                <div class="col-md-12">
+                        Is For Only First Transaction? - {{singleRuleForModal.isFirstTransaction}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.perUser">
+                <div class="col-md-12">
+                    Number Of Transactions allow per User - {{singleRuleForModal.perUser}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.generationCriteria">
+                <div class="col-md-12">
+                    Generation Criteria - {{singleRuleForModal.generationCriteria}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.applicableMerchant">
+                <div class="col-md-12">
+                    Applicable Merchants - {{singleRuleForModal.applicableMerchant}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.applicableProduct">
+                <div class="col-md-12">
+                    Applicable Products - {{singleRuleForModal.applicableProduct}}
+                </div>
+            </div>
+            <br>
+            <div class="row" ng-if="singleRuleForModal.giftCard && singleRuleForModal.giftCard.length > 0">
+                <div class="col-md-12">
+                    Gift Cards -
+                </div>
+                <div class="col-md-12" ng-repeat="gc in singleRuleForModal.giftCard">
+                    <span>{{gc.transaction}}</span> : <span>{{gc.cashbackDetails}}</span><br>
+                </div>
+            </div>
+
+    
+            <div class="text-center">
+                <button class="btn btn-primary btn-save" type="submit" ng-disabled="modalForm.$invalid" ng-click="$dismiss()">Cancel</button>
+            </div>
+        </div>
+    </form>
