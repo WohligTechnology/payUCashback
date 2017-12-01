@@ -119,6 +119,14 @@ myApp.factory('NavigationService', function ($http) {
             });
 
         },
+        playSelectedEmail: function (ruleArr, callback) {
+            $http({
+                url: adminurl + 'Rule/playSelectedEmail',
+                method: 'POST',
+                data: ruleArr,
+                withCredentials: false
+            }).then(callback);
+        },
 
     };
 });

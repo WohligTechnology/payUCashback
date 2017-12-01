@@ -84,7 +84,13 @@ myApp.service('JsonService', function ($http, TemplateService, $state, toastr, $
       if (action.linkType == "admin") {
         window.location.href = adminurl + action.action;
       } else if (action.linkType == "internal") {
+        console.log("inside internal",action.action);
         window.location.href = "#!/" + action.action;
+      } else if (action.linkType == "internalWithId") {
+        console.log("value",value);
+        console.log("#!/" + action.action+"/"+value._id);
+        window.location.href = "#!/" + action.action+"/"+value._id;
+        // window.location.href = "#!/" + action.action;
       } else {
         window.location.href = action.action;
       }
@@ -97,6 +103,7 @@ myApp.service('JsonService', function ($http, TemplateService, $state, toastr, $
         sendTo.keyword = JSON.stringify(keyword);
       }
       if (action && action.type == "page") {
+        console.log("inside page",sendTo);
         $state.go("page", sendTo);
       } else if (action && action.type == "apiCallConfirm") {
         globalfunction.confDel(function (value2) {

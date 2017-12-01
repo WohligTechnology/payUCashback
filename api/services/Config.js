@@ -436,6 +436,74 @@ var models = {
 
 
 
+    },
+
+    playSelectedEmail: function (data, callback) {
+        // console.log(" ***** inside email of config ***** ", data);
+        Password.find().exec(function (err, userdata) {
+            console.log("userdata in password.find",userdata);
+            if (err) {
+                console.log(err);
+                callback(err, null);
+            } else if (userdata && userdata.length > 0) {
+                // console.log("userdata ", userdata);
+                if (data.filename && data.filename != "") {
+
+                    sails.hooks.views.render("playSelectedEmail", data, function (err, body) {
+                        // console.log("body : ", body);
+                        if (err) {
+                            console.log(err);
+                            callback(err, null);
+                        } else {
+                            console.log('email else');
+                            if (body && body.value != false) {
+                                var helper = require('sendgrid').mail;
+
+                                from_email = new helper.Email(data.from);
+                                to_email = new helper.Email(data.email);
+                                subject = data.subject;
+                                content = new helper.Content("text/html", body);
+                                mail = new helper.Mail(from_email, subject, to_email, content);
+
+                                console.log("sending mail", mail);
+
+                                var sg = require('sendgrid')(userdata[0].name);
+                                var request = sg.emptyRequest({
+                                    method: 'POST',
+                                    path: '/v3/mail/send',
+                                    body: mail.toJSON()
+                                });
+
+                                sg.API(request, function (error, response) {
+                                    if (error) {
+                                        console.log('Error response received: ', error);
+                                        callback(error, null);
+                                    } else {
+                                        console.log("statuscode: ", response.statusCode)
+                                        console.log("body: ", response.body)
+                                        console.log(response.headers)
+                                        callback(null, response);
+                                    }
+                                })
+                            } else {
+                                callback({
+                                    message: "Error while sending mail."
+                                }, null);
+                            }
+                        }
+                    });
+
+                } else {
+                    callback({
+                        message: "Please provide params"
+                    }, null);
+                }
+            } else {
+                callback({
+                    message: "No api keys found"
+                }, null);
+            }
+        });
     }
 };
 module.exports = _.assign(module.exports, models);

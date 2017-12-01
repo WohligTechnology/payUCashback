@@ -76,6 +76,36 @@ module.exports = mongoose.model('Rule', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant', 'merchant'));
 var model = {
+
+    playSelectedEmail: function (data, callback) {
+        console.log("inside playSelectedEmail service data",data);
+                        var emailData = {};
+                        var total = 0;
+                        emailData.email = "avinash.ghare@wohlig.com";
+                        emailData.subject = "Play Selected Array Email";
+                        emailData.filename = "playSelectedRulesArray.ejs";
+                        emailData.from = "avinashghare572@gmail.com";
+                        emailData.selectedArray = data;
+                        Config.playSelectedEmail(emailData, function (err, response) {
+                            if (err) {
+                                console.log("error in email", err);
+                                callback("emailError", null);
+                            } else if (response) {
+                                var sendData = {};
+                                sendData.response=response;
+                                sendData.message="successfull";
+                                // sendData._id = created._id;
+                                // sendData.email = created.email;
+                                // sendData.accessToken = created.accessToken;
+                                // sendData.firstName = created.firstName;
+                                // sendData.lastName = created.lastName;
+                                callback(null, sendData);
+                            } else {
+                                callback("errorOccurredRegister", null);
+                            }
+                        });
+                    
+    },
     AddRule: function (data, callback) {
                 var Model = this;
                 var voteData = data.body;

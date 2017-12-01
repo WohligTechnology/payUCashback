@@ -1,0 +1,198 @@
+{
+    "title": "Edit Rule",
+    "name": "Rule",
+    "jsonPage": "viewRule",
+    "desciption": "",
+    "pageType": "edit",
+    "urlFields": ["_id"],
+    "fields": [{
+        "name": "Name",
+        "type": "text",
+        "tableRef": "name",
+        "placeholder": "Enter Name",
+        "id": "name",
+        "validation": ["required", "trim"],
+        "url": ""
+    }, {
+        "name": "Merchant",
+        "type": "tags",
+        "tableRef": "merchant",
+        "placeholder": "Select Merchant",
+        "id": "merchant",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Merchant/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["required", "", ""]
+    }, {
+        "name": "Percentage",
+        "type": "text",
+        "tableRef": "percentage",
+        "placeholder": "Enter Percentage",
+        "id": "percentage",
+        "url": ""
+    }, {
+        "name": "Amount",
+        "type": "text",
+        "tableRef": "amount",
+        "placeholder": "Enter Amount",
+        "id": "amount",
+        "url": ""
+    }, {
+        "name": "Minimum Accumulated Spend",
+        "type": "text",
+        "tableRef": "minimumAccumulatedSpend",
+        "placeholder": "Enter Minimum Accumulated Spend",
+        "id": "minimumAccumulatedSpend",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Maximum Cashback",
+        "type": "text",
+        "tableRef": "maximumCashback",
+        "placeholder": "Enter Maximum Cashback",
+        "id": "maximumCashback",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Promo Code (if any) ",
+        "type": "text",
+        "tableRef": "promoCode",
+        "placeholder": "Enter Promo Code",
+        "id": "promoCode",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Is First Transaction",
+        "type": "tags",
+        "tableRef": "isFirstTransaction",
+        "placeholder": "Enter Is This a First Transaction",
+        "id": "isFirstTransaction",
+        "validation": ["", "trim", ""],
+        "url": "",
+        "dropDownField": "",
+        "dropDownType": "single",
+        "onView": true,
+        "dropDown": ["true", "false"]
+    }, {
+        "name": "Valid From",
+        "type": "date",
+        "tableRef": "validFrom",
+        "placeholder": "Enter Valid From Date",
+        "id": "validFrom",
+        "validation": ["required", "trim"],
+        "url": ""
+    }, {
+        "name": "Valid To",
+        "type": "date",
+        "tableRef": "validTo",
+        "placeholder": "Enter Valid To Date",
+        "id": "validTo",
+        "validation": ["required", "trim"],
+        "url": ""
+    }, {
+        "name": "Processing Start Date",
+        "type": "date",
+        "tableRef": "processingStartDate",
+        "placeholder": "Enter Processing Start Date Date",
+        "id": "processingStartDate",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Processing End Date",
+        "type": "date",
+        "tableRef": "processingEndDate",
+        "placeholder": "Enter Processing End Date Date",
+        "id": "processingEndDate",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Per User Transactions",
+        "type": "number",
+        "tableRef": "perUser",
+        "placeholder": "Enter Per User Transactions",
+        "id": "perUser",
+        "validation": ["", "trim", ""],
+        "url": ""
+    }, {
+        "name": "Generation Criteria",
+        "type": "tags",
+        "tableRef": "generationCriteria",
+        "placeholder": "Enter Generation Criteria",
+        "id": "generationCriteria",
+        "validation": ["", "trim", ""],
+        "url": "",
+        "dropDownField": "",
+        "dropDownType": "single",
+        "onView": true,
+        "dropDown": ["Daily", "After End Date","After Repayment"]
+    }, {
+        "name": "Applicable Merchant",
+        "type": "text",
+        "tableRef": "applicableMerchant",
+        "placeholder": "Enter Applicable Merchant",
+        "id": "applicableMerchant",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Applicable Products",
+        "type": "text",
+        "tableRef": "applicableProduct",
+        "placeholder": "Enter Applicable Products",
+        "id": "applicableProduct",
+        "validation": ["", "trim"],
+        "url": ""
+    },{
+        "name": "Gift Cards ( if any )",
+        "type": "box",
+        "tableRef": "giftCard",
+        "validation": ["", "trim", ""],
+        "fields": [{
+            "name": "Transaction",
+            "type": "text",
+            "tableRef": "transaction",
+            "placeholder": "Enter Transaction",
+            "id": "transaction",
+            "url": "",
+            "onView": true
+        },{
+        "name": "Cashback Details",
+        "type": "text",
+        "tableRef": "cashbackDetails",
+        "placeholder": "Enter Cashback Details",
+        "id": "cashbackDetails",
+        "url": "",
+        "onView": true
+    }]
+    }],
+    "action": [{
+        "name": "submit",
+        "action": "submitRule",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewRule"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewRule"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "Rule/save",
+        "params": "_id"
+    },
+    "preApi": {
+        "url": "Rule/getOne",
+        "params": "_id"
+    }
+
+}

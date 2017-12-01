@@ -307,8 +307,14 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if($scope.selectArr.length == 0){
                 console.log("empty array inside playSelectedClick if");
             }else{
-                console.log("inside playSelectedClick else");
                 console.log("selected id inside playSelectedClick else",$scope.selectArr);
+                // NavigationService.playSelectedEmail($scope.selectArr, function (data) {
+                //     if (data.value) {
+                //         console.log("in if returnData",data)
+                //     }else{
+                //         console.log("in else returnData",data)
+                //     }
+                // })
             }
         }
         $scope.viewSingleRuleModal=function(singleRule){
@@ -334,6 +340,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         };
 
         $scope.getAllItems = function (keywordChange) {
+            console.log("inside getAllItems");
             $scope.totalItems = undefined;
             if (keywordChange) {
                 $scope.currentPage = 1;
@@ -384,7 +391,9 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         };
 
         $scope.saveData = function (formData) {
-            // console.log("formData on save",formData);
+            console.log("formData on save",formData);
+            // NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
+            // });
             NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
                 var messText = "created";
                 if (data.value === true) {
@@ -404,6 +413,67 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 }
             });
         };
+    })
+
+    .controller('copyRuleCtrl', function ($scope, TemplateService, NavigationService, JsonService, $timeout, $state, $stateParams, toastr) {
+        $scope.json = JsonService;
+        $scope.template = TemplateService.changecontent("copyRule");
+        $scope.menutitle = NavigationService.makeactive("Dashboard");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        
+        JsonService.setKeyword($stateParams.keyword);
+        $scope.template = TemplateService;
+        $scope.data = {};
+        console.log("copyRuleCtrl controller");
+        console.log($scope.json);
+        console.log("stateParams",$stateParams);
+
+        //  START FOR EDIT
+        if ($stateParams) {
+            var obj = {
+                "_id":$stateParams.id
+            };
+            // obj[$scope.json.json.preApi.params] = $scope.json.keyword._id;
+            NavigationService.apiCall("Rule/getOne", obj, function (data) {
+                $scope.data = data.data;
+                $scope.generateField = true;
+                console.log("$scope.data",$scope.data);
+            });
+        } else {
+            $scope.generateField = true;
+        }
+        //  END FOR EDIT
+
+        // $scope.onCancel = function (sendTo) {
+        //     $scope.json.json.action[1].stateName.json.keyword = "";
+        //     $scope.json.json.action[1].stateName.json.page = "";
+        //     $state.go($scope.json.json.action[1].stateName.page, $scope.json.json.action[1].stateName.json);
+        // };
+
+        // $scope.saveData = function (formData) {
+        //     console.log("formData on save",formData);
+        //     NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
+        //     });
+            // NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
+            //     var messText = "created";
+            //     if (data.value === true) {
+            //         $scope.json.json.action[0].stateName.json.keyword = "";
+            //         $scope.json.json.action[0].stateName.json.page = "";
+            //         $state.go($scope.json.json.action[0].stateName.page, $scope.json.json.action[0].stateName.json);
+            //         if ($scope.json.keyword._id) {
+            //             messText = "edited";
+            //         }
+            //         toastr.success($scope.json.json.name + " " + formData.name + " " + messText + " successfully.");
+            //     } else {
+            //         messText = "creating";
+            //         if ($scope.json.keyword._id) {
+            //             messText = "editing";
+            //         }
+            //         toastr.error("Failed " + messText + " " + $scope.json.json.name);
+            //     }
+            // });
+        // };
     })
 
     .controller('DetailFieldCtrl', function ($scope, TemplateService, NavigationService, JsonService, $timeout, $state, $stateParams, $uibModal, toastr) {

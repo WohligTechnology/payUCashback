@@ -52,6 +52,16 @@
             "name": "_id",
             "value": "_id"
         }
+    },{
+        "name": "Copy",
+        "icon": "fa-file",
+        "buttonClass": "btn-primary",
+        "type": "redirect",
+        "action": "copyRule",
+        "linkType":"internalWithId",
+        "fieldsToSend": {
+            "_id": "_id"
+        }
     }],
     "button": [{
         "name": "Add Rule",
@@ -71,5 +81,6 @@
     "apiCall": {
         "url": "Rule/search",
         "params": "_id"
-    }
+    },
+    "removeSearch": true
 }

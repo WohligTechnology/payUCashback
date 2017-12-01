@@ -43,6 +43,12 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             controller: 'PageJsonCtrl'
         })
 
+        .state('copyRule', {
+            url: "/copyRule/:id",
+            templateUrl: "views/template.html",
+            controller: 'copyRuleCtrl'
+        })
+
         .state('loginapp', {
             url: "/login/:id",
             templateUrl: "views/login.html",

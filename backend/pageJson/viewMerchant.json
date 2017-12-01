@@ -42,5 +42,6 @@
     "apiCall": {
         "url": "Merchant/search",
         "params": "_id"
-    }
+    },
+    "removeSearch": true
 }
