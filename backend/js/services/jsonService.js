@@ -15,6 +15,7 @@ myApp.service('JsonService', function ($http, TemplateService, $state, toastr, $
     $http.get("pageJson/" + page + ".json").then(function (data) {
       data = data.data;
       JsonService.json = data;
+      console.log("json service",data);
       switch (data.pageType) {
         case "view":
           {
@@ -33,6 +34,12 @@ myApp.service('JsonService', function ($http, TemplateService, $state, toastr, $
             TemplateService.changecontent("detail");
           }
           break;
+
+        case "copy":
+        {
+          TemplateService.changecontent("detail");
+        }
+        break;
       }
       callback();
     });

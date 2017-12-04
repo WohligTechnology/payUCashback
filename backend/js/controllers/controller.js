@@ -368,8 +368,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.template = TemplateService;
         $scope.data = {};
         console.log("detail controller");
-        console.log($scope.json);
-
+        console.log("$scope.json",$scope.json);
+        
         //  START FOR EDIT
         if ($scope.json.json.preApi) {
             var obj = {};
@@ -394,6 +394,12 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             console.log("formData on save",formData);
             // NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
             // });
+            if($scope.json.json.createFromEdit==true){
+                delete formData._id;
+                delete formData.createdAt;
+                delete formData.updatedAt;
+                console.log("formData after Deletion of _Id,createdAt and updatedAtAt",formData);
+            }
             NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
                 var messText = "created";
                 if (data.value === true) {
@@ -644,6 +650,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             } else {
                 if ($scope.formData[$scope.type.tableRef]) {
                     $scope.model = $scope.formData[$scope.type.tableRef];
+                    console.log("on initialization $scope.model",$scope.model);
                 }
             }
             $scope.search = {
@@ -653,18 +660,32 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.state = "";
         $scope.createBox = function (state) {
             $scope.state = state;
+            
+            console.log("$scope.model in createbox before push",$scope.model);
             $scope.model.push({});
+            // console.log("$scope.model in createbox after push",$scope.model);
+            // console.log("*********",$scope.model[$scope.model.length - 2],"&",$scope.model[$scope.model.length - 1]);
+            // if($scope.model[$scope.model.length - 1]==$scope.model[$scope.model.length - 2]){
+            //     console.log("in pop");
+            //     $scope.model.pop();
+            // }
+            // console.log("after processing $scope.model",$scope.model);
             $scope.editBox("Create", $scope.model[$scope.model.length - 1]);
+            
+            // $scope.editBox("Create", $scope.model);
         };
         $scope.editBox = function (state, data) {
             $scope.state = state;
+            
             $scope.data = data;
+            console.log("$scope.data in box controller",$scope.data);
             if (!$scope.formData[$scope.type.tableRef]) {
                 $scope.formData[$scope.type.tableRef] = []
             }
 
             if (state == 'Create') {
                 $scope.formData[$scope.type.tableRef].push(data);
+                console.log("where state is create in box",$scope.formData);
             }
 
             var modalInstance = $uibModal.open({

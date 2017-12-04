@@ -32,7 +32,7 @@
         "buttonClass": "btn-primary"
     },
     "action": [{
-        "name": "edit",
+        "name": "Edit",
         "icon": "fa-pencil",
         "buttonClass": "btn-primary",
         "type": "page",
@@ -41,24 +41,23 @@
             "_id": "_id"
         }
     }, {
-        "name": "delete",
+        "name": "Delete",
         "icon": "fa-trash",
         "buttonClass": "btn-danger",
         "type": "apiCallConfirm",
         "title": "Delete Rule",
         "content": "Are you sure you want to delete Rule?",
-        "api": "Rule/delete",
+        "api": "Rule/deleteWithChangeStatus",
         "fieldsToSend": {
             "name": "_id",
             "value": "_id"
         }
     },{
         "name": "Copy",
-        "icon": "fa-file",
+        "icon": "fa-copy",
         "buttonClass": "btn-primary",
-        "type": "redirect",
-        "action": "copyRule",
-        "linkType":"internalWithId",
+        "type": "page",
+        "action": "copyRule",   
         "fieldsToSend": {
             "_id": "_id"
         }

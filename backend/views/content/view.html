@@ -48,10 +48,10 @@
                                         </td>
                                         <td>
 
-                                            <a style="margin-left:5px;" ng-if="json.json.viewButton" class="btn" ng-class="json.json.viewButton.buttonClass" ng-click="viewSingleRuleModal(item)">
+                                            <a style="margin-left:5px;" ng-if="json.json.viewButton" title="{{but.name}}" class="btn" ng-class="json.json.viewButton.buttonClass" ng-click="viewSingleRuleModal(item)">
                                                 <i class="fa" ng-class="json.json.viewButton.icon"></i>
                                              </a>
-                                            <a style="margin-left:5px;" ng-repeat="but in json.json.action" class="btn" ng-class="but.buttonClass" ng-click="json.eventAction(but,item) ">
+                                            <a style="margin-left:5px;" ng-repeat="but in json.json.action" title="{{but.name}}" class="btn" ng-class="but.buttonClass" ng-click="json.eventAction(but,item) ">
                                                 <i class="fa" ng-class="but.icon"></i>
                                             </a>
                                         </td>

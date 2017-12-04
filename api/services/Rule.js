@@ -39,6 +39,17 @@ var schema = new Schema({
     processingEndDate:{
         type:Date
     },
+    relativeTransactionDate:{
+        type:Date
+    },
+    yesterdayMinusXDays:{
+        type:Number
+    },
+    isAutomated:{
+        type: String,
+        default: "false",
+        enum: ['true', 'false']
+    },
     perUser:{
         type:Number
     },
@@ -60,7 +71,11 @@ var schema = new Schema({
         cashbackDetails: {
             type: String
         }
-    }]
+    }],
+    isDeleted:{
+        type:Number,
+        default: 0
+    }
 });
 
 schema.plugin(deepPopulate, {
@@ -76,6 +91,103 @@ module.exports = mongoose.model('Rule', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant', 'merchant'));
 var model = {
+    search: function (data, callback) {
+        console.log("in custom");
+        var maxRow = Config.maxRow;
+        var page = 1;
+        if (data.page) {
+            page = data.page;
+        }
+        var field = data.field;
+        var options = {
+            field: data.field,
+            filters: {
+                keyword: {
+                    fields: ['name'],
+                    term: data.keyword
+                }
+            },
+            sort: {
+                desc: 'createdAt'
+            },
+            start: (page - 1) * maxRow,
+            count: maxRow
+        };
+        Rule.find({
+                isDeleted: 0
+            }).sort({
+                createdAt: 1
+            })
+            .populate('merchant')
+            .order(options)
+            .keyword(options)
+            .page(options,
+                function (err, found) {
+                    if (err) {
+                        console.log('**** error at merchant of merchant.js ****', err);
+                        callback(err, null);
+                    } else if (_.isEmpty(found)) {
+                        callback(null, []);
+                    } else {
+                        callback(null, found);
+                    }
+                });
+    },
+    deleteWithChangeStatus: function (data, callback) {
+        // var Model = this;
+        console.log("deleteWithChangeStatus rule service",data);
+        var Const = this(data);
+        Rule.update({
+            _id: data._id
+        },{
+            $set:
+            {
+                isDeleted: 1
+            }
+        }, function (err, data2) {
+            if (err) {
+                console.log("in if",err);
+                callback(err);
+            } else {
+                console.log("else");
+                callback(null, data2);
+            }
+        });
+    },
+    getAllAutomated:function(data,callback){
+        console.log("inside getAllAutomated service");
+        Rule.find({
+            isAutomated: "true",
+            $and:[{validFrom:{$lte:new Date()}},{validTo:{$gte:new Date()}}],
+            isDeleted:0
+        }).populate('merchant').exec(function (err, found) {
+            if (err) {
+                console.log('**** error at getAllAutomated of Rule.js ****', err);
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                callback(null, []);
+            } else {
+                callback(null, found);
+            }
+        });
+    },
+
+    getAllRules:function(data,callback){
+        console.log("inside getAllRules service");
+        Rule.find({
+            $and:[{validFrom:{$lte:new Date()}},{validTo:{$gte:new Date()}}],
+            isDeleted:0
+        }).populate('merchant').exec(function (err, found) {
+            if (err) {
+                console.log('**** error at getAllRules of Rule.js ****', err);
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                callback(null, []);
+            } else {
+                callback(null, found);
+            }
+        });
+    },
 
     playSelectedEmail: function (data, callback) {
         console.log("inside playSelectedEmail service data",data);

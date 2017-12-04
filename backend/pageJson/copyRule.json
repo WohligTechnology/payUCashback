@@ -1,9 +1,10 @@
 {
-    "title": "Edit Rule",
+    "title": "Copy Rule",
     "name": "Rule",
     "jsonPage": "viewRule",
     "desciption": "",
     "pageType": "edit",
+    "createFromEdit":true,
     "urlFields": ["_id"],
     "fields": [{
         "name": "Name",
@@ -108,6 +109,34 @@
         "id": "processingEndDate",
         "validation": ["", "trim"],
         "url": ""
+    }, {
+        "name": "Relative Transaction Date",
+        "type": "date",
+        "tableRef": "relativeTransactionDate",
+        "placeholder": "Enter Relative Transaction Date",
+        "id": "relativeTransactionDate",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Yesterday - X Days",
+        "type": "number",
+        "tableRef": "yesterdayMinusXDays",
+        "placeholder": "Enter Yesterday - X Days",
+        "id": "yesterdayMinusXDays",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Is Automated",
+        "type": "tags",
+        "tableRef": "isAutomated",
+        "placeholder": "Enter Is This a Automated",
+        "id": "isAutomated",
+        "validation": ["", "trim", ""],
+        "url": "",
+        "dropDownField": "",
+        "dropDownType": "single",
+        "onView": true,
+        "dropDown": ["true", "false"]
     }, {
         "name": "Per User Transactions",
         "type": "number",

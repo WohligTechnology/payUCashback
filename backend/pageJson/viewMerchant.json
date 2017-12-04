@@ -8,8 +8,12 @@
         "name": "Name",
         "isSort": "",
         "tableRef": "name"
-    }
-    ],
+    }, {
+        "name": "Total Rules",
+        "isSort": "",
+        "tableRef": "notDeletedRules",
+        "type":"countArrayElements"
+    }],
     "action": [{
         "name": "edit",
         "icon": "fa-pencil",
@@ -26,7 +30,7 @@
         "type": "apiCallConfirm",
         "title": "Delete Merchant",
         "content": "Are you sure you want to delete Merchant?",
-        "api": "Merchant/delete",
+        "api": "Merchant/deleteWithChangeStatus",
         "fieldsToSend": {
             "name": "_id",
             "value": "_id"

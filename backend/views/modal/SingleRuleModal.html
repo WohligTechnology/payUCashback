@@ -1,4 +1,4 @@
-<form name="modalForm" ng-submit="submitModal(data);$dismiss()" class="min-hit">
+<form name="modalForm" ng-submit="$dismiss()" class="min-hit">
         <div class="modal-header blue-bg  ">
             <div class="pull-right">
                 <a class="btn btn-clear" ng-click="$dismiss()">
@@ -61,6 +61,21 @@
             <div class="row" ng-if="singleRuleForModal.processingEndDate">
                 <div class="col-md-12">
                     Processing End Date - {{singleRuleForModal.processingEndDate | date : "dd/MM/y"}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.relativeTransactionDate">
+                <div class="col-md-12">
+                        Relative Transaction Date - {{singleRuleForModal.relativeTransactionDate | date : "dd/MM/y"}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.yesterdayMinusXDays">
+                <div class="col-md-12">
+                        Yesterday - X Days - {{singleRuleForModal.yesterdayMinusXDays}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.isAutomated">
+                <div class="col-md-12">
+                        Is Automated - {{singleRuleForModal.isAutomated}}
                 </div>
             </div>
             <div class="row" ng-if="singleRuleForModal.isFirstTransaction">
