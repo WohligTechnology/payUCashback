@@ -32,10 +32,12 @@ myApp.factory('NavigationService', function ($http) {
             $.jStorage.flush();
         },
         profile: function (callback, errorCallback) {
+            console.log("inside profile",$.jStorage.get("accessToken"));
             var data = {
-                accessToken: $.jStorage.get("accessToken")
+                _id: $.jStorage.get("accessToken")
             };
-            $http.post(adminurl + 'user/profile', data).then(function (data) {
+            $http.post(adminurl + 'User/getOne', data).then(function (data) {
+                console.log("inside profile -> http.post",data.data);
                 data = data.data;
                 if (data.value === true) {
                     $.jStorage.set("profile", data.data);
@@ -44,6 +46,15 @@ myApp.factory('NavigationService', function ($http) {
                     errorCallback(data.error);
                 }
             });
+            // $http.post(adminurl + 'User/profile', data).then(function (data) {
+            //     data = data.data;
+            //     if (data.value === true) {
+            //         $.jStorage.set("profile", data.data);
+            //         callback();
+            //     } else {
+            //         errorCallback(data.error);
+            //     }
+            // });
         },
         makeactive: function (menuname) {
             for (var i = 0; i < navigation.length; i++) {

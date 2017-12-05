@@ -8,11 +8,12 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
     })
 
     .controller('AccessController', function ($scope, TemplateService, NavigationService, $timeout, $state) {
-        // if ($.jStorage.get("accessToken")) {
-
-        // } else {
-        //     $state.go("login");
-        // }
+        if ($.jStorage.get("accessToken")) {
+            // $state.go("dashboard");
+        } else {
+            console.log("AccessController else");
+            // $state.go("login");
+        }
     })
 
     .controller('JagzCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, $interval) {
@@ -660,9 +661,18 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.state = "";
         $scope.createBox = function (state) {
             $scope.state = state;
-            
-            console.log("$scope.model in createbox before push",$scope.model);
-            $scope.model.push({});
+            var emptyObject={};
+            if(_.isEmpty($scope.model)){
+                console.log("$scope.model empty block",$scope.model);
+                $scope.model.push({});
+                $scope.editBox("Create", $scope.model[$scope.model.length - 1]);
+            }else{
+                $scope.editBox("Create", {});
+            }
+
+
+            // console.log("$scope.model in createbox before push",$scope.model);
+            // $scope.model.push({});
             // console.log("$scope.model in createbox after push",$scope.model);
             // console.log("*********",$scope.model[$scope.model.length - 2],"&",$scope.model[$scope.model.length - 1]);
             // if($scope.model[$scope.model.length - 1]==$scope.model[$scope.model.length - 2]){
@@ -670,7 +680,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             //     $scope.model.pop();
             // }
             // console.log("after processing $scope.model",$scope.model);
-            $scope.editBox("Create", $scope.model[$scope.model.length - 1]);
+            // $scope.editBox("Create", $scope.model[$scope.model.length - 1]);
+            // $scope.editBox("Create", {});
             
             // $scope.editBox("Create", $scope.model);
         };
@@ -739,21 +750,51 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         TemplateService.title = $scope.menutitle;
         $scope.template = TemplateService;
         $scope.currentHost = window.location.origin;
-        if ($stateParams.id) {
-            if ($stateParams.id === "AccessNotAvailable") {
-                toastr.error("You do not have access for the Backend.");
-            } else {
-                NavigationService.parseAccessToken($stateParams.id, function () {
-                    NavigationService.profile(function () {
-                        $state.go("dashboard");
-                    }, function () {
-                        $state.go("login");
-                    });
-                });
-            }
+
+        if ($.jStorage.get("accessToken")) {
         } else {
-            NavigationService.removeAccessToken();
+            console.log("AccessController else");
+            $state.go("login");
         }
+
+        $scope.login = function (formData) {
+            console.log("login", formData);
+            NavigationService.apiCall("User/login", formData, function (data) {
+                if (data.value === true) {
+                    $scope.profileDetails = data.data;
+                    NavigationService.parseAccessToken(data.data._id, function () {
+                        NavigationService.profile(function () {
+                            $scope.template.profile = data.data;
+                            console.log("before redirect dashboard",$scope.template.profile);
+                            $state.go("dashboard");
+                        }, function () {
+                            console.log("before redirect login");
+                            $state.go("login");
+                        });
+                    });
+                    console.log("profileDetails found successfully", $scope.profileDetails);
+                } else {
+                    //  toastr.warning('Error submitting the form', 'Please try again');
+                }
+            });
+        }
+
+
+        // if ($stateParams.id) {
+        //     if ($stateParams.id === "AccessNotAvailable") {
+        //         toastr.error("You do not have access for the Backend.");
+        //     } else {
+        //         NavigationService.parseAccessToken($stateParams.id, function () {
+        //             NavigationService.profile(function () {
+        //                 $state.go("dashboard");
+        //             }, function () {
+        //                 $state.go("login");
+        //             });
+        //         });
+        //     }
+        // } else {
+        //     NavigationService.removeAccessToken();
+        // }
 
     })
 

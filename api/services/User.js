@@ -1,3 +1,4 @@
+var md5 = require('md5');
 var schema = new Schema({
     name: {
         type: String,
@@ -87,6 +88,30 @@ module.exports = mongoose.model('User', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user", "user"));
 var model = {
+    doLogin: function (data, callback) {
+        console.log("data", data)
+        User.findOne({
+            name: data.name,
+            password: md5(data.password)
+        }).exec(function (err, found) {
+            if (err) {
+
+                callback(err, null);
+            } else {
+                if (found) {
+                    var foundObj = found.toObject();
+                    delete foundObj.password;
+                    callback(null, foundObj);
+                } else {
+                    callback({
+                        message: "Incorrect Credentials!"
+                    }, null);
+                }
+            }
+
+        });
+    },
+
      existsSocial: function (user, callback) {
         var Model = this;
         var userEmail = '';
