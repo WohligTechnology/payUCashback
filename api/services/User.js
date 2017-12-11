@@ -2,46 +2,14 @@ var md5 = require('md5');
 var schema = new Schema({
     name: {
         type: String,
-        required: true,
-        excel: true,
+        required: true
     },
     email: {
         type: String,
         validate: validators.isEmail(),
-        excel: "User Email",
         unique: true
     },
-    dob: {
-        type: Date,
-        excel: {
-            name: "Birthday",
-            modify: function (val, data) {
-                return moment(val).format("MMM DD YYYY");
-            }
-        }
-    },
-    photo: {
-        type: String,
-        default: "",
-        excel: [{
-            name: "Photo Val"
-        }, {
-            name: "Photo String",
-            modify: function (val, data) {
-                return "http://abc/" + val;
-            }
-        }, {
-            name: "Photo Kebab",
-            modify: function (val, data) {
-                return data.name + " " + moment(data.dob).format("MMM DD YYYY");
-            }
-        }]
-    },
     password: {
-        type: String,
-        default: ""
-    },
-    forgotPassword: {
         type: String,
         default: ""
     },
@@ -49,29 +17,15 @@ var schema = new Schema({
         type: String,
         default: ""
     },
-    otp: {
-        type: String,
-        default: ""
-    },
     accessToken: {
         type: [String],
-        index: true
-    },
-    googleAccessToken: String,
-    googleRefreshToken: String,
-    oauthLogin: {
-        type: [{
-            socialId: String,
-            socialProvider: String
-        }],
         index: true
     },
     accessLevel: {
         type: String,
         default: "User",
-        enum: ['User', 'Admin']
-    },
-    loginProvider:String
+        enum: ['User', 'Admin', 'Super Admin']
+    }
 });
 
 schema.plugin(deepPopulate, {
@@ -91,7 +45,7 @@ var model = {
     doLogin: function (data, callback) {
         console.log("data", data)
         User.findOne({
-            name: data.name,
+            email: data.email,
             password: md5(data.password)
         }).exec(function (err, found) {
             if (err) {
@@ -110,6 +64,93 @@ var model = {
             }
 
         });
+    },
+    saveData: function (data, callback) {
+        // console.log("**********");
+        var Model = this;
+        // console.log("outside and before data.password",data._id);
+        // if(_.isEmpty(data.password)){
+        //     console.log("hascbjabschhjsca");
+        // }
+        if(_.isEmpty(data.password)){
+            // console.log("##############");
+            if(data._id){
+                if(_.isEmpty(data.password)){
+                    // console.log("inside *****");
+                    delete data.password;
+                    // console.log("after delete",data);
+                } else{
+                    // console.log("wrong else");
+                }
+            } else{
+                // console.log("inside data.password before md5",data.password);
+                data.password=md5(data.password);
+                // console.log("data.password after md5",data.password);
+                data.accessToken=[uid(16)];
+                // console.log("data.accessToken",data.accessToken);
+            }
+        } else{
+            // console.log("inside data.password before md5",data.password);
+            data.password=md5(data.password);
+            // console.log("data.password after md5",data.password);
+            data.accessToken=[uid(16)];
+            // console.log("data.accessToken",data.accessToken);
+        }
+        var Const = this(data);
+        var foreignKeys = Config.getForeignKeys(schema);
+
+        
+        if (data._id) {
+            
+            Model.findOne({
+                _id: data._id
+            }, function (err, data2) {
+                if (err) {
+                    callback(err, data2);
+                } else if (data2) {
+                    async.each(foreignKeys, function (n, callback) {
+                        if (data[n.name] != data2[n.name]) {
+                            Config.manageArrayObject(mongoose.models[n.ref], data2[n.name], data2._id, n.key, "delete", function (err, md) {
+                                if (err) {
+                                    callback(err, md);
+                                } else {
+                                    Config.manageArrayObject(mongoose.models[n.ref], data[n.name], data2._id, n.key, "create", callback);
+                                }
+                            });
+                        } else {
+                            callback(null, "no found for ");
+                        }
+                    }, function (err) {
+                        data2.update(data, {
+                            w: 1
+                        }, callback);
+                    });
+
+
+                } else {
+                    callback("No Data Found", data2);
+                }
+            });
+        } else {
+
+            Const.save(function (err, data2) {
+                if (err) {
+                    callback(err, data2);
+                } else {
+
+                    async.each(foreignKeys, function (n, callback) {
+                        Config.manageArrayObject(mongoose.models[n.ref], data2[n.name], data2._id, n.key, "create", function (err, md) {
+                            callback(err, data2);
+                        });
+                    }, function (err) {
+                        callback(err, data2);
+                    });
+
+                }
+            });
+
+        }
+
     },
 
      existsSocial: function (user, callback) {

@@ -173,6 +173,14 @@
         "id": "applicableProduct",
         "validation": ["", "trim"],
         "url": ""
+    }, {
+        "name": "Query ID",
+        "type": "text",
+        "tableRef": "queryId",
+        "placeholder": "Enter Query Id If any",
+        "id": "queryId",
+        "validation": ["", "trim"],
+        "url": ""
     },{
         "name": "Gift Cards ( if any )",
         "type": "box",

@@ -23,7 +23,7 @@
                                     <input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
                         " ng-model="search.keyword " />
                                 </form>
-                                <a ng-repeat="btn in json.json.button " class="btn " ng-class="btn.class " ng-click="json.eventAction(btn)">{{btn.name}}</a>
+                                <a ng-repeat="btn in json.json.button " ng-if="createButton" class="btn " ng-class="btn.class " ng-click="json.eventAction(btn)">{{btn.name}}</a>
                             </div>
                             <h3>{{json.json.description}} <span class="tableTotal ">(Total : {{totalItems}}) </span></h3>
                         </div>
@@ -51,7 +51,7 @@
                                             <a style="margin-left:5px;" ng-if="json.json.viewButton" title="{{but.name}}" class="btn" ng-class="json.json.viewButton.buttonClass" ng-click="viewSingleRuleModal(item)">
                                                 <i class="fa" ng-class="json.json.viewButton.icon"></i>
                                              </a>
-                                            <a style="margin-left:5px;" ng-repeat="but in json.json.action" title="{{but.name}}" class="btn" ng-class="but.buttonClass" ng-click="json.eventAction(but,item) ">
+                                            <a style="margin-left:5px;" ng-repeat="but in json.json.action" ng-show="hasRole({{but.roles}})" title="{{but.name}}" class="btn" ng-class="but.buttonClass" ng-click="json.eventAction(but,item) ">
                                                 <i class="fa" ng-class="but.icon"></i>
                                             </a>
                                         </td>

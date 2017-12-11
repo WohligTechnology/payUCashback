@@ -37,6 +37,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editRule",
+        "roles":["Admin","Super Admin"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -46,6 +47,7 @@
         "buttonClass": "btn-danger",
         "type": "apiCallConfirm",
         "title": "Delete Rule",
+        "roles":["Super Admin"],
         "content": "Are you sure you want to delete Rule?",
         "api": "Rule/deleteWithChangeStatus",
         "fieldsToSend": {
@@ -57,7 +59,8 @@
         "icon": "fa-copy",
         "buttonClass": "btn-primary",
         "type": "page",
-        "action": "copyRule",   
+        "action": "copyRule",  
+        "roles":["Admin","Super Admin"], 
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -67,7 +70,8 @@
         "icon": "plus",
         "class": "btn-success",
         "type": "page",
-        "action": "createRule"
+        "action": "createRule",
+        "roles":["Admin","Super Admin"]
     }],
     "bottomButton": [{
         "name": "Play Selected",
@@ -75,7 +79,8 @@
         "class": "btn-success",
         "type": "page",
         "action": "",
-        "functionName":"playSelectedClick()"
+        "functionName":"playSelectedClick()",
+        "roles":["Admin","Super Admin"]
     }],
     "apiCall": {
         "url": "Rule/search",

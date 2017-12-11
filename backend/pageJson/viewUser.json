@@ -16,11 +16,6 @@
         "name": "Mobile",
         "isSort": "",
         "tableRef": "mobile"
-    },
-     {
-        "name": "Photo",
-        "isSort": "",
-        "tableRef": "photo"
     }],
     "action": [{
         "name": "edit",

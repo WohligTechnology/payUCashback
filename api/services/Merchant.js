@@ -2,18 +2,12 @@ var schema = new Schema({
   name: {
         type: String, 
     },
-    img: {
+    merchantSqlId: {
         type: String
     },
     isDeleted:{
         type:Number,
         default: 0
-    },
-    imgback: {
-        type: String
-    },
-    id: {
-        type: String
     }
 });
 

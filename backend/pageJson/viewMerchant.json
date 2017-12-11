@@ -9,6 +9,10 @@
         "isSort": "",
         "tableRef": "name"
     }, {
+        "name": "Sql Id",
+        "isSort": "",
+        "tableRef": "merchantSqlId"
+    }, {
         "name": "Total Rules",
         "isSort": "",
         "tableRef": "notDeletedRules",
@@ -20,6 +24,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editMerchant",
+        "roles":["Admin","Super Admin"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -31,6 +36,7 @@
         "title": "Delete Merchant",
         "content": "Are you sure you want to delete Merchant?",
         "api": "Merchant/deleteWithChangeStatus",
+        "roles":["Admin","Super Admin"],
         "fieldsToSend": {
             "name": "_id",
             "value": "_id"

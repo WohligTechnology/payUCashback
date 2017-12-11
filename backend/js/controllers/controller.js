@@ -12,7 +12,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             // $state.go("dashboard");
         } else {
             console.log("AccessController else");
-            // $state.go("login");
+            $state.go("login");
         }
     })
 
@@ -276,7 +276,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
     })
 
-    .controller('ViewCtrl', function ($scope, TemplateService, NavigationService, JsonService, $timeout, $state, $stateParams, $uibModal) {
+    .controller('ViewCtrl', function ($scope, TemplateService, NavigationService, JsonService, $timeout, $state, $stateParams, $uibModal, toastr) {
         $scope.json = JsonService;
         $scope.template = TemplateService;
         var i = 0;
@@ -286,7 +286,58 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         } else {
             $scope.currentPage = 1;
         }
+        console.log("$stateParams",$stateParams);
+        // if($stateParams.stateName.passingId){
+        //     console.log("inside");
+        //     $scope.showId="$stateParams.stateName.passingId",$stateParams.stateName.passingId;
+        // }
 
+        $scope.viewModal=false;
+        $scope.editButton=false;
+        $scope.deleteButton=false;
+        $scope.copyButton=false;
+        $scope.createButton=false;
+
+        console.log("$scope.json ***",$scope.json);
+        if($.jStorage.get("accessToken")){
+            var profileData=$.jStorage.get("profile");
+            if(profileData.accessLevel=="Admin"){
+                $scope.viewModal=true;
+                $scope.editButton=true;
+                // $scope.deleteButton=false;
+                $scope.copyButton=true;
+                $scope.createButton=true;
+            } else  if(profileData.accessLevel=="Super Admin"){
+                $scope.viewModal=true;
+                $scope.editButton=true;
+                // $scope.deleteButton=false;
+                $scope.copyButton=true;
+                $scope.createButton=true;
+            }else if(profileData.accessLevel=="User"){
+                $scope.viewModal=true;
+            }
+        }
+
+        $scope.hasRole = function(roles){
+            // console.log("roles",roles);
+            if(roles){
+                var accessLevel=$.jStorage.get("profile").accessLevel;
+                if(roles.includes(accessLevel)){
+                    // console.log("you have access");
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                return true;
+            }
+            
+            // // var indexOfRole = $scope.roles.indexOf(role); // or whatever your object is instead of $scope.roles
+            // if (indexOfRole === -1)
+            //      return false;
+            // else
+            //      return true;
+       }
         $scope.search = {
             keyword: ""
         };
@@ -305,17 +356,57 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             }
         }
         $scope.playSelectedClick=function(){
+            if($.jStorage.get("profile")){
+                var loggedInUserId=$.jStorage.get("profile")._id;
+            }else{
+                loggedInUserId=null;
+            }
+            var objectToSend={
+                userId:loggedInUserId
+            };
             if($scope.selectArr.length == 0){
                 console.log("empty array inside playSelectedClick if");
             }else{
-                console.log("selected id inside playSelectedClick else",$scope.selectArr);
-                // NavigationService.playSelectedEmail($scope.selectArr, function (data) {
-                //     if (data.value) {
-                //         console.log("in if returnData",data)
-                //     }else{
-                //         console.log("in else returnData",data)
-                //     }
-                // })
+                objectToSend.ruleIds=$scope.selectArr;
+                console.log("selected id inside playSelectedClick else",objectToSend);
+
+                NavigationService.playSelectedEmail(objectToSend, function (data) {
+                    console.log("*****",data);
+                    var count=data.data.cashbackCount;
+                    if(data.data.success==true){
+                        toastr.success( "Rules Played Successfully. Total Cashback Count is-" + count,{
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "4000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss":false
+                          });
+                    } else{
+                        toastr.error("Failed To Play Rules",{
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "2000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss":false
+                          });
+                    }
+                    $state.reload();
+                    // if (data.value) {
+                    //     console.log("in if returnData",data)
+                    // }else{
+                    //     console.log("in else returnData",data)
+                    // }
+                })
             }
         }
         $scope.viewSingleRuleModal=function(singleRule){
@@ -406,11 +497,26 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 if (data.value === true) {
                     $scope.json.json.action[0].stateName.json.keyword = "";
                     $scope.json.json.action[0].stateName.json.page = "";
+                    $scope.json.json.action[0].stateName.json.passingId="idGosehere";
                     $state.go($scope.json.json.action[0].stateName.page, $scope.json.json.action[0].stateName.json);
                     if ($scope.json.keyword._id) {
                         messText = "edited";
                     }
-                    toastr.success($scope.json.json.name + " " + formData.name + " " + messText + " successfully.");
+                    // toastr.options.closeButton = true;
+                    // toastr.options.timeOut = 30;
+                    // toastr.options.closeButton = true;
+                    toastr.success($scope.json.json.name + " " + formData.name + " " + messText + " successfully.",{
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "timeOut": "10000",
+                        "extendedTimeOut": "1000",
+                        "tapToDismiss":false
+                      });
                 } else {
                     messText = "creating";
                     if ($scope.json.keyword._id) {
@@ -752,6 +858,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.currentHost = window.location.origin;
 
         if ($.jStorage.get("accessToken")) {
+            $state.go("dashboard");
         } else {
             console.log("AccessController else");
             $state.go("login");
@@ -1362,8 +1469,14 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         };
     })
 
-    .controller('headerctrl', function ($scope, TemplateService, $uibModal) {
+    .controller('headerctrl', function ($scope, TemplateService, $uibModal,$state) {
         $scope.template = TemplateService;
+        $scope.logout=function(){
+            console.log("inside header ctrl logout function");
+            $.jStorage.deleteKey("profile");
+            $.jStorage.deleteKey("accessToken");
+            $state.go("login");
+        }
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             $(window).scrollTop(0);
         });

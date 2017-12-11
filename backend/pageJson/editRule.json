@@ -27,6 +27,27 @@
         "dropDownType": "single",
         "validation": ["required", "", ""]
     }, {
+        "name": "Applicable Merchants",
+        "type": "tags",
+        "tableRef": "applicableMerchant",
+        "placeholder": "Select Applicable Merchants",
+        "id": "applicableMerchant",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Merchant/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
+    }, {
+        "name": "Applicable Products",
+        "type": "text",
+        "tableRef": "applicableProduct",
+        "placeholder": "Enter Applicable Products",
+        "id": "applicableProduct",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
         "name": "Percentage",
         "type": "text",
         "tableRef": "percentage",
@@ -157,19 +178,11 @@
         "onView": true,
         "dropDown": ["Daily", "After End Date","After Repayment"]
     }, {
-        "name": "Applicable Merchant",
+        "name": "Query ID",
         "type": "text",
-        "tableRef": "applicableMerchant",
-        "placeholder": "Enter Applicable Merchant",
-        "id": "applicableMerchant",
-        "validation": ["", "trim"],
-        "url": ""
-    }, {
-        "name": "Applicable Products",
-        "type": "text",
-        "tableRef": "applicableProduct",
-        "placeholder": "Enter Applicable Products",
-        "id": "applicableProduct",
+        "tableRef": "queryId",
+        "placeholder": "Enter Query Id If any",
+        "id": "queryId",
         "validation": ["", "trim"],
         "url": ""
     },{

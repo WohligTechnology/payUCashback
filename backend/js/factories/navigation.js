@@ -5,17 +5,61 @@ var uploadurl = imgurl;
 
 
 
-myApp.factory('NavigationService', function ($http) {
-    var navigation = [{
-        name: "Merchant",
-        classis: "active",
-        sref: "#!/page/viewMerchant//"
-    },{
-        name: "Rule",
-        classis: "active",
-        sref: "#!/page/viewRule//"
+myApp.factory('NavigationService', function ($http,$state) {
+    if($.jStorage.get("profile")){
+        if($.jStorage.get("profile").accessLevel=="Super Admin"){
+            var navigation = [{
+                name: "Merchant",
+                classis: "active",
+                sref: "#!/page/viewMerchant//"
+            },{
+                name: "Rule",
+                classis: "active",
+                sref: "#!/page/viewRule//"
+            }
+            ];
+        } else if($.jStorage.get("profile").accessLevel=="Admin"){
+            var navigation = [{
+                name: "Merchant",
+                classis: "active",
+                sref: "#!/page/viewMerchant//"
+            },{
+                name: "Rule",
+                classis: "active",
+                sref: "#!/page/viewRule//"
+            }
+            ];
+        } else if($.jStorage.get("profile").accessLevel=="User"){
+            var navigation = [{
+                name: "Merchant",
+                classis: "active",
+                sref: "#!/page/viewMerchant//"
+            },{
+                name: "Rule",
+                classis: "active",
+                sref: "#!/page/viewRule//"
+            }
+            ];
+        }
+    }else{
+        var navigation = [{
+            name: "User",
+            classis: "active",
+            sref: "#!/page/viewUser//"
+        },{
+            name: "Merchant",
+            classis: "active",
+            sref: "#!/page/viewMerchant//"
+        },{
+            name: "Rule",
+            classis: "active",
+            sref: "#!/page/viewRule//"
+        }
+        ];
+        $state.go("login");
+
     }
-    ];
+    
 
     return {
         getnav: function () {
@@ -131,12 +175,18 @@ myApp.factory('NavigationService', function ($http) {
 
         },
         playSelectedEmail: function (ruleArr, callback) {
+            console.log("inside navigationservice playSelectedEmail",ruleArr);
             $http({
-                url: adminurl + 'Rule/playSelectedEmail',
+                url: 'http://10.160.80.231:8080/playnow',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
-            }).then(callback);
+            }).then(function (data) {
+                console.log("######",data);
+                // data = data.data;
+                callback(data);
+
+            });
         },
 
     };

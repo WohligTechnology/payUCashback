@@ -42,6 +42,18 @@ var controller = {
         }
     },
 
+    getAllCurrentRules: function (req, res) {
+        if (req.body) {
+            Rule.getAllCurrentRules(req.body, res.callback);
+        } else {
+            res.json({
+                message: {
+                    data: "Invalid request!"
+                }
+            });
+        }
+    },
+
     playSelectedEmail: function (req, res) {
         if (req.body) {
             Rule.playSelectedEmail(req.body, res.callback);

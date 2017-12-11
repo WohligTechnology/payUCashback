@@ -42,8 +42,12 @@ var schema = new Schema({
     relativeTransactionDate:{
         type:Date
     },
+    relativeTransactionEndDate:{
+        type:Date
+    },
     yesterdayMinusXDays:{
-        type:Number
+        type:Number,
+        default:0
     },
     isAutomated:{
         type: String,
@@ -51,16 +55,17 @@ var schema = new Schema({
         enum: ['true', 'false']
     },
     perUser:{
-        type:Number
+        type:String
     },
     generationCriteria:{
         type: String,
         default: "Daily",
         enum: ['Daily', 'After End Date',"After Repayment"]
     },
-    applicableMerchant:{
-        type:String
-    },
+    applicableMerchant: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Merchant'
+    }],
     applicableProduct:{
         type:String
     },
@@ -75,12 +80,18 @@ var schema = new Schema({
     isDeleted:{
         type:Number,
         default: 0
+    },
+    queryId:{
+        type:String
     }
 });
 
 schema.plugin(deepPopulate, {
             populate: {
                 'merchant': {
+                    select: 'name _id'
+                },
+                'applicableMerchant':{
                     select: 'name _id'
                 }
             }
@@ -89,7 +100,7 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('Rule', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant', 'merchant'));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant applicableMerchant', 'merchant applicableMerchant'));
 var model = {
     search: function (data, callback) {
         console.log("in custom");
@@ -180,6 +191,23 @@ var model = {
         }).populate('merchant').exec(function (err, found) {
             if (err) {
                 console.log('**** error at getAllRules of Rule.js ****', err);
+                callback(err, null);
+            } else if (_.isEmpty(found)) {
+                callback(null, []);
+            } else {
+                callback(null, found);
+            }
+        });
+    },
+
+    getAllCurrentRules:function(data,callback){
+        console.log("inside getAllCurrentRules service");
+        Rule.find({
+            $and:[{validFrom:{$lte:new Date()}},{validTo:{$gte:new Date()}}],
+            isDeleted:0
+        }).populate('merchant').exec(function (err, found) {
+            if (err) {
+                console.log('**** error at getAllCurrentRules of Rule.js ****', err);
                 callback(err, null);
             } else if (_.isEmpty(found)) {
                 callback(null, []);

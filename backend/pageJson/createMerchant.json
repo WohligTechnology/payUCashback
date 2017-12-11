@@ -13,15 +13,13 @@
         "id": "name",
         "validation": ["required", "trim", "unique"],
         "url": ""
-    },{
-        "name": "Logo Of Merchant",
-        "type": "image",
-        "tableRef": "img",
-        "placeholder": "Upload Img",
-        "id": "img",
-        "view": true,
-        "disabled": false,
-        "validation": [],
+    }, {
+        "name": "Merchant Sql Id",
+        "type": "text",
+        "tableRef": "merchantSqlId",
+        "placeholder": "Enter Merchant Sql Id",
+        "id": "merchantSqlId",
+        "validation": ["required", "trim", "unique"],
         "url": ""
     }],
     "action": [{
