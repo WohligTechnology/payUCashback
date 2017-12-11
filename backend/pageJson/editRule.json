@@ -55,6 +55,14 @@
         "id": "percentage",
         "url": ""
     }, {
+        "name": "Maximum Cashback",
+        "type": "text",
+        "tableRef": "maximumCashback",
+        "placeholder": "Enter Maximum Cashback",
+        "id": "maximumCashback",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
         "name": "Amount",
         "type": "text",
         "tableRef": "amount",
@@ -67,14 +75,6 @@
         "tableRef": "minimumAccumulatedSpend",
         "placeholder": "Enter Minimum Accumulated Spend",
         "id": "minimumAccumulatedSpend",
-        "validation": ["", "trim"],
-        "url": ""
-    }, {
-        "name": "Maximum Cashback",
-        "type": "text",
-        "tableRef": "maximumCashback",
-        "placeholder": "Enter Maximum Cashback",
-        "id": "maximumCashback",
         "validation": ["", "trim"],
         "url": ""
     }, {
@@ -130,11 +130,19 @@
         "validation": ["", "trim"],
         "url": ""
     }, {
-        "name": "Relative Transaction Date",
+        "name": "Relative Transaction Start Date",
         "type": "date",
         "tableRef": "relativeTransactionDate",
         "placeholder": "Enter Relative Transaction Date",
         "id": "relativeTransactionDate",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Relative Transaction End Date",
+        "type": "date",
+        "tableRef": "relativeTransactionEndDate",
+        "placeholder": "Enter Relative Transaction End Date",
+        "id": "relativeTransactionEndDate",
         "validation": ["", "trim"],
         "url": ""
     }, {
@@ -159,7 +167,7 @@
         "dropDown": ["true", "false"]
     }, {
         "name": "Per User Transactions",
-        "type": "number",
+        "type": "text",
         "tableRef": "perUser",
         "placeholder": "Enter Per User Transactions",
         "id": "perUser",
@@ -185,6 +193,40 @@
         "id": "queryId",
         "validation": ["", "trim"],
         "url": ""
+    }, {
+        "name": "Actual Query",
+        "type": "textarea",
+        "tableRef": "query",
+        "placeholder": "Enter Query If Generated",
+        "id": "query",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Status",
+        "type": "tags",
+        "tableRef": "status",
+        "placeholder": "Select Status",
+        "id": "status",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Status/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
+    }, {
+        "name": "Transaction Types",
+        "type": "tags",
+        "tableRef": "transactionType",
+        "placeholder": "Select Transaction Types",
+        "id": "transactionType",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "TransactionType/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
     },{
         "name": "Gift Cards ( if any )",
         "type": "box",

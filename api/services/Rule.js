@@ -55,7 +55,8 @@ var schema = new Schema({
         enum: ['true', 'false']
     },
     perUser:{
-        type:String
+        type:String,
+        default:"1"
     },
     generationCriteria:{
         type: String,
@@ -83,15 +84,32 @@ var schema = new Schema({
     },
     queryId:{
         type:String
-    }
+    },
+    query:{
+        type:String
+    },
+    status:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Status'
+    }],
+    transactionType:[{
+        type: Schema.Types.ObjectId,
+        ref: 'TransactionType'
+    }]
 });
 
 schema.plugin(deepPopulate, {
             populate: {
                 'merchant': {
-                    select: 'name _id'
+                    select: 'name _id merchantSqlId'
                 },
                 'applicableMerchant':{
+                    select: 'name _id merchantSqlId'
+                },
+                'status':{
+                    select: 'name _id'
+                },
+                'transactionType':{
                     select: 'name _id'
                 }
             }
@@ -100,7 +118,7 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('Rule', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant applicableMerchant', 'merchant applicableMerchant'));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant applicableMerchant status transactionType', 'merchant applicableMerchant status transactionType'));
 var model = {
     search: function (data, callback) {
         console.log("in custom");
@@ -127,7 +145,7 @@ var model = {
         Rule.find({
                 isDeleted: 0
             }).sort({
-                createdAt: 1
+                createdAt: -1
             })
             .populate('merchant')
             .order(options)

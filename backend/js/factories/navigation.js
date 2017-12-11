@@ -188,6 +188,18 @@ myApp.factory('NavigationService', function ($http,$state) {
 
             });
         },
+        viewQueryModal: function (ruleObject, callback) {
+            console.log("inside navigationservice viewQueryModal",ruleObject);
+            $http({
+                url: 'http://10.160.80.231:8080/verifyquery',
+                method: 'POST',
+                data: ruleObject,
+                withCredentials: false
+            }).then(function (data) {
+                console.log("######",data);
+                callback(data);
+            });
+        },
 
     };
 });

@@ -31,10 +31,10 @@
                         <form name="detailForm" role="form" class="sec ng-pristine ng-valid">
                             <!--<pre>{{data|json}}</pre>-->
                             <div class="row">
-                                <div class="col-md-12" ng-if="json.json.pageType == 'create'">
-                                    <detail-field type="field" form="detailForm" value="item" ng-repeat="field in json.json.fields" data="data"></detail-field>
+                                <div class="col-md-6" ng-if="json.json.pageType == 'create'" >
+                                    <detail-field type="field" ng-repeat="field in json.json.fields" form="detailForm" value="item" data="data"></detail-field>
                                 </div>
-                                <div class="col-md-12" ng-if="json.json.pageType == 'edit' && data._id">
+                                <div class="col-md-6" ng-if="json.json.pageType == 'edit' && data._id">
                                     <detail-field type="field" form="detailForm" value="item" ng-repeat="field in json.json.fields" data="data"></detail-field>
                                 </div>
                             </div>

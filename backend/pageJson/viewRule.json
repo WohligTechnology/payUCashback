@@ -31,6 +31,11 @@
         "icon": "fa-search",
         "buttonClass": "btn-primary"
     },
+    "queryButton":{
+        "name": "Query",
+        "icon": "fa-file",
+        "buttonClass": "btn-primary"
+    },
     "action": [{
         "name": "Edit",
         "icon": "fa-pencil",

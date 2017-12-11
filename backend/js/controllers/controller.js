@@ -419,6 +419,32 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 scope: $scope
             });
         }
+
+        $scope.viewQueryModal=function(singleRule){
+            // console.log("viewSingleRuleModal",singleRule);
+            var objectToSend={
+                ruleId:singleRule._id
+            };
+            console.log(objectToSend);
+            
+            NavigationService.viewQueryModal(objectToSend, function (data) {
+                console.log("verifyQuery",data);
+                var query=data.data.cashbackQuery;
+                $scope.queryToShow=query;
+                if(data.data.success==true){
+                    $scope.singleRuleModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/queryModal.html',
+                        size: 'md',
+                        scope: $scope
+                    });
+                } else{
+                    
+                }
+                
+            })
+
+        }
         $scope.changePage = function (page) {
             var goTo = "page";
             if ($scope.search.keyword) {
