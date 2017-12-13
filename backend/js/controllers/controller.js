@@ -12,7 +12,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             // $state.go("dashboard");
         } else {
             console.log("AccessController else");
-            $state.go("login");
+            // $state.go("login");
         }
     })
 
@@ -890,12 +890,12 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.template = TemplateService;
         $scope.currentHost = window.location.origin;
 
-        if ($.jStorage.get("accessToken")) {
-            $state.go("dashboard");
-        } else {
-            console.log("AccessController else");
-            $state.go("login");
-        }
+        // if ($.jStorage.get("accessToken")) {
+        //     $state.go("dashboard");
+        // } else {
+        //     console.log("AccessController else");
+        //     $state.go("login");
+        // }
 
         $scope.login = function (formData) {
             console.log("login", formData);
@@ -1508,7 +1508,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             console.log("inside header ctrl logout function");
             $.jStorage.deleteKey("profile");
             $.jStorage.deleteKey("accessToken");
-            $state.go("login");
+            $state.go("dashboard");
+            // $state.go("login");
         }
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             $(window).scrollTop(0);
