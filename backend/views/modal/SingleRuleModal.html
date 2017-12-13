@@ -10,17 +10,32 @@
         <div class="modal-body">
             <div class="row">
                 <div class="col-md-12">
-                    Merchant- {{singleRuleForModal.merchant.name}}
+                    Rule Name- {{singleRuleForModal.name}}
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    Rule Name- {{singleRuleForModal.name}}
+                    Merchant- {{singleRuleForModal.merchant.name}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.applicableMerchant">
+                <div class="col-md-12">
+                    Applicable Merchants - <span ng-repeat="aM in singleRuleForModal.applicableMerchant">{{aM.name}} {{$last ? '' : ($index==singleRuleForModal.applicableMerchant.length-2) ? ' and ' : ', '}}</span>
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.applicableProduct">
+                <div class="col-md-12">
+                    Applicable Products - {{singleRuleForModal.applicableProduct}}
                 </div>
             </div>
             <div class="row" ng-if="singleRuleForModal.percentage">
                 <div class="col-md-12">
                     Percentage - {{singleRuleForModal.percentage}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.maximimCashback">
+                <div class="col-md-12">
+                    Maximum Cashback - {{singleRuleForModal.maximumCashback}}
                 </div>
             </div>
             <div class="row"ng-if="singleRuleForModal.amount">
@@ -31,11 +46,6 @@
             <div class="row"ng-if="singleRuleForModal.minimumAccumulatedSpend">
                 <div class="col-md-12">
                         Minimum Accumulated Spend - {{singleRuleForModal.minimumAccumulatedSpend}}
-                </div>
-            </div>
-            <div class="row" ng-if="singleRuleForModal.maximimCashback">
-                <div class="col-md-12">
-                    Maximum Cashback - {{singleRuleForModal.maximumCashback}}
                 </div>
             </div>
             <div class="row" ng-if="singleRuleForModal.promoCode">
@@ -65,7 +75,12 @@
             </div>
             <div class="row" ng-if="singleRuleForModal.relativeTransactionDate">
                 <div class="col-md-12">
-                        Relative Transaction Date - {{singleRuleForModal.relativeTransactionDate | date : "dd/MM/y"}}
+                        Relative Transaction Start Date - {{singleRuleForModal.relativeTransactionDate | date : "dd/MM/y"}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleRuleForModal.relativeTransactionEndDate">
+                <div class="col-md-12">
+                        Relative Transaction End Date - {{singleRuleForModal.relativeTransactionEndDate | date : "dd/MM/y"}}
                 </div>
             </div>
             <div class="row" ng-if="singleRuleForModal.yesterdayMinusXDays">
@@ -93,17 +108,33 @@
                     Generation Criteria - {{singleRuleForModal.generationCriteria}}
                 </div>
             </div>
-            <div class="row" ng-if="singleRuleForModal.applicableMerchant">
+
+            <div class="row" ng-if="singleRuleForModal.queryId">
                 <div class="col-md-12">
-                    Applicable Merchants - {{singleRuleForModal.applicableMerchant}}
+                    Query Id - {{singleRuleForModal.queryId}}
                 </div>
             </div>
-            <div class="row" ng-if="singleRuleForModal.applicableProduct">
+
+            <div class="row" ng-if="singleRuleForModal.query">
                 <div class="col-md-12">
-                    Applicable Products - {{singleRuleForModal.applicableProduct}}
+                    Actual Query - {{singleRuleForModal.query}}
                 </div>
             </div>
+
             <br>
+
+            <div class="row" ng-if="singleRuleForModal.status">
+                <div class="col-md-12">
+                    Statuses - <span ng-repeat="item in singleRuleForModal.status">{{item.name}} {{$last ? '' : ($index==singleRuleForModal.status.length-2) ? ' and ' : ', '}}</span>
+                </div>
+            </div>
+
+            <div class="row" ng-if="singleRuleForModal.transactionType">
+                <div class="col-md-12">
+                    Transaction Types - <span ng-repeat="item in singleRuleForModal.transactionType">{{item.name}} {{$last ? '' : ($index==singleRuleForModal.transactionType.length-2) ? ' and ' : ', '}}</span>
+                </div>
+            </div>
+
             <div class="row" ng-if="singleRuleForModal.giftCard && singleRuleForModal.giftCard.length > 0">
                 <div class="col-md-12">
                     Gift Cards -

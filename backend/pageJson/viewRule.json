@@ -27,12 +27,12 @@
     }
     ],
     "viewButton":{
-        "name": "View",
+        "name": "View Rule",
         "icon": "fa-search",
         "buttonClass": "btn-primary"
     },
     "queryButton":{
-        "name": "Query",
+        "name": "View Query",
         "icon": "fa-file",
         "buttonClass": "btn-primary"
     },

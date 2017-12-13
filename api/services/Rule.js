@@ -147,7 +147,7 @@ var model = {
             }).sort({
                 createdAt: -1
             })
-            .populate('merchant')
+            .populate('merchant applicableMerchant status transactionType')
             .order(options)
             .keyword(options)
             .page(options,

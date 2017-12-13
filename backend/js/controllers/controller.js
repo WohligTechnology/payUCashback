@@ -439,6 +439,13 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                         scope: $scope
                     });
                 } else{
+                    $scope.queryToShow="Something Went Wrong: Server is Failed to Generate Query."
+                    $scope.singleRuleModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/queryModal.html',
+                        size: 'md',
+                        scope: $scope
+                    });
                     
                 }
                 

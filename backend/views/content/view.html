@@ -48,13 +48,13 @@
                                         </td>
                                         <td>
 
-                                            <a style="margin-left:5px;" ng-if="json.json.viewButton" title="{{but.name}}" class="btn" ng-class="json.json.viewButton.buttonClass" ng-click="viewSingleRuleModal(item)">
+                                            <a style="margin-left:5px;" ng-if="json.json.viewButton" title="{{json.json.viewButton.name}}" class="btn" ng-class="json.json.viewButton.buttonClass" ng-click="viewSingleRuleModal(item)">
                                                 <i class="fa" ng-class="json.json.viewButton.icon"></i>
                                              </a>
                                             <a style="margin-left:5px;" ng-repeat="but in json.json.action" ng-show="hasRole({{but.roles}})" title="{{but.name}}" class="btn" ng-class="but.buttonClass" ng-click="json.eventAction(but,item) ">
                                                 <i class="fa" ng-class="but.icon"></i>
                                             </a>
-                                            <a style="margin-left:5px;" ng-if="json.json.queryButton" title="{{but.name}}" class="btn" ng-class="json.json.queryButton.buttonClass" ng-click="viewQueryModal(item)">
+                                            <a style="margin-left:5px;" ng-if="json.json.queryButton" title="{{json.json.queryButton.name}}" class="btn" ng-class="json.json.queryButton.buttonClass" ng-click="viewQueryModal(item)">
                                                 <i class="fa" ng-class="json.json.queryButton.icon"></i>
                                              </a>
                                         </td>
