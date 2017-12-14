@@ -7,7 +7,9 @@ var uploadurl = imgurl;
 
 myApp.factory('NavigationService', function ($http,$state) {
     if($.jStorage.get("profile")){
+        console.log("$.jStorage.get('profile').accessLevel",$.jStorage.get("profile").accessLevel);
         if($.jStorage.get("profile").accessLevel=="Super Admin"){
+            console.log("inside super admin navigation block");
             var navigation = [{
                 name: "Merchant",
                 classis: "active",
@@ -43,10 +45,6 @@ myApp.factory('NavigationService', function ($http,$state) {
         }
     }else{
         var navigation = [{
-            name: "User",
-            classis: "active",
-            sref: "#!/page/viewUser//"
-        },{
             name: "Merchant",
             classis: "active",
             sref: "#!/page/viewMerchant//"
@@ -177,7 +175,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         playSelectedEmail: function (ruleArr, callback) {
             console.log("inside navigationservice playSelectedEmail",ruleArr);
             $http({
-                url: 'http://10.160.80.231:8080/playnow',
+                url: 'http://172.31.0.109:8585/playnow',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
@@ -191,7 +189,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         viewQueryModal: function (ruleObject, callback) {
             console.log("inside navigationservice viewQueryModal",ruleObject);
             $http({
-                url: 'http://10.160.80.231:8080/verifyquery',
+                url: 'http://172.31.0.109:8585/verifyquery',
                 method: 'POST',
                 data: ruleObject,
                 withCredentials: false
