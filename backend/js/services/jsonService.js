@@ -109,6 +109,7 @@ myApp.service('JsonService', function ($http, TemplateService, $state, toastr, $
         console.log("inside else before value && action && action.fieldsToSend");
         var keyword = {};
         _.each(action.fieldsToSend, function (n, key) {
+          console.log(n," and key ",key);
           keyword[key] = value[n];
         });
         sendTo.keyword = JSON.stringify(keyword);
