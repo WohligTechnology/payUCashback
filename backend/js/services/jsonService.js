@@ -78,9 +78,11 @@ myApp.service('JsonService', function ($http, TemplateService, $state, toastr, $
 
 
   this.eventAction = function (action, value) {
+    console.log("value in jsonservice",value," and action",action);
     var sendTo = {
       id: action.action
     };
+    console.log("sendToin jsonservice",sendTo);
     console.log(action);
     if (action.type == "box") {
       JsonService.modal = action;
@@ -102,15 +104,18 @@ myApp.service('JsonService', function ($http, TemplateService, $state, toastr, $
         window.location.href = action.action;
       }
     } else {
+      console.log("outside else before value && action && action.fieldsToSend");
       if (value && action && action.fieldsToSend) {
+        console.log("inside else before value && action && action.fieldsToSend");
         var keyword = {};
         _.each(action.fieldsToSend, function (n, key) {
           keyword[key] = value[n];
         });
         sendTo.keyword = JSON.stringify(keyword);
+        console.log("sendTo.keyword",sendTo.keyword);
       }
       if (action && action.type == "page") {
-        console.log("inside page",sendTo);
+        console.log("inside page sendTo",sendTo);
         $state.go("page", sendTo);
       } else if (action && action.type == "apiCallConfirm") {
         globalfunction.confDel(function (value2) {
