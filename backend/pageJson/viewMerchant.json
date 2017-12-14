@@ -26,7 +26,8 @@
         "action": "editMerchant",
         "roles":["Admin","Super Admin"],
         "fieldsToSend": {
-            "_id": "_id"
+            "_id": "_id",
+            "value": "_id"
         }
     }, {
         "name": "delete",
