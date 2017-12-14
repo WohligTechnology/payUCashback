@@ -4,6 +4,7 @@ myApp.service('JsonService', function ($http, TemplateService, $state, toastr, $
   // this.refreshView;
   var JsonService = this;
   this.setKeyword = function (data) {
+    console.log(data,"before error");
     try {
       this.keyword = JSON.parse(data);
       console.log(this.keyword);
@@ -112,6 +113,7 @@ myApp.service('JsonService', function ($http, TemplateService, $state, toastr, $
           console.log(n," and key ",key);
           keyword[key] = value[n];
         });
+        console.log("keyword check",keyword);
         sendTo.keyword = JSON.stringify(keyword);
         console.log("sendTo.keyword",sendTo.keyword);
       }
