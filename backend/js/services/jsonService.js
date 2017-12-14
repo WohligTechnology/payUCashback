@@ -4,7 +4,6 @@ myApp.service('JsonService', function ($http, TemplateService, $state, toastr, $
   // this.refreshView;
   var JsonService = this;
   this.setKeyword = function (data) {
-    console.log(data,"before error");
     try {
       this.keyword = JSON.parse(data);
       console.log(this.keyword);
@@ -16,7 +15,6 @@ myApp.service('JsonService', function ($http, TemplateService, $state, toastr, $
     $http.get("pageJson/" + page + ".json").then(function (data) {
       data = data.data;
       JsonService.json = data;
-      console.log("json service",data);
       switch (data.pageType) {
         case "view":
           {
@@ -35,12 +33,6 @@ myApp.service('JsonService', function ($http, TemplateService, $state, toastr, $
             TemplateService.changecontent("detail");
           }
           break;
-
-        case "copy":
-        {
-          TemplateService.changecontent("detail");
-        }
-        break;
       }
       callback();
     });
@@ -79,11 +71,9 @@ myApp.service('JsonService', function ($http, TemplateService, $state, toastr, $
 
 
   this.eventAction = function (action, value) {
-    console.log("value in jsonservice",value," and action",action);
     var sendTo = {
       id: action.action
     };
-    console.log("sendToin jsonservice",sendTo);
     console.log(action);
     if (action.type == "box") {
       JsonService.modal = action;
@@ -94,31 +84,19 @@ myApp.service('JsonService', function ($http, TemplateService, $state, toastr, $
       if (action.linkType == "admin") {
         window.location.href = adminurl + action.action;
       } else if (action.linkType == "internal") {
-        console.log("inside internal",action.action);
         window.location.href = "#!/" + action.action;
-      } else if (action.linkType == "internalWithId") {
-        console.log("value",value);
-        console.log("#!/" + action.action+"/"+value._id);
-        window.location.href = "#!/" + action.action+"/"+value._id;
-        // window.location.href = "#!/" + action.action;
       } else {
         window.location.href = action.action;
       }
     } else {
-      console.log("outside else before value && action && action.fieldsToSend");
       if (value && action && action.fieldsToSend) {
-        console.log("inside else before value && action && action.fieldsToSend");
         var keyword = {};
         _.each(action.fieldsToSend, function (n, key) {
-          console.log(n," and key ",key);
           keyword[key] = value[n];
         });
-        console.log("keyword check",keyword);
         sendTo.keyword = JSON.stringify(keyword);
-        console.log("sendTo.keyword",sendTo.keyword);
       }
       if (action && action.type == "page") {
-        console.log("inside page sendTo",sendTo);
         $state.go("page", sendTo);
       } else if (action && action.type == "apiCallConfirm") {
         globalfunction.confDel(function (value2) {
