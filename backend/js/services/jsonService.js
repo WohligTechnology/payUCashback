@@ -5,8 +5,7 @@ myApp.service('JsonService', function ($http, TemplateService, $state, toastr, $
   var JsonService = this;
   this.setKeyword = function (data) {
     try {
-      this.keyword = JSON.parse(data);
-      console.log(this.keyword);
+      this.keyword = {_id:data};
     } catch (e) {
       console.log("keyword is not is json format");
     }
@@ -94,7 +93,8 @@ myApp.service('JsonService', function ($http, TemplateService, $state, toastr, $
         _.each(action.fieldsToSend, function (n, key) {
           keyword[key] = value[n];
         });
-        sendTo.keyword = JSON.stringify(keyword);
+        sendTo.keyword = keyword._id;
+        console.log(sendTo);
       }
       if (action && action.type == "page") {
         $state.go("page", sendTo);
