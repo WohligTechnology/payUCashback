@@ -280,101 +280,119 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.json = JsonService;
         $scope.template = TemplateService;
         var i = 0;
-        $scope.selectArr=[];
+        $scope.selectArr = [];
         if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
             $scope.currentPage = $stateParams.page;
         } else {
             $scope.currentPage = 1;
         }
-        console.log("$stateParams",$stateParams);
+        console.log("$stateParams", $stateParams);
         // if($stateParams.stateName.passingId){
         //     console.log("inside");
         //     $scope.showId="$stateParams.stateName.passingId",$stateParams.stateName.passingId;
         // }
 
-        $scope.viewModal=false;
-        $scope.editButton=false;
-        $scope.deleteButton=false;
-        $scope.copyButton=false;
-        $scope.createButton=false;
+        $scope.viewModal = false;
+        $scope.editButton = false;
+        $scope.deleteButton = false;
+        $scope.copyButton = false;
+        $scope.createButton = false;
 
-        console.log("$scope.json ***",$scope.json);
-        if($.jStorage.get("accessToken")){
-            var profileData=$.jStorage.get("profile");
-            if(profileData.accessLevel=="Admin"){
-                $scope.viewModal=true;
-                $scope.editButton=true;
+        console.log("$scope.json ***", $scope.json);
+        if ($.jStorage.get("accessToken")) {
+            var profileData = $.jStorage.get("profile");
+            if (profileData.accessLevel == "Admin") {
+                $scope.viewModal = true;
+                $scope.editButton = true;
                 // $scope.deleteButton=false;
-                $scope.copyButton=true;
-                $scope.createButton=true;
-            } else  if(profileData.accessLevel=="Super Admin"){
-                $scope.viewModal=true;
-                $scope.editButton=true;
+                $scope.copyButton = true;
+                $scope.createButton = true;
+            } else if (profileData.accessLevel == "Super Admin") {
+                $scope.viewModal = true;
+                $scope.editButton = true;
                 // $scope.deleteButton=false;
-                $scope.copyButton=true;
-                $scope.createButton=true;
-            }else if(profileData.accessLevel=="User"){
-                $scope.viewModal=true;
+                $scope.copyButton = true;
+                $scope.createButton = true;
+            } else if (profileData.accessLevel == "User") {
+                $scope.viewModal = true;
             }
         }
 
-        $scope.hasRole = function(roles){
+        $scope.hasRole = function (roles) {
             // console.log("roles",roles);
-            if(roles){
-                var accessLevel=$.jStorage.get("profile").accessLevel;
-                if(roles.includes(accessLevel)){
+            if (roles) {
+                var accessLevel = $.jStorage.get("profile").accessLevel;
+                if (roles.includes(accessLevel)) {
                     // console.log("you have access");
                     return true;
-                }else{
+                } else {
                     return false;
                 }
-            }else{
+            } else {
                 return true;
             }
-            
+
             // // var indexOfRole = $scope.roles.indexOf(role); // or whatever your object is instead of $scope.roles
             // if (indexOfRole === -1)
             //      return false;
             // else
             //      return true;
-       }
+        }
         $scope.search = {
             keyword: ""
         };
         if ($stateParams.keyword) {
             $scope.search.keyword = $stateParams.keyword;
         }
-        $scope.checkboxClick=function(id){
-            console.log("id in avinashClick",id);
+        $scope.checkboxClick = function (id) {
+            console.log("id in avinashClick", id);
             var idx = $.inArray(id, $scope.selectArr);
             if (idx == -1) {
                 $scope.selectArr.push(id);
-                console.log("in if after push",$scope.selectArr);
+                console.log("in if after push", $scope.selectArr);
             } else {
                 $scope.selectArr.splice(idx, 1);
-                console.log("in else after splice",$scope.selectArr);
+                console.log("in else after splice", $scope.selectArr);
             }
         }
-        $scope.playSelectedClick=function(){
-            if($.jStorage.get("profile")){
-                var loggedInUserId=$.jStorage.get("profile")._id;
-            }else{
-                loggedInUserId=null;
-            }
-            var objectToSend={
-                userId:loggedInUserId
-            };
-            if($scope.selectArr.length == 0){
+
+        $scope.playSelectedClick = function () {
+            if ($scope.selectArr.length == 0) {
                 console.log("empty array inside playSelectedClick if");
-            }else{
-                objectToSend.ruleIds=$scope.selectArr;
-                console.log("selected id inside playSelectedClick else",objectToSend);
+                alert("Select Atleast One Rule For Procedding");
+            } else {
+                $scope.playSelectedFolderNameModal = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'views/modal/playSelectedFolderNameModal.html',
+                    size: 'md',
+                    scope: $scope
+                });
+            }
+
+        }
+
+        $scope.playSelectedClickAfterFolderName = function (formData) {
+            if ($.jStorage.get("profile")) {
+                var loggedInUserId = $.jStorage.get("profile")._id;
+            } else {
+                loggedInUserId = null;
+            }
+            var folder = formData.name;
+            var objectToSend = {
+                userId: loggedInUserId,
+                folderName: folder
+            };
+            if ($scope.selectArr.length == 0) {
+                console.log("empty array inside playSelectedClick if");
+            } else {
+                objectToSend.ruleIds = $scope.selectArr;
+                console.log("selected id inside playSelectedClick else", objectToSend);
 
                 NavigationService.playSelectedEmail(objectToSend, function (data) {
-                    console.log("*****",data);
-                    var count=data.data.cashbackCount;
-                    if(data.data.success==true){
-                        toastr.success( "Rules Played Successfully. Total Cashback Count is-" + count,{
+                    console.log("*****", data);
+                    var count = data.data.cashbackCount;
+                    if (data.data.success == true) {
+                        toastr.success("Rules Played Successfully. Total Cashback Count is - " + count, {
                             "closeButton": true,
                             "debug": false,
                             "newestOnTop": false,
@@ -384,10 +402,10 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                             "onclick": null,
                             "timeOut": "4000",
                             "extendedTimeOut": "1000",
-                            "tapToDismiss":false
-                          });
-                    } else{
-                        toastr.error("Failed To Play Rules",{
+                            "tapToDismiss": false
+                        });
+                    } else {
+                        toastr.error("Failed To Play Rules", {
                             "closeButton": true,
                             "debug": false,
                             "newestOnTop": false,
@@ -397,8 +415,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                             "onclick": null,
                             "timeOut": "2000",
                             "extendedTimeOut": "1000",
-                            "tapToDismiss":false
-                          });
+                            "tapToDismiss": false
+                        });
                     }
                     $state.reload();
                     // if (data.value) {
@@ -406,12 +424,30 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     // }else{
                     //     console.log("in else returnData",data)
                     // }
+
+                    // NavigationService.playSelectedEmail(objectToSend, function (data) {
+                    //     console.log("*****",data);
+                    //     var count=data.data.cashbackCount;
+                    //     if(data.data.success==true){
+                    //         $scope.playSelectedResponse=data.data;
+                    //         $scope.playSelectedSuccess = $uibModal.open({
+                    //             animation: true,
+                    //             templateUrl: 'views/modal/playSelectedSuccess.html',
+                    //             size: 'md',
+                    //             scope: $scope
+                    //         });
+                    //     } else{
+
+                    //     }
+                    //     $state.reload();
+                    // })
+
                 })
             }
         }
-        $scope.viewSingleRuleModal=function(singleRule){
-            console.log("viewSingleRuleModal",singleRule);
-            $scope.singleRuleForModal=singleRule;
+        $scope.viewSingleRuleModal = function (singleRule) {
+            console.log("viewSingleRuleModal", singleRule);
+            $scope.singleRuleForModal = singleRule;
             $scope.singleRuleModal = $uibModal.open({
                 animation: true,
                 templateUrl: 'views/modal/SingleRuleModal.html',
@@ -420,35 +456,35 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             });
         }
 
-        $scope.viewQueryModal=function(singleRule){
+        $scope.viewQueryModal = function (singleRule) {
             // console.log("viewSingleRuleModal",singleRule);
-            var objectToSend={
-                ruleId:singleRule._id
+            var objectToSend = {
+                ruleId: singleRule._id
             };
             console.log(objectToSend);
-            
+
             NavigationService.viewQueryModal(objectToSend, function (data) {
-                console.log("verifyQuery",data);
-                var query=data.data.cashbackQuery;
-                $scope.queryToShow=query;
-                if(data.data.success==true){
+                console.log("verifyQuery", data);
+                var query = data.data.cashbackQuery;
+                $scope.queryToShow = query;
+                if (data.data.success == true) {
                     $scope.singleRuleModal = $uibModal.open({
                         animation: true,
                         templateUrl: 'views/modal/queryModal.html',
                         size: 'md',
                         scope: $scope
                     });
-                } else{
-                    $scope.queryToShow="Something Went Wrong: Server is Failed to Generate Query."
+                } else {
+                    $scope.queryToShow = "Something Went Wrong: Server is Failed to Generate Query."
                     $scope.singleRuleModal = $uibModal.open({
                         animation: true,
                         templateUrl: 'views/modal/queryModal.html',
                         size: 'md',
                         scope: $scope
                     });
-                    
+
                 }
-                
+
             })
 
         }
@@ -493,8 +529,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.template = TemplateService;
         $scope.data = {};
         console.log("detail controller");
-        console.log("$scope.json",$scope.json);
-        
+        console.log("$scope.json", $scope.json);
+
         //  START FOR EDIT
         if ($scope.json.json.preApi) {
             var obj = {};
@@ -516,21 +552,21 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         };
 
         $scope.saveData = function (formData) {
-            console.log("formData on save",formData);
+            console.log("formData on save", formData);
             // NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
             // });
-            if($scope.json.json.createFromEdit==true){
+            if ($scope.json.json.createFromEdit == true) {
                 delete formData._id;
                 delete formData.createdAt;
                 delete formData.updatedAt;
-                console.log("formData after Deletion of _Id,createdAt and updatedAtAt",formData);
+                console.log("formData after Deletion of _Id,createdAt and updatedAtAt", formData);
             }
             NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
                 var messText = "created";
                 if (data.value === true) {
                     $scope.json.json.action[0].stateName.json.keyword = "";
                     $scope.json.json.action[0].stateName.json.page = "";
-                    $scope.json.json.action[0].stateName.json.passingId="idGosehere";
+                    $scope.json.json.action[0].stateName.json.passingId = "idGosehere";
                     $state.go($scope.json.json.action[0].stateName.page, $scope.json.json.action[0].stateName.json);
                     if ($scope.json.keyword._id) {
                         messText = "edited";
@@ -538,7 +574,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     // toastr.options.closeButton = true;
                     // toastr.options.timeOut = 30;
                     // toastr.options.closeButton = true;
-                    toastr.success($scope.json.json.name + " " + formData.name + " " + messText + " successfully.",{
+                    toastr.success($scope.json.json.name + " " + formData.name + " " + messText + " successfully.", {
                         "closeButton": true,
                         "debug": false,
                         "newestOnTop": false,
@@ -548,8 +584,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                         "onclick": null,
                         "timeOut": "10000",
                         "extendedTimeOut": "1000",
-                        "tapToDismiss":false
-                      });
+                        "tapToDismiss": false
+                    });
                 } else {
                     messText = "creating";
                     if ($scope.json.keyword._id) {
@@ -567,24 +603,24 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.menutitle = NavigationService.makeactive("Dashboard");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        
+
         JsonService.setKeyword($stateParams.keyword);
         $scope.template = TemplateService;
         $scope.data = {};
         console.log("copyRuleCtrl controller");
         console.log($scope.json);
-        console.log("stateParams",$stateParams);
+        console.log("stateParams", $stateParams);
 
         //  START FOR EDIT
         if ($stateParams) {
             var obj = {
-                "_id":$stateParams.id
+                "_id": $stateParams.id
             };
             // obj[$scope.json.json.preApi.params] = $scope.json.keyword._id;
             NavigationService.apiCall("Rule/getOne", obj, function (data) {
                 $scope.data = data.data;
                 $scope.generateField = true;
-                console.log("$scope.data",$scope.data);
+                console.log("$scope.data", $scope.data);
             });
         } else {
             $scope.generateField = true;
@@ -601,24 +637,24 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         //     console.log("formData on save",formData);
         //     NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
         //     });
-            // NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
-            //     var messText = "created";
-            //     if (data.value === true) {
-            //         $scope.json.json.action[0].stateName.json.keyword = "";
-            //         $scope.json.json.action[0].stateName.json.page = "";
-            //         $state.go($scope.json.json.action[0].stateName.page, $scope.json.json.action[0].stateName.json);
-            //         if ($scope.json.keyword._id) {
-            //             messText = "edited";
-            //         }
-            //         toastr.success($scope.json.json.name + " " + formData.name + " " + messText + " successfully.");
-            //     } else {
-            //         messText = "creating";
-            //         if ($scope.json.keyword._id) {
-            //             messText = "editing";
-            //         }
-            //         toastr.error("Failed " + messText + " " + $scope.json.json.name);
-            //     }
-            // });
+        // NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
+        //     var messText = "created";
+        //     if (data.value === true) {
+        //         $scope.json.json.action[0].stateName.json.keyword = "";
+        //         $scope.json.json.action[0].stateName.json.page = "";
+        //         $state.go($scope.json.json.action[0].stateName.page, $scope.json.json.action[0].stateName.json);
+        //         if ($scope.json.keyword._id) {
+        //             messText = "edited";
+        //         }
+        //         toastr.success($scope.json.json.name + " " + formData.name + " " + messText + " successfully.");
+        //     } else {
+        //         messText = "creating";
+        //         if ($scope.json.keyword._id) {
+        //             messText = "editing";
+        //         }
+        //         toastr.error("Failed " + messText + " " + $scope.json.json.name);
+        //     }
+        // });
         // };
     })
 
@@ -760,7 +796,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         //     data.splice(index, 1);
         // };
 
-// BOX
+        // BOX
         if ($scope.type.type == "date") {
             $scope.formData[$scope.type.tableRef] = moment($scope.formData[$scope.type.tableRef]).toDate();
         }
@@ -790,7 +826,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             } else {
                 if ($scope.formData[$scope.type.tableRef]) {
                     $scope.model = $scope.formData[$scope.type.tableRef];
-                    console.log("on initialization $scope.model",$scope.model);
+                    console.log("on initialization $scope.model", $scope.model);
                 }
             }
             $scope.search = {
@@ -800,12 +836,12 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.state = "";
         $scope.createBox = function (state) {
             $scope.state = state;
-            var emptyObject={};
-            if(_.isEmpty($scope.model)){
-                console.log("$scope.model empty block",$scope.model);
+            var emptyObject = {};
+            if (_.isEmpty($scope.model)) {
+                console.log("$scope.model empty block", $scope.model);
                 $scope.model.push({});
                 $scope.editBox("Create", $scope.model[$scope.model.length - 1]);
-            }else{
+            } else {
                 $scope.editBox("Create", {});
             }
 
@@ -821,21 +857,21 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             // console.log("after processing $scope.model",$scope.model);
             // $scope.editBox("Create", $scope.model[$scope.model.length - 1]);
             // $scope.editBox("Create", {});
-            
+
             // $scope.editBox("Create", $scope.model);
         };
         $scope.editBox = function (state, data) {
             $scope.state = state;
-            
+
             $scope.data = data;
-            console.log("$scope.data in box controller",$scope.data);
+            console.log("$scope.data in box controller", $scope.data);
             if (!$scope.formData[$scope.type.tableRef]) {
                 $scope.formData[$scope.type.tableRef] = []
             }
 
             if (state == 'Create') {
                 $scope.formData[$scope.type.tableRef].push(data);
-                console.log("where state is create in box",$scope.formData);
+                console.log("where state is create in box", $scope.formData);
             }
 
             var modalInstance = $uibModal.open({
@@ -905,7 +941,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     NavigationService.parseAccessToken(data.data._id, function () {
                         NavigationService.profile(function () {
                             $scope.template.profile = data.data;
-                            console.log("before redirect dashboard",$scope.template.profile);
+                            console.log("before redirect dashboard", $scope.template.profile);
                             $state.go("dashboard");
                         }, function () {
                             console.log("before redirect login");
@@ -1502,9 +1538,9 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         };
     })
 
-    .controller('headerctrl', function ($scope, TemplateService, $uibModal,$state) {
+    .controller('headerctrl', function ($scope, TemplateService, $uibModal, $state) {
         $scope.template = TemplateService;
-        $scope.logout=function(){
+        $scope.logout = function () {
             console.log("inside header ctrl logout function");
             $.jStorage.deleteKey("profile");
             $.jStorage.deleteKey("accessToken");
