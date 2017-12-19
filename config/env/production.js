@@ -25,8 +25,8 @@ module.exports = {
    * Set the port in the production environment to 80                        *
    ***************************************************************************/
 
-  port: 85,
-  realHost: "http://www.overdriveawards.in",
+  port: 8082,
+  realHost: "http://172.31.2.124:8082",
   emails: ["chintan@wohlig.com", "jagruti@wohlig.com", "tushar@wohlig.com", "chirag@wohlig.com", "harsh@wohlig.com","sayali.ghule@wohlig.com","rohan@wohlig.com","sohan@wohlig.com"]
 
   /***************************************************************************
