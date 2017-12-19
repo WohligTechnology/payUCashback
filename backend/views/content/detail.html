@@ -26,16 +26,20 @@
                 <div class="widget">
                     <div class="form-elements-sec">
                         <div class="widget-title" ng-show="json.json.desciption">
-                            <h3>{{json.json.desciption}}</h3>
+                            <h4>{{json.json.desciption}}</h4>
                         </div>
                         <form name="detailForm" role="form" class="sec ng-pristine ng-valid">
                             <!--<pre>{{data|json}}</pre>-->
                             <div class="row">
-                                <div class="col-md-6" ng-if="json.json.pageType == 'create'" >
-                                    <detail-field type="field" ng-repeat="field in json.json.fields" form="detailForm" value="item" data="data"></detail-field>
+                                <div ng-repeat="field in json.json.fields" ng-if="json.json.pageType == 'create'" >
+                                    <detail-field class="col-md-5"  ng-if="!field.onlyHeading && field.type != 'box'" type="field" form="detailForm" value="item" data="data"></detail-field>
+                                    <div class="col-md-12" ng-if="field.onlyHeading == true  && field.type != 'box'"><h4 style="color:rgb(124, 194, 11)">{{field.name}}:</h4></div>
+                                    <detail-field class="col-md-10"  ng-if="field.type == 'box'" type="field" form="detailForm" value="item" data="data"></detail-field>
                                 </div>
-                                <div class="col-md-6" ng-if="json.json.pageType == 'edit' && data._id">
-                                    <detail-field type="field" form="detailForm" value="item" ng-repeat="field in json.json.fields" data="data"></detail-field>
+                                <div  ng-repeat="field in json.json.fields" ng-if="json.json.pageType == 'edit' && data._id">
+                                    <detail-field class="col-md-5" ng-if="!field.onlyHeading && field.type != 'box'" type="field" form="detailForm" value="item" data="data"></detail-field>
+                                    <div class="col-md-12" ng-if="field.onlyHeading == true && field.type != 'box'"><h4 style="color:rgb(124, 194, 11)">{{field.name}}:</h4></div>
+                                    <detail-field class="col-md-10"  ng-if="field.type == 'box'" type="field" form="detailForm" value="item" data="data"></detail-field>
                                 </div>
                             </div>
                             <div class="text-center mt20 odd-even-button">

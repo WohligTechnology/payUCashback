@@ -95,7 +95,17 @@ var schema = new Schema({
     transactionType:[{
         type: Schema.Types.ObjectId,
         ref: 'TransactionType'
-    }]
+    }],
+    campaignName:{
+        type:String
+    },
+    minimumAccumulatedSpendInNumberOfDays:{
+        type:Number
+    },
+    minimumTransactionAmount:{
+        type:Number,
+        default: 0
+    }
 });
 
 schema.plugin(deepPopulate, {

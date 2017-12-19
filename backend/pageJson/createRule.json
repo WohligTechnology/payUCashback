@@ -6,13 +6,45 @@
     "pageType": "create",
     "urlFields": ["Rule"],
     "fields": [{
-        "name": "Name",
+        "name": "Campaign Details",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Campaign Name",
+        "type": "text",
+        "tableRef": "campaignName",
+        "placeholder": "Enter Campaign Name",
+        "id": "campaignName",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Rule Name",
         "type": "text",
         "tableRef": "name",
         "placeholder": "Enter Name",
         "id": "name",
         "validation": ["required", "trim"],
         "url": ""
+    }, {
+        "name": "Query ID",
+        "type": "text",
+        "tableRef": "queryId",
+        "placeholder": "Enter Query Id If any",
+        "id": "queryId",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Actual Query",
+        "type": "textarea",
+        "tableRef": "query",
+        "placeholder": "Enter Query If Generated",
+        "id": "query",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Applicability",
+        "type": "heading",
+        "onlyHeading":true
     }, {
         "name": "Merchant",
         "type": "tags",
@@ -27,7 +59,15 @@
         "dropDownType": "single",
         "validation": ["required", "", ""]
     }, {
-        "name": "Applicable Merchants",
+        "name": "Applicable Products",
+        "type": "text",
+        "tableRef": "applicableProduct",
+        "placeholder": "Enter Applicable Products",
+        "id": "applicableProduct",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Applicable Merchants ( Multiple Select )",
         "type": "tags",
         "tableRef": "applicableMerchant",
         "placeholder": "Select Applicable Merchants",
@@ -40,44 +80,6 @@
         "dropDownType": "multiple",
         "validation": ["", "", "trim"]
     }, {
-        "name": "Applicable Products",
-        "type": "text",
-        "tableRef": "applicableProduct",
-        "placeholder": "Enter Applicable Products",
-        "id": "applicableProduct",
-        "validation": ["", "trim"],
-        "url": ""
-    }, {
-        "name": "Percentage",
-        "type": "text",
-        "tableRef": "percentage",
-        "placeholder": "Enter Percentage",
-        "id": "percentage",
-        "url": ""
-    }, {
-        "name": "Maximum Cashback",
-        "type": "text",
-        "tableRef": "maximumCashback",
-        "placeholder": "Enter Maximum Cashback",
-        "id": "maximumCashback",
-        "validation": ["", "trim"],
-        "url": ""
-    }, {
-        "name": "Amount",
-        "type": "text",
-        "tableRef": "amount",
-        "placeholder": "Enter Amount",
-        "id": "amount",
-        "url": ""
-    }, {
-        "name": "Minimum Accumulated Spend",
-        "type": "text",
-        "tableRef": "minimumAccumulatedSpend",
-        "placeholder": "Enter Minimum Accumulated Spend",
-        "id": "minimumAccumulatedSpend",
-        "validation": ["", "trim"],
-        "url": ""
-    }, {
         "name": "Promo Code (if any) ",
         "type": "text",
         "tableRef": "promoCode",
@@ -85,6 +87,56 @@
         "id": "promoCode",
         "validation": ["", "trim"],
         "url": ""
+    }, {
+        "name": "Cashback Amount Conditions",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Percentage",
+        "type": "text",
+        "tableRef": "percentage",
+        "placeholder": "Enter Percentage",
+        "id": "percentage",
+        "url": "",
+        "hideCondition":"amount"
+    }, {
+        "name": "Maximum Cashback",
+        "type": "text",
+        "tableRef": "maximumCashback",
+        "placeholder": "Enter Maximum Cashback",
+        "id": "maximumCashback",
+        "validation": ["", "trim"],
+        "url": "",
+        "hideCondition":"amount"
+    }, {
+        "name": "Flat Amount",
+        "type": "text",
+        "tableRef": "amount",
+        "placeholder": "Enter Flat Amount",
+        "id": "amount",
+        "url": "",
+        "hideCondition":"percentage"
+    }, {
+        "name": "Minimum Accumulated Spend",
+        "type": "text",
+        "tableRef": "minimumAccumulatedSpend",
+        "placeholder": "Enter Minimum Accumulated Spend",
+        "id": "minimumAccumulatedSpend",
+        "validation": ["", "trim"],
+        "url": "",
+        "hideCondition":"percentage"
+    }, {
+        "name": "Minimum Accumulated Spend In Number Of Days",
+        "type": "text",
+        "tableRef": "minimumAccumulatedSpendInNumberOfDays",
+        "placeholder": "Enter Minimum Accumulated Spend In Number Of Days",
+        "id": "minimumAccumulatedSpendInNumberOfDays",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Transaction Conditions",
+        "type": "heading",
+        "onlyHeading":true
     }, {
         "name": "Is First Transaction",
         "type": "tags",
@@ -97,6 +149,26 @@
         "dropDownType": "single",
         "onView": true,
         "dropDown": ["true", "false"]
+    }, {
+        "name": "Per User Transactions",
+        "type": "text",
+        "tableRef": "perUser",
+        "placeholder": "Enter Per User Transactions",
+        "id": "perUser",
+        "validation": ["", "trim", ""],
+        "url": ""
+    }, {
+        "name": "Minimum Transaction Amount",
+        "type": "text",
+        "tableRef": "minimumTransactionAmount",
+        "placeholder": "Enter Minimum Transaction Amount",
+        "id": "minimumTransactionAmount",
+        "validation": ["", "trim", ""],
+        "url": ""
+    }, {
+        "name": "Campaign Period",
+        "type": "heading",
+        "onlyHeading":true
     }, {
         "name": "Valid From",
         "type": "date",
@@ -113,6 +185,34 @@
         "id": "validTo",
         "validation": ["required", "trim"],
         "url": ""
+    }, {
+        "name": "Processing Conditions",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Is Automated",
+        "type": "tags",
+        "tableRef": "isAutomated",
+        "placeholder": "Enter Is This a Automated",
+        "id": "isAutomated",
+        "validation": ["", "trim", ""],
+        "url": "",
+        "dropDownField": "",
+        "dropDownType": "single",
+        "onView": true,
+        "dropDown": ["true", "false"]
+    }, {
+        "name": "Generation Criteria",
+        "type": "tags",
+        "tableRef": "generationCriteria",
+        "placeholder": "Enter Generation Criteria",
+        "id": "generationCriteria",
+        "validation": ["", "trim", ""],
+        "url": "",
+        "dropDownField": "",
+        "dropDownType": "single",
+        "onView": true,
+        "dropDown": ["Daily", "After End Date","After Repayment"]
     }, {
         "name": "Processing Start Date",
         "type": "date",
@@ -154,55 +254,11 @@
         "validation": ["", "trim"],
         "url": ""
     }, {
-        "name": "Is Automated",
-        "type": "tags",
-        "tableRef": "isAutomated",
-        "placeholder": "Enter Is This a Automated",
-        "id": "isAutomated",
-        "validation": ["", "trim", ""],
-        "url": "",
-        "dropDownField": "",
-        "dropDownType": "single",
-        "onView": true,
-        "dropDown": ["true", "false"]
+        "name": "Transaction Statuses & Transaction Types",
+        "type": "heading",
+        "onlyHeading":true
     }, {
-        "name": "Per User Transactions",
-        "type": "text",
-        "tableRef": "perUser",
-        "placeholder": "Enter Per User Transactions",
-        "id": "perUser",
-        "validation": ["", "trim", ""],
-        "url": ""
-    }, {
-        "name": "Generation Criteria",
-        "type": "tags",
-        "tableRef": "generationCriteria",
-        "placeholder": "Enter Generation Criteria",
-        "id": "generationCriteria",
-        "validation": ["", "trim", ""],
-        "url": "",
-        "dropDownField": "",
-        "dropDownType": "single",
-        "onView": true,
-        "dropDown": ["Daily", "After End Date","After Repayment"]
-    }, {
-        "name": "Query ID",
-        "type": "text",
-        "tableRef": "queryId",
-        "placeholder": "Enter Query Id If any",
-        "id": "queryId",
-        "validation": ["", "trim"],
-        "url": ""
-    }, {
-        "name": "Actual Query",
-        "type": "textarea",
-        "tableRef": "query",
-        "placeholder": "Enter Query If Generated",
-        "id": "query",
-        "validation": ["", "trim"],
-        "url": ""
-    }, {
-        "name": "Status",
+        "name": "Transaction Statuses ( Multiple Select )",
         "type": "tags",
         "tableRef": "status",
         "placeholder": "Select Status",
@@ -215,7 +271,7 @@
         "dropDownType": "multiple",
         "validation": ["", "", "trim"]
     }, {
-        "name": "Transaction Types",
+        "name": "Transaction Types ( Multiple Select )",
         "type": "tags",
         "tableRef": "transactionType",
         "placeholder": "Select Transaction Types",
@@ -227,8 +283,12 @@
         "view": true,
         "dropDownType": "multiple",
         "validation": ["", "", "trim"]
-    },{
+    }, {
         "name": "Gift Cards ( if any )",
+        "type": "heading",
+        "onlyHeading":true
+    },{
+        "name": "",
         "type": "box",
         "tableRef": "giftCard",
         "validation": ["", "trim", ""],

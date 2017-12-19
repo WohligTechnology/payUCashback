@@ -531,12 +531,31 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         console.log("detail controller");
         console.log("$scope.json", $scope.json);
 
+        if($scope.json.json.pageType=='create' && $scope.json.json.title=='Create Rule'){
+            console.log("right");
+            $scope.data.status=[{
+                _id: "5a2e38f14c61b12642887f0e",
+                 name: "SUCCESS"
+            },{
+                _id: "5a2e38d14c61b12642887f0a", 
+                name: "DISPUTE_RESOLVED"
+            }];
+            $scope.data.transactionType=[{
+                _id: "5a2e3a8c821c722c2eb33e87", 
+                name: "SALE"
+            },{
+                _id: "5a2e3ab0821c722c2eb33e8b", 
+                name: "VERIFICATION_TXN"
+            }];
+        }
+
         //  START FOR EDIT
         if ($scope.json.json.preApi) {
             var obj = {};
             obj[$scope.json.json.preApi.params] = $scope.json.keyword._id;
             NavigationService.apiCall($scope.json.json.preApi.url, obj, function (data) {
                 $scope.data = data.data;
+                console.log("preapi Data",$scope.data);
                 $scope.generateField = true;
 
             });

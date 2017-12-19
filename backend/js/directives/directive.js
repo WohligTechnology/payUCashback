@@ -483,6 +483,18 @@ myApp.directive('detailField', function ($http, $filter, JsonService) {
             formData: "=data",
         },
         controller: 'DetailFieldCtrl',
-        link: function ($scope, element, attrs) {}
+        link: function ($scope, element, attrs) {
+
+            $scope.condition = {};
+            $scope.condition.hidePercentage = function() {
+                if($scope.formData["amount"]>10){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+
+        }
     };
 });
