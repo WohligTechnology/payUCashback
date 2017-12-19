@@ -27,7 +27,7 @@ global["database"] = "payUCashback";
 
 mongoose.Promise = global.Promise;
 
-global.mongourl = "mongodb://localhost:27017/"+database;
+global.mongourl = "mongodb://172.31.2.124:27017/"+database;
 mongoose.connect(mongourl, {
     useMongoClient: true
 }, function (err, db) {
