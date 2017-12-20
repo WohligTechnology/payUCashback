@@ -1,20 +1,33 @@
 <div class="modal-header blue-bg  ">
+    
         <div class="pull-right">
-            <a class="btn btn-clear" ng-click="$dismiss()">
-                <i class="ln-cross"></i>
-            </a>
-        </div>
-        <h5 class="modal-title">Query To Be Execute</h5>
-    </div>
-    <div class="modal-body">
-        <div class="row">
-            <div class="col-md-12">
-                {{queryToShow}}
-                <!-- <detail-field type="field" form="modalForm" value="item" ng-repeat="field in type.fields" data="data"></detail-field> -->
+                <a class="btn btn-clear" ng-click="$dismiss()">
+                    <i class="ln-cross"></i>
+                </a>
             </div>
-        </div>
+            <div class="pull-right" style="margin-right: 10px;">
+                    <span class="btn btn-success" ng-click="copyClick()" ngclipboard data-clipboard-text="{{singleRuleForModal.merchant.name}}">{{copied}}</span>
+            </div>
+        
+            <div class="pull-right" style="margin-right: 10px;">
+                <a href="https://sqlformat.org/" class="btn btn-success" target="_blank">
+                    View Formatted Query
+                </a>
+            </div>
+        
+    
+    <h5 class="modal-title">Query To Be Execute</h5>
 
-        <div class="text-center">
-            <button class="btn btn-primary btn-save"  ng-click="$dismiss()">Cancel</button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            {{queryToShow}}
+            <!-- <detail-field type="field" form="modalForm" value="item" ng-repeat="field in type.fields" data="data"></detail-field> -->
         </div>
     </div>
+
+    <div class="text-center">
+        <button class="btn btn-primary btn-save" ng-click="$dismiss()">Cancel</button>
+    </div>
+</div>

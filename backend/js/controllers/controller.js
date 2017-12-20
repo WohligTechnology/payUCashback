@@ -446,12 +446,13 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             }
         }
         $scope.viewSingleRuleModal = function (singleRule) {
+            $scope.copied="Copy Query";
             console.log("viewSingleRuleModal", singleRule);
             $scope.singleRuleForModal = singleRule;
             $scope.singleRuleModal = $uibModal.open({
                 animation: true,
                 templateUrl: 'views/modal/SingleRuleModal.html',
-                size: 'md',
+                size: 'lg',
                 scope: $scope
             });
         }
@@ -488,9 +489,10 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             })
 
         }
-        $scope.copied
+        
         $scope.copyClick=function(){
-            $scope.data="";
+            console.log("copyClick clicked");
+            $scope.copied="Copied";
         }
         $scope.changePage = function (page) {
             var goTo = "page";
