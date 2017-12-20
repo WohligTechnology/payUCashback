@@ -229,7 +229,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
     .controller('PageJsonCtrl', function ($scope, TemplateService, NavigationService, JsonService, $timeout, $state, $stateParams, $uibModal) {
         $scope.json = JsonService;
         $scope.template = TemplateService.changecontent("none");
-        $scope.menutitle = NavigationService.makeactive("Country List");
+        $scope.menutitle = NavigationService.makeactive("PayUCashback");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         JsonService.getJson($stateParams.id, function () {});
@@ -471,7 +471,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     $scope.singleRuleModal = $uibModal.open({
                         animation: true,
                         templateUrl: 'views/modal/queryModal.html',
-                        size: 'md',
+                        size: 'lg',
                         scope: $scope
                     });
                 } else {
@@ -479,7 +479,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     $scope.singleRuleModal = $uibModal.open({
                         animation: true,
                         templateUrl: 'views/modal/queryModal.html',
-                        size: 'md',
+                        size: 'lg',
                         scope: $scope
                     });
 
@@ -487,6 +487,10 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
             })
 
+        }
+        $scope.copied
+        $scope.copyClick=function(){
+            $scope.data="";
         }
         $scope.changePage = function (page) {
             var goTo = "page";
@@ -547,6 +551,10 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 _id: "5a2e3ab0821c722c2eb33e8b", 
                 name: "VERIFICATION_TXN"
             }];
+            $scope.data.processingStartDate="";
+            $scope.data.processingEndDate="";
+            $scope.data.relativeTransactionDate="";
+            $scope.data.relativeTransactionEndDate="";
         }
 
         //  START FOR EDIT
@@ -580,6 +588,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 delete formData.updatedAt;
                 console.log("formData after Deletion of _Id,createdAt and updatedAtAt", formData);
             }
+            delete formData.createdAt;
             NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
                 var messText = "created";
                 if (data.value === true) {
@@ -940,6 +949,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
     .controller('LoginCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr) {
         //Used to name the .html file
+        $scope.menutitle = NavigationService.makeactive("Login");
         $scope.menutitle = NavigationService.makeactive("Login");
         TemplateService.title = $scope.menutitle;
         $scope.template = TemplateService;

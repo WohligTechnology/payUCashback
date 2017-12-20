@@ -175,7 +175,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         playSelectedEmail: function (ruleArr, callback) {
             console.log("inside navigationservice playSelectedEmail",ruleArr);
             $http({
-                url: 'http://localhost:8080/playnow',
+                url: 'http://172.31.2.124:8080/playnow',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
@@ -189,7 +189,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         viewQueryModal: function (ruleObject, callback) {
             console.log("inside navigationservice viewQueryModal",ruleObject);
             $http({
-                url: 'http://localhost:8080/verifyquery',
+                url: 'http://172.31.2.124:8080/verifyquery',
                 method: 'POST',
                 data: ruleObject,
                 withCredentials: false
