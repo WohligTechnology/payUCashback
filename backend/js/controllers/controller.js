@@ -446,7 +446,6 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             }
         }
         $scope.viewSingleRuleModal = function (singleRule) {
-            $scope.copied="Copy Query";
             console.log("viewSingleRuleModal", singleRule);
             $scope.singleRuleForModal = singleRule;
             $scope.singleRuleModal = $uibModal.open({
@@ -458,6 +457,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         }
 
         $scope.viewQueryModal = function (singleRule) {
+            $scope.copied="Copy Query";
             // console.log("viewSingleRuleModal",singleRule);
             var objectToSend = {
                 ruleId: singleRule._id

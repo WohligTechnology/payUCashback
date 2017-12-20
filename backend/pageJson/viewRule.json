@@ -37,7 +37,7 @@
         "buttonClass": "btn-primary"
     },
     "action": [{
-        "name": "Edit",
+        "name": "Edit Rule",
         "icon": "fa-pencil",
         "buttonClass": "btn-primary",
         "type": "page",
@@ -47,7 +47,7 @@
             "_id": "_id"
         }
     }, {
-        "name": "Delete",
+        "name": "Delete Rule",
         "icon": "fa-trash",
         "buttonClass": "btn-danger",
         "type": "apiCallConfirm",
@@ -60,7 +60,7 @@
             "value": "_id"
         }
     },{
-        "name": "Copy",
+        "name": "Copy Rule",
         "icon": "fa-copy",
         "buttonClass": "btn-primary",
         "type": "page",
