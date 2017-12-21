@@ -25,6 +25,14 @@ var schema = new Schema({
         type: String,
         default: "User",
         enum: ['User', 'Admin', 'Super Admin']
+    },
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    lastUpdatedBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 });
 

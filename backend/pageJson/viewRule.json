@@ -5,6 +5,7 @@
     "rowCheckBox":true,
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
+    "colorExpired": true,
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -24,6 +25,11 @@
         "isSort": "",
         "tableRef": "validTo",
         "type":"formattedDate"
+    },{
+        "name": "Status",
+        "isSort": "",
+        "tableRef": "color",
+        "type":"color"
     }
     ],
     "viewButton":{

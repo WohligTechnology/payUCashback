@@ -8,6 +8,14 @@ var schema = new Schema({
     isDeleted:{
         type:Number,
         default: 0
+    },
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    lastUpdatedBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 });
 

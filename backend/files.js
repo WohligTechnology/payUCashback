@@ -35,6 +35,8 @@ module.exports = [
     'bower_components/textAngular/dist/textAngular-rangy.min.js',
     'bower_components/textAngular/dist/textAngular-sanitize.min.js',
     'bower_components/textAngular/dist/textAngular.min.js',
+    'bower_components/clipboard/dist/clipboard.min.js',
+    'bower_components/ngclipboard/dist/ngclipboard.min.js',
 
     //App.js
     'backend/js/app.js',

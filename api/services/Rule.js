@@ -105,6 +105,14 @@ var schema = new Schema({
     minimumTransactionAmount:{
         type:Number,
         default: 0
+    },
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    lastUpdatedBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 });
 
@@ -181,7 +189,8 @@ var model = {
         },{
             $set:
             {
-                isDeleted: 1
+                isDeleted: 1,
+                isAutomated:"false"
             }
         }, function (err, data2) {
             if (err) {

@@ -321,13 +321,16 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.hasRole = function (roles) {
             // console.log("roles",roles);
             if (roles) {
-                var accessLevel = $.jStorage.get("profile").accessLevel;
-                if (roles.includes(accessLevel)) {
-                    // console.log("you have access");
-                    return true;
-                } else {
-                    return false;
+                if($.jStorage.get("profile")){
+                    var accessLevel = $.jStorage.get("profile").accessLevel;
+                    if (roles.includes(accessLevel)) {
+                        // console.log("you have access");
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
+                
             } else {
                 return true;
             }
@@ -519,6 +522,42 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 function (data, ini) {
                     if (ini == i) {
                         $scope.items = data.data.results;
+                        if($scope.json.json.colorExpired==true){
+                            console.log("right");
+                            _.forEach($scope.items, function(value) {
+                                // console.log(value);
+                                var today = new Date();
+                                var dd = today.getDate();
+                                var mm = today.getMonth()+1; //January is 0!
+                                var yyyy = today.getFullYear();
+                                formattedAngularDate=dd+'/'+mm+'/'+yyyy;  //dd/mm/yyyy
+                                // formattedAngularDate=new Date(formattedAngularDate);
+                                // console.log("angularDate-",formattedAngularDate);
+
+                                var mongoDate=value.validTo;
+                                var mongoDateToDate=new Date(mongoDate);
+                                var dd1 = mongoDateToDate.getUTCDate();
+                                var mm1=mongoDateToDate.getUTCMonth()+1;
+                                var yyyy1=mongoDateToDate.getUTCFullYear();
+                                // console.log("MongoDate-",dd1+'/'+mm1+'/'+yyyy1);
+                                formattedmongoDbDate=dd1+'/'+mm1+'/'+yyyy1;
+                                // formattedmongoDbDate=new Date(formattedmongoDbDate);
+                                console.log("Both 1) Angular-",formattedAngularDate," 2) Mongo-",formattedmongoDbDate);
+
+                                if(formattedAngularDate>formattedmongoDbDate){
+                                    value.color="red";
+                                    // console.log("name-",value.name," color-",value.color);
+                                }else{
+                                    value.color="green";
+                                    // console.log("name-",value.name," color-",value.color);
+                                }
+                                // var today= new Date();
+                                // console.log(new Date(),"today");
+                                // console.log("db date-",value.validTo," new date date-".today)
+                                // var today=new Date();
+                                // if(value.validTo)
+                              });
+                        }
                         $scope.totalItems = data.data.total;
                         $scope.maxRow = data.data.options.count;
                     }
@@ -545,6 +584,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             },{
                 _id: "5a2e38d14c61b12642887f0a", 
                 name: "DISPUTE_RESOLVED"
+            },{
+                _id: "5a2e38a54c61b12642887f06", 
+                name: "AWAITED_ON_CUSTOMER"
+            },{
+                _id: "5a2e38da4c61b12642887f0b", 
+                name: "DOCUMENTS_AWAITED"
+            },{
+                _id: "5a2e38c94c61b12642887f09", 
+                name: "DISPUTE_INITIATED"
             }];
             $scope.data.transactionType=[{
                 _id: "5a2e3a8c821c722c2eb33e87", 
@@ -584,6 +632,13 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             console.log("formData on save", formData);
             // NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
             // });
+            if($.jStorage.get("profile")){
+                console.log("inside jstorage",$.jStorage.get("profile"));
+                var currentLoggedInUser=$.jStorage.get("profile")._id;
+                // formData.createdBy=$.jStorage.get("profile")._id;
+            }else{
+                state.go("login");
+            }
             if ($scope.json.json.createFromEdit == true) {
                 delete formData._id;
                 delete formData.createdAt;
@@ -591,6 +646,17 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 console.log("formData after Deletion of _Id,createdAt and updatedAtAt", formData);
             }
             delete formData.createdAt;
+
+            if(!formData.createdBy){
+                formData.createdBy=currentLoggedInUser;
+            }else{
+                delete formData.createdBy;
+
+            }
+            if ($scope.json.keyword._id) {
+                formData.lastUpdatedBy=currentLoggedInUser;
+            }
+
             NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
                 var messText = "created";
                 if (data.value === true) {
@@ -963,7 +1029,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             console.log("AccessController else");
             $state.go("login");
         }
-
+        $scope.loginError=null;
         $scope.login = function (formData) {
             console.log("login", formData);
             NavigationService.apiCall("User/login", formData, function (data) {
@@ -981,6 +1047,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     });
                     console.log("profileDetails found successfully", $scope.profileDetails);
                 } else {
+                    $scope.loginError=data.error.message;
+                    // console.log("false");
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }
             });

@@ -17,7 +17,8 @@ var myApp = angular.module('myApp', [
     'ngMap',
     'toggle-switch',
     'cfp.hotkeys',
-    'ui.sortable'
+    'ui.sortable',
+    'ngclipboard'
 ]);
 
 myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
