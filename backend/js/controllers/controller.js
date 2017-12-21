@@ -454,7 +454,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             $scope.singleRuleModal = $uibModal.open({
                 animation: true,
                 templateUrl: 'views/modal/SingleRuleModal.html',
-                size: 'lg',
+                size: 'md',
                 scope: $scope
             });
         }

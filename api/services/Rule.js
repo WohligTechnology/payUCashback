@@ -129,6 +129,12 @@ schema.plugin(deepPopulate, {
                 },
                 'transactionType':{
                     select: 'name _id'
+                },
+                'createdBy': {
+                    select: 'name _id email'
+                },
+                'lastUpdatedBy': {
+                    select: 'name _id email'
                 }
             }
             });
@@ -136,7 +142,7 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('Rule', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant applicableMerchant status transactionType', 'merchant applicableMerchant status transactionType'));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant applicableMerchant status transactionType createdBy lastUpdatedBy', 'merchant applicableMerchant status transactionType createdBy lastUpdatedBy'));
 var model = {
     search: function (data, callback) {
         console.log("in custom");
@@ -165,7 +171,7 @@ var model = {
             }).sort({
                 createdAt: -1
             })
-            .populate('merchant applicableMerchant status transactionType')
+            .populate('merchant applicableMerchant status transactionType createdBy lastUpdatedBy')
             .order(options)
             .keyword(options)
             .page(options,
@@ -208,7 +214,7 @@ var model = {
             isAutomated: "true",
             $and:[{validFrom:{$lte:new Date()}},{validTo:{$gte:new Date()}}],
             isDeleted:0
-        }).populate('merchant').exec(function (err, found) {
+        }).populate('merchant applicableMerchant status transactionType createdBy lastUpdatedBy').exec(function (err, found) {
             if (err) {
                 console.log('**** error at getAllAutomated of Rule.js ****', err);
                 callback(err, null);
@@ -225,7 +231,7 @@ var model = {
         Rule.find({
             $and:[{validFrom:{$lte:new Date()}},{validTo:{$gte:new Date()}}],
             isDeleted:0
-        }).populate('merchant').exec(function (err, found) {
+        }).populate('merchant applicableMerchant status transactionType createdBy lastUpdatedBy').exec(function (err, found) {
             if (err) {
                 console.log('**** error at getAllRules of Rule.js ****', err);
                 callback(err, null);
@@ -242,7 +248,7 @@ var model = {
         Rule.find({
             $and:[{validFrom:{$lte:new Date()}},{validTo:{$gte:new Date()}}],
             isDeleted:0
-        }).populate('merchant').exec(function (err, found) {
+        }).populate('merchant applicableMerchant status transactionType createdBy lastUpdatedBy').exec(function (err, found) {
             if (err) {
                 console.log('**** error at getAllCurrentRules of Rule.js ****', err);
                 callback(err, null);

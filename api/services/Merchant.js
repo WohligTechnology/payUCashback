@@ -19,12 +19,21 @@ var schema = new Schema({
     }
 });
 
-schema.plugin(deepPopulate, {});
+schema.plugin(deepPopulate, {
+    populate: {
+        'createdBy': {
+            select: 'name _id email'
+        },
+        'lastUpdatedBy': {
+            select: 'name _id email'
+        }
+    }
+});
 schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('Merchant', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "createdBy lastUpdatedBy", "createdBy lastUpdatedBy"));
 var model = {
     search: function (data, callback) {
         console.log("inside new search");

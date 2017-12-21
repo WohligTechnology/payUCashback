@@ -1,152 +1,234 @@
 <form name="modalForm" ng-submit="$dismiss()" class="min-hit">
-        <div class="modal-header blue-bg  ">
-            <div class="pull-right">
-                <a class="btn btn-clear" ng-click="$dismiss()">
-                    <i class="ln-cross"></i>
+
+    <div class="modal-header blue-bg  ">
+        <div class="pull-right">
+            <a class="btn btn-clear" ng-click="$dismiss()">
+                <i class="ln-cross"></i>
+            </a>
+        </div>
+        <!-- <div class="pull-right" style="margin-right: 10px;">
+                    <span class="btn btn-success" ng-click="copyClick()" ngclipboard data-clipboard-text="{{singleRuleForModal.merchant.name}}">{{copied}}</span>
+            </div>
+        
+            <div class="pull-right" style="margin-right: 10px;">
+                <a href="https://sqlformat.org/" class="btn btn-success" target="_blank">
+                    View Formatted Query
                 </a>
-            </div>
-            <h5 class="modal-title"><b>{{singleRuleForModal.merchant.name}}</b>-{{singleRuleForModal.name}}</h5>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-md-12">
-                    Rule Name- {{singleRuleForModal.name}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    Merchant- {{singleRuleForModal.merchant.name}}
-                </div>
-            </div>
-            <div class="row" ng-if="singleRuleForModal.applicableMerchant">
-                <div class="col-md-12">
-                    Applicable Merchants - <span ng-repeat="aM in singleRuleForModal.applicableMerchant">{{aM.name}} {{$last ? '' : ($index==singleRuleForModal.applicableMerchant.length-2) ? ' and ' : ', '}}</span>
-                </div>
-            </div>
-            <div class="row" ng-if="singleRuleForModal.applicableProduct">
-                <div class="col-md-12">
-                    Applicable Products - {{singleRuleForModal.applicableProduct}}
-                </div>
-            </div>
-            <div class="row" ng-if="singleRuleForModal.percentage">
-                <div class="col-md-12">
-                    Percentage - {{singleRuleForModal.percentage}}
-                </div>
-            </div>
-            <div class="row" ng-if="singleRuleForModal.maximimCashback">
-                <div class="col-md-12">
-                    Maximum Cashback - {{singleRuleForModal.maximumCashback}}
-                </div>
-            </div>
-            <div class="row"ng-if="singleRuleForModal.amount">
-                <div class="col-md-12">
-                    Amount - {{singleRuleForModal.amount}}
-                </div>
-            </div>
-            <div class="row"ng-if="singleRuleForModal.minimumAccumulatedSpend">
-                <div class="col-md-12">
-                        Minimum Accumulated Spend - {{singleRuleForModal.minimumAccumulatedSpend}}
-                </div>
-            </div>
-            <div class="row" ng-if="singleRuleForModal.promoCode">
-                <div class="col-md-12">
-                    Promo Code - {{singleRuleForModal.promoCode}}
-                </div>
-            </div>
-            <div class="row" ng-if="singleRuleForModal.validFrom">
-                <div class="col-md-12">
-                    Valid From - {{singleRuleForModal.validFrom | date : "dd/MM/y"}}
-                </div>
-            </div>
-            <div class="row" ng-if="singleRuleForModal.validTo">
-                <div class="col-md-12">
-                    Valid To - {{singleRuleForModal.validTo | date : "dd/MM/y"}}
-                </div>
-            </div>
-            <div class="row" ng-if="singleRuleForModal.processingStartDate">
-                <div class="col-md-12">
-                    Processing Start Date - {{singleRuleForModal.processingStartDate | date : "dd/MM/y"}}
-                </div>
-            </div>
-            <div class="row" ng-if="singleRuleForModal.processingEndDate">
-                <div class="col-md-12">
-                    Processing End Date - {{singleRuleForModal.processingEndDate | date : "dd/MM/y"}}
-                </div>
-            </div>
-            <div class="row" ng-if="singleRuleForModal.relativeTransactionDate">
-                <div class="col-md-12">
-                        Relative Transaction Start Date - {{singleRuleForModal.relativeTransactionDate | date : "dd/MM/y"}}
-                </div>
-            </div>
-            <div class="row" ng-if="singleRuleForModal.relativeTransactionEndDate">
-                <div class="col-md-12">
-                        Relative Transaction End Date - {{singleRuleForModal.relativeTransactionEndDate | date : "dd/MM/y"}}
-                </div>
-            </div>
-            <div class="row" ng-if="singleRuleForModal.yesterdayMinusXDays">
-                <div class="col-md-12">
-                        Yesterday - X Days - {{singleRuleForModal.yesterdayMinusXDays}}
-                </div>
-            </div>
-            <div class="row" ng-if="singleRuleForModal.isAutomated">
-                <div class="col-md-12">
-                        Is Automated - {{singleRuleForModal.isAutomated}}
-                </div>
-            </div>
-            <div class="row" ng-if="singleRuleForModal.isFirstTransaction">
-                <div class="col-md-12">
-                        Is For Only First Transaction? - {{singleRuleForModal.isFirstTransaction}}
-                </div>
-            </div>
-            <div class="row" ng-if="singleRuleForModal.perUser">
-                <div class="col-md-12">
-                    Number Of Transactions allow per User - {{singleRuleForModal.perUser}}
-                </div>
-            </div>
-            <div class="row" ng-if="singleRuleForModal.generationCriteria">
-                <div class="col-md-12">
-                    Generation Criteria - {{singleRuleForModal.generationCriteria}}
-                </div>
-            </div>
+            </div> -->
 
-            <div class="row" ng-if="singleRuleForModal.queryId">
-                <div class="col-md-12">
-                    Query Id - {{singleRuleForModal.queryId}}
-                </div>
+        <h5 class="modal-title">
+            <b>{{singleRuleForModal.merchant.name}}</b>-{{singleRuleForModal.name}}</h5>
+
+        <!-- <div class="pull-right" style="margin-left: 200px;margin-right: 30px;" ng-if="copied==true">
+                    <span>Copied To Clipboard</span>
+            </div> -->
+
+    </div>
+    <!-- <button class="btn btn-primary" ngclipboard data-clipboard-text="Avinash">Copy</button> -->
+    <!-- <span class="btn btn-primary" ng-click="copyClick()"  ngclipboard data-clipboard-text="{{singleRuleForModal.name}}">Copy</span> -->
+
+    <!-- <button class="btn" ngclipboard data-clipboard-text="Just because you can doesn't mean you should — clipboard.js">
+            Copy to clipboard
+        </button> -->
+    <div class="modal-body">
+        <!-- <div class="row">
+            <div class="singleRuleHeadings">Campaign Details</div>
+            <div class="col-md-6">
+                Rule Name- {{singleRuleForModal.name}}
             </div>
-
-            <div class="row" ng-if="singleRuleForModal.query">
-                <div class="col-md-12">
-                    Actual Query - {{singleRuleForModal.query}}
-                </div>
+            <div class="col-md-6">
+                Merchant- {{singleRuleForModal.merchant.name}}
             </div>
-
-            <br>
-
-            <div class="row" ng-if="singleRuleForModal.status">
-                <div class="col-md-12">
-                    Statuses - <span ng-repeat="item in singleRuleForModal.status">{{item.name}} {{$last ? '' : ($index==singleRuleForModal.status.length-2) ? ' and ' : ', '}}</span>
+            <div class="col-md-6" ng-if="singleRuleForModal.applicableMerchant">
+                    Applicable Merchants -
+                    <span ng-repeat="aM in singleRuleForModal.applicableMerchant">{{aM.name}} {{$last ? '' : ($index==singleRuleForModal.applicableMerchant.length-2) ? ' and ' : ', '}}</span>
                 </div>
-            </div>
-
-            <div class="row" ng-if="singleRuleForModal.transactionType">
-                <div class="col-md-12">
-                    Transaction Types - <span ng-repeat="item in singleRuleForModal.transactionType">{{item.name}} {{$last ? '' : ($index==singleRuleForModal.transactionType.length-2) ? ' and ' : ', '}}</span>
-                </div>
-            </div>
-
-            <div class="row" ng-if="singleRuleForModal.giftCard && singleRuleForModal.giftCard.length > 0">
-                <div class="col-md-12">
-                    Gift Cards -
-                </div>
-                <div class="col-md-12" ng-repeat="gc in singleRuleForModal.giftCard">
-                    <span>{{gc.transaction}}</span> : <span>{{gc.cashbackDetails}}</span><br>
-                </div>
-            </div>
-
-    
-            <div class="text-center">
-                <button class="btn btn-primary btn-save" type="submit" ng-disabled="modalForm.$invalid" ng-click="$dismiss()">Cancel</button>
+        </div> -->
+        <div class="singleRuleHeadings">Campaign Details</div>
+        <div class="row" ng-if="singleRuleForModal.campaignName">
+            <div class="col-md-12">
+                Campaign Name- {{singleRuleForModal.campaignName}}
             </div>
         </div>
-    </form>
+        <div class="row">
+            <div class="col-md-12">
+                Rule Name- {{singleRuleForModal.name}}
+            </div>
+        </div>
+
+        <div class="row" ng-if="singleRuleForModal.queryId">
+            <div class="col-md-12">
+                Query Id - {{singleRuleForModal.queryId}}
+            </div>
+        </div>
+
+        <div class="row" ng-if="singleRuleForModal.query">
+            <div class="col-md-12">
+                Actual Query - {{singleRuleForModal.query}}
+            </div>
+        </div>
+
+        <div class="singleRuleHeadings">Applicability</div>
+
+        <div class="row">
+            <div class="col-md-12">
+                Merchant- {{singleRuleForModal.merchant.name}}
+            </div>
+        </div>
+        <div class="row" ng-if="singleRuleForModal.applicableMerchant">
+            <div class="col-md-12">
+                Applicable Merchants -
+                <span ng-repeat="aM in singleRuleForModal.applicableMerchant">{{aM.name}} {{$last ? '' : ($index==singleRuleForModal.applicableMerchant.length-2) ? ' and ' : ', '}}</span>
+            </div>
+        </div>
+        <div class="row" ng-if="singleRuleForModal.applicableProduct">
+            <div class="col-md-12">
+                Applicable Products - {{singleRuleForModal.applicableProduct}}
+            </div>
+        </div>
+
+        <div class="row" ng-if="singleRuleForModal.promoCode">
+            <div class="col-md-12">
+                Promo Code - {{singleRuleForModal.promoCode}}
+            </div>
+        </div>
+        <div class="singleRuleHeadings">Cashback Amount Conditions</div>
+
+        <div class="row" ng-if="singleRuleForModal.percentage">
+            <div class="col-md-12">
+                Percentage - {{singleRuleForModal.percentage}}
+            </div>
+        </div>
+        <div class="row" ng-if="singleRuleForModal.maximimCashback">
+            <div class="col-md-12">
+                Maximum Cashback - {{singleRuleForModal.maximumCashback}}
+            </div>
+        </div>
+        <div class="row" ng-if="singleRuleForModal.amount">
+            <div class="col-md-12">
+                Flat Amount - {{singleRuleForModal.amount}}
+            </div>
+        </div>
+        <div class="row" ng-if="singleRuleForModal.minimumAccumulatedSpend">
+            <div class="col-md-12">
+                Minimum Accumulated Spend - {{singleRuleForModal.minimumAccumulatedSpend}}
+            </div>
+        </div>
+        <div class="row" ng-if="singleRuleForModal.minimumAccumulatedSpendInNumberOfDays">
+            <div class="col-md-12">
+                Minimum Accumulated Spend In Number Of Days - {{singleRuleForModal.minimumAccumulatedSpendInNumberOfDays}}
+            </div>
+        </div>
+
+
+        <div class="singleRuleHeadings">Transaction Conditions</div>
+        <div class="row" ng-if="singleRuleForModal.isFirstTransaction">
+            <div class="col-md-12">
+                Is For Only First Transaction? - {{singleRuleForModal.isFirstTransaction}}
+            </div>
+        </div>
+        <div class="row" ng-if="singleRuleForModal.perUser">
+            <div class="col-md-12">
+                Number Of Transactions allow per User - {{singleRuleForModal.perUser}}
+            </div>
+        </div>
+        <div class="row" ng-if="singleRuleForModal.minimumTransactionAmount">
+            <div class="col-md-12">
+                Minimum Transaction Amount - {{singleRuleForModal.minimumTransactionAmount}}
+            </div>
+        </div>
+
+        <div class="singleRuleHeadings">Campaign Period</div>
+        <div class="row" ng-if="singleRuleForModal.validFrom">
+            <div class="col-md-12">
+                Valid From - {{singleRuleForModal.validFrom | date : "dd/MM/y"}}
+            </div>
+        </div>
+        <div class="row" ng-if="singleRuleForModal.validTo">
+            <div class="col-md-12">
+                Valid To - {{singleRuleForModal.validTo | date : "dd/MM/y"}}
+            </div>
+        </div>
+
+        <div class="singleRuleHeadings">Processing Conditions</div>
+        <div class="row" ng-if="singleRuleForModal.isAutomated">
+            <div class="col-md-12">
+                Is Automated - {{singleRuleForModal.isAutomated}}
+            </div>
+        </div>
+        <div class="row" ng-if="singleRuleForModal.generationCriteria">
+            <div class="col-md-12">
+                Generation Criteria - {{singleRuleForModal.generationCriteria}}
+            </div>
+        </div>
+        <div class="row" ng-if="singleRuleForModal.processingStartDate">
+            <div class="col-md-12">
+                Processing Start Date - {{singleRuleForModal.processingStartDate | date : "dd/MM/y"}}
+            </div>
+        </div>
+        <div class="row" ng-if="singleRuleForModal.processingEndDate">
+            <div class="col-md-12">
+                Processing End Date - {{singleRuleForModal.processingEndDate | date : "dd/MM/y"}}
+            </div>
+        </div>
+        <div class="row" ng-if="singleRuleForModal.relativeTransactionDate">
+            <div class="col-md-12">
+                Relative Transaction Start Date - {{singleRuleForModal.relativeTransactionDate | date : "dd/MM/y"}}
+            </div>
+        </div>
+        <div class="row" ng-if="singleRuleForModal.relativeTransactionEndDate">
+            <div class="col-md-12">
+                Relative Transaction End Date - {{singleRuleForModal.relativeTransactionEndDate | date : "dd/MM/y"}}
+            </div>
+        </div>
+        <div class="row" ng-if="singleRuleForModal.yesterdayMinusXDays">
+            <div class="col-md-12">
+                Yesterday - X Days - {{singleRuleForModal.yesterdayMinusXDays}}
+            </div>
+        </div>
+
+        <div class="singleRuleHeadings">Transaction Statuses & Transaction Types</div>
+        <div class="row" ng-if="singleRuleForModal.status">
+            <div class="col-md-12">
+                Statuses -
+                <span ng-repeat="item in singleRuleForModal.status">{{item.name}} {{$last ? '' : ($index==singleRuleForModal.status.length-2) ? ' and ' : ', '}}</span>
+            </div>
+        </div>
+
+        <div class="row" ng-if="singleRuleForModal.transactionType">
+            <div class="col-md-12">
+                Transaction Types -
+                <span ng-repeat="item in singleRuleForModal.transactionType">{{item.name}} {{$last ? '' : ($index==singleRuleForModal.transactionType.length-2) ? ' and ' : ', '}}</span>
+            </div>
+        </div>
+
+        <div class="singleRuleHeadings">Created By and Last Updated By</div>
+        <div class="row" ng-if="singleRuleForModal.createdBy">
+            <div class="col-md-12">
+                Created By - {{singleRuleForModal.createdBy.name}}
+            </div>
+        </div>
+        <div class="row" ng-if="singleRuleForModal.createdBy">
+            <div class="col-md-12">
+                Last Updated By - {{singleRuleForModal.lastUpdatedBy.name}}
+            </div>
+        </div>
+
+        <div class="singleRuleHeadings" ng-if="singleRuleForModal.giftCard && singleRuleForModal.giftCard.length > 0">Gift Cards</div>
+        <div class="row" ng-if="singleRuleForModal.giftCard && singleRuleForModal.giftCard.length > 0">
+            <div class="col-md-12">
+                Gift Cards -
+            </div>
+            <div class="col-md-12" ng-repeat="gc in singleRuleForModal.giftCard">
+                <span>{{gc.transaction}}</span> :
+                <span>{{gc.cashbackDetails}}</span>
+                <br>
+            </div>
+        </div>
+
+
+        <div class="text-center">
+            <button class="btn btn-primary btn-save" type="submit" ng-disabled="modalForm.$invalid" ng-click="$dismiss()">Cancel</button>
+        </div>
+    </div>
+</form>

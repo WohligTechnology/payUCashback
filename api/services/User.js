@@ -38,8 +38,11 @@ var schema = new Schema({
 
 schema.plugin(deepPopulate, {
     populate: {
-        'user': {
-            select: 'name _id'
+        'createdBy': {
+            select: 'name _id email'
+        },
+        'lastUpdatedBy': {
+            select: 'name _id email'
         }
     }
 });
@@ -48,7 +51,7 @@ schema.plugin(timestamps);
 
 module.exports = mongoose.model('User', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "user", "user"));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "createdBy", "lastUpdatedBy"));
 var model = {
     doLogin: function (data, callback) {
         console.log("data", data)
