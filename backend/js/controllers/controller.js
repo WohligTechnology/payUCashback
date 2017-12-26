@@ -292,6 +292,28 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         //     $scope.showId="$stateParams.stateName.passingId",$stateParams.stateName.passingId;
         // }
 
+
+        //check page accessable or not
+        console.log("roles of page", $scope.json.json.roles);
+        if ($scope.json.json.roles) {
+            console.log($scope.json.json.roles);
+            if ($.jStorage.get("profile")) {
+                var accessLevel = $.jStorage.get("profile").accessLevel;
+                if ($scope.json.json.roles.includes(accessLevel)) {
+                    console.log("you have access");
+
+                    // return true;
+                } else {
+                    // return false;
+                    console.log("you have no access");
+                    toastr.error("You Have No Access To " + $scope.json.json.description + " Page");
+                    $state.go("dashboard");
+                }
+            }
+        }
+
+        //check page accessable or not ends here
+
         $scope.viewModal = false;
         $scope.editButton = false;
         $scope.deleteButton = false;
@@ -321,7 +343,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.hasRole = function (roles) {
             // console.log("roles",roles);
             if (roles) {
-                if($.jStorage.get("profile")){
+                if ($.jStorage.get("profile")) {
                     var accessLevel = $.jStorage.get("profile").accessLevel;
                     if (roles.includes(accessLevel)) {
                         // console.log("you have access");
@@ -330,7 +352,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                         return false;
                     }
                 }
-                
+
             } else {
                 return true;
             }
@@ -347,8 +369,58 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         if ($stateParams.keyword) {
             $scope.search.keyword = $stateParams.keyword;
         }
+        // $scope.checkboxClick = function (ruleObject) {
+        //     console.log("id in checkboxClick", ruleObject);
+
+        //     var today = new Date();
+        //     var dd = today.getDate();
+        //     var mm = today.getMonth() + 1; //January is 0!
+        //     var yyyy = today.getFullYear();
+        //     formattedAngularDate = dd + '/' + mm + '/' + yyyy;
+
+        //     var arrStartDate = formattedAngularDate.split("/");
+        //     var date1 = new Date(arrStartDate[2], arrStartDate[1], arrStartDate[0]);
+
+        //     // formattedAngularDate = dd + '/' + mm + '/' + yyyy; //dd/mm/yyyy
+
+        //     var mongoDate = ruleObject.validFrom;
+        //     var mongoDateToDate = new Date(mongoDate);
+        //     var dd1 = mongoDateToDate.getUTCDate();
+        //     var mm1 = mongoDateToDate.getUTCMonth() + 1;
+        //     var yyyy1 = mongoDateToDate.getUTCFullYear();
+        //     formattedmongoDbDate = dd1 + '/' + mm1 + '/' + yyyy1;
+
+        //     var arrEndDate = formattedmongoDbDate.split("/");
+        //     var date2 = new Date(arrEndDate[2], arrEndDate[1], arrEndDate[0]);
+        //     // formattedmongoDbDate = dd1 + '/' + mm1 + '/' + yyyy1;
+
+        //     console.log("Both 1) Angular-", date1, " 2) Mongo-", date2);
+
+        //     if (date1 < date2) {
+        //         console.log("Today's Date is less than Rule Date");
+        //     } else {
+        //         var id = ruleObject._id;
+        //         console.log("Today's Date is greater than Rule Date");
+        //         var idx = $.inArray(id, $scope.selectArr);
+        //         if (idx == -1) {
+        //             $scope.selectArr.push(id);
+        //             console.log("in if after push", $scope.selectArr);
+        //         } else {
+        //             $scope.selectArr.splice(idx, 1);
+        //             console.log("in else after splice", $scope.selectArr);
+        //         }
+        //     }
+        //     // NavigationService.playSelectedEmail(objectToSend, function (data) {
+        //     //     console.log("*****", data);
+        //     //     var count = data.data.cashbackCount;
+        //     // });
+
+
+        // }
+
+
         $scope.checkboxClick = function (id) {
-            console.log("id in avinashClick", id);
+            console.log("id in checkboxClick", id);
             var idx = $.inArray(id, $scope.selectArr);
             if (idx == -1) {
                 $scope.selectArr.push(id);
@@ -367,6 +439,22 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 $scope.playSelectedFolderNameModal = $uibModal.open({
                     animation: true,
                     templateUrl: 'views/modal/playSelectedFolderNameModal.html',
+                    size: 'md',
+                    scope: $scope
+                });
+            }
+
+        }
+
+        $scope.playSelectedAllClick = function () {
+            console.log("allSelectedRules",$scope.allSelectedRules);
+            if ($scope.allSelectedRules.length == 0) {
+                console.log("empty array inside playSelectedAllClick if");
+                alert("No Rules to Play");
+            } else {
+                $scope.playSelectedFolderNameModal = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'views/modal/playAllRuleFolderNameModal.html',
                     size: 'md',
                     scope: $scope
                 });
@@ -448,6 +536,64 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 })
             }
         }
+
+
+        $scope.playAllClickAfterFolderName = function (formData) {
+            // console.log("formData in playAllClickAfterFolderName",formData);
+            if ($.jStorage.get("profile")) {
+                var loggedInUserId = $.jStorage.get("profile")._id;
+            } else {
+                loggedInUserId = null;
+            }
+            var folder = formData.name;
+            var objectToSend = {
+                userId: loggedInUserId,
+                folderName: folder
+            };
+
+            if ($scope.allSelectedRules.length == 0) {
+                console.log("empty array inside playSelectedClick if");
+                alert("No Rules To Play!!!");
+            } else {
+                objectToSend.ruleIds = $scope.allSelectedRules;
+                console.log("selected id inside playSelectedClick else", objectToSend);
+
+                NavigationService.playSelectedEmail(objectToSend, function (data) {
+                    console.log("*****", data);
+                    var count = data.data.cashbackCount;
+                    if (data.data.success == true) {
+                        toastr.success("Rules Played Successfully. Total Cashback Count is - " + count, {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "4000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    } else {
+                        toastr.error("Failed To Play Rules", {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "2000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    }
+                    $state.reload();
+                    
+                })
+            }
+        }
+
         $scope.viewSingleRuleModal = function (singleRule) {
             console.log("viewSingleRuleModal", singleRule);
             $scope.singleRuleForModal = singleRule;
@@ -460,7 +606,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         }
 
         $scope.viewQueryModal = function (singleRule) {
-            $scope.copied="Copy Query";
+            $scope.copied = "Copy Query";
             // console.log("viewSingleRuleModal",singleRule);
             var objectToSend = {
                 ruleId: singleRule._id
@@ -492,10 +638,10 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             })
 
         }
-        
-        $scope.copyClick=function(){
+
+        $scope.copyClick = function () {
             console.log("copyClick clicked");
-            $scope.copied="Copied";
+            $scope.copied = "Copied";
         }
         $scope.changePage = function (page) {
             var goTo = "page";
@@ -508,7 +654,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 keyword: $scope.search.keyword
             });
         };
-
+        $scope.allSelectedRules=[];
         $scope.getAllItems = function (keywordChange) {
             console.log("inside getAllItems");
             $scope.totalItems = undefined;
@@ -522,41 +668,93 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 function (data, ini) {
                     if (ini == i) {
                         $scope.items = data.data.results;
-                        if($scope.json.json.colorExpired==true){
+                        if ($scope.json.json.colorExpired == true) {
                             console.log("right");
-                            _.forEach($scope.items, function(value) {
-                                // console.log(value);
+                            _.forEach($scope.items, function (value) {
+
+
                                 var today = new Date();
                                 var dd = today.getDate();
-                                var mm = today.getMonth()+1; //January is 0!
+                                var mm = today.getMonth() + 1; //January is 0!
                                 var yyyy = today.getFullYear();
-                                formattedAngularDate=dd+'/'+mm+'/'+yyyy;  //dd/mm/yyyy
-                                // formattedAngularDate=new Date(formattedAngularDate);
-                                // console.log("angularDate-",formattedAngularDate);
+                                formattedAngularDate = dd + '/' + mm + '/' + yyyy;
 
-                                var mongoDate=value.validTo;
-                                var mongoDateToDate=new Date(mongoDate);
+                                var arrStartDate = formattedAngularDate.split("/");
+                                var date1 = new Date(arrStartDate[2], arrStartDate[1], arrStartDate[0]);
+
+                                // formattedAngularDate = dd + '/' + mm + '/' + yyyy; //dd/mm/yyyy
+
+                                var mongoDate = value.validTo;
+                                var mongoDateToDate = new Date(mongoDate);
                                 var dd1 = mongoDateToDate.getUTCDate();
-                                var mm1=mongoDateToDate.getUTCMonth()+1;
-                                var yyyy1=mongoDateToDate.getUTCFullYear();
-                                // console.log("MongoDate-",dd1+'/'+mm1+'/'+yyyy1);
-                                formattedmongoDbDate=dd1+'/'+mm1+'/'+yyyy1;
-                                // formattedmongoDbDate=new Date(formattedmongoDbDate);
-                                console.log("Both 1) Angular-",formattedAngularDate," 2) Mongo-",formattedmongoDbDate);
+                                var mm1 = mongoDateToDate.getUTCMonth() + 1;
+                                var yyyy1 = mongoDateToDate.getUTCFullYear();
+                                formattedmongoDbDate = dd1 + '/' + mm1 + '/' + yyyy1;
 
-                                if(formattedAngularDate>formattedmongoDbDate){
-                                    value.color="red";
+                                var arrEndDate = formattedmongoDbDate.split("/");
+                                var date2 = new Date(arrEndDate[2], arrEndDate[1], arrEndDate[0]);
+
+
+                                var mongoDateFrom = value.validFrom;
+                                var mongoDateToDateFrom = new Date(mongoDateFrom);
+                                var dd1 = mongoDateToDateFrom.getUTCDate();
+                                var mm1 = mongoDateToDateFrom.getUTCMonth() + 1;
+                                var yyyy1 = mongoDateToDateFrom.getUTCFullYear();
+                                formattedmongoDbDateFrom = dd1 + '/' + mm1 + '/' + yyyy1;
+
+                                var arrFromDate = formattedmongoDbDateFrom.split("/");
+                                var date3 = new Date(arrFromDate[2], arrFromDate[1], arrFromDate[0]);
+                                // formattedmongoDbDate = dd1 + '/' + mm1 + '/' + yyyy1;
+
+                                console.log("Both 1) Angular-", date1, " 2) Mongo-", date2);
+
+                                if (date1 > date2) {
+                                    value.color = "red";
+                                    value.active=true;
+                                    $scope.allSelectedRules.push(value._id);
+                                    // console.log("name-",value.name," color-",value.color);
+                                } else if(date1 <= date2 && date1>=date3){
+                                    value.color = "green";
+                                    value.active=true;
+                                    $scope.allSelectedRules.push(value._id);
                                     // console.log("name-",value.name," color-",value.color);
                                 }else{
-                                    value.color="green";
-                                    // console.log("name-",value.name," color-",value.color);
+                                    value.color = "yellow";
+                                    value.active=false;
                                 }
+
+                                // console.log(value);
+                                // var today = new Date();
+                                // var dd = today.getDate();
+                                // var mm = today.getMonth() + 1; //January is 0!
+                                // var yyyy = today.getFullYear();
+                                // formattedAngularDate = dd + '/' + mm + '/' + yyyy; //dd/mm/yyyy
+                                // // formattedAngularDate=new Date(formattedAngularDate);
+                                // // console.log("angularDate-",formattedAngularDate);
+
+                                // var mongoDate = value.validTo;
+                                // var mongoDateToDate = new Date(mongoDate);
+                                // var dd1 = mongoDateToDate.getUTCDate();
+                                // var mm1 = mongoDateToDate.getUTCMonth() + 1;
+                                // var yyyy1 = mongoDateToDate.getUTCFullYear();
+                                // // console.log("MongoDate-",dd1+'/'+mm1+'/'+yyyy1);
+                                // formattedmongoDbDate = dd1 + '/' + mm1 + '/' + yyyy1;
+                                // // formattedmongoDbDate=new Date(formattedmongoDbDate);
+                                // console.log("Both 1) Angular-", formattedAngularDate, " 2) Mongo-", formattedmongoDbDate);
+
+                                // if (formattedAngularDate > formattedmongoDbDate) {
+                                //     value.color = "red";
+                                //     // console.log("name-",value.name," color-",value.color);
+                                // } else {
+                                //     value.color = "green";
+                                //     // console.log("name-",value.name," color-",value.color);
+                                // }
                                 // var today= new Date();
                                 // console.log(new Date(),"today");
                                 // console.log("db date-",value.validTo," new date date-".today)
                                 // var today=new Date();
                                 // if(value.validTo)
-                              });
+                            });
                         }
                         $scope.totalItems = data.data.total;
                         $scope.maxRow = data.data.options.count;
@@ -576,35 +774,55 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         console.log("detail controller");
         console.log("$scope.json", $scope.json);
 
-        if($scope.json.json.pageType=='create' && $scope.json.json.title=='Create Rule'){
+        console.log("roles of page", $scope.json.json.roles);
+        if ($scope.json.json.roles) {
+            console.log($scope.json.json.roles);
+            if ($.jStorage.get("profile")) {
+                var accessLevel = $.jStorage.get("profile").accessLevel;
+                if ($scope.json.json.roles.includes(accessLevel)) {
+                    console.log("you have access");
+
+                    // return true;
+                } else {
+                    // return false;
+                    console.log("current state", $state.current);
+                    console.log("you have no access");
+                    toastr.error("You Have No Access To " + $scope.json.json.title + " Page");
+                    $state.go("dashboard");
+                }
+            }
+        }
+
+
+        if ($scope.json.json.pageType == 'create' && $scope.json.json.title == 'Create Rule') {
             console.log("right");
-            $scope.data.status=[{
+            $scope.data.status = [{
                 _id: "5a2e38f14c61b12642887f0e",
-                 name: "SUCCESS"
-            },{
-                _id: "5a2e38d14c61b12642887f0a", 
+                name: "SUCCESS"
+            }, {
+                _id: "5a2e38d14c61b12642887f0a",
                 name: "DISPUTE_RESOLVED"
-            },{
-                _id: "5a2e38a54c61b12642887f06", 
+            }, {
+                _id: "5a2e38a54c61b12642887f06",
                 name: "AWAITED_ON_CUSTOMER"
-            },{
-                _id: "5a2e38da4c61b12642887f0b", 
+            }, {
+                _id: "5a2e38da4c61b12642887f0b",
                 name: "DOCUMENTS_AWAITED"
-            },{
-                _id: "5a2e38c94c61b12642887f09", 
+            }, {
+                _id: "5a2e38c94c61b12642887f09",
                 name: "DISPUTE_INITIATED"
             }];
-            $scope.data.transactionType=[{
-                _id: "5a2e3a8c821c722c2eb33e87", 
+            $scope.data.transactionType = [{
+                _id: "5a2e3a8c821c722c2eb33e87",
                 name: "SALE"
-            },{
-                _id: "5a2e3ab0821c722c2eb33e8b", 
+            }, {
+                _id: "5a2e3ab0821c722c2eb33e8b",
                 name: "VERIFICATION_TXN"
             }];
-            $scope.data.processingStartDate="";
-            $scope.data.processingEndDate="";
-            $scope.data.relativeTransactionDate="";
-            $scope.data.relativeTransactionEndDate="";
+            $scope.data.processingStartDate = "";
+            $scope.data.processingEndDate = "";
+            $scope.data.relativeTransactionDate = "";
+            $scope.data.relativeTransactionEndDate = "";
         }
 
         //  START FOR EDIT
@@ -613,7 +831,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             obj[$scope.json.json.preApi.params] = $scope.json.keyword._id;
             NavigationService.apiCall($scope.json.json.preApi.url, obj, function (data) {
                 $scope.data = data.data;
-                console.log("preapi Data",$scope.data);
+                console.log("preapi Data", $scope.data);
                 $scope.generateField = true;
 
             });
@@ -632,11 +850,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             console.log("formData on save", formData);
             // NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
             // });
-            if($.jStorage.get("profile")){
-                console.log("inside jstorage",$.jStorage.get("profile"));
-                var currentLoggedInUser=$.jStorage.get("profile")._id;
+            if ($.jStorage.get("profile")) {
+                console.log("inside jstorage", $.jStorage.get("profile"));
+                var currentLoggedInUser = $.jStorage.get("profile")._id;
                 // formData.createdBy=$.jStorage.get("profile")._id;
-            }else{
+            } else {
                 state.go("login");
             }
             if ($scope.json.json.createFromEdit == true) {
@@ -647,14 +865,14 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             }
             delete formData.createdAt;
 
-            if(!formData.createdBy){
-                formData.createdBy=currentLoggedInUser;
-            }else{
+            if (!formData.createdBy) {
+                formData.createdBy = currentLoggedInUser;
+            } else {
                 delete formData.createdBy;
 
             }
             if ($scope.json.keyword._id) {
-                formData.lastUpdatedBy=currentLoggedInUser;
+                formData.lastUpdatedBy = currentLoggedInUser;
             }
 
             NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
@@ -1029,7 +1247,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             console.log("AccessController else");
             $state.go("login");
         }
-        $scope.loginError=null;
+        $scope.loginError = null;
         $scope.login = function (formData) {
             console.log("login", formData);
             NavigationService.apiCall("User/login", formData, function (data) {
@@ -1047,7 +1265,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     });
                     console.log("profileDetails found successfully", $scope.profileDetails);
                 } else {
-                    $scope.loginError=data.error.message;
+                    $scope.loginError = data.error.message;
                     // console.log("false");
                     //  toastr.warning('Error submitting the form', 'Please try again');
                 }

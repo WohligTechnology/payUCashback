@@ -41,7 +41,7 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="item in items">
-                                        <td ng-if="json.json.rowCheckBox==true"><input type="checkbox" ng-model="myChkModel" ng-change="checkboxClick(item._id)"></td>
+                                        <td ng-if="json.json.rowCheckBox==true"><input ng-if="item.active==true" type="checkbox" ng-model="myChkModel" ng-change="checkboxClick(item._id)"></td>
                                         <td>{{($index + 1)+((currentPage-1)*maxRow)}}</td>
                                         <td ng-repeat="field in json.json.fields">
                                             <view-field type="field" value="item"></view-field>
@@ -62,10 +62,15 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div ng-if="json.json.bottomButton">
-                                <a class="btn btn-primary" ng-class="btn.class " ng-click="playSelectedClick()">{{json.json.bottomButton[0].name}}</a>
+                        <div>
+                                <a class="btn btn-primary" ng-if="json.json.bottomButton" ng-show="hasRole({{json.json.bottomButton[0].roles}})" ng-class="btn.class " ng-click="playSelectedClick()">{{json.json.bottomButton[0].name}}</a>
+                                <a class="btn btn-primary" ng-if="json.json.bottomButtonPlayAll" ng-show="hasRole({{json.json.bottomButtonPlayAll[0].roles}})" ng-class="btn.class " ng-click="playSelectedAllClick()">{{json.json.bottomButtonPlayAll[0].name}}</a>
                                 
-                        </div><br>
+                        </div>
+                        <!-- <div ng-if="json.json.bottomButtonPlayAll">
+                                
+                        </div> -->
+                        <br>
                         <div class="tableData " ng-show="totalItems===0 ">
                             <h5>No data found</h5>
                         </div>

@@ -494,6 +494,15 @@ myApp.directive('detailField', function ($http, $filter, JsonService) {
                 }
             }
 
+            $scope.condition.hidePerUser = function() {
+                console.log("avinash");
+                // if($scope.formData["isFirstTransaction"]=="true"){
+                //     return true;
+                // } else {
+                //     return false;
+                // }
+            }
+
 
         }
     };

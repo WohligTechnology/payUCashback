@@ -20,7 +20,7 @@ myApp.factory('NavigationService', function ($http,$state) {
                 sref: "#!/page/viewRule//"
             }
             ];
-        } else if($.jStorage.get("profile").accessLevel=="Admin"){
+        } else if($.jStorage.get("profile").accessLevel=="Creator"){
             var navigation = [{
                 name: "Merchant",
                 classis: "active",
@@ -31,7 +31,18 @@ myApp.factory('NavigationService', function ($http,$state) {
                 sref: "#!/page/viewRule//"
             }
             ];
-        } else if($.jStorage.get("profile").accessLevel=="User"){
+        } else if($.jStorage.get("profile").accessLevel=="Executor"){
+            var navigation = [{
+                name: "Merchant",
+                classis: "active",
+                sref: "#!/page/viewMerchant//"
+            },{
+                name: "Rule",
+                classis: "active",
+                sref: "#!/page/viewRule//"
+            }
+            ];
+        } else if($.jStorage.get("profile").accessLevel=="Viewer"){
             var navigation = [{
                 name: "Merchant",
                 classis: "active",

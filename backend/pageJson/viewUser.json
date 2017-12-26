@@ -4,6 +4,7 @@
     "pageType": "view",
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
+    "roles":["Super Admin"],
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -13,9 +14,9 @@
         "isSort": "",
         "tableRef": "email"
     }, {
-        "name": "Mobile",
+        "name": "Accesslevel",
         "isSort": "",
-        "tableRef": "mobile"
+        "tableRef": "accessLevel"
     }],
     "action": [{
         "name": "edit",

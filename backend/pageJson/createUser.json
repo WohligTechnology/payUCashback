@@ -5,6 +5,7 @@
     "desciption": "",
     "pageType": "create",
     "urlFields": ["User"],
+    "roles":["Super Admin"],
     "fields": [{
         "name": "Name",
         "type": "text",
@@ -19,7 +20,7 @@
         "tableRef": "email",
         "placeholder": "Enter Email",
         "id": "email",
-        "validation": ["", "trim", "unique"],
+        "validation": ["required", "trim", "unique"],
         "url": ""
     }, {
         "name": "Password",
@@ -35,7 +36,7 @@
         "tableRef": "mobile",
         "placeholder": "Enter mobile",
         "id": "mobile",
-        "validation": ["required", "trim", "unique"],
+        "validation": ["", "trim", "unique"],
         "url": ""
     }, {
         "name": "AccessLevel",
@@ -43,12 +44,12 @@
         "tableRef": "accessLevel",
         "placeholder": "Enter Title",
         "id": "status",
-        "validation": ["", "trim", ""],
+        "validation": ["required", "trim", ""],
         "url": "",
         "dropDownField": "",
         "dropDownType": "single",
         "onView": true,
-        "dropDown": ["User", "Admin","Super Admin"]
+        "dropDown": ["Super Admin", "Creator", "Executor", "Viewer"]
     }],
     "action": [{
         "name": "submit",

@@ -4,6 +4,7 @@
     "pageType": "view",
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
+    "roles":["Super Admin"],
     "fields": [{
         "name": "Name",
         "isSort": "",

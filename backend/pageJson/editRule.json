@@ -5,6 +5,7 @@
     "desciption": "",
     "pageType": "edit",
     "urlFields": ["_id"],
+    "roles":["Super Admin"],
     "fields": [{
         "name": "Campaign Details",
         "type": "heading",
@@ -132,7 +133,8 @@
         "placeholder": "Enter Minimum Accumulated Spend In Number Of Days",
         "id": "minimumAccumulatedSpendInNumberOfDays",
         "validation": ["", "trim"],
-        "url": ""
+        "url": "",
+        "hideCondition":"percentage"
     }, {
         "name": "Transaction Conditions",
         "type": "heading",

@@ -6,6 +6,7 @@
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
     "colorExpired": true,
+    "roles":["Super Admin"],
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -48,7 +49,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editRule",
-        "roles":["Admin","Super Admin"],
+        "roles":["Super Admin"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -71,7 +72,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "copyRule",  
-        "roles":["Admin","Super Admin"], 
+        "roles":["Super Admin"], 
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -82,7 +83,7 @@
         "class": "btn-success",
         "type": "page",
         "action": "createRule",
-        "roles":["Admin","Super Admin"]
+        "roles":["Super Admin"]
     }],
     "bottomButton": [{
         "name": "Play Selected",
@@ -91,7 +92,16 @@
         "type": "page",
         "action": "",
         "functionName":"playSelectedClick()",
-        "roles":["Admin","Super Admin"]
+        "roles":["Super Admin"]
+    }],
+    "bottomButtonPlayAll": [{
+        "name": "Play All Rules",
+        "icon": "plus",
+        "class": "btn-success",
+        "type": "page",
+        "action": "",
+        "functionName":"playSelectedAllClick()",
+        "roles":["Super Admin"]
     }],
     "apiCall": {
         "url": "Rule/search",

@@ -5,6 +5,7 @@
     "desciption": "",
     "pageType": "edit",
     "urlFields": ["_id"],
+    "roles":["Super Admin"],
     "fields": [{
         "name": "Name :",
         "type": "text",
