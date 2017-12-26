@@ -169,11 +169,20 @@
         "url": "",
         "hideMethod":"hidePerUser"
     }, {
-        "name": "N th Per User Transaction",
+        "name": "Nth Per User Transaction",
         "type": "text",
         "tableRef": "nthPerUserTransaction",
-        "placeholder": "N th Per User Transaction",
+        "placeholder": "Nth Per User Transaction",
         "id": "nthPerUserTransaction",
+        "validation": ["", "trim", ""],
+        "url": "",
+        "hideMethod":"hidePerUser"
+    }, {
+        "name": "Nth Per User Transactions Offer",
+        "type": "text",
+        "tableRef": "nthPerUserTransactionOffer",
+        "placeholder": "Enter Nth Per User Transactions Offer",
+        "id": "nthPerUserTransactionOffer",
         "validation": ["", "trim", ""],
         "url": "",
         "hideMethod":"hidePerUser"
