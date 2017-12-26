@@ -5,7 +5,7 @@
     "desciption": "",
     "pageType": "edit",
     "urlFields": ["_id"],
-    "roles":["Super Admin"],
+    "roles":["Super Admin","Creator"],
     "fields": [{
         "name": "Campaign Details",
         "type": "heading",
@@ -159,6 +159,24 @@
         "id": "perUser",
         "validation": ["", "trim", ""],
         "url": ""
+    }, {
+        "name": "Per User Transactions Offer",
+        "type": "text",
+        "tableRef": "perUserTransactionOffer",
+        "placeholder": "Enter Per User Transactions Offer",
+        "id": "perUserperUserTransactionOffer",
+        "validation": ["", "trim", ""],
+        "url": "",
+        "hideMethod":"hidePerUser"
+    }, {
+        "name": "N th Per User Transaction",
+        "type": "text",
+        "tableRef": "nthPerUserTransaction",
+        "placeholder": "N th Per User Transaction",
+        "id": "nthPerUserTransaction",
+        "validation": ["", "trim", ""],
+        "url": "",
+        "hideMethod":"hidePerUser"
     }, {
         "name": "Minimum Transaction Amount",
         "type": "text",

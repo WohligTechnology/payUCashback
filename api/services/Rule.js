@@ -58,6 +58,14 @@ var schema = new Schema({
         type:String,
         default:"1"
     },
+    perUserTransactionOffer:{
+        type:String,
+        default:"0"
+    },
+    nthPerUserTransaction:{
+        type:String,
+        default:"0"
+    },
     generationCriteria:{
         type: String,
         default: "Daily",

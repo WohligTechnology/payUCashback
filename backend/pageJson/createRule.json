@@ -5,7 +5,7 @@
     "desciption": "",
     "pageType": "create",
     "urlFields": ["Rule"],
-    "roles":["Super Admin"],
+    "roles":["Super Admin","Creator"],
     "fields": [{
         "name": "Campaign Details",
         "type": "heading",
@@ -152,11 +152,29 @@
         "onView": true,
         "dropDown": ["true", "false"]
     }, {
-        "name": "Per User Transactions",
+        "name": "Per User Transactions Ever",
         "type": "text",
         "tableRef": "perUser",
-        "placeholder": "Enter Per User Transactions",
+        "placeholder": "Enter Per User Transactions Ever",
         "id": "perUser",
+        "validation": ["", "trim", ""],
+        "url": "",
+        "hideMethod":"hidePerUser"
+    }, {
+        "name": "Per User Transactions Offer",
+        "type": "text",
+        "tableRef": "perUserTransactionOffer",
+        "placeholder": "Enter Per User Transactions Offer",
+        "id": "perUserperUserTransactionOffer",
+        "validation": ["", "trim", ""],
+        "url": "",
+        "hideMethod":"hidePerUser"
+    }, {
+        "name": "N th Per User Transaction",
+        "type": "text",
+        "tableRef": "nthPerUserTransaction",
+        "placeholder": "N th Per User Transaction",
+        "id": "nthPerUserTransaction",
         "validation": ["", "trim", ""],
         "url": "",
         "hideMethod":"hidePerUser"
