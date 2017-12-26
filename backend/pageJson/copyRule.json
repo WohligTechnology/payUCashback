@@ -152,10 +152,10 @@
         "onView": true,
         "dropDown": ["true", "false"]
     }, {
-        "name": "Per User Transactions",
+        "name": "Per User Transactions Ever",
         "type": "text",
         "tableRef": "perUser",
-        "placeholder": "Enter Per User Transactions",
+        "placeholder": "Enter Per User Transactions Ever",
         "id": "perUser",
         "validation": ["", "trim", ""],
         "url": ""
