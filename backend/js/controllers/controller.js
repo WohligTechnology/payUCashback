@@ -656,9 +656,37 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 NavigationService.apiCall("Rule/changeAllValues", formData, function (data) {
                     // $scope.data1 = data.data;
                     // $scope.generateField = true;
-                    console.log("returned data changeAllValuesModalSubmit", data);
+                    if(data.value==true){
+                        toastr.success("All Rules Updated Successfully", {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "2000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    }else{
+                        toastr.error("Failed To Update Rules", {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "2000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    }
+                    // console.log("returned data changeAllValuesModalSubmit", data);
                 });
                 $scope.changeAllValues.close();
+                $state.reload();
             }else{
                 console.log("Formdata",formData);
                 state.go("login");
