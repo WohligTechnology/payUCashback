@@ -18,6 +18,25 @@ var controller = {
         }
 
     },
+    changeAllValues: function (req, res) {
+        console.log("insile changeAllValues controller",req.body);
+        if (req.body) {
+            if (req.body.value && req.body.lastUpdatedBy) {
+                Rule.changeAllValues(req.body, res.callback);
+            } else {
+                res.json({
+                    value: false,
+                    data: "Data is Appropriate"
+                });
+            }
+        }else {
+            res.json({
+                value: false,
+                data: "Invalid Request"
+            });
+        }
+
+    },
     getAllAutomated: function (req, res) {
         if (req.body) {
             Rule.getAllAutomated(req.body, res.callback);

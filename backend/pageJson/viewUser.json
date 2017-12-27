@@ -24,6 +24,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editUser",
+        "roles":["Super Admin"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -33,6 +34,7 @@
         "buttonClass": "btn-danger",
         "type": "apiCallConfirm",
         "title": "Delete User",
+        "roles":["Super Admin"],
         "content": "Are you sure you want to delete User?",
         "api": "user/delete",
         "fieldsToSend": {
@@ -45,7 +47,8 @@
         "icon": "plus",
         "class": "btn-success",
         "type": "page",
-        "action": "createUser"
+        "action": "createUser",
+        "roles":["Super Admin"]
     }],
     "apiCall": {
         "url": "User/search",

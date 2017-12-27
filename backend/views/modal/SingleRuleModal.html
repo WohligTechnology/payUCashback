@@ -6,44 +6,12 @@
                 <i class="ln-cross"></i>
             </a>
         </div>
-        <!-- <div class="pull-right" style="margin-right: 10px;">
-                    <span class="btn btn-success" ng-click="copyClick()" ngclipboard data-clipboard-text="{{singleRuleForModal.merchant.name}}">{{copied}}</span>
-            </div>
-        
-            <div class="pull-right" style="margin-right: 10px;">
-                <a href="https://sqlformat.org/" class="btn btn-success" target="_blank">
-                    View Formatted Query
-                </a>
-            </div> -->
-
         <h5 class="modal-title">
             <b>{{singleRuleForModal.merchant.name}}</b>-{{singleRuleForModal.name}}</h5>
 
-        <!-- <div class="pull-right" style="margin-left: 200px;margin-right: 30px;" ng-if="copied==true">
-                    <span>Copied To Clipboard</span>
-            </div> -->
-
     </div>
-    <!-- <button class="btn btn-primary" ngclipboard data-clipboard-text="Avinash">Copy</button> -->
-    <!-- <span class="btn btn-primary" ng-click="copyClick()"  ngclipboard data-clipboard-text="{{singleRuleForModal.name}}">Copy</span> -->
-
-    <!-- <button class="btn" ngclipboard data-clipboard-text="Just because you can doesn't mean you should — clipboard.js">
-            Copy to clipboard
-        </button> -->
     <div class="modal-body">
-        <!-- <div class="row">
-            <div class="singleRuleHeadings">Campaign Details</div>
-            <div class="col-md-6">
-                Rule Name- {{singleRuleForModal.name}}
-            </div>
-            <div class="col-md-6">
-                Merchant- {{singleRuleForModal.merchant.name}}
-            </div>
-            <div class="col-md-6" ng-if="singleRuleForModal.applicableMerchant">
-                    Applicable Merchants -
-                    <span ng-repeat="aM in singleRuleForModal.applicableMerchant">{{aM.name}} {{$last ? '' : ($index==singleRuleForModal.applicableMerchant.length-2) ? ' and ' : ', '}}</span>
-                </div>
-        </div> -->
+        
         <div class="singleRuleHeadings">Campaign Details</div>
         <div class="row" ng-if="singleRuleForModal.campaignName">
             <div class="col-md-12">
@@ -129,7 +97,17 @@
         </div>
         <div class="row" ng-if="singleRuleForModal.perUser">
             <div class="col-md-12">
-                Number Of Transactions allow per User - {{singleRuleForModal.perUser}}
+                Per User Transactions Ever - {{singleRuleForModal.perUser}}
+            </div>
+        </div>
+        <div class="row" ng-if="singleRuleForModal.perUserTransactionOffer">
+            <div class="col-md-12">
+                Per User Transactions Offer - {{singleRuleForModal.perUserTransactionOffer}}
+            </div>
+        </div>
+        <div class="row" ng-if="singleRuleForModal.nthPerUserTransaction">
+            <div class="col-md-12">
+                N<sup>th</sup> Transactions per User - {{singleRuleForModal.nthPerUserTransaction}}
             </div>
         </div>
         <div class="row" ng-if="singleRuleForModal.minimumTransactionAmount">

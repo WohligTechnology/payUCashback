@@ -23,7 +23,11 @@
                                     <input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
                         " ng-model="search.keyword " />
                                 </form>
-                                <a ng-repeat="btn in json.json.button " ng-if="createButton" class="btn " ng-class="btn.class " ng-click="json.eventAction(btn)">{{btn.name}}</a>
+                                <a ng-show="hasRole({{json.json.topButtonChangeAll.roles}})" ng-if="json.json.topButtonChangeAll" class="btn " ng-class="json.json.topButtonChangeAll.class " ng-click="clickChangeAllButton()">{{json.json.topButtonChangeAll.name}}</a>
+                                <a ng-repeat="btn in json.json.button "  ng-show="hasRole({{btn.roles}})" class="btn " ng-class="btn.class " ng-click="json.eventAction(btn)">{{btn.name}}</a>
+                                <!-- <a style="margin-left:5px;" ng-if="json.json.topButtonChangeAll" title="{{json.json.topButtonChangeAll.name}}" class="btn" ng-class="json.json.topButtonChangeAll.buttonClass" ng-click="clickChangeAllButton()">
+                                    {{json.json.topButtonChangeAll.name}}
+                                 </a> -->
                             </div>
                             <h3>{{json.json.description}} <span class="tableTotal ">(Total : {{totalItems}}) </span></h3>
                         </div>

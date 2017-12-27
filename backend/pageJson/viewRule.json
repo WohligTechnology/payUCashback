@@ -6,7 +6,7 @@
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
     "colorExpired": true,
-    "roles":["Super Admin"],
+    "roles":["Super Admin","Creator","Executor","Viewer"],
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -49,7 +49,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editRule",
-        "roles":["Super Admin"],
+        "roles":["Super Admin","Creator"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -72,7 +72,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "copyRule",  
-        "roles":["Super Admin"], 
+        "roles":["Super Admin","Creator"], 
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -83,8 +83,14 @@
         "class": "btn-success",
         "type": "page",
         "action": "createRule",
-        "roles":["Super Admin"]
+        "roles":["Super Admin","Creator"]
     }],
+    "topButtonChangeAll": {
+        "name": "Change All X Days Values",
+        "icon": "plus",
+        "class": "btn-primary",
+        "roles":["Super Admin","Creator","Executor"]
+    },
     "bottomButton": [{
         "name": "Play Selected",
         "icon": "plus",
@@ -92,7 +98,7 @@
         "type": "page",
         "action": "",
         "functionName":"playSelectedClick()",
-        "roles":["Super Admin"]
+        "roles":["Super Admin","Executor"]
     }],
     "bottomButtonPlayAll": [{
         "name": "Play All Rules",
@@ -101,7 +107,7 @@
         "type": "page",
         "action": "",
         "functionName":"playSelectedAllClick()",
-        "roles":["Super Admin"]
+        "roles":["Super Admin","Executor"]
     }],
     "apiCall": {
         "url": "Rule/search",

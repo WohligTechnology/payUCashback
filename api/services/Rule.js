@@ -220,6 +220,28 @@ var model = {
             }
         });
     },
+    changeAllValues: function (data, callback) {
+        // var Model = this;
+        console.log("changeAllValues rule service",data);
+        var Const = this(data);
+        Rule.update({
+            isDeleted:0
+        },{
+            $set:
+            {
+                yesterdayMinusXDays: data.value,
+                lastUpdatedBy:data.lastUpdatedBy
+            }
+        },{multi: true}, function (err, data2) {
+            if (err) {
+                console.log("in if",err);
+                callback(err);
+            } else {
+                console.log("else");
+                callback(null, data2);
+            }
+        });
+    },
     getAllAutomated:function(data,callback){
         console.log("inside getAllAutomated service");
         Rule.find({

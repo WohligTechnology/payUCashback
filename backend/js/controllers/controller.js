@@ -639,6 +639,32 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         }
 
+        $scope.clickChangeAllButton=function(){
+            console.log("inside clickChangeAllButton");
+            $scope.changeAllValues = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/changeAllValuesModal.html',
+                size: 'md',
+                scope: $scope
+            });
+        }
+        $scope.changeAllValuesModalSubmit=function(formData){
+            console.log("inside changeAllValuesModalSubmit",formData);
+            if($.jStorage.get("profile"))
+            {
+                formData.lastUpdatedBy=$.jStorage.get("profile")._id;
+                NavigationService.apiCall("Rule/changeAllValues", formData, function (data) {
+                    // $scope.data1 = data.data;
+                    // $scope.generateField = true;
+                    console.log("returned data changeAllValuesModalSubmit", data);
+                });
+                $scope.changeAllValues.close();
+            }else{
+                console.log("Formdata",formData);
+                state.go("login");
+            }
+            
+        }
         $scope.copyClick = function () {
             console.log("copyClick clicked");
             $scope.copied = "Copied";
@@ -854,6 +880,13 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 console.log("inside jstorage", $.jStorage.get("profile"));
                 var currentLoggedInUser = $.jStorage.get("profile")._id;
                 // formData.createdBy=$.jStorage.get("profile")._id;
+
+                if (!formData.createdBy) {
+                    formData.createdBy = currentLoggedInUser;
+                } else {
+                    delete formData.createdBy;
+
+                }
             } else {
                 state.go("login");
             }
@@ -865,12 +898,6 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             }
             delete formData.createdAt;
 
-            if (!formData.createdBy) {
-                formData.createdBy = currentLoggedInUser;
-            } else {
-                delete formData.createdBy;
-
-            }
             if ($scope.json.keyword._id) {
                 formData.lastUpdatedBy = currentLoggedInUser;
             }

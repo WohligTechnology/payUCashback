@@ -7,6 +7,10 @@
     "urlFields": ["_id"],
     "roles":["Super Admin"],
     "fields": [{
+        "name": "User Details",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
         "name": "Name",
         "type": "text",
         "tableRef": "name",
@@ -14,21 +18,13 @@
         "id": "name",
         "validation": ["required", "trim", "unique"],
         "url": ""
-    },{
+    }, {
         "name": "Email",
         "type": "text",
         "tableRef": "email",
         "placeholder": "Enter Email",
         "id": "email",
         "validation": ["required", "trim", "unique"],
-        "url": ""
-    }, {
-        "name": "Password",
-        "type": "password",
-        "tableRef": "password",
-        "placeholder": "Enter password",
-        "id": "password",
-        "validation": ["", "trim", "unique"],
         "url": ""
     }, {
         "name": "Mobile",
@@ -39,6 +35,18 @@
         "validation": ["", "trim", "unique"],
         "url": ""
     },{
+        "name": "Password & Accesslevel",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Password",
+        "type": "password",
+        "tableRef": "password",
+        "placeholder": "Enter Password",
+        "id": "password",
+        "validation": ["", "trim", "unique"],
+        "url": ""
+    }, {
         "name": "AccessLevel",
         "type": "tags",
         "tableRef": "accessLevel",
