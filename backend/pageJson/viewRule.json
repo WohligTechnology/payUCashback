@@ -6,6 +6,7 @@
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
     "colorExpired": true,
+    "showCountOnView":true,
     "roles":["Super Admin","Creator","Executor","Viewer"],
     "fields": [{
         "name": "Name",

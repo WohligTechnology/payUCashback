@@ -18,19 +18,28 @@
                 <div class="widget ">
                     <div class="table-area ">
                         <div class="widget-title ">
+
+                            <div ng-if="json.json.showCountOnView">
+                                <h5>Total Active Rules: <span style="color:green">{{allActiveRulesCount}}</span> & Total Inactive Rules: <span style="color:red">{{allInactiveRulesCount}}</span></h5>
+                                <br>
+                            </div>
                             <div class="pull-right ">
                                 <form class="search-form mr-form " ng-hide="json.json.removeSearch">
                                     <input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
                         " ng-model="search.keyword " />
                                 </form>
-                                <a ng-show="hasRole({{json.json.topButtonChangeAll.roles}})" ng-if="json.json.topButtonChangeAll" class="btn " ng-class="json.json.topButtonChangeAll.class " ng-click="clickChangeAllButton()">{{json.json.topButtonChangeAll.name}}</a>
-                                <a ng-repeat="btn in json.json.button "  ng-show="hasRole({{btn.roles}})" class="btn " ng-class="btn.class " ng-click="json.eventAction(btn)">{{btn.name}}</a>
+                                <a ng-show="hasRole({{json.json.topButtonChangeAll.roles}})" ng-if="json.json.topButtonChangeAll" class="btn " ng-class="json.json.topButtonChangeAll.class "
+                                    ng-click="clickChangeAllButton()">{{json.json.topButtonChangeAll.name}}</a>
+                                <a ng-repeat="btn in json.json.button " ng-show="hasRole({{btn.roles}})" class="btn " ng-class="btn.class " ng-click="json.eventAction(btn)">{{btn.name}}</a>
                                 <!-- <a style="margin-left:5px;" ng-if="json.json.topButtonChangeAll" title="{{json.json.topButtonChangeAll.name}}" class="btn" ng-class="json.json.topButtonChangeAll.buttonClass" ng-click="clickChangeAllButton()">
                                     {{json.json.topButtonChangeAll.name}}
                                  </a> -->
                             </div>
-                            <h3>{{json.json.description}} <span class="tableTotal ">(Total : {{totalItems}}) </span></h3>
+                            <h3>{{json.json.description}}
+                                <span class="tableTotal ">(Total : {{totalItems}}) </span>
+                            </h3>
                         </div>
+
                         <div class="table-responsive " ng-show="totalItems>0 ">
                             <table class="table">
                                 <thead>
@@ -45,31 +54,38 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="item in items">
-                                        <td ng-if="json.json.rowCheckBox==true"><input ng-if="item.active==true" type="checkbox" ng-model="myChkModel" ng-change="checkboxClick(item._id)"></td>
+                                        <td ng-if="json.json.rowCheckBox==true">
+                                            <input ng-if="item.active==true" type="checkbox" ng-model="myChkModel" ng-change="checkboxClick(item._id)">
+                                        </td>
                                         <td>{{($index + 1)+((currentPage-1)*maxRow)}}</td>
                                         <td ng-repeat="field in json.json.fields">
                                             <view-field type="field" value="item"></view-field>
                                         </td>
                                         <td>
 
-                                            <a style="margin-left:5px;" ng-if="json.json.viewButton" title="{{json.json.viewButton.name}}" class="btn" ng-class="json.json.viewButton.buttonClass" ng-click="viewSingleRuleModal(item)">
+                                            <a style="margin-left:5px;" ng-if="json.json.viewButton" title="{{json.json.viewButton.name}}" class="btn" ng-class="json.json.viewButton.buttonClass"
+                                                ng-click="viewSingleRuleModal(item)">
                                                 <i class="fa" ng-class="json.json.viewButton.icon"></i>
-                                             </a>
-                                            <a style="margin-left:5px;" ng-repeat="but in json.json.action" ng-show="hasRole({{but.roles}})" title="{{but.name}}" class="btn" ng-class="but.buttonClass" ng-click="json.eventAction(but,item) ">
+                                            </a>
+                                            <a style="margin-left:5px;" ng-repeat="but in json.json.action" ng-show="hasRole({{but.roles}})" title="{{but.name}}" class="btn"
+                                                ng-class="but.buttonClass" ng-click="json.eventAction(but,item) ">
                                                 <i class="fa" ng-class="but.icon"></i>
                                             </a>
-                                            <a style="margin-left:5px;" ng-if="json.json.queryButton" title="{{json.json.queryButton.name}}" class="btn" ng-class="json.json.queryButton.buttonClass" ng-click="viewQueryModal(item)">
+                                            <a style="margin-left:5px;" ng-if="json.json.queryButton" title="{{json.json.queryButton.name}}" class="btn" ng-class="json.json.queryButton.buttonClass"
+                                                ng-click="viewQueryModal(item)">
                                                 <i class="fa" ng-class="json.json.queryButton.icon"></i>
-                                             </a>
+                                            </a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div>
-                                <a class="btn btn-primary" ng-if="json.json.bottomButton" ng-show="hasRole({{json.json.bottomButton[0].roles}})" ng-class="btn.class " ng-click="playSelectedClick()">{{json.json.bottomButton[0].name}}</a>
-                                <a class="btn btn-primary" ng-if="json.json.bottomButtonPlayAll" ng-show="hasRole({{json.json.bottomButtonPlayAll[0].roles}})" ng-class="btn.class " ng-click="playSelectedAllClick()">{{json.json.bottomButtonPlayAll[0].name}}</a>
-                                
+                            <a class="btn btn-primary" ng-if="json.json.bottomButton" ng-show="hasRole({{json.json.bottomButton[0].roles}})" ng-class="btn.class "
+                                ng-click="playSelectedClick()">{{json.json.bottomButton[0].name}}</a>
+                            <a class="btn btn-primary" ng-if="json.json.bottomButtonPlayAll" ng-show="hasRole({{json.json.bottomButtonPlayAll[0].roles}})"
+                                ng-class="btn.class " ng-click="playSelectedAllClick()">{{json.json.bottomButtonPlayAll[0].name}}</a>
+
                         </div>
                         <!-- <div ng-if="json.json.bottomButtonPlayAll">
                                 

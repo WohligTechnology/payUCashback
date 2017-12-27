@@ -709,6 +709,10 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             });
         };
         $scope.allSelectedRules=[];
+        $scope.allSelectedActiveRules=[];
+        $scope.allActiveRulesCount=0;
+        $scope.allInactiveRulesCount=0;
+        $scope.allProcessingRulesCount=0;
         $scope.getAllItems = function (keywordChange) {
             console.log("inside getAllItems");
             $scope.totalItems = undefined;
@@ -765,15 +769,18 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                                 if (date1 > date2) {
                                     value.color = "red";
                                     value.active=true;
+                                    $scope.allInactiveRulesCount=$scope.allInactiveRulesCount+1;
                                     $scope.allSelectedRules.push(value._id);
                                     // console.log("name-",value.name," color-",value.color);
                                 } else if(date1 <= date2 && date1>=date3){
                                     value.color = "green";
+                                    $scope.allActiveRulesCount=$scope.allActiveRulesCount+1;
                                     value.active=true;
                                     $scope.allSelectedRules.push(value._id);
                                     // console.log("name-",value.name," color-",value.color);
                                 }else{
                                     value.color = "yellow";
+                                    $scope.allProcessingRulesCount=$scope.allProcessingRulesCount+1;
                                     value.active=false;
                                 }
 
