@@ -110,6 +110,15 @@
         "functionName":"playSelectedAllClick()",
         "roles":["Super Admin","Executor"]
     }],
+    "bottomButtonPlayAllActive": {
+        "name": "Play All Active Rules",
+        "icon": "plus",
+        "class": "btn-success",
+        "type": "page",
+        "action": "",
+        "functionName":"playSelectedAllActiveClick()",
+        "roles":["Super Admin","Executor"]
+    },
     "apiCall": {
         "url": "Rule/search",
         "params": "_id"

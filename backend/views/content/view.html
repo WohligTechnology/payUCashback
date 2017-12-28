@@ -81,6 +81,8 @@
                             </table>
                         </div>
                         <div>
+                            <a class="btn btn-primary" ng-if="json.json.bottomButtonPlayAllActive" ng-show="hasRole({{json.json.bottomButtonPlayAllActive.roles}})"
+                                ng-class="btn.class " ng-click="playSelectedAllActiveClick()">{{json.json.bottomButtonPlayAllActive.name}}</a>
                             <a class="btn btn-primary" ng-if="json.json.bottomButton" ng-show="hasRole({{json.json.bottomButton[0].roles}})" ng-class="btn.class "
                                 ng-click="playSelectedClick()">{{json.json.bottomButton[0].name}}</a>
                             <a class="btn btn-primary" ng-if="json.json.bottomButtonPlayAll" ng-show="hasRole({{json.json.bottomButtonPlayAll[0].roles}})"

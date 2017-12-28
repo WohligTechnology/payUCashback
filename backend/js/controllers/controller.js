@@ -446,23 +446,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         }
 
-        $scope.playSelectedAllClick = function () {
-            console.log("allSelectedRules",$scope.allSelectedRules);
-            if ($scope.allSelectedRules.length == 0) {
-                console.log("empty array inside playSelectedAllClick if");
-                alert("No Rules to Play");
-            } else {
-                $scope.playSelectedFolderNameModal = $uibModal.open({
-                    animation: true,
-                    templateUrl: 'views/modal/playAllRuleFolderNameModal.html',
-                    size: 'md',
-                    scope: $scope
-                });
-            }
-
-        }
-
         $scope.playSelectedClickAfterFolderName = function (formData) {
+            $scope.playSelectedFolderNameModal.close();
             if ($.jStorage.get("profile")) {
                 var loggedInUserId = $.jStorage.get("profile")._id;
             } else {
@@ -537,8 +522,24 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             }
         }
 
+        $scope.playSelectedAllClick = function () {
+            console.log("allSelectedRules",$scope.allSelectedRules);
+            if ($scope.allSelectedRules.length == 0) {
+                console.log("empty array inside playSelectedAllClick if");
+                alert("No Rules to Play");
+            } else {
+                $scope.playSelectedAllClickFolderNameModal = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'views/modal/playAllRuleFolderNameModal.html',
+                    size: 'md',
+                    scope: $scope
+                });
+            }
+
+        }
 
         $scope.playAllClickAfterFolderName = function (formData) {
+            $scope.playSelectedAllClickFolderNameModal.close();
             // console.log("formData in playAllClickAfterFolderName",formData);
             if ($.jStorage.get("profile")) {
                 var loggedInUserId = $.jStorage.get("profile")._id;
@@ -593,6 +594,82 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 })
             }
         }
+
+
+        $scope.playSelectedAllActiveClick = function () {
+            console.log("allSelectedActiveRules",$scope.allSelectedActiveRules);
+            if ($scope.allSelectedRules.length == 0) {
+                console.log("empty array inside playSelectedAllClick if");
+                alert("No Rules to Play");
+            } else {
+                $scope.playSelectedAllActiveClickFolderNameModal = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'views/modal/playAllActiveRuleFolderNameModal.html',
+                    size: 'md',
+                    scope: $scope
+                });
+            }
+
+        }
+
+
+        $scope.playAllActiveClickAfterFolderName = function (formData) {
+            $scope.playSelectedAllActiveClickFolderNameModal.close();
+            // console.log("formData in playAllClickAfterFolderName",formData);
+            if ($.jStorage.get("profile")) {
+                var loggedInUserId = $.jStorage.get("profile")._id;
+            } else {
+                loggedInUserId = null;
+            }
+            var folder = formData.name;
+            var objectToSend = {
+                userId: loggedInUserId,
+                folderName: folder
+            };
+
+            if ($scope.allSelectedActiveRules.length == 0) {
+                console.log("empty array inside playAllActiveClickAfterFolderName if");
+                alert("No Rules To Play!!!");
+            } else {
+                objectToSend.ruleIds = $scope.allSelectedActiveRules;
+                console.log("selected id inside playSelectedClick else", objectToSend);
+
+                NavigationService.playSelectedEmail(objectToSend, function (data) {
+                    console.log("*****", data);
+                    var count = data.data.cashbackCount;
+                    if (data.data.success == true) {
+                        toastr.success("Rules Played Successfully. Total Cashback Count is - " + count, {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "4000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    } else {
+                        toastr.error("Failed To Play Rules", {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "2000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    }
+                    $state.reload();
+                    
+                })
+            }
+        }
+
 
         $scope.viewSingleRuleModal = function (singleRule) {
             console.log("viewSingleRuleModal", singleRule);
@@ -764,7 +841,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                                 var date3 = new Date(arrFromDate[2], arrFromDate[1], arrFromDate[0]);
                                 // formattedmongoDbDate = dd1 + '/' + mm1 + '/' + yyyy1;
 
-                                console.log("Both 1) Angular-", date1, " 2) Mongo-", date2);
+                                // console.log("Both 1) Angular-", date1, " 2) Mongo-", date2);
 
                                 if (date1 > date2) {
                                     value.color = "red";
@@ -777,6 +854,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                                     $scope.allActiveRulesCount=$scope.allActiveRulesCount+1;
                                     value.active=true;
                                     $scope.allSelectedRules.push(value._id);
+                                    $scope.allSelectedActiveRules.push(value._id);
                                     // console.log("name-",value.name," color-",value.color);
                                 }else{
                                     value.color = "yellow";
