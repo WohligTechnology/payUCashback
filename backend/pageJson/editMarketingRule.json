@@ -1,0 +1,282 @@
+{
+    "title": "Edit MarketingRule",
+    "name": "MarketingRule",
+    "jsonPage": "viewMarketingRule",
+    "desciption": "",
+    "pageType": "edit",
+    "urlFields": ["_id"],
+    "roles":["Super Admin","Creator"],
+    "fields": [{
+        "name": "Campaign Details",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Campaign Name",
+        "type": "text",
+        "tableRef": "name",
+        "placeholder": "Enter Campaign Name",
+        "id": "name",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "No Of Days",
+        "type": "text",
+        "tableRef": "noOfDays",
+        "placeholder": "Enter No Of Days",
+        "id": "noOfDays",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Inclusive Flags ( Multiple Select )",
+        "type": "tags",
+        "tableRef": "inclusive",
+        "placeholder": "Select Inclusive Flags",
+        "id": "inclusive",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Flag/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
+    }, {
+        "name": "Exclusive Flags ( Multiple Select )",
+        "type": "tags",
+        "tableRef": "exclusive",
+        "placeholder": "Select Exclusive Flags",
+        "id": "exclusive",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Flag/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
+    }, {
+        "name": "Download Option",
+        "type": "tags",
+        "tableRef": "downloadOption",
+        "placeholder": "Enter Download Option",
+        "id": "downloadOption",
+        "validation": ["required", "trim", ""],
+        "url": "",
+        "dropDownField": "",
+        "dropDownType": "single",
+        "onView": true,
+        "dropDown": ["Email","Mobile","Both"]
+    }, {
+        "name": "Score",
+        "type": "tags",
+        "tableRef": "score",
+        "placeholder": "Enter Score",
+        "id": "score",
+        "validation": ["required", "trim", ""],
+        "url": "",
+        "dropDownField": "",
+        "dropDownType": "single",
+        "onView": true,
+        "dropDown": ["Influence Score", "Affleunce Score","Multiplied Score"]
+    }, {
+        "name": "Merchant",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Merchant",
+        "type": "tags",
+        "tableRef": "merchant",
+        "placeholder": "Select Merchant",
+        "id": "merchant",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Merchant/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["required", "", ""]
+    }, {
+        "name": "Merchant Categories ( Multiple Select )",
+        "type": "tags",
+        "tableRef": "merchantCategory",
+        "placeholder": "Select Merchant Categories",
+        "id": "merchantCategory",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "MerchantCategory/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
+    }, {
+        "name": "Transaction Behaviour",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Day Of Week ( Multiple Select )",
+        "type": "tags",
+        "tableRef": "dayOfWeek",
+        "placeholder": "Select Day Of Week",
+        "id": "dayOfWeek",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "DayOfWeek/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
+    }, {
+        "name": "Payment Mode ( Multiple Select )",
+        "type": "tags",
+        "tableRef": "paymentMode",
+        "placeholder": "Select Payment Mode",
+        "id": "paymentMode",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "PaymentMode/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
+    }, {
+        "name": "Bank Type ( Multiple Select )",
+        "type": "tags",
+        "tableRef": "bankType",
+        "placeholder": "Select Bank Type",
+        "id": "bankType",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Bank/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
+    }, {
+        "name": "Device Type ( Multiple Select )",
+        "type": "tags",
+        "tableRef": "deviceType",
+        "placeholder": "Select Device Type",
+        "id": "deviceType",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Device/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
+    }, {
+        "name": "Checkout Type ( Multiple Select )",
+        "type": "tags",
+        "tableRef": "checkoutType",
+        "placeholder": "Select Checkout Type",
+        "id": "checkoutType",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Checkout/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
+    }, {
+        "name": "Time Of Day ( Multiple Select )",
+        "type": "tags",
+        "tableRef": "timeOfDay",
+        "placeholder": "Select Time Of Day",
+        "id": "timeOfDay",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "TimeOfDay/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
+    }, {
+        "name": "Payment History",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "First Date",
+        "type": "date",
+        "tableRef": "firstDate",
+        "placeholder": "Enter Valid First Date",
+        "id": "firstDate",
+        "validation": ["required", "trim"],
+        "url": ""
+    }, {
+        "name": "Last Date",
+        "type": "date",
+        "tableRef": "lastDate",
+        "placeholder": "Enter Valid Last Date",
+        "id": "lastDate",
+        "validation": ["required", "trim"],
+        "url": ""
+    }, {
+        "name": "Transaction Operator",
+        "type": "tags",
+        "tableRef": "transactionOperator",
+        "placeholder": "Select transactionOperator",
+        "id": "transactionOperator",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Operator/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["required", "", ""]
+    }, {
+        "name": " Number Of Transactions",
+        "type": "number",
+        "tableRef": "numberOfTransaction",
+        "placeholder": "Enter Number Of Transactions",
+        "id": "numberOfTransaction",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Amount Operator",
+        "type": "tags",
+        "tableRef": "amountOperator",
+        "placeholder": "Select Amount Operator",
+        "id": "amountOperator",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Operator/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["required", "", ""]
+    }, {
+        "name": "Amount",
+        "type": "number",
+        "tableRef": "amount",
+        "placeholder": "Enter Amount",
+        "id": "amount",
+        "validation": ["", "trim"],
+        "url": ""
+    }],
+    "action": [{
+        "name": "submit",
+        "action": "submitMarketingRule",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewMarketingRule"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewMarketingRule"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "MarketingRule/save",
+        "params": "_id"
+    },
+    "preApi": {
+        "url": "MarketingRule/getOne",
+        "params": "_id"
+    }
+
+}

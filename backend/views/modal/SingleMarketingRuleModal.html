@@ -1,0 +1,155 @@
+<form name="modalForm" ng-submit="$dismiss()" class="min-hit">
+    
+        <div class="modal-header blue-bg  ">
+            <div class="pull-right">
+                <a class="btn btn-clear" ng-click="$dismiss()">
+                    <i class="ln-cross"></i>
+                </a>
+            </div>
+            <h5 class="modal-title">
+                <b>{{singleMarketingRuleForModal.merchant.name}}</b>-{{singleMarketingRuleForModal.name}}</h5>
+    
+        </div>
+        <div class="modal-body">
+            
+            <div class="singleRuleHeadings">Campaign Details</div>
+            <div class="row" ng-if="singleMarketingRuleForModal.name">
+                <div class="col-md-12">
+                    Campaign Name- {{singleMarketingRuleForModal.name}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    Number Of Days- {{singleMarketingRuleForModal.noOfDays}} Days
+                </div>
+            </div>
+    
+            <div class="row" ng-if="singleMarketingRuleForModal.downloadOption">
+                <div class="col-md-12">
+                    Download Option - {{singleMarketingRuleForModal.downloadOption}}
+                </div>
+            </div>
+    
+            <div class="row" ng-if="singleMarketingRuleForModal.inclusive">
+                <div class="col-md-12">
+                    Applicable Merchants -
+                    <span ng-repeat="inc in singleMarketingRuleForModal.inclusive">{{inc.name}} {{$last ? '' : ($index==singleMarketingRuleForModal.inclusive.length-2) ? ' and ' : ', '}}</span>
+                </div>
+            </div>
+
+            <div class="row" ng-if="singleMarketingRuleForModal.exclusive">
+                <div class="col-md-12">
+                    Applicable Merchants -
+                    <span ng-repeat="exc in singleMarketingRuleForModal.exclusive">{{exc.name}} {{$last ? '' : ($index==singleMarketingRuleForModal.exclusive.length-2) ? ' and ' : ', '}}</span>
+                </div>
+            </div>
+
+            <div class="row" ng-if="singleMarketingRuleForModal.score">
+                <div class="col-md-12">
+                    Score - {{singleMarketingRuleForModal.score}}
+                </div>
+            </div>
+            
+            <div class="singleRuleHeadings">Merchant</div>
+            <div class="row">
+                <div class="col-md-12">
+                    Merchant- {{singleMarketingRuleForModal.merchant.name}}
+                </div>
+            </div>
+    
+            <div class="row" ng-if="singleMarketingRuleForModal.merchantCategory">
+                <div class="col-md-12">
+                    Merchant Categories -
+                    <span ng-repeat="aM in singleMarketingRuleForModal.merchantCategory">{{aM.name}} {{$last ? '' : ($index==singleMarketingRuleForModal.merchantCategory.length-2) ? ' and ' : ', '}}</span>
+                </div>
+            </div>
+            
+
+            <div class="singleRuleHeadings">Transaction Behaviour</div>
+    
+            <div class="row" ng-if="singleMarketingRuleForModal.dayOfWeek">
+                <div class="col-md-12">
+                    Day Of Week -
+                    <span ng-repeat="dow in singleMarketingRuleForModal.dayOfWeek">{{dow.name}} {{$last ? '' : ($index==singleMarketingRuleForModal.dayOfWeek.length-2) ? ' and ' : ', '}}</span>
+                </div>
+            </div>
+
+            <div class="row" ng-if="singleMarketingRuleForModal.paymentMode">
+                <div class="col-md-12">
+                    Day Of Week -
+                    <span ng-repeat="pm in singleMarketingRuleForModal.paymentMode">{{pm.name}} {{$last ? '' : ($index==singleMarketingRuleForModal.paymentMode.length-2) ? ' and ' : ', '}}</span>
+                </div>
+            </div>
+
+            <div class="row" ng-if="singleMarketingRuleForModal.bankType">
+                <div class="col-md-12">
+                    Bank Type -
+                    <span ng-repeat="bt in singleMarketingRuleForModal.bankType">{{bt.name}} {{$last ? '' : ($index==singleMarketingRuleForModal.bankType.length-2) ? ' and ' : ', '}}</span>
+                </div>
+            </div>
+
+            <div class="row" ng-if="singleMarketingRuleForModal.deviceType">
+                <div class="col-md-12">
+                    Device Type -
+                    <span ng-repeat="dt in singleMarketingRuleForModal.deviceType">{{dt.name}} {{$last ? '' : ($index==singleMarketingRuleForModal.deviceType.length-2) ? ' and ' : ', '}}</span>
+                </div>
+            </div>
+
+            <div class="row" ng-if="singleMarketingRuleForModal.checkoutType">
+                <div class="col-md-12">
+                    Checkout Type -
+                    <span ng-repeat="ct in singleMarketingRuleForModal.checkoutType">{{ct.name}} {{$last ? '' : ($index==singleMarketingRuleForModal.checkoutType.length-2) ? ' and ' : ', '}}</span>
+                </div>
+            </div>
+
+            <div class="row" ng-if="singleMarketingRuleForModal.timeOfDay">
+                <div class="col-md-12">
+                    Time Of Day -
+                    <span ng-repeat="td in singleMarketingRuleForModal.timeOfDay">{{td.name}} {{$last ? '' : ($index==singleMarketingRuleForModal.timeOfDay.length-2) ? ' and ' : ', '}}</span>
+                </div>
+            </div>
+
+
+            <div class="singleRuleHeadings">Payment History</div>
+
+            <div class="row" ng-if="singleMarketingRuleForModal.firstDate">
+                <div class="col-md-12">
+                    First Date - {{singleMarketingRuleForModal.firstDate | date : "dd/MM/y"}}
+                </div>
+            </div>
+
+            <div class="row" ng-if="singleMarketingRuleForModal.lastDate">
+                <div class="col-md-12">
+                    Last Date - {{singleMarketingRuleForModal.lastDate | date : "dd/MM/y"}}
+                </div>
+            </div>
+
+            <div class="row" ng-if="singleMarketingRuleForModal.transactionOperator">
+                <div class="col-md-12">
+                    Transaction Operator - {{singleMarketingRuleForModal.transactionOperator.name}}
+                </div>
+            </div>
+
+            <div class="row" ng-if="singleMarketingRuleForModal.numberOfTransaction">
+                <div class="col-md-12">
+                    Number Of Transactions - {{singleMarketingRuleForModal.numberOfTransaction}}
+                </div>
+            </div>
+
+            <div class="row" ng-if="singleMarketingRuleForModal.amountOperator">
+                <div class="col-md-12">
+                    Amount Operator - {{singleMarketingRuleForModal.amountOperator.name}}
+                </div>
+            </div>
+            
+            <div class="row" ng-if="singleMarketingRuleForModal.amount">
+                <div class="col-md-12">
+                    Amount - {{singleMarketingRuleForModal.amount}}
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-primary btn-save" type="submit" ng-disabled="modalForm.$invalid" ng-click="$dismiss()">Cancel</button>
+            </div>
+        </div>
+    </form>

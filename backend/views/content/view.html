@@ -45,6 +45,7 @@
                                 <thead>
                                     <tr>
                                         <th ng-if="json.json.rowCheckBox==true">Check</th>
+                                        <th ng-if="json.json.rowCheckBoxForMarketing==true">Check</th>
                                         <th>Sr. No.</th>
                                         <th ng-repeat="field in json.json.fields">
                                             {{field.name}}
@@ -57,6 +58,9 @@
                                         <td ng-if="json.json.rowCheckBox==true">
                                             <input ng-if="item.active==true" type="checkbox" ng-model="myChkModel" ng-change="checkboxClick(item._id)">
                                         </td>
+                                        <td ng-if="json.json.rowCheckBoxForMarketing==true">
+                                            <input type="checkbox" ng-model="myChkModel" ng-change="checkboxMarketingClick(item._id)">
+                                        </td>
                                         <td>{{($index + 1)+((currentPage-1)*maxRow)}}</td>
                                         <td ng-repeat="field in json.json.fields">
                                             <view-field type="field" value="item"></view-field>
@@ -67,13 +71,17 @@
                                                 ng-click="viewSingleRuleModal(item)">
                                                 <i class="fa" ng-class="json.json.viewButton.icon"></i>
                                             </a>
+                                            <a style="margin-left:5px;" ng-if="json.json.viewMarketingRuleButton" title="{{json.json.viewMarketingRuleButton.name}}" class="btn" ng-class="json.json.viewMarketingRuleButton.buttonClass"
+                                                ng-click="viewSingleMarketingRuleModal(item)">
+                                                <i class="fa" ng-class="json.json.viewMarketingRuleButton.icon"></i>
+                                            </a>
                                             <a style="margin-left:5px;" ng-repeat="but in json.json.action" ng-show="hasRole({{but.roles}})" title="{{but.name}}" class="btn"
                                                 ng-class="but.buttonClass" ng-click="json.eventAction(but,item) ">
                                                 <i class="fa" ng-class="but.icon"></i>
                                             </a>
-                                            <a style="margin-left:5px;" ng-if="json.json.queryButton" title="{{json.json.queryButton.name}}" class="btn" ng-class="json.json.queryButton.buttonClass"
-                                                ng-click="viewQueryModal(item)">
-                                                <i class="fa" ng-class="json.json.queryButton.icon"></i>
+                                            <a style="margin-left:5px;" ng-if="json.json.queryMarketingRuleButton" title="{{json.json.queryMarketingRuleButton.name}}" class="btn" ng-class="json.json.queryMarketingRuleButton.buttonClass"
+                                                ng-click="viewMarketingRuleQueryModal(item)">
+                                                <i class="fa" ng-class="json.json.queryMarketingRuleButton.icon"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -87,6 +95,13 @@
                                 ng-click="playSelectedClick()">{{json.json.bottomButton[0].name}}</a>
                             <a class="btn btn-primary" ng-if="json.json.bottomButtonPlayAll" ng-show="hasRole({{json.json.bottomButtonPlayAll[0].roles}})"
                                 ng-class="btn.class " ng-click="playSelectedAllClick()">{{json.json.bottomButtonPlayAll[0].name}}</a>
+
+                            <a class="btn btn-primary" ng-if="json.json.bottomButtonPlayAllActiveMarketing" ng-show="hasRole({{json.json.bottomButtonPlayAllActiveMarketing.roles}})"
+                                ng-class="btn.class " ng-click="playSelectedAllActiveClickMarketing()">{{json.json.bottomButtonPlayAllActiveMarketing.name}}</a>
+                            <a class="btn btn-primary" ng-if="json.json.bottomButtonMarketing" ng-show="hasRole({{json.json.bottomButtonMarketing[0].roles}})" ng-class="btn.class "
+                                ng-click="playSelectedClickMarketing()">{{json.json.bottomButtonMarketing[0].name}}</a>
+                            <a class="btn btn-primary" ng-if="json.json.bottomButtonPlayAllMarketing" ng-show="hasRole({{json.json.bottomButtonPlayAllMarketing[0].roles}})"
+                                ng-class="btn.class " ng-click="playSelectedAllClickMarketing()">{{json.json.bottomButtonPlayAllMarketing[0].name}}</a>
 
                         </div>
                         <!-- <div ng-if="json.json.bottomButtonPlayAll">

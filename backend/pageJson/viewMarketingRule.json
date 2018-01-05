@@ -1,0 +1,116 @@
+{
+    "title": "MarketingRule",
+    "description": "List of Marketing Rules",
+    "pageType": "view",
+    "rowCheckBoxForMarketing":true,
+    "sendIdWithCreate": true,
+    "urlFields": ["_id"],
+    "colorExpired": true,
+    "showCountMarketingOnView":true,
+    "roles":["Super Admin","Creator","Executor","Viewer"],
+    "fields": [{
+        "name": "Name",
+        "isSort": "",
+        "tableRef": "name"
+    },{
+        "name": "Merchant",
+        "isSort": "",
+        "tableRef": "merchant",
+        "type":"objectName"
+    },{
+        "name": "First Date",
+        "isSort": "",
+        "tableRef": "firstDate",
+        "type":"formattedDate"
+    },{
+        "name": "Last Date",
+        "isSort": "",
+        "tableRef": "lastDate",
+        "type":"formattedDate"
+    }
+    ],
+    "viewMarketingRuleButton":{
+        "name": "View MarketingRule",
+        "icon": "fa-search",
+        "buttonClass": "btn-primary"
+    },
+    "queryMarketingRuleButton":{
+        "name": "View Query",
+        "icon": "fa-file",
+        "buttonClass": "btn-primary"
+    },
+    "action": [{
+        "name": "Edit MarketingRule",
+        "icon": "fa-pencil",
+        "buttonClass": "btn-primary",
+        "type": "page",
+        "action": "editMarketingRule",
+        "roles":["Super Admin","Creator"],
+        "fieldsToSend": {
+            "_id": "_id"
+        }
+    }, {
+        "name": "Delete MarketingRule",
+        "icon": "fa-trash",
+        "buttonClass": "btn-danger",
+        "type": "apiCallConfirm",
+        "title": "Delete MarketingRule",
+        "roles":["Super Admin"],
+        "content": "Are you sure you want to delete MarketingRule?",
+        "api": "MarketingRule/deleteWithChangeStatus",
+        "fieldsToSend": {
+            "name": "_id",
+            "value": "_id"
+        }
+    },{
+        "name": "Copy MarketingRule",
+        "icon": "fa-copy",
+        "buttonClass": "btn-primary",
+        "type": "page",
+        "action": "copyMarketingRule",  
+        "roles":["Super Admin","Creator"], 
+        "fieldsToSend": {
+            "_id": "_id"
+        }
+    }],
+    "button": [{
+        "name": "Add MarketingRule",
+        "icon": "plus",
+        "class": "btn-success",
+        "type": "page",
+        "action": "createMarketingRule",
+        "roles":["Super Admin","Creator"]
+    }],
+    "bottomButtonMarketing": [{
+        "name": "Play Selected",
+        "icon": "plus",
+        "class": "btn-success",
+        "type": "page",
+        "action": "",
+        "functionName":"playSelectedClick()",
+        "roles":["Super Admin","Executor"]
+    }],
+    "bottomButtonPlayAllMarketing": [{
+        "name": "Play All MarketingRules",
+        "icon": "plus",
+        "class": "btn-success",
+        "type": "page",
+        "action": "",
+        "functionName":"playSelectedAllClick()",
+        "roles":["Super Admin","Executor"]
+    }],
+    "bottomButtonPlayAllActiveMarketing": {
+        "name": "Play All Active MarketingRules",
+        "icon": "plus",
+        "class": "btn-success",
+        "type": "page",
+        "action": "",
+        "functionName":"playSelectedAllActiveClick()",
+        "roles":["Super Admin","Executor"]
+    },
+    "apiCall": {
+        "url": "MarketingRule/search",
+        "params": "_id"
+    },
+    "removeSearch": true
+}

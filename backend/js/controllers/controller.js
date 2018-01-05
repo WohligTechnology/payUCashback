@@ -281,6 +281,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.template = TemplateService;
         var i = 0;
         $scope.selectArr = [];
+        $scope.selectArrMarketing = [];
         if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
             $scope.currentPage = $stateParams.page;
         } else {
@@ -430,6 +431,20 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 console.log("in else after splice", $scope.selectArr);
             }
         }
+
+
+        $scope.checkboxMarketingClick = function (id) {
+            console.log("id in checkboxMarketingClick", id);
+            var idx = $.inArray(id, $scope.selectArrMarketing);
+            if (idx == -1) {
+                $scope.selectArrMarketing.push(id);
+                console.log("in if after push", $scope.selectArrMarketing);
+            } else {
+                $scope.selectArrMarketing.splice(idx, 1);
+                console.log("in else after splice", $scope.selectArrMarketing);
+            }
+        }
+
 
         $scope.playSelectedClick = function () {
             if ($scope.selectArr.length == 0) {
@@ -677,6 +692,17 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             $scope.singleRuleModal = $uibModal.open({
                 animation: true,
                 templateUrl: 'views/modal/SingleRuleModal.html',
+                size: 'md',
+                scope: $scope
+            });
+        }
+
+        $scope.viewSingleMarketingRuleModal = function (singleMarketingRule) {
+            console.log("viewSingleMarketingRuleModal", singleMarketingRule);
+            $scope.singleMarketingRuleForModal = singleMarketingRule;
+            $scope.singleMarketingRule = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/SingleMarketingRuleModal.html',
                 size: 'md',
                 scope: $scope
             });
@@ -989,6 +1015,30 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             console.log("formData on save", formData);
             // NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
             // });
+
+            //for rule on one field make others to zero
+            console.log("perUser",formData.perUser," nthPerUserTransaction",formData.nthPerUserTransaction," nthPerUserTransactionOffer",formData.nthPerUserTransactionOffer," perUserTransactionOffer",formData.perUserTransactionOffer);
+            if($scope.json.json.apiCall.url=="Rule/save"){
+                console.log("hide what u want to hide in this section for rule");
+                // if(formData.perUser=="" || formData.perUser==null){
+                //     console.log("perUser is Blank",formData.perUser);
+                //     formData.perUser=0;
+                // }
+                // if(formData.nthPerUserTransaction=="" || formData.nthPerUserTransaction==null){
+                //     console.log("nthPerUserTransaction is blank");
+                //     formData.nthPerUserTransaction=0;
+                // }
+                // if(formData.nthPerUserTransactionOffer || formData.nthPerUserTransactionOffer==null){
+                //     console.log("nthPerUserTransactionOffer is blank");
+                //     formData.nthPerUserTransactionOffer=0;
+                // }
+                // if(formData.perUserTransactionOffer || formData.perUserTransactionOffer==null){
+                //     console.log("perUserTransactionOffer is blank");
+                //     formData.perUserTransactionOffer=0;
+                // }
+            }
+
+
             if ($.jStorage.get("profile")) {
                 console.log("inside jstorage", $.jStorage.get("profile"));
                 var currentLoggedInUser = $.jStorage.get("profile")._id;
