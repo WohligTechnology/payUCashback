@@ -5,7 +5,7 @@
     "rowCheckBoxForMarketing":true,
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
-    "colorExpired": true,
+    "colorExpiredMarketingRule": true,
     "showCountMarketingOnView":true,
     "roles":["Super Admin","Creator","Executor","Viewer"],
     "fields": [{

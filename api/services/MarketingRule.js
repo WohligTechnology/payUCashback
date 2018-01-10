@@ -26,7 +26,7 @@ var schema = new Schema({
     },
     merchant: {
         type: Schema.Types.ObjectId,
-        ref: 'Merchant'
+        ref: 'MarketingMerchant'
     },
     merchantCategory: [{
         type: Schema.Types.ObjectId,
@@ -59,12 +59,23 @@ var schema = new Schema({
     firstDate:{
         type:Date
     },
+    firstTransactionDateOperator: {
+        type: Schema.Types.ObjectId,
+        ref: 'Operator'
+    },
     lastDate:{
         type:Date
+    },
+    lastTransactionDateOperator: {
+        type: Schema.Types.ObjectId,
+        ref: 'Operator'
     },
     transactionOperator: {
         type: Schema.Types.ObjectId,
         ref: 'Operator'
+    },
+    numberOfTransactionStart:{
+        type:Number
     },
     numberOfTransaction:{
         type:Number
@@ -93,7 +104,7 @@ var schema = new Schema({
 schema.plugin(deepPopulate, {
             populate: {
                 'merchant': {
-                    select: 'name _id merchantSqlId'
+                    select: 'name _id'
                 },
                 'inclusive':{
                     select: 'name _id'
@@ -128,6 +139,12 @@ schema.plugin(deepPopulate, {
                 'amountOperator':{
                     select:'_id name'
                 },
+                'firstTransactionDateOperator':{
+                    select:'_id name'
+                },
+                'lastTransactionDateOperator':{
+                    select:'_id name'
+                },
                 'createdBy': {
                     select: 'name _id email'
                 },
@@ -140,7 +157,7 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('MarketingRule', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator','merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator'));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator','merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator'));
 var model = {
     search: function (data, callback) {
         // console.log("in custom");
@@ -169,7 +186,7 @@ var model = {
             }).sort({
                 createdAt: -1
             })
-            .populate('merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator')
+            .populate('merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator')
             .order(options)
             .keyword(options)
             .page(options,

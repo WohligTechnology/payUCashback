@@ -3,7 +3,7 @@ var controller = {
     deleteWithChangeStatus: function (req, res) {
         if (req.body) {
             if (mongoose.Types.ObjectId.isValid(req.body._id)) {
-                Rule.deleteWithChangeStatus(req.body, res.callback);
+                MarketingRule.deleteWithChangeStatus(req.body, res.callback);
             } else {
                 res.json({
                     value: false,

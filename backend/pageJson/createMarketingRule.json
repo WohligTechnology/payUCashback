@@ -19,15 +19,23 @@
         "validation": ["", "trim"],
         "url": ""
     }, {
-        "name": "No Of Days",
-        "type": "text",
-        "tableRef": "noOfDays",
-        "placeholder": "Enter No Of Days",
-        "id": "noOfDays",
-        "validation": ["", "trim"],
-        "url": ""
+        "name": "List Option",
+        "type": "tags",
+        "tableRef": "downloadOption",
+        "placeholder": "Enter List Option",
+        "id": "downloadOption",
+        "validation": ["required", "trim", ""],
+        "url": "",
+        "dropDownField": "",
+        "dropDownType": "single",
+        "onView": true,
+        "dropDown": ["Email","Mobile","Both"]
     }, {
-        "name": "Inclusive Flags ( Multiple Select )",
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Inclusive User Flags ( Multiple Select )",
         "type": "tags",
         "tableRef": "inclusive",
         "placeholder": "Select Inclusive Flags",
@@ -40,7 +48,7 @@
         "dropDownType": "multiple",
         "validation": ["", "", "trim"]
     }, {
-        "name": "Exclusive Flags ( Multiple Select )",
+        "name": "Exclusive User Flags ( Multiple Select )",
         "type": "tags",
         "tableRef": "exclusive",
         "placeholder": "Select Exclusive Flags",
@@ -53,30 +61,6 @@
         "dropDownType": "multiple",
         "validation": ["", "", "trim"]
     }, {
-        "name": "Download Option",
-        "type": "tags",
-        "tableRef": "downloadOption",
-        "placeholder": "Enter Download Option",
-        "id": "downloadOption",
-        "validation": ["required", "trim", ""],
-        "url": "",
-        "dropDownField": "",
-        "dropDownType": "single",
-        "onView": true,
-        "dropDown": ["Email","Mobile","Both"]
-    }, {
-        "name": "Score",
-        "type": "tags",
-        "tableRef": "score",
-        "placeholder": "Enter Score",
-        "id": "score",
-        "validation": ["required", "trim", ""],
-        "url": "",
-        "dropDownField": "",
-        "dropDownType": "single",
-        "onView": true,
-        "dropDown": ["Influence Score", "Affleunce Score","Multiplied Score"]
-    }, {
         "name": "Merchant",
         "type": "heading",
         "onlyHeading":true
@@ -88,7 +72,7 @@
         "id": "merchant",
         "searchApi": "searchCall",
         "fieldType": "",
-        "url": "Merchant/search",
+        "url": "MarketingMerchant/search",
         "dropDownField": "name",
         "view": true,
         "dropDownType": "single",
@@ -106,6 +90,115 @@
         "view": true,
         "dropDownType": "multiple",
         "validation": ["", "", "trim"]
+    }, {
+        "name": "Payment History",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "First Transaction Date",
+        "type": "date",
+        "tableRef": "firstDate",
+        "placeholder": "Enter First Transaction Date",
+        "id": "firstDate",
+        "validation": ["required", "trim"],
+        "url": ""
+    }, {
+        "name": "First Transaction Date Operator",
+        "type": "tags",
+        "tableRef": "firstTransactionDateOperator",
+        "placeholder": "Select Operator",
+        "id": "firstTransactionDateOperator",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Operator/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["required", "", ""]
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Latest Transaction Date",
+        "type": "date",
+        "tableRef": "lastDate",
+        "placeholder": "Enter Latest Transaction Date",
+        "id": "lastDate",
+        "validation": ["required", "trim"],
+        "url": ""
+    }, {
+        "name": "Latest Transaction Date Operator",
+        "type": "tags",
+        "tableRef": "lastTransactionDateOperator",
+        "placeholder": "Select Operator",
+        "id": "lastTransactionDateOperator",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Operator/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["required", "", ""]
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Transaction Count Operator",
+        "type": "tags",
+        "tableRef": "transactionOperator",
+        "placeholder": "Select Transaction Count Operator",
+        "id": "transactionOperator",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Operator/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["required", "", ""]
+    }, {
+        "name": " Transaction Count Start",
+        "type": "numberwithhide",
+        "tableRef": "numberOfTransactionStart",
+        "placeholder": "Enter Transaction Count Start",
+        "id": "numberOfTransactionStart",
+        "validation": ["", "trim"],
+        "url": "",
+        "hideMethod":"hideStartTransactionValue"
+    }, {
+        "name": "Transaction Count",
+        "type": "number",
+        "tableRef": "numberOfTransaction",
+        "placeholder": "Enter Transaction Count",
+        "id": "numberOfTransaction",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Amount Operator",
+        "type": "tags",
+        "tableRef": "amountOperator",
+        "placeholder": "Select Amount Operator",
+        "id": "amountOperator",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Operator/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["required", "", ""]
+    }, {
+        "name": "Amount",
+        "type": "number",
+        "tableRef": "amount",
+        "placeholder": "Enter Amount",
+        "id": "amount",
+        "validation": ["", "trim"],
+        "url": ""
     }, {
         "name": "Transaction Behaviour",
         "type": "heading",
@@ -189,67 +282,25 @@
         "dropDownType": "multiple",
         "validation": ["", "", "trim"]
     }, {
-        "name": "Payment History",
-        "type": "heading",
-        "onlyHeading":true
-    }, {
-        "name": "First Date",
-        "type": "date",
-        "tableRef": "firstDate",
-        "placeholder": "Enter Valid First Date",
-        "id": "firstDate",
-        "validation": ["required", "trim"],
-        "url": ""
-    }, {
-        "name": "Last Date",
-        "type": "date",
-        "tableRef": "lastDate",
-        "placeholder": "Enter Valid Last Date",
-        "id": "lastDate",
-        "validation": ["required", "trim"],
-        "url": ""
-    }, {
-        "name": "Transaction Operator",
-        "type": "tags",
-        "tableRef": "transactionOperator",
-        "placeholder": "Select transactionOperator",
-        "id": "transactionOperator",
-        "searchApi": "searchCall",
-        "fieldType": "",
-        "url": "Operator/search",
-        "dropDownField": "name",
-        "view": true,
-        "dropDownType": "single",
-        "validation": ["required", "", ""]
-    }, {
-        "name": " Number Of Transactions",
-        "type": "number",
-        "tableRef": "numberOfTransaction",
-        "placeholder": "Enter Number Of Transactions",
-        "id": "numberOfTransaction",
+        "name": "No Of Days",
+        "type": "text",
+        "tableRef": "noOfDays",
+        "placeholder": "Enter No Of Days",
+        "id": "noOfDays",
         "validation": ["", "trim"],
         "url": ""
     }, {
-        "name": "Amount Operator",
+        "name": "Digital Score",
         "type": "tags",
-        "tableRef": "amountOperator",
-        "placeholder": "Select Amount Operator",
-        "id": "amountOperator",
-        "searchApi": "searchCall",
-        "fieldType": "",
-        "url": "Operator/search",
-        "dropDownField": "name",
-        "view": true,
+        "tableRef": "score",
+        "placeholder": "Select Digital Score",
+        "id": "score",
+        "validation": ["required", "trim", ""],
+        "url": "",
+        "dropDownField": "",
         "dropDownType": "single",
-        "validation": ["required", "", ""]
-    }, {
-        "name": "Amount",
-        "type": "number",
-        "tableRef": "amount",
-        "placeholder": "Enter Amount",
-        "id": "amount",
-        "validation": ["", "trim"],
-        "url": ""
+        "onView": true,
+        "dropDown": ["Influence Score", "Affleunce Score","Multiplied Score"]
     }],
     "action": [{
         "name": "submit",

@@ -83,6 +83,10 @@
                                                 ng-click="viewMarketingRuleQueryModal(item)">
                                                 <i class="fa" ng-class="json.json.queryMarketingRuleButton.icon"></i>
                                             </a>
+                                            <a style="margin-left:5px;" ng-if="json.json.queryButton" title="{{json.json.queryButton.name}}" class="btn" ng-class="json.json.queryButton.buttonClass"
+                                                ng-click="viewQueryModal(item)">
+                                                <i class="fa" ng-class="json.json.queryButton.icon"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 </tbody>

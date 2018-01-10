@@ -816,6 +816,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.allActiveRulesCount=0;
         $scope.allInactiveRulesCount=0;
         $scope.allProcessingRulesCount=0;
+
+        //variables for marketing rules
+
+        $scope.allSelectedMarketingRules=[];
+        $scope.allSelectedActiveMarketingRules=[];
+        $scope.allActiveMarketingRulesCount=0;
+        $scope.allInactiveMarketingRulesCount=0;
+        $scope.allProcessingMarketingRulesCount=0;
+
         $scope.getAllItems = function (keywordChange) {
             console.log("inside getAllItems");
             $scope.totalItems = undefined;
@@ -921,6 +930,67 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                                 // if(value.validTo)
                             });
                         }
+                        if ($scope.json.json.colorExpiredMarketingRule == true) {
+                            console.log("right");
+                            _.forEach($scope.items, function (value) {
+
+
+                                var today = new Date();
+                                var dd = today.getDate();
+                                var mm = today.getMonth() + 1; //January is 0!
+                                var yyyy = today.getFullYear();
+                                formattedAngularDate = dd + '/' + mm + '/' + yyyy;
+
+                                var arrStartDate = formattedAngularDate.split("/");
+                                var date1 = new Date(arrStartDate[2], arrStartDate[1], arrStartDate[0]);
+
+                                // formattedAngularDate = dd + '/' + mm + '/' + yyyy; //dd/mm/yyyy
+
+                                var mongoDate = value.lastDate;
+                                var mongoDateToDate = new Date(mongoDate);
+                                var dd1 = mongoDateToDate.getUTCDate();
+                                var mm1 = mongoDateToDate.getUTCMonth() + 1;
+                                var yyyy1 = mongoDateToDate.getUTCFullYear();
+                                formattedmongoDbDate = dd1 + '/' + mm1 + '/' + yyyy1;
+
+                                var arrEndDate = formattedmongoDbDate.split("/");
+                                var date2 = new Date(arrEndDate[2], arrEndDate[1], arrEndDate[0]);
+
+
+                                var mongoDateFrom = value.firstDate;
+                                var mongoDateToDateFrom = new Date(mongoDateFrom);
+                                var dd1 = mongoDateToDateFrom.getUTCDate();
+                                var mm1 = mongoDateToDateFrom.getUTCMonth() + 1;
+                                var yyyy1 = mongoDateToDateFrom.getUTCFullYear();
+                                formattedmongoDbDateFrom = dd1 + '/' + mm1 + '/' + yyyy1;
+
+                                var arrFromDate = formattedmongoDbDateFrom.split("/");
+                                var date3 = new Date(arrFromDate[2], arrFromDate[1], arrFromDate[0]);
+                                // formattedmongoDbDate = dd1 + '/' + mm1 + '/' + yyyy1;
+
+                                // console.log("Both 1) Angular-", date1, " 2) Mongo-", date2);
+
+                                if (date1 > date2) {
+                                    value.color = "red";
+                                    value.active=true;
+                                    $scope.allInactiveMarketingRulesCount=$scope.allInactiveMarketingRulesCount+1;
+                                    $scope.allSelectedMarketingRules.push(value._id);
+                                    // console.log("name-",value.name," color-",value.color);
+                                } else if(date1 <= date2 && date1>=date3){
+                                    value.color = "green";
+                                    $scope.allActiveMarketingRulesCount=$scope.allActiveMarketingRulesCount+1;
+                                    value.active=true;
+                                    $scope.allSelectedMarketingRules.push(value._id);
+                                    $scope.allSelectedActiveMarketingRules.push(value._id);
+                                    // console.log("name-",value.name," color-",value.color);
+                                }else{
+                                    value.color = "yellow";
+                                    $scope.allProcessingMarketingRulesCount=$scope.allProcessingMarketingRulesCount+1;
+                                    value.active=false;
+                                }
+
+                            });
+                        }
                         $scope.totalItems = data.data.total;
                         $scope.maxRow = data.data.options.count;
                     }
@@ -938,6 +1008,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.data = {};
         console.log("detail controller");
         console.log("$scope.json", $scope.json);
+
+        $scope.hideFirstTransaction=function(operatorValue){
+            console.log("hideFirstTransaction and operator is",operatorValue);
+        }
+
 
         console.log("roles of page", $scope.json.json.roles);
         if ($scope.json.json.roles) {

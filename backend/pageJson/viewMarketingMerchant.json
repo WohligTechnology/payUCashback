@@ -1,0 +1,25 @@
+{
+    "title": "Marketing Merchant",
+    "description": "List of Marketing Merchants",
+    "pageType": "view",
+    "sendIdWithCreate": true,
+    "urlFields": ["_id"],
+    "roles":["Super Admin","Creator","Executor","Viewer"],
+    "fields": [{
+        "name": "Name",
+        "isSort": "",
+        "tableRef": "name"
+    }, {
+        "name": "Category",
+        "isSort": "",
+        "tableRef": "merchantCategory",
+        "type":"objectName"
+    }],
+    "action": [],
+    "button": [],
+    "apiCall": {
+        "url": "MarketingMerchant/search",
+        "params": "_id"
+    },
+    "removeSearch": true
+}
