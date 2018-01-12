@@ -1,0 +1,53 @@
+{
+    "title": "Create Marketing Merchant",
+    "name": "Marketing Merchant",
+    "jsonPage": "viewMarketingMerchant",
+    "desciption": "",
+    "pageType": "create",
+    "urlFields": ["MarketingMerchant"],
+    "roles":["Super Admin","Marketing"],
+    "fields": [{
+        "name": "Name",
+        "type": "text",
+        "tableRef": "name",
+        "placeholder": "Enter Name",
+        "id": "name",
+        "validation": ["required", "trim", "unique"],
+        "url": ""
+    }, {
+        "name": "Merchant Category",
+        "type": "tags",
+        "tableRef": "merchantCategory",
+        "placeholder": "Select Merchant Category",
+        "id": "merchantCategory",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "MerchantCategory/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["required", "", ""]
+    }],
+    "action": [{
+        "name": "submit",
+        "action": "submitMarketingMerchant",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewMarketingMerchant"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewMarketingMerchant"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "MarketingMerchant/save"
+    }
+}

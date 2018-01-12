@@ -158,7 +158,7 @@ var schema = new Schema({
   
       },
   
-      searchOld: function (data, callback) {
+      search: function (data, callback) {
           console.log("in custom");
           var maxRow = Config.maxRow;
           var page = 1;
@@ -187,6 +187,7 @@ var schema = new Schema({
               })
               .order(options)
               .keyword(options)
+              .populate('merchantCategory')
               .page(options,
                   function (err, found) {
                       if (err) {

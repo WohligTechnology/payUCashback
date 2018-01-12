@@ -553,6 +553,25 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         }
 
+        $scope.playSelectedAllClickMarketing = function () {
+            console.log("allSelectedMarketingRules",$scope.selectArrMarketing);
+            if ($scope.selectArrMarketing.length == 0) {
+                console.log("empty array inside playSelectedAllClickMarketing if");
+                alert("No Marketing Rules to Play");
+            }else if($scope.selectArrMarketing.length > 1){
+                console.log("cannot play more than 1 rule!");
+                alert("Please select only 1 Rule at a time to Play!!!");
+            } else {
+                $scope.playSelectedAllClickMarketingFolderNameModal = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'views/modal/playAllMarketingRuleFolderNameModal.html',
+                    size: 'md',
+                    scope: $scope
+                });
+            }
+
+        }
+
         $scope.playAllClickAfterFolderName = function (formData) {
             $scope.playSelectedAllClickFolderNameModal.close();
             // console.log("formData in playAllClickAfterFolderName",formData);
@@ -610,6 +629,62 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             }
         }
 
+        $scope.playAllMarketingClickAfterFolderName = function (formData) {
+            $scope.playSelectedAllClickMarketingFolderNameModal.close();
+            // console.log("formData in playAllClickAfterFolderName",formData);
+            if ($.jStorage.get("profile")) {
+                var loggedInUserId = $.jStorage.get("profile")._id;
+            } else {
+                loggedInUserId = null;
+            }
+            var folder = formData.name;
+            var objectToSend = {
+                userId: loggedInUserId,
+                folderName: folder
+            };
+
+            if ($scope.selectArrMarketing.length == 0) {
+                console.log("empty array inside playSelectedClick if");
+                alert("No Rules To Play!!!");
+            } else {
+                objectToSend.ruleIds = $scope.selectArrMarketing;
+                console.log("selected id inside playSelectedClick else", objectToSend);
+
+                // NavigationService.playSelectedMarketingRule(objectToSend, function (data) {
+                //     console.log("*****", data);
+                //     var count = data.data.cashbackCount;
+                //     if (data.data.success == true) {
+                //         toastr.success("Rules Played Successfully. Total Cashback Count is - " + count, {
+                //             "closeButton": true,
+                //             "debug": false,
+                //             "newestOnTop": false,
+                //             "progressBar": true,
+                //             "positionClass": "toast-top-center",
+                //             "preventDuplicates": false,
+                //             "onclick": null,
+                //             "timeOut": "4000",
+                //             "extendedTimeOut": "1000",
+                //             "tapToDismiss": false
+                //         });
+                //     } else {
+                //         toastr.error("Failed To Play Rules", {
+                //             "closeButton": true,
+                //             "debug": false,
+                //             "newestOnTop": false,
+                //             "progressBar": true,
+                //             "positionClass": "toast-top-center",
+                //             "preventDuplicates": false,
+                //             "onclick": null,
+                //             "timeOut": "2000",
+                //             "extendedTimeOut": "1000",
+                //             "tapToDismiss": false
+                //         });
+                //     }
+                //     $state.reload();
+                    
+                // })
+            }
+        }
 
         $scope.playSelectedAllActiveClick = function () {
             console.log("allSelectedActiveRules",$scope.allSelectedActiveRules);
@@ -709,6 +784,40 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         }
 
         $scope.viewQueryModal = function (singleRule) {
+            $scope.copied = "Copy Query";
+            // console.log("viewSingleRuleModal",singleRule);
+            var objectToSend = {
+                ruleId: singleRule._id
+            };
+            console.log(objectToSend);
+
+            NavigationService.viewQueryModal(objectToSend, function (data) {
+                console.log("verifyQuery", data);
+                var query = data.data.cashbackQuery;
+                $scope.queryToShow = query;
+                if (data.data.success == true) {
+                    $scope.singleRuleModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/queryModal.html',
+                        size: 'lg',
+                        scope: $scope
+                    });
+                } else {
+                    $scope.queryToShow = "Something Went Wrong: Server is Failed to Generate Query."
+                    $scope.singleRuleModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/queryModal.html',
+                        size: 'lg',
+                        scope: $scope
+                    });
+
+                }
+
+            })
+
+        }
+
+        $scope.viewMarketingRuleQueryModal = function (singleRule) {
             $scope.copied = "Copy Query";
             // console.log("viewSingleRuleModal",singleRule);
             var objectToSend = {

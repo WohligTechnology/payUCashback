@@ -6,7 +6,7 @@
     "pageType": "edit",
     "createFromEdit":true,
     "urlFields": ["_id"],
-    "roles":["Super Admin","Creator"],
+    "roles":["Super Admin","Marketing"],
     "fields": [{
         "name": "Campaign Details",
         "type": "heading",
@@ -284,12 +284,16 @@
         "validation": ["", "", "trim"]
     }, {
         "name": "No Of Days",
-        "type": "text",
+        "type": "tags",
         "tableRef": "noOfDays",
-        "placeholder": "Enter No Of Days",
+        "placeholder": "Select Number Of Days",
         "id": "noOfDays",
-        "validation": ["", "trim"],
-        "url": ""
+        "validation": ["required", "trim", ""],
+        "url": "",
+        "dropDownField": "",
+        "dropDownType": "single",
+        "onView": true,
+        "dropDown": [30,180]
     }, {
         "name": "Digital Score",
         "type": "tags",

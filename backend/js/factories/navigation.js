@@ -15,18 +15,26 @@ myApp.factory('NavigationService', function ($http,$state) {
                 classis: "active",
                 sref: "#!/page/viewUser//"
             }, {
-                name: "Merchant",
+                name: "Cashback Merchant",
                 classis: "active",
                 sref: "#!/page/viewMerchant//"
             },{
-                name: "Rule",
+                name: "Cashback Rules",
                 classis: "active",
                 sref: "#!/page/viewRule//"
+            }, {
+                name: "Marketing Merchant",
+                classis: "active",
+                sref: "#!/page/viewMarketingMerchant//"
+            },{
+                name: "Marketing Rules",
+                classis: "active",
+                sref: "#!/page/viewMarketingRule//"
             }
             ];
         } else if($.jStorage.get("profile").accessLevel=="Creator"){
             var navigation = [{
-                name: "Merchant",
+                name: "Cashback Merchant",
                 classis: "active",
                 sref: "#!/page/viewMerchant//"
             },{
@@ -37,7 +45,7 @@ myApp.factory('NavigationService', function ($http,$state) {
             ];
         } else if($.jStorage.get("profile").accessLevel=="Executor"){
             var navigation = [{
-                name: "Merchant",
+                name: "Cashback Merchant",
                 classis: "active",
                 sref: "#!/page/viewMerchant//"
             },{
@@ -48,7 +56,7 @@ myApp.factory('NavigationService', function ($http,$state) {
             ];
         } else if($.jStorage.get("profile").accessLevel=="Viewer"){
             var navigation = [{
-                name: "Merchant",
+                name: "Cashback Merchant",
                 classis: "active",
                 sref: "#!/page/viewMerchant//"
             },{
@@ -57,10 +65,21 @@ myApp.factory('NavigationService', function ($http,$state) {
                 sref: "#!/page/viewRule//"
             }
             ];
+        } else if($.jStorage.get("profile").accessLevel=="Marketing"){
+            var navigation = [{
+                name: "Marketing Merchant",
+                classis: "active",
+                sref: "#!/page/viewMarketingMerchant//"
+            },{
+                name: "Marketing Rule",
+                classis: "active",
+                sref: "#!/page/viewMarketingRule//"
+            }
+            ];
         }
     }else{
         var navigation = [{
-            name: "Merchant",
+            name: "Cashback Merchant",
             classis: "active",
             sref: "#!/page/viewMerchant//"
         },{
@@ -189,6 +208,21 @@ myApp.factory('NavigationService', function ($http,$state) {
         },
         playSelectedEmail: function (ruleArr, callback) {
             console.log("inside navigationservice playSelectedEmail",ruleArr);
+            $http({
+                url: 'http://172.31.2.124:8080/playnow',
+                method: 'POST',
+                data: ruleArr,
+                withCredentials: false
+            }).then(function (data) {
+                console.log("######",data);
+                // data = data.data;
+                callback(data);
+
+            });
+        },
+        
+        playSelectedMarketingRule: function (ruleArr, callback) {
+            console.log("inside navigationservice playSelectedMarketingRule",ruleArr);
             $http({
                 url: 'http://172.31.2.124:8080/playnow',
                 method: 'POST',

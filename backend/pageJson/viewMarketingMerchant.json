@@ -4,7 +4,7 @@
     "pageType": "view",
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
-    "roles":["Super Admin","Creator","Executor","Viewer"],
+    "roles":["Super Admin","Marketing"],
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -15,8 +15,38 @@
         "tableRef": "merchantCategory",
         "type":"objectName"
     }],
-    "action": [],
-    "button": [],
+    "action": [{
+        "name": "edit",
+        "icon": "fa-pencil",
+        "buttonClass": "btn-primary",
+        "type": "page",
+        "action": "editMarketingMerchant",
+        "roles":["Super Admin","Marketing"],
+        "fieldsToSend": {
+            "_id": "_id"
+        }
+    }, {
+        "name": "delete",
+        "icon": "fa-trash",
+        "buttonClass": "btn-danger",
+        "type": "apiCallConfirm",
+        "title": "Delete MarketingMerchant",
+        "content": "Are you sure you want to delete MarketingMerchant?",
+        "api": "MarketingMerchant/deleteWithChangeStatus",
+        "roles":["Super Admin"],
+        "fieldsToSend": {
+            "name": "_id",
+            "value": "_id"
+        }
+    }],
+    "button": [{
+        "name": "Add",
+        "icon": "plus",
+        "class": "btn-success",
+        "type": "page",
+        "roles":["Super Admin","Marketing"],
+        "action": "createMarketingMerchant"
+    }],
     "apiCall": {
         "url": "MarketingMerchant/search",
         "params": "_id"

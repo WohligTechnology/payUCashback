@@ -9,7 +9,9 @@ var schema = new Schema({
         enum: ['Email', 'Mobile',"Both"]
     },
     noOfDays: {
-        type: Number
+        type: Number,
+        default: 30,
+        enum: [30,180]
     },
     inclusive: [{
         type: Schema.Types.ObjectId,
@@ -157,7 +159,7 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('MarketingRule', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator','merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator'));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator createdBy lastUpdatedBy','merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator createdBy lastUpdatedBy'));
 var model = {
     search: function (data, callback) {
         // console.log("in custom");
@@ -186,7 +188,7 @@ var model = {
             }).sort({
                 createdAt: -1
             })
-            .populate('merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator')
+            .populate('merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator createdBy lastUpdatedBy')
             .order(options)
             .keyword(options)
             .page(options,
