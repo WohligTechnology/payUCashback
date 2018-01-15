@@ -496,13 +496,18 @@ myApp.directive('detailField', function ($http, $filter, JsonService) {
 
             $scope.condition.hideStartTransactionValue = function() {
                 // console.log("$scope.formData in hideStertTransactionValue",$scope.formData["transactionOperator"].name);
-                if($scope.formData["transactionOperator"].name=='Between'){
-                    // console.log("if");
-                    // $scope.formData["numberOfTransactionStart"]="";
-                    return false;
-                } else {
-                    // console.log("else");
-                    $scope.formData["numberOfTransactionStart"]="";
+                if($scope.formData["transactionOperator"]){
+
+                    if($scope.formData["transactionOperator"].name=='Between'){
+                        // console.log("if");
+                        // $scope.formData["numberOfTransactionStart"]="";
+                        return false;
+                    } else {
+                        // console.log("else");
+                        $scope.formData["numberOfTransactionStart"]="";
+                        return true;
+                    }
+                }else{
                     return true;
                 }
             }

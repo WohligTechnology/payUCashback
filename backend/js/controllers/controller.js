@@ -825,8 +825,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             };
             console.log(objectToSend);
 
-            NavigationService.viewQueryModal(objectToSend, function (data) {
-                console.log("verifyQuery", data);
+            NavigationService.viewMarketingQueryModal(objectToSend, function (data) {
+                console.log("verifyQuery in viewMarketingQueryModal", data);
                 var query = data.data.cashbackQuery;
                 $scope.queryToShow = query;
                 if (data.data.success == true) {

@@ -65,7 +65,7 @@ myApp.factory('NavigationService', function ($http,$state) {
                 sref: "#!/page/viewRule//"
             }
             ];
-        } else if($.jStorage.get("profile").accessLevel=="Marketing"){
+        } else if($.jStorage.get("profile").accessLevel=="Marketing Creator" || $.jStorage.get("profile").accessLevel=="Marketing Executor" || $.jStorage.get("profile").accessLevel=="Marketing Viewer" ){
             var navigation = [{
                 name: "Marketing Merchant",
                 classis: "active",
@@ -237,6 +237,18 @@ myApp.factory('NavigationService', function ($http,$state) {
         },
         viewQueryModal: function (ruleObject, callback) {
             console.log("inside navigationservice viewQueryModal",ruleObject);
+            $http({
+                url: 'http://172.31.2.124:8080/verifyquery',
+                method: 'POST',
+                data: ruleObject,
+                withCredentials: false
+            }).then(function (data) {
+                console.log("######",data);
+                callback(data);
+            });
+        },
+        viewMarketingQueryModal: function (ruleObject, callback) {
+            console.log("inside navigationservice viewMarketingQueryModal",ruleObject);
             $http({
                 url: 'http://172.31.2.124:8080/verifyquery',
                 method: 'POST',

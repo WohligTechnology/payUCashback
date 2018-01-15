@@ -5,7 +5,7 @@
     "desciption": "",
     "pageType": "edit",
     "urlFields": ["_id"],
-    "roles":["Super Admin","Marketing"],
+    "roles":["Super Admin","Marketing Creator"],
     "fields": [{
         "name": "Campaign Details",
         "type": "heading",
