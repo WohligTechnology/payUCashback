@@ -83,9 +83,17 @@ myApp.factory('NavigationService', function ($http,$state) {
             classis: "active",
             sref: "#!/page/viewMerchant//"
         },{
-            name: "Rule",
+            name: "Cashback Rules",
             classis: "active",
             sref: "#!/page/viewRule//"
+        }, {
+            name: "Marketing Merchant",
+            classis: "active",
+            sref: "#!/page/viewMarketingMerchant//"
+        },{
+            name: "Marketing Rules",
+            classis: "active",
+            sref: "#!/page/viewMarketingRule//"
         }
         ];
         $state.go("login");
@@ -224,7 +232,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         playSelectedMarketingRule: function (ruleArr, callback) {
             console.log("inside navigationservice playSelectedMarketingRule",ruleArr);
             $http({
-                url: 'http://172.31.2.124:8080/playnow',
+                url: 'http://172.31.2.124:8080/generate',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false

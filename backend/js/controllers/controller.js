@@ -1,10 +1,35 @@
 var globalfunction = {};
 myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         //Used to name the .html file
+
         $scope.template = TemplateService.changecontent("dashboard");
         $scope.menutitle = NavigationService.makeactive("Dashboard");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        if(_.isEmpty($scope.navigation)){
+            $state.reload();
+        }
+        // var script = document.currentScript;
+        // // var fullUrl = script.src;
+        // console.log("88888888",script);
+        //     $scope.uploadPic = function(file) {
+        //     file.upload = Upload.upload({
+        //       url: '/home/thirtysix/Documents/avinash/payUCashback/backend/uploads',
+        //       data: {username: $scope.username, file: file},
+        //     });
+        
+        //     file.upload.then(function (response) {
+        //       $timeout(function () {
+        //         file.result = response.data;
+        //       });
+        //     }, function (response) {
+        //       if (response.status > 0)
+        //         $scope.errorMsg = response.status + ': ' + response.data;
+        //     }, function (evt) {
+        //       // Math.min is to fix IE which reports 200% sometimes
+        //       file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+        //     });
+        //     }
     })
 
     .controller('AccessController', function ($scope, TemplateService, NavigationService, $timeout, $state) {
@@ -650,39 +675,39 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 objectToSend.ruleIds = $scope.selectArrMarketing;
                 console.log("selected id inside playSelectedClick else", objectToSend);
 
-                // NavigationService.playSelectedMarketingRule(objectToSend, function (data) {
-                //     console.log("*****", data);
-                //     var count = data.data.cashbackCount;
-                //     if (data.data.success == true) {
-                //         toastr.success("Rules Played Successfully. Total Cashback Count is - " + count, {
-                //             "closeButton": true,
-                //             "debug": false,
-                //             "newestOnTop": false,
-                //             "progressBar": true,
-                //             "positionClass": "toast-top-center",
-                //             "preventDuplicates": false,
-                //             "onclick": null,
-                //             "timeOut": "4000",
-                //             "extendedTimeOut": "1000",
-                //             "tapToDismiss": false
-                //         });
-                //     } else {
-                //         toastr.error("Failed To Play Rules", {
-                //             "closeButton": true,
-                //             "debug": false,
-                //             "newestOnTop": false,
-                //             "progressBar": true,
-                //             "positionClass": "toast-top-center",
-                //             "preventDuplicates": false,
-                //             "onclick": null,
-                //             "timeOut": "2000",
-                //             "extendedTimeOut": "1000",
-                //             "tapToDismiss": false
-                //         });
-                //     }
-                //     $state.reload();
+                NavigationService.playSelectedMarketingRule(objectToSend, function (data) {
+                    console.log("*****", data);
+                    var count = data.data.cashbackCount;
+                    if (data.data.success == true) {
+                        toastr.success("Rules Played Successfully. Total Cashback Count is - " + count, {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "4000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    } else {
+                        toastr.error("Failed To Play Rules", {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "2000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    }
+                    $state.reload();
                     
-                // })
+                })
             }
         }
 
@@ -1241,12 +1266,20 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 delete formData._id;
                 delete formData.createdAt;
                 delete formData.updatedAt;
+                // delete formData.lastUpdatedBy;
+                formData.createdBy = $.jStorage.get("profile")._id;
+                // formData.lastUpdatedBy = $.jStorage.get("profile")._id;
                 console.log("formData after Deletion of _Id,createdAt and updatedAtAt", formData);
             }
             delete formData.createdAt;
 
             if ($scope.json.keyword._id) {
-                formData.lastUpdatedBy = currentLoggedInUser;
+                if ($scope.json.json.createFromEdit == true) {
+                    delete formData.lastUpdatedBy;
+                }else{
+                    formData.lastUpdatedBy = currentLoggedInUser;
+                }
+                
             }
 
             NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
