@@ -1,0 +1,71 @@
+{
+    "title": "Create Performance",
+    "name": "Performance",
+    "jsonPage": "viewPerformance",
+    "desciption": "",
+    "pageType": "create",
+    "urlFields": ["Performance"],
+    "roles":["Super Admin","Creator"],
+    "fields": [{
+        "name": "CSV File",
+        "type": "excel",
+        "size": "",
+        "tableRef": "name",
+        "tableValue": "name",
+        "placeholder": "Select File",
+        "id": "name",
+        "option": "single",
+        "validation": ["", "trim", ""],
+        "url": ""
+    }, {
+        "name": "Start Date , End Date & Remark",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Start Date",
+        "type": "date",
+        "tableRef": "startDate",
+        "placeholder": "Enter Start Date",
+        "id": "startDate",
+        "validation": ["required", "trim"],
+        "url": ""
+    }, {
+        "name": "End Date",
+        "type": "date",
+        "tableRef": "endDate",
+        "placeholder": "Enter End Date",
+        "id": "endDate",
+        "validation": ["required", "trim"],
+        "url": ""
+    }, {
+        "name": "Remark (Preferable For Future Use)",
+        "type": "text",
+        "tableRef": "remark",
+        "placeholder": "Enter Remark",
+        "id": "remark",
+        "validation": ["required", "trim"],
+        "url": ""
+    }],
+    "action": [{
+        "name": "submit",
+        "action": "submitPerformance",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewPerformance"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewPerformance"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "Performance/save"
+    }
+}

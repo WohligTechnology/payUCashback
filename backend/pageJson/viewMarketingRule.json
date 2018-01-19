@@ -34,11 +34,6 @@
         "icon": "fa-search",
         "buttonClass": "btn-primary"
     },
-    "queryMarketingRuleButton":{
-        "name": "View Query",
-        "icon": "fa-file",
-        "buttonClass": "btn-primary"
-    },
     "action": [{
         "name": "Edit MarketingRule",
         "icon": "fa-pencil",

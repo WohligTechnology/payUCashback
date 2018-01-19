@@ -50,6 +50,5 @@
     "apiCall": {
         "url": "MarketingMerchant/search",
         "params": "_id"
-    },
-    "removeSearch": true
+    }
 }
