@@ -5,7 +5,7 @@
     "desciption": "",
     "pageType": "edit",
     "urlFields": ["_id"],
-    "roles":["Super Admin","Creator"],
+    "roles":["Super Admin","Performance"],
     "fields": [{
         "name": "CSV File ( Choose only If you Want to replace File!)",
         "type": "excel",

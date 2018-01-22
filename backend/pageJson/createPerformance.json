@@ -5,7 +5,7 @@
     "desciption": "",
     "pageType": "create",
     "urlFields": ["Performance"],
-    "roles":["Super Admin","Creator"],
+    "roles":["Super Admin","Performance"],
     "fields": [{
         "name": "CSV File",
         "type": "excel",

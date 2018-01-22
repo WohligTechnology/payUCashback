@@ -30,6 +30,10 @@ myApp.factory('NavigationService', function ($http,$state) {
                 name: "Marketing Rules",
                 classis: "active",
                 sref: "#!/page/viewMarketingRule//"
+            },{
+                name: "Performance",
+                classis: "active",
+                sref: "#!/page/viewPerformance//"
             }
             ];
         } else if($.jStorage.get("profile").accessLevel=="Creator"){
@@ -76,6 +80,13 @@ myApp.factory('NavigationService', function ($http,$state) {
                 sref: "#!/page/viewMarketingRule//"
             }
             ];
+        } else if($.jStorage.get("profile").accessLevel=="Performance"){
+            var navigation = [{
+                name: "Performance",
+                classis: "active",
+                sref: "#!/page/viewPerformance//"
+            }
+            ];
         }
     }else{
         var navigation = [{
@@ -94,6 +105,10 @@ myApp.factory('NavigationService', function ($http,$state) {
             name: "Marketing Rules",
             classis: "active",
             sref: "#!/page/viewMarketingRule//"
+        },{
+            name: "Performance",
+            classis: "active",
+            sref: "#!/page/viewPerformance//"
         }
         ];
         $state.go("login");
