@@ -1,0 +1,56 @@
+{
+    "title": "Create Mailer List",
+    "name": "MailerList",
+    "jsonPage": "viewMailerList",
+    "desciption": "",
+    "pageType": "create",
+    "urlFields": ["MailerList"],
+    "roles":["Super Admin","Merchant Exposure"],
+    "fields": [{
+        "name": "Name",
+        "type": "text",
+        "tableRef": "name",
+        "placeholder": "Enter Name",
+        "id": "name",
+        "validation": ["required", "trim", "unique"],
+        "url": ""
+    }, {
+        "name": "Type",
+        "type": "text",
+        "tableRef": "type",
+        "placeholder": "Enter Type",
+        "id": "type",
+        "validation": ["", "trim", ""],
+        "url": ""
+    }, {
+        "name": "Email IDs",
+        "type": "text",
+        "tableRef": "emailIds",
+        "placeholder": "Enter Email IDs",
+        "id": "emailIds",
+        "validation": ["required", "trim", ""],
+        "url": ""
+    }],
+    "action": [{
+        "name": "submit",
+        "action": "submitMailerList",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewMailerList"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewMailerList"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "MailerList/save"
+    }
+}

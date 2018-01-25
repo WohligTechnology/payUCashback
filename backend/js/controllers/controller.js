@@ -307,6 +307,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         var i = 0;
         $scope.selectArr = [];
         $scope.selectArrMarketing = [];
+        $scope.selectArrPerformance = [];
         if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
             $scope.currentPage = $stateParams.page;
         } else {
@@ -470,6 +471,19 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             }
         }
 
+        $scope.checkboxPerformanceClick = function (id) {
+            console.log("id in checkboxPerformanceClick", id);
+            
+            var idx = $.inArray(id, $scope.selectArrPerformance);
+            if (idx == -1) {
+                $scope.selectArrPerformance.push(id);
+                console.log("in if after push", $scope.selectArrPerformance);
+            } else {
+                $scope.selectArrPerformance.splice(idx, 1);
+                console.log("in else after splice", $scope.selectArrPerformance);
+            }
+        }
+
 
         $scope.playSelectedClick = function () {
             if ($scope.selectArr.length == 0) {
@@ -597,6 +611,25 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         }
 
+        $scope.playSelectedAllClickPerformance = function () {
+            console.log("allSelectedPerformanceRules",$scope.selectArrPerformance);
+            if ($scope.selectArrPerformance.length == 0) {
+                console.log("empty array inside playSelectedAllClickPerformance if");
+                alert("No Marketing Rules to Play");
+            }else if($scope.selectArrPerformance.length > 1){
+                console.log("cannot play more than 1 rule!");
+                alert("Please select only 1 Rule at a time to Play!!!");
+            } else {
+                $scope.playSelectedAllClickPerformanceFolderNameModal = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'views/modal/playPerformanceFolderNameModal.html',
+                    size: 'md',
+                    scope: $scope
+                });
+            }
+
+        }
+
         $scope.playAllClickAfterFolderName = function (formData) {
             $scope.playSelectedAllClickFolderNameModal.close();
             // console.log("formData in playAllClickAfterFolderName",formData);
@@ -676,6 +709,63 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 console.log("selected id inside playSelectedClick else", objectToSend);
 
                 NavigationService.playSelectedMarketingRule(objectToSend, function (data) {
+                    console.log("*****", data);
+                    var count = data.data.cashbackCount;
+                    if (data.data.success == true) {
+                        toastr.success("Rules Played Successfully. Total Cashback Count is - " + count, {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "4000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    } else {
+                        toastr.error("Failed To Play Rules", {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "2000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    }
+                    $state.reload();
+                    
+                })
+            }
+        }
+
+        $scope.playAllPerformanceClickAfterFolderName = function (formData) {
+            $scope.playSelectedAllClickPerformanceFolderNameModal.close();
+            // console.log("formData in playAllClickAfterFolderName",formData);
+            if ($.jStorage.get("profile")) {
+                var loggedInUserId = $.jStorage.get("profile")._id;
+            } else {
+                loggedInUserId = null;
+            }
+            var folder = formData.name;
+            var objectToSend = {
+                userId: loggedInUserId,
+                folderName: folder
+            };
+
+            if ($scope.selectArrPerformance.length == 0) {
+                console.log("empty array inside playSelectedClick if");
+                alert("No Rules To Play!!!");
+            } else {
+                objectToSend.ruleIds = $scope.selectArrPerformance;
+                console.log("selected id inside playSelectedClick else", objectToSend);
+
+                NavigationService.playSelectedPerformanceRule(objectToSend, function (data) {
                     console.log("*****", data);
                     var count = data.data.cashbackCount;
                     if (data.data.success == true) {
@@ -945,19 +1035,6 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 keyword: $scope.search.keyword
             });
         };
-        $scope.allSelectedRules=[];
-        $scope.allSelectedActiveRules=[];
-        $scope.allActiveRulesCount=0;
-        $scope.allInactiveRulesCount=0;
-        $scope.allProcessingRulesCount=0;
-
-        //variables for marketing rules
-
-        $scope.allSelectedMarketingRules=[];
-        $scope.allSelectedActiveMarketingRules=[];
-        $scope.allActiveMarketingRulesCount=0;
-        $scope.allInactiveMarketingRulesCount=0;
-        $scope.allProcessingMarketingRulesCount=0;
 
         $scope.getAllItems = function (keywordChange) {
             console.log("inside getAllItems");
@@ -970,8 +1047,27 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     keyword: $scope.search.keyword
                 }, ++i,
                 function (data, ini) {
+
+                
+                $scope.allSelectedRules=[];
+                $scope.allSelectedActiveRules=[];
+                $scope.allActiveRulesCount=0;
+                $scope.allInactiveRulesCount=0;
+                $scope.allProcessingRulesCount=0;
+
+                //variables for marketing rules
+
+                $scope.allSelectedMarketingRules=[];
+                $scope.allSelectedActiveMarketingRules=[];
+                $scope.allActiveMarketingRulesCount=0;
+                $scope.allInactiveMarketingRulesCount=0;
+                $scope.allProcessingMarketingRulesCount=0;
+
+
+
                     if (ini == i) {
                         $scope.items = data.data.results;
+                        console.log("data after search",data.data);
                         if ($scope.json.json.colorExpired == true) {
                             console.log("right");
                             _.forEach($scope.items, function (value) {

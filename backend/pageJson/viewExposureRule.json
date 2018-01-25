@@ -1,0 +1,62 @@
+{
+    "title": "ExposureRule",
+    "description": "List of Marketing Rules",
+    "pageType": "view",
+    "rowCheckBoxForMarketing":false,
+    "sendIdWithCreate": true,
+    "urlFields": ["_id"],
+    "colorExpiredExposureRule": false,
+    "showCountMarketingOnView":false,
+    "roles":["Super Admin","Merchant Exposure"],
+    "fields": [{
+        "name": "Name",
+        "isSort": "",
+        "tableRef": "name"
+    },{
+        "name": "SQL ID",
+        "isSort": "",
+        "tableRef": "sqlId"
+    },{
+        "name": "Mailer List Name",
+        "isSort": "",
+        "tableRef": "mailerList",
+        "type":"objectName"
+    }],
+    "action": [{
+        "name": "Edit ExposureRule",
+        "icon": "fa-pencil",
+        "buttonClass": "btn-primary",
+        "type": "page",
+        "action": "editExposureRule",
+        "roles":["Super Admin","Merchant Exposure"],
+        "fieldsToSend": {
+            "_id": "_id"
+        }
+    }, {
+        "name": "Delete ExposureRule",
+        "icon": "fa-trash",
+        "buttonClass": "btn-danger",
+        "type": "apiCallConfirm",
+        "title": "Delete ExposureRule",
+        "roles":["Super Admin"],
+        "content": "Are you sure you want to delete ExposureRule?",
+        "api": "ExposureRule/deleteWithChangeStatus",
+        "fieldsToSend": {
+            "name": "_id",
+            "value": "_id"
+        }
+    }],
+    "button": [{
+        "name": "Add ExposureRule",
+        "icon": "plus",
+        "class": "btn-success",
+        "type": "page",
+        "action": "createExposureRule",
+        "roles":["Super Admin","Merchant Exposure"]
+    }],
+    "apiCall": {
+        "url": "ExposureRule/search",
+        "params": "_id"
+    },
+    "removeSearch": true
+}

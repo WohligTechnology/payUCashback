@@ -34,6 +34,10 @@ myApp.factory('NavigationService', function ($http,$state) {
                 name: "Performance",
                 classis: "active",
                 sref: "#!/page/viewPerformance//"
+            },{
+                name: "Mailer List",
+                classis: "active",
+                sref: "#!/page/viewMailerList//"
             }
             ];
         } else if($.jStorage.get("profile").accessLevel=="Creator"){
@@ -85,6 +89,21 @@ myApp.factory('NavigationService', function ($http,$state) {
                 name: "Performance",
                 classis: "active",
                 sref: "#!/page/viewPerformance//"
+            }
+            ];
+        } else if($.jStorage.get("profile").accessLevel=="Merchant Exposure"){
+            var navigation = [{
+                name: "Mailer List",
+                classis: "active",
+                sref: "#!/page/viewMailerList//"
+            },{
+                name: "Merchant Exposure Rules",
+                classis: "active",
+                sref: "#!/page/viewExposureRule//"
+            },{
+                name: "Merchant Categories",
+                classis: "active",
+                sref: "#!/page/viewExposureMerchantCategory//"
             }
             ];
         }
@@ -248,6 +267,21 @@ myApp.factory('NavigationService', function ($http,$state) {
             console.log("inside navigationservice playSelectedMarketingRule",ruleArr);
             $http({
                 url: 'http://172.31.2.124:8080/generate',
+                method: 'POST',
+                data: ruleArr,
+                withCredentials: false
+            }).then(function (data) {
+                console.log("######",data);
+                // data = data.data;
+                callback(data);
+
+            });
+        },
+
+        playSelectedPerformanceRule: function (ruleArr, callback) {
+            console.log("inside navigationservice playSelectedPerformanceRule",ruleArr);
+            $http({
+                url: 'http://172.31.2.124:8080/performance',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false

@@ -1,0 +1,79 @@
+{
+    "title": "Edit Exposure Rule",
+    "name": "ExposureRule",
+    "jsonPage": "viewExposureRule",
+    "desciption": "",
+    "pageType": "edit",
+    "urlFields": ["_id"],
+    "roles":["Super Admin","Merchant Exposure"],
+    "fields": [{
+        "name": "Basic Details",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Exposure Rule Name",
+        "type": "text",
+        "tableRef": "name",
+        "placeholder": "Enter Rule Name",
+        "id": "name",
+        "validation": ["required", "trim"],
+        "url": ""
+    }, {
+        "name": "Sql Id",
+        "type": "number",
+        "tableRef": "sqlId",
+        "placeholder": "Enter Sql Id",
+        "id": "sqlId",
+        "validation": ["required", "trim"],
+        "url": ""
+    },  {
+        "name": "Cycle Flag",
+        "isSort": "",
+        "tableRef": "cycleFlag",
+        "type": "checkbox",
+        "id": "input1",
+        "validation": ["", "trim", ""],
+        "url": ""
+    }, {
+        "name": "Mailer List",
+        "type": "tags",
+        "tableRef": "mailerList",
+        "placeholder": "Select Mailer List",
+        "id": "mailerList",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "MailerList/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["required", "", ""]
+    }],
+    "action": [{
+        "name": "submit",
+        "action": "submitExposureRule",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewExposureRule"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewExposureRule"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "ExposureRule/save",
+        "params": "_id"
+    },
+    "preApi": {
+        "url": "ExposureRule/getOne",
+        "params": "_id"
+    }
+
+}

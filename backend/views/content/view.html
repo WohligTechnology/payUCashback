@@ -46,6 +46,7 @@
                                     <tr>
                                         <th ng-if="json.json.rowCheckBox==true">Check</th>
                                         <th ng-if="json.json.rowCheckBoxForMarketing==true">Check</th>
+                                        <th ng-if="json.json.rowCheckBoxForPerformance==true">Check</th>
                                         <th>Sr. No.</th>
                                         <th ng-repeat="field in json.json.fields">
                                             {{field.name}}
@@ -60,6 +61,9 @@
                                         </td>
                                         <td ng-if="json.json.rowCheckBoxForMarketing==true">
                                             <input type="checkbox" ng-model="myChkModel" ng-change="checkboxMarketingClick(item._id)">
+                                        </td>
+                                        <td ng-if="json.json.rowCheckBoxForPerformance==true">
+                                            <input type="checkbox" ng-model="myChkModel" ng-change="checkboxPerformanceClick(item._id)">
                                         </td>
                                         <td>{{($index + 1)+((currentPage-1)*maxRow)}}</td>
                                         <td ng-repeat="field in json.json.fields">
@@ -106,7 +110,9 @@
                                 ng-click="playSelectedAllClickMarketing()">{{json.json.bottomButtonMarketing[0].name}}</a>
                             <a class="btn btn-primary" ng-if="json.json.bottomButtonPlayAllMarketing" ng-show="hasRole({{json.json.bottomButtonPlayAllMarketing[0].roles}})"
                                 ng-class="btn.class " ng-click="playSelectedAllClickMarketing()">{{json.json.bottomButtonPlayAllMarketing[0].name}}</a>
-
+                            
+                            <a class="btn btn-primary" ng-if="json.json.bottomButtonPerformance" ng-show="hasRole({{json.json.bottomButtonPerformance[0].roles}})" ng-class="btn.class "
+                                ng-click="playSelectedAllClickPerformance()">{{json.json.bottomButtonPerformance[0].name}}</a>
                         </div>
                         <!-- <div ng-if="json.json.bottomButtonPlayAll">
                                 

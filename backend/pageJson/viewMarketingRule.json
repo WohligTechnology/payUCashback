@@ -88,6 +88,5 @@
     "apiCall": {
         "url": "MarketingRule/search",
         "params": "_id"
-    },
-    "removeSearch": true
+    }
 }

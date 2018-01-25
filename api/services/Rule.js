@@ -13,8 +13,8 @@ var schema = new Schema({
     amount: {
         type: Number
     },
-    minimumAccumulatedSpend:{
-        type:Number
+    minimumAccumulatedSpend: {
+        type: Number
     },
     maximumCashback: {
         type: Number
@@ -22,100 +22,100 @@ var schema = new Schema({
     promoCode: {
         type: String
     },
-    isFirstTransaction:{
+    isFirstTransaction: {
         type: String,
         default: "true",
         enum: ['true', 'false']
     },
-    validFrom:{
-        type:Date
+    validFrom: {
+        type: Date
     },
-    validTo:{
-        type:Date
+    validTo: {
+        type: Date
     },
-    processingStartDate:{
-        type:Date
+    processingStartDate: {
+        type: Date
     },
-    processingEndDate:{
-        type:Date
+    processingEndDate: {
+        type: Date
     },
-    relativeTransactionDate:{
-        type:Date
+    relativeTransactionDate: {
+        type: Date
     },
-    relativeTransactionEndDate:{
-        type:Date
+    relativeTransactionEndDate: {
+        type: Date
     },
-    yesterdayMinusXDays:{
-        type:Number,
-        default:0
+    yesterdayMinusXDays: {
+        type: Number,
+        default: 0
     },
-    isAutomated:{
+    isAutomated: {
         type: String,
         default: "false",
         enum: ['true', 'false']
     },
-    perUser:{
-        type:String,
-        default:"1"
+    perUser: {
+        type: String,
+        default: "1"
     },
-    perUserTransactionOffer:{
-        type:String,
-        default:"0"
+    perUserTransactionOffer: {
+        type: String,
+        default: "0"
     },
-    nthPerUserTransaction:{
-        type:String,
-        default:"0"
+    nthPerUserTransaction: {
+        type: String,
+        default: "0"
     },
-    nthPerUserTransactionOffer:{
-        type:String,
-        default:"0"
+    nthPerUserTransactionOffer: {
+        type: String,
+        default: "0"
     },
-    generationCriteria:{
+    generationCriteria: {
         type: String,
         default: "Daily",
-        enum: ['Daily', 'After End Date',"After Repayment"]
+        enum: ['Daily', 'After End Date', "After Repayment"]
     },
     applicableMerchant: [{
         type: Schema.Types.ObjectId,
         ref: 'Merchant'
     }],
-    applicableProduct:{
-        type:String
+    applicableProduct: {
+        type: String
     },
-    giftCard:[{
-        transaction:{
+    giftCard: [{
+        transaction: {
             type: String
         },
         cashbackDetails: {
             type: String
         }
     }],
-    isDeleted:{
-        type:Number,
+    isDeleted: {
+        type: Number,
         default: 0
     },
-    queryId:{
-        type:String
+    queryId: {
+        type: String
     },
-    query:{
-        type:String
+    query: {
+        type: String
     },
-    status:[{
+    status: [{
         type: Schema.Types.ObjectId,
         ref: 'Status'
     }],
-    transactionType:[{
+    transactionType: [{
         type: Schema.Types.ObjectId,
         ref: 'TransactionType'
     }],
-    campaignName:{
-        type:String
+    campaignName: {
+        type: String
     },
-    minimumAccumulatedSpendInNumberOfDays:{
-        type:Number
+    minimumAccumulatedSpendInNumberOfDays: {
+        type: Number
     },
-    minimumTransactionAmount:{
-        type:Number,
+    minimumTransactionAmount: {
+        type: Number,
         default: 0
     },
     createdBy: {
@@ -129,41 +129,238 @@ var schema = new Schema({
 });
 
 schema.plugin(deepPopulate, {
-            populate: {
-                'merchant': {
-                    select: 'name _id merchantSqlId'
-                },
-                'applicableMerchant':{
-                    select: 'name _id merchantSqlId'
-                },
-                'status':{
-                    select: 'name _id'
-                },
-                'transactionType':{
-                    select: 'name _id'
-                },
-                'createdBy': {
-                    select: 'name _id email'
-                },
-                'lastUpdatedBy': {
-                    select: 'name _id email'
-                }
-            }
-            });
+    populate: {
+        'merchant': {
+            select: 'name _id merchantSqlId'
+        },
+        'applicableMerchant': {
+            select: 'name _id merchantSqlId'
+        },
+        'status': {
+            select: 'name _id'
+        },
+        'transactionType': {
+            select: 'name _id'
+        },
+        'createdBy': {
+            select: 'name _id email'
+        },
+        'lastUpdatedBy': {
+            select: 'name _id email'
+        }
+    }
+});
 schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('Rule', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant applicableMerchant status transactionType createdBy lastUpdatedBy', 'merchant applicableMerchant status transactionType createdBy lastUpdatedBy'));
 var model = {
+
+    searchNew: function (data, callback) {
+        console.log("inside new search");
+        var Model = this;
+        var Const = this(data);
+        var maxRow = Config.maxRow;
+
+        var page = 1;
+        if (data.page) {
+            page = data.page;
+        }
+        var field = data.field;
+
+        var options = {
+            field: data.field,
+            filters: {
+                keyword: {
+                    fields: ['name','merchant.name'],
+                    term: data.keyword
+                }
+            },
+            sort: {
+                asc: 'createdAt'
+            },
+            start: (page - 1) * maxRow,
+            count: maxRow
+        };
+
+console.log("options",options.filters.keyword);
+
+// var aggregatePipeline = [
+//     // Stage 1
+//     {
+//         $match: {
+//             "isDeleted": 0,
+//             $text: { 
+//                 $search: data.keyword
+//             }
+//         }
+         
+//     }
+// ];
+        var aggregatePipeline = [
+            // Stage 1
+            {
+                $lookup: {
+                    "from": "merchants",
+                    "localField": "merchant",
+                    "foreignField": "_id",
+                    "as": "merchant"
+                }
+            }, {
+                $unwind: '$merchant'
+            }
+        ];
+
+        // Stage 2
+        aggregatePipeline.push({
+            $lookup: {
+                "from": "merchants",
+                "localField": "applicableMerchant",
+                "foreignField": "_id",
+                "as": "applicableMerchant"
+            }
+        });
+
+        // Stage 3
+        aggregatePipeline.push({
+            $lookup: {
+                "from": "status",
+                "localField": "status",
+                "foreignField": "_id",
+                "as": "status"
+            }
+        });
+
+        // Stage 4
+        aggregatePipeline.push({
+            $lookup: {
+                "from": "transactiontypes",
+                "localField": "transactionType",
+                "foreignField": "_id",
+                "as": "transactionType"
+            }
+        });
+
+        // Stage 5
+        aggregatePipeline.push({
+            $lookup: {
+                "from": "users",
+                "localField": "createdBy",
+                "foreignField": "_id",
+                "as": "createdBy"
+            }
+        });
+
+        // Stage 6
+        aggregatePipeline.push({
+            $lookup: {
+                "from": "users",
+                "localField": "lastUpdatedBy",
+                "foreignField": "_id",
+                "as": "lastUpdatedBy"
+            }
+        });
+
+        // Stage 7
+        if (data.keyword != "") {
+
+            aggregatePipeline.push({
+                $match: {
+                    "isDeleted": 0,
+                    "$merchant.name": data.keyword
+                }
+            });
+        } else {
+
+            aggregatePipeline.push({
+                $match: {
+                    "isDeleted": 0
+                }
+            });
+        }
+
+        //Stage 8
+        aggregatePipeline.push({
+            $sort: {
+                validFrom: -1,
+                validTo: -1
+            }
+        });
+
+        async.parallel({
+            options: function (callback) {
+                callback(null, options);
+            },
+            results: function (callback) {
+                Rule.aggregate(
+                    // Pipeline
+                    _.concat(aggregatePipeline, [
+
+                        // Stage 3
+                        {
+                            $skip: options.start
+                        },
+
+                        // Stage 4
+                        {
+                            $limit: maxRow
+
+                        },
+                    ])).exec(callback);
+
+            },
+            total: function (callback) {
+                Rule.aggregate(
+                    // Pipeline
+                    _.concat(aggregatePipeline, [
+                        // Stage 3
+                        {
+                            $group: {
+                                "_id": "_id",
+                                "count": {
+                                    $sum: 1
+                                }
+                            }
+                        }
+                    ])).exec(function (err, data) {
+                    if (err || _.isEmpty(data)) {
+                        callback(err, 0);
+                    } else {
+                        callback(null, data[0].count);
+                    }
+                });
+            }
+        }, function (err, data2) {
+            if (err) {
+                console.log("in if", err);
+                callback(err);
+            } else {
+                callback(null, data2);
+            }
+        });
+
+    },
+
+
     search: function (data, callback) {
-        console.log("in custom");
+        console.log("in custom", data);
         var maxRow = Config.maxRow;
         var page = 1;
         if (data.page) {
             page = data.page;
         }
         var field = data.field;
+        // var conditionParameters={};
+        if (data.keyword == "") {
+            var conditionParameters = {
+                isDeleted: 0
+            };
+        } else {
+            var conditionParameters = {
+                isDeleted: 0
+            };
+        }
         var options = {
             field: data.field,
             filters: {
@@ -173,15 +370,13 @@ var model = {
                 }
             },
             sort: {
-                desc: 'createdAt'
+                desc: 'validFrom'
             },
             start: (page - 1) * maxRow,
             count: maxRow
         };
-        Rule.find({
-                isDeleted: 0
-            }).sort({
-                createdAt: -1
+        Rule.find(conditionParameters).sort({
+                validTo: -1
             })
             .populate('merchant applicableMerchant status transactionType createdBy lastUpdatedBy')
             .order(options)
@@ -194,25 +389,39 @@ var model = {
                     } else if (_.isEmpty(found)) {
                         callback(null, []);
                     } else {
+                        // var newResultArray=[];
+                        // _.forEach(found.results, function(value,key) {
+                        //     var merchantName=value.merchant.name+" "+value.name;
+                        //     console.log(merchantName);
+                        //     var res=merchantName.match(/faa/g);
+                        //     console.log("response-",res,"-");
+                        //     if(res==null){
+                        //     }else{
+                        //         newResultArray.push(value);
+                        //     }
+                        //     // console.log(key,"-",value);
+
+                        //   });
+                        //   found.results=newResultArray;
+                        //   console.log(found);
                         callback(null, found);
                     }
                 });
     },
     deleteWithChangeStatus: function (data, callback) {
         // var Model = this;
-        console.log("deleteWithChangeStatus rule service",data);
+        console.log("deleteWithChangeStatus rule service", data);
         var Const = this(data);
         Rule.update({
             _id: data._id
-        },{
-            $set:
-            {
+        }, {
+            $set: {
                 isDeleted: 1,
-                isAutomated:"false"
+                isAutomated: "false"
             }
         }, function (err, data2) {
             if (err) {
-                console.log("in if",err);
+                console.log("in if", err);
                 callback(err);
             } else {
                 console.log("else");
@@ -222,19 +431,20 @@ var model = {
     },
     changeAllValues: function (data, callback) {
         // var Model = this;
-        console.log("changeAllValues rule service",data);
+        console.log("changeAllValues rule service", data);
         var Const = this(data);
         Rule.update({
-            isDeleted:0
-        },{
-            $set:
-            {
+            isDeleted: 0
+        }, {
+            $set: {
                 yesterdayMinusXDays: data.value,
-                lastUpdatedBy:data.lastUpdatedBy
+                lastUpdatedBy: data.lastUpdatedBy
             }
-        },{multi: true}, function (err, data2) {
+        }, {
+            multi: true
+        }, function (err, data2) {
             if (err) {
-                console.log("in if",err);
+                console.log("in if", err);
                 callback(err);
             } else {
                 console.log("else");
@@ -242,12 +452,20 @@ var model = {
             }
         });
     },
-    getAllAutomated:function(data,callback){
+    getAllAutomated: function (data, callback) {
         console.log("inside getAllAutomated service");
         Rule.find({
             isAutomated: "true",
-            $and:[{validFrom:{$lte:new Date()}},{validTo:{$gte:new Date()}}],
-            isDeleted:0
+            $and: [{
+                validFrom: {
+                    $lte: new Date()
+                }
+            }, {
+                validTo: {
+                    $gte: new Date()
+                }
+            }],
+            isDeleted: 0
         }).populate('merchant applicableMerchant status transactionType createdBy lastUpdatedBy').exec(function (err, found) {
             if (err) {
                 console.log('**** error at getAllAutomated of Rule.js ****', err);
@@ -260,11 +478,19 @@ var model = {
         });
     },
 
-    getAllRules:function(data,callback){
+    getAllRules: function (data, callback) {
         console.log("inside getAllRules service");
         Rule.find({
-            $and:[{validFrom:{$lte:new Date()}},{validTo:{$gte:new Date()}}],
-            isDeleted:0
+            $and: [{
+                validFrom: {
+                    $lte: new Date()
+                }
+            }, {
+                validTo: {
+                    $gte: new Date()
+                }
+            }],
+            isDeleted: 0
         }).populate('merchant applicableMerchant status transactionType createdBy lastUpdatedBy').exec(function (err, found) {
             if (err) {
                 console.log('**** error at getAllRules of Rule.js ****', err);
@@ -277,11 +503,19 @@ var model = {
         });
     },
 
-    getAllCurrentRules:function(data,callback){
+    getAllCurrentRules: function (data, callback) {
         console.log("inside getAllCurrentRules service");
         Rule.find({
-            $and:[{validFrom:{$lte:new Date()}},{validTo:{$gte:new Date()}}],
-            isDeleted:0
+            $and: [{
+                validFrom: {
+                    $lte: new Date()
+                }
+            }, {
+                validTo: {
+                    $gte: new Date()
+                }
+            }],
+            isDeleted: 0
         }).populate('merchant applicableMerchant status transactionType createdBy lastUpdatedBy').exec(function (err, found) {
             if (err) {
                 console.log('**** error at getAllCurrentRules of Rule.js ****', err);
@@ -295,61 +529,61 @@ var model = {
     },
 
     playSelectedEmail: function (data, callback) {
-        console.log("inside playSelectedEmail service data",data);
-                        var emailData = {};
-                        var total = 0;
-                        emailData.email = "avinash.ghare@wohlig.com";
-                        emailData.subject = "Play Selected Array Email";
-                        emailData.filename = "playSelectedRulesArray.ejs";
-                        emailData.from = "avinashghare572@gmail.com";
-                        emailData.selectedArray = data;
-                        Config.playSelectedEmail(emailData, function (err, response) {
-                            if (err) {
-                                console.log("error in email", err);
-                                callback("emailError", null);
-                            } else if (response) {
-                                var sendData = {};
-                                sendData.response=response;
-                                sendData.message="successfull";
-                                // sendData._id = created._id;
-                                // sendData.email = created.email;
-                                // sendData.accessToken = created.accessToken;
-                                // sendData.firstName = created.firstName;
-                                // sendData.lastName = created.lastName;
-                                callback(null, sendData);
-                            } else {
-                                callback("errorOccurredRegister", null);
-                            }
-                        });
-                    
+        console.log("inside playSelectedEmail service data", data);
+        var emailData = {};
+        var total = 0;
+        emailData.email = "avinash.ghare@wohlig.com";
+        emailData.subject = "Play Selected Array Email";
+        emailData.filename = "playSelectedRulesArray.ejs";
+        emailData.from = "avinashghare572@gmail.com";
+        emailData.selectedArray = data;
+        Config.playSelectedEmail(emailData, function (err, response) {
+            if (err) {
+                console.log("error in email", err);
+                callback("emailError", null);
+            } else if (response) {
+                var sendData = {};
+                sendData.response = response;
+                sendData.message = "successfull";
+                // sendData._id = created._id;
+                // sendData.email = created.email;
+                // sendData.accessToken = created.accessToken;
+                // sendData.firstName = created.firstName;
+                // sendData.lastName = created.lastName;
+                callback(null, sendData);
+            } else {
+                callback("errorOccurredRegister", null);
+            }
+        });
+
     },
     AddRule: function (data, callback) {
-                var Model = this;
-                var voteData = data.body;
-                voteData.userAgentDetails = JSON.stringify(data.headers);
-                Model.saveData(voteData, function (err, data2) {
-                    if (err) {
-                        callback(err, data2);
-                    } else {
-                        Awardcategory.findOne({
-                            "_id": data.body.awardcategory
-                        }).exec(function (err, awardcategoryData) {
-                            //console.log(data);
-                            _.each(awardcategoryData.company, function (value) {
-                                console.log(value);
-                                console.log(data.body.company);
-                                if (value.companyObj == data.body.company) {
-                                    console.log(data.body.company);
-                                    console.log("MatchFound");
-                                    value.voteCount = ++value.voteCount;
-                                }
-                            });
-                            awardcategoryData.save(function (err, data) {
-                                callback(err, data);
-                            });
-                        });
-                    }
+        var Model = this;
+        var voteData = data.body;
+        voteData.userAgentDetails = JSON.stringify(data.headers);
+        Model.saveData(voteData, function (err, data2) {
+            if (err) {
+                callback(err, data2);
+            } else {
+                Awardcategory.findOne({
+                    "_id": data.body.awardcategory
+                }).exec(function (err, awardcategoryData) {
+                    //console.log(data);
+                    _.each(awardcategoryData.company, function (value) {
+                        console.log(value);
+                        console.log(data.body.company);
+                        if (value.companyObj == data.body.company) {
+                            console.log(data.body.company);
+                            console.log("MatchFound");
+                            value.voteCount = ++value.voteCount;
+                        }
+                    });
+                    awardcategoryData.save(function (err, data) {
+                        callback(err, data);
+                    });
                 });
             }
+        });
+    }
 };
 module.exports = _.assign(module.exports, exports, model);

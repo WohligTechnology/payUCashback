@@ -3,6 +3,7 @@
     "description": "List of Performances",
     "pageType": "view",
     "sendIdWithCreate": true,
+    "rowCheckBoxForPerformance":true,
     "urlFields": ["_id"],
     "roles":["Super Admin","Performance"],
     "fields": [{
@@ -56,6 +57,15 @@
         "type": "page",
         "roles":["Super Admin","Performance"],
         "action": "createPerformance"
+    }],
+    "bottomButtonPerformance": [{
+        "name": "Play Selected",
+        "icon": "plus",
+        "class": "btn-success",
+        "type": "page",
+        "action": "",
+        "functionName":"playPerformanceSelectedClick()",
+        "roles":["Super Admin","Performance"]
     }],
     "apiCall": {
         "url": "Performance/search",

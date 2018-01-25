@@ -1,0 +1,54 @@
+{
+    "title": "Mailer List",
+    "description": "List of MailerLists",
+    "pageType": "view",
+    "sendIdWithCreate": true,
+    "urlFields": ["_id"],
+    "roles":["Super Admin","Merchant Exposure"],
+    "fields": [{
+        "name": "Name",
+        "isSort": "",
+        "tableRef": "name"
+    }, {
+        "name": "Type",
+        "isSort": "",
+        "tableRef": "type"
+    }],
+    "action": [{
+        "name": "edit",
+        "icon": "fa-pencil",
+        "buttonClass": "btn-primary",
+        "type": "page",
+        "action": "editMailerList",
+        "roles":["Super Admin","Merchant Exposure"],
+        "fieldsToSend": {
+            "_id": "_id"
+        }
+    }, {
+        "name": "delete",
+        "icon": "fa-trash",
+        "buttonClass": "btn-danger",
+        "type": "apiCallConfirm",
+        "title": "Delete MailerList",
+        "content": "Are you sure you want to delete MailerList?",
+        "api": "MailerList/deleteWithChangeStatus",
+        "roles":["Super Admin"],
+        "fieldsToSend": {
+            "name": "_id",
+            "value": "_id"
+        }
+    }],
+    "button": [{
+        "name": "Add",
+        "icon": "plus",
+        "class": "btn-success",
+        "type": "page",
+        "roles":["Super Admin","Merchant Exposure"],
+        "action": "createMailerList"
+    }],
+    "apiCall": {
+        "url": "MailerList/search",
+        "params": "_id"
+    },
+    "removeSearch": true
+}

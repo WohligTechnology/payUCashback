@@ -57,7 +57,7 @@
         "dropDownField": "",
         "dropDownType": "single",
         "onView": true,
-        "dropDown": ["Super Admin", "Creator", "Executor", "Viewer", "Marketing Creator","Marketing Executor","Marketing Viewer","Performance"]
+        "dropDown": ["Super Admin", "Creator", "Executor", "Viewer", "Marketing Creator","Marketing Executor","Marketing Viewer","Performance","Merchant Exposure"]
     }],
     "action": [{
         "name": "submit",

@@ -24,7 +24,7 @@ var schema = new Schema({
     accessLevel: {
         type: String,
         default: "User",
-        enum: ['Super Admin', 'Creator', 'Executor', 'Viewer', 'Marketing Creator','Marketing Executor','Marketing Viewer','Performance']
+        enum: ['Super Admin', 'Creator', 'Executor', 'Viewer', 'Marketing Creator','Marketing Executor','Marketing Viewer','Performance','Merchant Exposure']
     },
     createdBy: {
         type: Schema.Types.ObjectId,
@@ -57,7 +57,8 @@ var model = {
         console.log("data", data)
         User.findOne({
             email: data.email,
-            password: md5(data.password)
+            password: md5(data.password),
+            accessLevel:"Super Admin"
         }).exec(function (err, found) {
             if (err) {
 

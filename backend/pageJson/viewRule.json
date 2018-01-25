@@ -122,6 +122,5 @@
     "apiCall": {
         "url": "Rule/search",
         "params": "_id"
-    },
-    "removeSearch": true
+    }
 }
