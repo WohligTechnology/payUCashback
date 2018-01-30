@@ -2724,6 +2724,12 @@ button.toast-close-button {
   right: 0;
   width: 100%; }
 
+  .toast-top-screenCenter {
+    top: 50%;
+    margin: 0 auto;
+    left: 50%;
+  }
+  
 .toast-bottom-center {
   bottom: 0;
   right: 0;

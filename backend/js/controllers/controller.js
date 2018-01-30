@@ -768,15 +768,17 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 NavigationService.playSelectedPerformanceRule(objectToSend, function (data) {
                     console.log("*****", data);
                     var totalAmount = data.data.totalAmount;
+                    totalAmount=totalAmount.toLocaleString();
                     var numberOfUsers = data.data.numberOfUsers;
                     var numberOfTransactions = data.data.numberOfTransactions;
+                    var totalUsersInFile = data.data.totalUsersInFile;
                     if (data.data.success == true) {
-                        toastr.success("Rule Played Successfully. Total Amount is - " + totalAmount + " & Total Number Of Users are - " + numberOfUsers + " & Number Of Transactions - "+ numberOfTransactions, {
+                        toastr.success("Rule Played Successfully. Total Users In File: "+ totalUsersInFile + " & Total Users Transacted : " + numberOfUsers + " & Number Of Transactions - "+ numberOfTransactions +" & Total Amount is - " + totalAmount, {
                             "closeButton": true,
                             "debug": false,
                             "newestOnTop": false,
                             "progressBar": true,
-                            "positionClass": "toast-top-center",
+                            "positionClass": "toast-top-screenCenter",
                             "preventDuplicates": false,
                             "onclick": null,
                             "timeOut": "7000",
