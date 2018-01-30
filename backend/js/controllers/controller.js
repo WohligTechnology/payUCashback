@@ -767,9 +767,10 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
                 NavigationService.playSelectedPerformanceRule(objectToSend, function (data) {
                     console.log("*****", data);
-                    var count = data.data.cashbackCount;
+                    var totalAmount = data.data.totalAmount;
+                    var numberOfUsers = data.data.numberOfUsers;
                     if (data.data.success == true) {
-                        toastr.success("Rules Played Successfully. Total Cashback Count is - " + count, {
+                        toastr.success("Rule Played Successfully. Total Amount is - " + totalAmount + " & Total Number Of Users are - " + numberOfUsers, {
                             "closeButton": true,
                             "debug": false,
                             "newestOnTop": false,
@@ -782,7 +783,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                             "tapToDismiss": false
                         });
                     } else {
-                        toastr.error("Failed To Play Rules", {
+                        toastr.error("Failed To Play Rule ! Try Again !!!", {
                             "closeButton": true,
                             "debug": false,
                             "newestOnTop": false,
@@ -897,6 +898,76 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 scope: $scope
             });
         }
+
+        // Exposure Merchant view button click start
+        $scope.viewSingleExposureMerchantModal = function (exposureMerchant) {
+            console.log("viewexposureMerchantModal",exposureMerchant);
+            
+            $scope.singleExposureMerchantForModal = exposureMerchant;
+            $scope.singleExposureMerchantForModalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/singleExposureMerchantForModal.html',
+                size: 'md',
+                scope: $scope
+            });
+            // NavigationService.viewSingleExposureMerchantModal(exposureMerchant, function (data) {
+            //     console.log("verifyQuery", data);
+            //     var query = data.data.cashbackQuery;
+            //     $scope.queryToShow = query;
+            //     if (data.data.success == true) {
+            //         $scope.singleRuleModal = $uibModal.open({
+            //             animation: true,
+            //             templateUrl: 'views/modal/queryModal.html',
+            //             size: 'lg',
+            //             scope: $scope
+            //         });
+            //     } else {
+            //         $scope.queryToShow = "Something Went Wrong: Server is Failed to Generate Query."
+            //         $scope.singleRuleModal = $uibModal.open({
+            //             animation: true,
+            //             templateUrl: 'views/modal/queryModal.html',
+            //             size: 'lg',
+            //             scope: $scope
+            //         });
+
+            //     }
+
+            // })
+
+        }
+        // Exposure Merchant view button click end
+
+
+        // Exposure Merchant Category view button click start
+        $scope.viewSingleExposureMerchantCategoryModal = function (exposureMerchantCategory) {
+            console.log("viewexposureMerchantCategoryModal",exposureMerchantCategory);
+            
+            $scope.singleExposureMerchantCategoryForModal = exposureMerchantCategory;
+            $scope.singleExposureMerchantCategoryForModalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/singleExposureMerchantCategoryForModal.html',
+                size: 'md',
+                scope: $scope
+            });
+
+        }
+        // Exposure Merchant Category view button click end
+
+        // Exposure Rule view button click start
+        $scope.viewSingleExposureRuleModal = function (exposureRule) {
+            console.log("viewexposureRuleModal",exposureRule);
+            
+            $scope.singleExposureRuleForModal = exposureRule;
+            $scope.singleExposureRuleForModalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/singleExposureRuleForModal.html',
+                size: 'md',
+                scope: $scope
+            });
+
+        }
+        // Exposure Rule view button click end
+
 
         $scope.viewQueryModal = function (singleRule) {
             $scope.copied = "Copy Query";

@@ -281,7 +281,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         playSelectedPerformanceRule: function (ruleArr, callback) {
             console.log("inside navigationservice playSelectedPerformanceRule",ruleArr);
             $http({
-                url: 'http://172.31.2.124:8080/performance',
+                url: 'http://172.31.2.124:8090/performance',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
