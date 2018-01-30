@@ -769,8 +769,9 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     console.log("*****", data);
                     var totalAmount = data.data.totalAmount;
                     var numberOfUsers = data.data.numberOfUsers;
+                    var numberOfTransactions = data.data.numberOfTransactions;
                     if (data.data.success == true) {
-                        toastr.success("Rule Played Successfully. Total Amount is - " + totalAmount + " & Total Number Of Users are - " + numberOfUsers, {
+                        toastr.success("Rule Played Successfully. Total Amount is - " + totalAmount + " & Total Number Of Users are - " + numberOfUsers + " & Number Of Transactions - "+ numberOfTransactions, {
                             "closeButton": true,
                             "debug": false,
                             "newestOnTop": false,
@@ -778,7 +779,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                             "positionClass": "toast-top-center",
                             "preventDuplicates": false,
                             "onclick": null,
-                            "timeOut": "4000",
+                            "timeOut": "7000",
                             "extendedTimeOut": "1000",
                             "tapToDismiss": false
                         });
