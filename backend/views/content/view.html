@@ -2,7 +2,7 @@
 	<div class="loader"></div>
 </div> -->
 <div ng-controller="ViewCtrl">
-        <div style="margin-left:25%" ng-if="json.json.loader==true"class="loading"><img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif" width="50" height="50" />LOADING...</div>
+        <!-- <div style="margin-left:25%" ng-if="json.json.loader==true"class="loading"><img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif" width="50" height="50" />LOADING...</div> -->
     <div class="heading-sec">
         <div class="row">
             <div class="col-md-4 column">
@@ -19,7 +19,11 @@
                 <div class="widget ">
                     <div class="table-area ">
                         <div class="widget-title ">
-
+                            <div  ng-if="json.json.loader==true" style="display: block;position: fixed;z-index: 9999;width: 250px;margin-left: -125px;left: 50%;top: 50%; height: 100px;padding: 10px;background-color: #49caf2;border-radius: 4px;" loading-indicator class="waiting-box">
+                                <span>Please Wait...
+                                    <img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif" />
+                                </span>
+                            </div>
                             <div ng-if="json.json.showCountOnView">
                                 <h5>Total Active Rules: <span style="color:green">{{allActiveRulesCount}}</span> & Total Inactive Rules: <span style="color:red">{{allInactiveRulesCount}}</span></h5>
                                 <br>
