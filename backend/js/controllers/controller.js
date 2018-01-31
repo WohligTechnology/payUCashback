@@ -762,11 +762,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 console.log("empty array inside playSelectedClick if");
                 alert("No Rules To Play!!!");
             } else {
+                $scope.json.json.loader=true;
                 objectToSend.ruleIds = $scope.selectArrPerformance;
                 console.log("selected id inside playSelectedClick else", objectToSend);
 
                 NavigationService.playSelectedPerformanceRule(objectToSend, function (data) {
                     console.log("*****", data);
+                    if(data){
+                        $scope.json.json.loader=false;
+                    }
                     var totalAmount = data.data.totalAmount;
                     totalAmount=totalAmount.toLocaleString();
                     var numberOfUsers = data.data.numberOfUsers;

@@ -5,6 +5,7 @@
     "sendIdWithCreate": true,
     "rowCheckBoxForPerformance":true,
     "urlFields": ["_id"],
+    "loader":false,
     "roles":["Super Admin","Performance"],
     "fields": [{
         "name": "Remark",

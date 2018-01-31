@@ -2,6 +2,7 @@
 	<div class="loader"></div>
 </div> -->
 <div ng-controller="ViewCtrl">
+        <div style="margin-left:25%" ng-if="json.json.loader==true"class="loading"><img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif" width="50" height="50" />LOADING...</div>
     <div class="heading-sec">
         <div class="row">
             <div class="col-md-4 column">
@@ -13,7 +14,7 @@
     </div>
     <!-- Top Bar Chart -->
     <div class=" panel-content ">
-        <div class="row ">
+            <div class="row ">
             <div class="col-md-12 ">
                 <div class="widget ">
                     <div class="table-area ">
@@ -70,15 +71,37 @@
                                             <view-field type="field" value="item"></view-field>
                                         </td>
                                         <td>
-
+                                            <!-- Cashback Rule View button start -->
                                             <a style="margin-left:5px;" ng-if="json.json.viewButton" title="{{json.json.viewButton.name}}" class="btn" ng-class="json.json.viewButton.buttonClass"
                                                 ng-click="viewSingleRuleModal(item)">
                                                 <i class="fa" ng-class="json.json.viewButton.icon"></i>
                                             </a>
+                                            <!-- Cashback Rule View button end -->
+                                            <!-- Marketing Rule View button start -->
                                             <a style="margin-left:5px;" ng-if="json.json.viewMarketingRuleButton" title="{{json.json.viewMarketingRuleButton.name}}" class="btn" ng-class="json.json.viewMarketingRuleButton.buttonClass"
                                                 ng-click="viewSingleMarketingRuleModal(item)">
                                                 <i class="fa" ng-class="json.json.viewMarketingRuleButton.icon"></i>
                                             </a>
+                                            <!-- Marketing Rule View button end -->
+                                            <!-- Exposure merchant View button start -->
+                                            <a style="margin-left:5px;" ng-if="json.json.viewExposureMerchantButton" title="{{json.json.viewExposureMerchantButton.name}}" class="btn" ng-class="json.json.viewExposureMerchantButton.buttonClass"
+                                            ng-click="viewSingleExposureMerchantModal(item)">
+                                            <i class="fa" ng-class="json.json.viewExposureMerchantButton.icon"></i>
+                                        </a>
+                                        <!-- Exposure merchant View button ends -->
+                                            <!-- Exposure merchant Category View button start -->
+                                            <a style="margin-left:5px;" ng-if="json.json.viewExposureMerchantCategoryButton" title="{{json.json.viewExposureMerchantCategoryButton.name}}" class="btn" ng-class="json.json.viewExposureMerchantCategoryButton.buttonClass"
+                                            ng-click="viewSingleExposureMerchantCategoryModal(item)">
+                                            <i class="fa" ng-class="json.json.viewExposureMerchantCategoryButton.icon"></i>
+                                        </a>
+                                        <!-- Exposure merchant Category View button ends -->
+
+                                            <!-- Exposure Rule View button start -->
+                                            <a style="margin-left:5px;" ng-if="json.json.viewExposureRuleButton" title="{{json.json.viewExposureRuleButton.name}}" class="btn" ng-class="json.json.viewExposureRuleButton.buttonClass"
+                                            ng-click="viewSingleExposureRuleModal(item)">
+                                            <i class="fa" ng-class="json.json.viewExposureRuleButton.icon"></i>
+                                        </a>
+                                        <!-- Exposure Rule View button ends -->
                                             <a style="margin-left:5px;" ng-repeat="but in json.json.action" ng-show="hasRole({{but.roles}})" title="{{but.name}}" class="btn"
                                                 ng-class="but.buttonClass" ng-click="json.eventAction(but,item) ">
                                                 <i class="fa" ng-class="but.icon"></i>
