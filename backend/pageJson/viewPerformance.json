@@ -59,10 +59,16 @@
         "roles":["Super Admin","Performance"],
         "action": "createPerformance"
     }],
+    "downloadFileFormatButton":{
+        "name": "Download CSV Format",
+        "icon": "table",
+        "class": "btn-success",
+        "roles":["Super Admin","Performance"]
+    },
     "bottomButtonPerformance": [{
         "name": "Play Selected",
         "icon": "plus",
-        "class": "btn-success",
+        "class": "btn-primary",
         "type": "page",
         "action": "",
         "functionName":"playPerformanceSelectedClick()",
