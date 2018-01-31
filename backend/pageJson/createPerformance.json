@@ -4,10 +4,11 @@
     "jsonPage": "viewPerformance",
     "desciption": "",
     "pageType": "create",
+    "showFormatImagePerformance": true,
     "urlFields": ["Performance"],
     "roles":["Super Admin","Performance"],
     "fields": [{
-        "name": "CSV File",
+        "name": "Upload File ( Currently Supporting Only CSV File Format )",
         "type": "excel",
         "size": "",
         "tableRef": "name",

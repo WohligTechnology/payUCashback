@@ -1309,7 +1309,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
     })
 
-    .controller('DetailCtrl', function ($scope, TemplateService, NavigationService, JsonService, $timeout, $state, $stateParams, toastr) {
+    .controller('DetailCtrl', function ($scope, TemplateService, NavigationService, JsonService, $timeout, $state, $stateParams, toastr,$uibModal) {
         $scope.json = JsonService;
         JsonService.setKeyword($stateParams.keyword);
         $scope.template = TemplateService;
@@ -1321,7 +1321,20 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             console.log("hideFirstTransaction and operator is",operatorValue);
         }
 
+        //for view File Format in performance start
 
+        $scope.viewFileFormat=function(){
+            console.log("file");
+            $scope.viewFileFormatModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/viewFileFormatModal.html',
+                size: 'lg',
+                scope: $scope
+            });
+        }
+
+
+        //for view File Format in performance end
         console.log("roles of page", $scope.json.json.roles);
         if ($scope.json.json.roles) {
             console.log($scope.json.json.roles);

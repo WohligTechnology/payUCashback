@@ -4,6 +4,7 @@
     "jsonPage": "viewPerformance",
     "desciption": "",
     "pageType": "edit",
+    "showFormatImagePerformance": true,
     "urlFields": ["_id"],
     "roles":["Super Admin","Performance"],
     "fields": [{
