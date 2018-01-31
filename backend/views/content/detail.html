@@ -20,6 +20,7 @@
         </div>
     </div>
     <!-- Top Bar Chart -->
+
     <div class="panel-content">
         <div class="row">
             <div class="col-md-12">
@@ -28,6 +29,13 @@
                         <div class="widget-title" ng-show="json.json.desciption">
                             <h4>{{json.json.desciption}}</h4>
                         </div>
+
+                        <div ng-if="json.json.showFormatImagePerformance==true" class="pull-right">
+                                <button class="btn btn-success" type="submit" ng-click="viewFileFormat()">View File Format</button>
+                                
+                                <!-- <img src="img/performance.png" alt="Absolute" height="40"> -->
+                        </div>
+
                         <form name="detailForm" role="form" class="sec ng-pristine ng-valid">
                             <!--<pre>{{data|json}}</pre>-->
                             <div class="row">
