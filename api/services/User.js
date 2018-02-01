@@ -57,8 +57,7 @@ var model = {
         console.log("data", data)
         User.findOne({
             email: data.email,
-            password: md5(data.password),
-            accessLevel:"Super Admin"
+            password: md5(data.password)
         }).exec(function (err, found) {
             if (err) {
 
