@@ -1,0 +1,40 @@
+<form name="modalForm" ng-submit="$dismiss()" class="min-hit">
+    
+        <div class="modal-header blue-bg  ">
+            <div class="pull-right">
+                <a class="btn btn-clear" ng-click="$dismiss()">
+                    <i class="ln-cross"></i>
+                </a>
+            </div>
+            <h5 class="modal-title">
+                <b>{{singleExposureMerchantForModal.name}}</b></h5>
+    
+        </div>
+        <div class="modal-body">
+            <div class="singleRuleHeadings">Merchant Details</div>
+            <div class="row" ng-if="singleExposureMerchantForModal.name">
+                <div class="col-md-12">
+                    Merchant Name- {{singleExposureMerchantForModal.name}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    SQL Id- {{singleExposureMerchantForModal.sqlId}}
+                </div>
+            </div>
+
+            <div class="singleRuleHeadings">Merchant Categories</div>
+    
+            <div class="row" ng-if="singleExposureMerchantForModal.exposureMerchantCategory">
+                <div class="col-md-12">
+                    Merchant Categories -
+                    <span ng-repeat="inc in singleExposureMerchantForModal.exposureMerchantCategory">{{inc.name}} {{$last ? '' : ($index==singleExposureMerchantForModal.exposureMerchantCategory.length-2) ? ' and ' : ', '}}</span>
+                    
+                </div>
+            </div>
+    <br>
+            <div class="text-center">
+                <button class="btn btn-primary btn-save" type="submit" ng-disabled="modalForm.$invalid" ng-click="$dismiss()">Cancel</button>
+            </div>
+        </div>
+    </form>

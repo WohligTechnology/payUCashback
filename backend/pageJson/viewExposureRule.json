@@ -1,6 +1,6 @@
 {
     "title": "ExposureRule",
-    "description": "List of Marketing Rules",
+    "description": "List of Exposure Rules",
     "pageType": "view",
     "rowCheckBoxForMarketing":false,
     "sendIdWithCreate": true,
@@ -22,6 +22,11 @@
         "tableRef": "mailerList",
         "type":"objectName"
     }],
+    "viewExposureRuleButton":{
+        "name": "View Rule Details",
+        "icon": "fa-eye",
+        "buttonClass": "btn-primary"
+    },
     "action": [{
         "name": "Edit ExposureRule",
         "icon": "fa-pencil",
@@ -44,6 +49,16 @@
         "fieldsToSend": {
             "name": "_id",
             "value": "_id"
+        }
+    },{
+        "name": "Copy Rule",
+        "icon": "fa-copy",
+        "buttonClass": "btn-primary",
+        "type": "page",
+        "action": "copyExposureRule",  
+        "roles":["Super Admin","Creator"], 
+        "fieldsToSend": {
+            "_id": "_id"
         }
     }],
     "button": [{

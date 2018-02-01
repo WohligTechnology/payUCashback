@@ -1,0 +1,51 @@
+<form name="modalForm" ng-submit="$dismiss()" class="min-hit">
+        
+            <div class="modal-header blue-bg  ">
+                <div class="pull-right">
+                    <a class="btn btn-clear" ng-click="$dismiss()">
+                        <i class="ln-cross"></i>
+                    </a>
+                </div>
+                        <h5 class="modal-title">
+                                <b>Performance Rule Played Successfully</b>
+                            </h5>
+                
+            </div>
+            <div class="row" style="margin:20px">
+                <table style="border: 1px solid black;" width="100%">
+                    <tr>
+                        <th style="text-align: right;border: 1px solid black;">Total Users In File:</th>
+                        <td style="padding: 10px;text-align: left;border: 1px solid black;">{{playPerformanceResponse.totalUsersInFile}}</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: right;border: 1px solid black;">Total Users Transacted:</th>
+                        <td style="padding: 10px;text-align: left;border: 1px solid black;">{{playPerformanceResponse.numberOfUsers}}</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: right;border: 1px solid black;">Number Of Transactions:</th>
+                        <td style="padding: 10px;text-align: left;border: 1px solid black;">{{playPerformanceResponse.numberOfTransactions}}</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: right;border: 1px solid black;">Total Amount is:</th>
+                        <td style="padding: 10px;text-align: left;border: 1px solid black;">{{playPerformanceResponse.totalAmountWithDecimal}}</td>
+                    </tr>
+                </table>
+            </div>
+<!-- 
+            <div class="row" style="margin:20px;">
+                <span>Total Users In File: <b>{{playPerformanceResponse.totalAmount}}</b></span>
+            </div>
+            <div class="row">
+                <span>Total Users Transacted:  <b>{{playPerformanceResponse.totalAmount}}</b></span>
+            </div>
+            <div class="row">
+                <span>Number Of Transactions:  <b>{{playPerformanceResponse.totalAmount}}</b></span>
+            </div>
+            <div class="row">
+                <span>Total Amount is:  <b>{{playPerformanceResponse.totalAmount}}</b></span>
+            </div> -->
+        <br>
+        </form>      
+        
+        
+        

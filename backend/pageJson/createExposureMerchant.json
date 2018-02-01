@@ -1,0 +1,71 @@
+{
+    "title": "Create ExposureMerchant",
+    "name": "ExposureMerchant",
+    "jsonPage": "viewExposureMerchant",
+    "desciption": "",
+    "pageType": "create",
+    "urlFields": ["ExposureMerchant"],
+    "roles":["Super Admin","Merchant Exposure"],
+    "fields": [{
+        "name": "Merchant Details",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Merchant Name",
+        "type": "text",
+        "tableRef": "name",
+        "placeholder": "Enter Merchant Name",
+        "id": "name",
+        "validation": ["required", "trim"],
+        "url": ""
+    }, {
+        "name": "Sql Id",
+        "type": "number",
+        "tableRef": "sqlId",
+        "placeholder": "Enter Sql Id",
+        "id": "sqlId",
+        "validation": ["required", "trim"],
+        "url": ""
+    },{
+        "name": "Merchant Categories",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Merchant Categories ( Multiple Select )",
+        "type": "tags",
+        "tableRef": "exposureMerchantCategory",
+        "placeholder": "Select Merchant Categories",
+        "id": "exposureMerchantCategory",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "ExposureMerchantCategory/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["required", "", "trim"]
+    }],
+    "action": [{
+        "name": "submit",
+        "isAction":false,
+        "action": "submitExposureMerchant",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewExposureMerchant"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "isAction":false,
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewExposureMerchant"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "ExposureMerchant/save"
+    }
+}

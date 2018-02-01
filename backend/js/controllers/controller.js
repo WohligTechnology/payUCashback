@@ -472,6 +472,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         }
 
         $scope.checkboxPerformanceClick = function (id) {
+            
             console.log("id in checkboxPerformanceClick", id);
             
             var idx = $.inArray(id, $scope.selectArrPerformance);
@@ -770,25 +771,42 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     console.log("*****", data);
                     if(data){
                         $scope.json.json.loader=false;
+                    }else{
+                        $scope.json.json.loader=false;
                     }
                     var totalAmount = data.data.totalAmount;
-                    totalAmount=totalAmount.toLocaleString();
+                    var totalAmountWithDecimal=totalAmount.toLocaleString();
                     var numberOfUsers = data.data.numberOfUsers;
                     var numberOfTransactions = data.data.numberOfTransactions;
                     var totalUsersInFile = data.data.totalUsersInFile;
+
+                    //data for modal
+                    $scope.playPerformanceResponse={
+                        totalAmount:totalAmountWithDecimal,
+                        numberOfUsers:data.data.numberOfUsers,
+                        numberOfTransactions:data.data.numberOfTransactions,
+                        totalUsersInFile:data.data.totalUsersInFile
+                    }
+
                     if (data.data.success == true) {
-                        toastr.success("Rule Played Successfully. Total Users In File: "+ totalUsersInFile + " & Total Users Transacted : " + numberOfUsers + " & Number Of Transactions - "+ numberOfTransactions +" & Total Amount is - " + totalAmount, {
-                            "closeButton": true,
-                            "debug": false,
-                            "newestOnTop": false,
-                            "progressBar": true,
-                            "positionClass": "toast-top-screenCenter",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "timeOut": "7000",
-                            "extendedTimeOut": "1000",
-                            "tapToDismiss": false
+                        $scope.playPerformanceResponseModal = $uibModal.open({
+                            animation: true,
+                            templateUrl: 'views/modal/playPerformanceResponseModal.html',
+                            size: 'md',
+                            scope: $scope
                         });
+                        // toastr.success("Rule Played Successfully. Total Users In File: "+ totalUsersInFile + " & Total Users Transacted : " + numberOfUsers + " & Number Of Transactions - "+ numberOfTransactions +" & Total Amount is - " + totalAmount, {
+                        //     "closeButton": true,
+                        //     "debug": false,
+                        //     "newestOnTop": false,
+                        //     "progressBar": true,
+                        //     "positionClass": "toast-top-screenCenter",
+                        //     "preventDuplicates": false,
+                        //     "onclick": null,
+                        //     "timeOut": "7000",
+                        //     "extendedTimeOut": "1000",
+                        //     "tapToDismiss": false
+                        // });
                     } else {
                         toastr.error("Failed To Play Rule ! Try Again !!!", {
                             "closeButton": true,
@@ -798,12 +816,12 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                             "positionClass": "toast-top-center",
                             "preventDuplicates": false,
                             "onclick": null,
-                            "timeOut": "2000",
+                            "timeOut": "3000",
                             "extendedTimeOut": "1000",
                             "tapToDismiss": false
                         });
                     }
-                    $state.reload();
+                    // $state.reload();
                     
                 })
             }

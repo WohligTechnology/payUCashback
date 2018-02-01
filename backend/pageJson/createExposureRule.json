@@ -26,14 +26,43 @@
         "id": "sqlId",
         "validation": ["required", "trim"],
         "url": ""
-    },  {
-        "name": "Cycle Flag",
-        "isSort": "",
-        "tableRef": "cycleFlag",
-        "type": "checkbox",
-        "id": "input1",
-        "validation": ["", "trim", ""],
+    },{
+        "name": "Rule Details",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Rule Type",
+        "type": "tags",
+        "tableRef": "exposureRuleType",
+        "placeholder": "Select Rule Type",
+        "id": "exposureRuleType",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "ExposureRuleType/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["required", "", ""]
+    }, {
+        "name": "Transaction Amount",
+        "type": "number",
+        "tableRef": "transactionAmount",
+        "placeholder": "Enter Transaction Amount",
+        "id": "transactionAmount",
+        "validation": ["required", "trim"],
         "url": ""
+    }, {
+        "name": "Percentage Contribution",
+        "type": "number",
+        "tableRef": "percentageContribution",
+        "placeholder": "Enter Percentage Contribution",
+        "id": "percentageContribution",
+        "validation": ["required", "trim"],
+        "url": ""
+    },{
+        "name": "Mailer List",
+        "type": "heading",
+        "onlyHeading":true
     }, {
         "name": "Mailer List",
         "type": "tags",

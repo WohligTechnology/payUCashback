@@ -1,69 +1,76 @@
 {
-    "title": "Merchant Category",
-    "description": "List of Merchant Categories",
+    "title": "Exposure Merchant",
+    "description": "List of Exposure Merchants",
     "pageType": "view",
+    "rowCheckBoxForMarketing":false,
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
+    "colorExpiredExposureMerchant": false,
+    "showCountMarketingOnView":false,
     "roles":["Super Admin","Merchant Exposure"],
     "fields": [{
         "name": "Name",
         "isSort": "",
         "tableRef": "name"
-    }, {
-        "name": "Rules",
+    },{
+        "name": "SQL ID",
         "isSort": "",
-        "tableRef": "exposureRule",
+        "tableRef": "sqlId"
+    },{
+        "name": "Categories",
+        "isSort": "",
+        "tableRef": "exposureMerchantCategory",
         "type":"objectNamesOfArray"
     }],
     "action": [{
-        "name": "edit",
+        "name": "Edit ExposureMerchant",
         "icon": "fa-pencil",
         "buttonClass": "btn-primary",
         "type": "page",
-        "action": "editExposureMerchantCategory",
+        "action": "editExposureMerchant",
         "roles":["Super Admin","Merchant Exposure"],
         "fieldsToSend": {
             "_id": "_id"
         }
     }, {
-        "name": "delete",
+        "name": "Delete ExposureMerchant",
         "icon": "fa-trash",
         "buttonClass": "btn-danger",
         "type": "apiCallConfirm",
-        "title": "Delete ExposureMerchantCategory",
-        "content": "Are you sure you want to delete ExposureMerchantCategory?",
-        "api": "ExposureMerchantCategory/deleteWithChangeStatus",
+        "title": "Delete ExposureMerchant",
         "roles":["Super Admin"],
+        "content": "Are you sure you want to delete ExposureMerchant?",
+        "api": "ExposureMerchant/deleteWithChangeStatus",
         "fieldsToSend": {
             "name": "_id",
             "value": "_id"
         }
     },{
-        "name": "Copy Merchant Category",
+        "name": "Copy Rule",
         "icon": "fa-copy",
         "buttonClass": "btn-primary",
         "type": "page",
-        "action": "copyExposureMerchantCategory",  
+        "action": "copyExposureMerchant",  
         "roles":["Super Admin","Creator"], 
         "fieldsToSend": {
             "_id": "_id"
         }
     }],
-    "viewExposureMerchantCategoryButton":{
+    "viewExposureMerchantButton":{
         "name": "View Merchant",
         "icon": "fa-eye",
         "buttonClass": "btn-primary"
     },
     "button": [{
-        "name": "Add",
+        "name": "Add ExposureMerchant",
         "icon": "plus",
         "class": "btn-success",
         "type": "page",
-        "roles":["Super Admin","Merchant Exposure"],
-        "action": "createExposureMerchantCategory"
+        "action": "createExposureMerchant",
+        "roles":["Super Admin","Merchant Exposure"]
     }],
     "apiCall": {
-        "url": "ExposureMerchantCategory/search",
+        "url": "ExposureMerchant/search",
         "params": "_id"
     },
     "removeSearch": true

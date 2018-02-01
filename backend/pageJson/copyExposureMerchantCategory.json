@@ -1,9 +1,10 @@
 {
-    "title": "Edit Merchant Category",
+    "title": "Copy Merchant Category",
     "name": "ExposureMerchantCategory",
     "jsonPage": "viewExposureMerchantCategory",
     "desciption": "",
     "pageType": "edit",
+    "createFromEdit":true,
     "urlFields": ["_id"],
     "roles":["Super Admin","Merchant Exposure"],
     "fields": [{

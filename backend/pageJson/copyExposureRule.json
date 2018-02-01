@@ -1,9 +1,10 @@
 {
-    "title": "Edit Exposure Rule",
+    "title": "Copy ExposureRule",
     "name": "ExposureRule",
     "jsonPage": "viewExposureRule",
     "desciption": "",
     "pageType": "edit",
+    "createFromEdit":true,
     "urlFields": ["_id"],
     "roles":["Super Admin","Merchant Exposure"],
     "fields": [{

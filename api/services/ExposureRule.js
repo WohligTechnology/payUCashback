@@ -39,13 +39,16 @@ var schema = new Schema({
 schema.plugin(deepPopulate, {
             populate: {
                 'mailerList': {
-                    select: 'name _id'
+                    select: ''
                 },
                 'createdBy': {
                     select: 'name _id email'
                 },
                 'lastUpdatedBy': {
                     select: 'name _id email'
+                },
+                'exposureRuleType': {
+                    select: 'name _id'
                 }
             }
             });
@@ -53,7 +56,7 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('ExposureRule', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'mailerList createdBy lastUpdatedBy','mailerList createdBy lastUpdatedBy'));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'mailerList createdBy lastUpdatedBy exposureRuleType','mailerList createdBy lastUpdatedBy exposureRuleType'));
 var model = {
     search: function (data, callback) {
         // console.log("in custom");
@@ -82,7 +85,7 @@ var model = {
             }).sort({
                 createdAt: -1
             })
-            .populate('mailerList createdBy lastUpdatedBy')
+            .populate('mailerList createdBy lastUpdatedBy exposureRuleType')
             .order(options)
             .keyword(options)
             .page(options,
