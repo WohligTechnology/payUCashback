@@ -7,7 +7,7 @@
     "urlFields": ["_id"],
     "colorExpiredMarketingRule": true,
     "showCountMarketingOnView":true,
-    "roles":["Super Admin","Marketing Creator","Marketing Executor","Marketing Viewer"],
+    "roles":["Super Admin","Marketing Creator","Marketing Executor","Marketing Viewer","Performance"],
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -40,7 +40,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editMarketingRule",
-        "roles":["Super Admin","Marketing Creator"],
+        "roles":["Super Admin","Marketing Creator","Performance"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -63,7 +63,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "copyMarketingRule",  
-        "roles":["Super Admin","Marketing Creator"], 
+        "roles":["Super Admin","Marketing Creator","Performance"], 
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -74,7 +74,7 @@
         "class": "btn-success",
         "type": "page",
         "action": "createMarketingRule",
-        "roles":["Super Admin","Marketing Creator"]
+        "roles":["Super Admin","Marketing Creator","Performance"]
     }],
     "bottomButtonMarketing": [{
         "name": "Play Selected",
@@ -83,7 +83,7 @@
         "type": "page",
         "action": "",
         "functionName":"playSelectedClick()",
-        "roles":["Super Admin","Marketing Executor"]
+        "roles":["Super Admin","Marketing Executor","Performance"]
     }],
     "apiCall": {
         "url": "MarketingRule/search",

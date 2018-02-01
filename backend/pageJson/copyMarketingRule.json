@@ -6,7 +6,7 @@
     "pageType": "edit",
     "createFromEdit":true,
     "urlFields": ["_id"],
-    "roles":["Super Admin","Marketing Creator"],
+    "roles":["Super Admin","Marketing Creator","Performance"],
     "fields": [{
         "name": "Campaign Details",
         "type": "heading",

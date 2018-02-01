@@ -89,6 +89,14 @@ myApp.factory('NavigationService', function ($http,$state) {
                 name: "Performance",
                 classis: "active",
                 sref: "#!/page/viewPerformance//"
+            }, {
+                name: "Marketing Merchant",
+                classis: "active",
+                sref: "#!/page/viewMarketingMerchant//"
+            },{
+                name: "Marketing Rules",
+                classis: "active",
+                sref: "#!/page/viewMarketingRule//"
             }
             ];
         } else if($.jStorage.get("profile").accessLevel=="Merchant Exposure"){

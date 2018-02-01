@@ -5,7 +5,7 @@
     "desciption": "",
     "pageType": "create",
     "urlFields": ["MarketingMerchant"],
-    "roles":["Super Admin","Marketing Creator"],
+    "roles":["Super Admin","Marketing Creator","Performance"],
     "fields": [{
         "name": "Name",
         "type": "text",

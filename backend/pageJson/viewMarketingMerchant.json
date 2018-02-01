@@ -4,7 +4,7 @@
     "pageType": "view",
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
-    "roles":["Super Admin","Marketing Creator","Marketing Executor","Marketing Viewer"],
+    "roles":["Super Admin","Marketing Creator","Marketing Executor","Marketing Viewer","Performance"],
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -21,7 +21,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editMarketingMerchant",
-        "roles":["Super Admin","Marketing Creator"],
+        "roles":["Super Admin","Marketing Creator","Performance"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -44,7 +44,7 @@
         "icon": "plus",
         "class": "btn-success",
         "type": "page",
-        "roles":["Super Admin","Marketing Creator"],
+        "roles":["Super Admin","Marketing Creator","Performance"],
         "action": "createMarketingMerchant"
     }],
     "apiCall": {

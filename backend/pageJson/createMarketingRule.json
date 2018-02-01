@@ -5,7 +5,7 @@
     "desciption": "",
     "pageType": "create",
     "urlFields": ["MarketingRule"],
-    "roles":["Super Admin","Marketing Creator"],
+    "roles":["Super Admin","Marketing Creator","Performance"],
     "fields": [{
         "name": "Campaign Details",
         "type": "heading",
