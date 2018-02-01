@@ -11,7 +11,7 @@
                             </h5>
                 
             </div>
-            <div class="row" style="margin:20px">
+            <!-- <div class="row" style="margin:20px">
                 <table style="border: 1px solid black;" width="100%">
                     <tr>
                         <th style="text-align: right;border: 1px solid black;">Total Users In File:</th>
@@ -27,23 +27,23 @@
                     </tr>
                     <tr>
                         <th style="text-align: right;border: 1px solid black;">Total Amount is:</th>
-                        <td style="padding: 10px;text-align: left;border: 1px solid black;">{{playPerformanceResponse.totalAmountWithDecimal}}</td>
+                        <td style="padding: 10px;text-align: left;border: 1px solid black;">{{playPerformanceResponse.totalAmount}}</td>
                     </tr>
                 </table>
-            </div>
-<!-- 
-            <div class="row" style="margin:20px;">
-                <span>Total Users In File: <b>{{playPerformanceResponse.totalAmount}}</b></span>
-            </div>
-            <div class="row">
-                <span>Total Users Transacted:  <b>{{playPerformanceResponse.totalAmount}}</b></span>
-            </div>
-            <div class="row">
-                <span>Number Of Transactions:  <b>{{playPerformanceResponse.totalAmount}}</b></span>
-            </div>
-            <div class="row">
-                <span>Total Amount is:  <b>{{playPerformanceResponse.totalAmount}}</b></span>
             </div> -->
+
+            <div class="row" style="margin:20px;">
+                <span style:"color:green;">Total Users In File: </span><b>{{playPerformanceResponse.totalAmount}}</b>
+            </div>
+            <div class="row">
+                <span style:"color:green;">Total Users Transacted: </span><b>{{playPerformanceResponse.totalAmount}}</b>
+            </div>
+            <div class="row">
+                <span style:"color:green;">Number Of Transactions: </span><b>{{playPerformanceResponse.totalAmount}}</b>
+            </div>
+            <div class="row">
+                <span style:"color:green;">Total Amount is: </span><b>{{playPerformanceResponse.totalAmount}}</b>
+            </div>
         <br>
         </form>      
         
