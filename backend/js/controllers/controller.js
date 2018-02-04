@@ -341,6 +341,43 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         //check page accessable or not ends here
 
+        //for filters function
+
+        $scope.showFilter = function () {
+            console.log("Filter Clicked");
+            //for getting cashback rule filters data start
+            if($scope.json.json.filter=="ruleFilter"){
+                NavigationService.apiCall("Merchant/search", {}, function (data) {
+                    $scope.merchants = data.data.results;
+                    console.log("$scope.merchants", $scope.merchants);
+                });
+            }
+            
+            //for getting cashback rule filters data end
+
+            $scope.showFilterModal = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'views/filters/' + $scope.json.json.filter + '.html',
+                size: 'lg',
+                scope: $scope
+            });
+        };
+
+        $scope.clearFilter = function () {
+            console.log($stateParams.keyword);
+            if (!_.isEmpty($stateParams.keyword)) {
+                $state.go("page", {
+                    id: $stateParams.id,
+                    page: $stateParams.page,
+                    keyword: ""
+                });
+            } else {
+                $state.reload();
+            }
+            // 
+        };
+        //filters function ends here
+
         $scope.viewModal = false;
         $scope.editButton = false;
         $scope.deleteButton = false;
@@ -1133,14 +1170,18 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         };
 
         $scope.getAllItems = function (keywordChange) {
-            console.log("inside getAllItems");
+            console.log("inside getAllItems",keywordChange);
             $scope.totalItems = undefined;
             if (keywordChange) {
                 $scope.currentPage = 1;
             }
+            var filters = _.cloneDeep($scope.search);
+            delete filters.keyword;
+
             NavigationService.search($scope.json.json.apiCall.url, {
                     page: $scope.currentPage,
-                    keyword: $scope.search.keyword
+                    keyword: $scope.search.keyword,
+                    filter: filters
                 }, ++i,
                 function (data, ini) {
 

@@ -1,0 +1,93 @@
+<form name="modalForm" ng-submit="$dismiss()" class="min-hit">
+
+    <div class="modal-header blue-bg  ">
+        <div class="pull-right">
+            <a class="btn btn-clear" ng-click="$dismiss()">
+                <i class="ln-cross"></i>
+            </a>
+        </div>
+        <h5 class="modal-title">
+            <b>Performance File Format</b>
+        </h5>
+
+    </div>
+    <div class="row" style="margin:40px;display:none;">
+        <div class="col-md-2" class="pull-right">
+            Merchants:
+        </div>
+        <div class="col-md-7">
+            <select name="" ng-model="search.merchant" class="form-control" ng-options="merchant._id as merchant.name for merchant in merchants track by merchant._id">
+            </select>
+        </div>
+
+    </div>
+    <div class="row" style="margin:40px">
+        <div class="col-md-2" class="pull-right">
+            Start Date:
+        </div>
+        <div class="col-md-7">
+            <div class="form-group">
+                <!-- <label>Start Date
+                    <span ng-show="type.required">*</span>
+                </label> -->
+                <input type="date" name="date" date-model ng-click="popup[startDate] = true" placeholder="Select Date" ng-model="search.startDate"
+                    class="form-control un-disable" />
+                <!-- <div class="error-msg" ng-show="detailForm[type.tableRef].$invalid && detailForm[type.tableRef].$touched">Please enter valid {{type.name}}</div> -->
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row" style="margin:40px">
+            <div class="col-md-2" class="pull-right">
+                End Date:
+            </div>
+            <div class="col-md-7">
+                <div class="form-group">
+                    <!-- <label>end Date
+                        <span ng-show="type.required">*</span>
+                    </label> -->
+                    <input type="date" name="date" date-model ng-click="popup[endDate] = true" placeholder="Select Date" ng-model="search.endDate"
+                        class="form-control un-disable" />
+                    <!-- <div class="error-msg" ng-show="detailForm[type.tableRef].$invalid && detailForm[type.tableRef].$touched">Please enter valid {{type.name}}</div> -->
+                </div>
+            </div>
+    
+        </div>
+    
+    <br>
+    <div class="text-center">
+        <button class="btn btn-success" ng-click="getAllItems(search)">Go</button>
+        <button class="btn btn-danger" ng-click="clearFilter()">Clear</button>
+        <button class="btn btn-danger" ng-click="closeFilter()">Cancel</button>
+    </div>
+</form>
+
+
+
+
+<div class="container" style="display:none;">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- <label for="">Year</label>
+                <select name="" ng-model="search.year" class="form-control">
+                    <option value="2017">2017</option>
+                    <option value="2016">2016</option>
+                    <option value="2015">2015</option>
+                    </select>
+                </br> -->
+            <label for="">Month</label>
+            <input type="text">
+            <!-- <select name="" ng-model="search.month" class="form-control" ng-options="month.value as month.text for month in allMonths track by month.value"> -->
+            <!-- </select> -->
+
+
+            <div class="text-center">
+                <button class="btn btn-success" ng-click="getAllItems(search)">Go</button>
+                <button class="btn btn-danger" ng-click="clearFilter()">Clear</button>
+                <button class="btn btn-danger" ng-click="closeFilter()">Cancel</button>
+            </div>
+            </br>
+        </div>
+    </div>
+</div>

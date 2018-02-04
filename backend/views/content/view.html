@@ -45,6 +45,9 @@
                                 <!-- <a style="margin-left:5px;" ng-if="json.json.topButtonChangeAll" title="{{json.json.topButtonChangeAll.name}}" class="btn" ng-class="json.json.topButtonChangeAll.buttonClass" ng-click="clickChangeAllButton()">
                                     {{json.json.topButtonChangeAll.name}}
                                  </a> -->
+                                 <!-- for filter start -->
+                                 <a class="btn btn-default" ng-if="json.json.filter" ng-click="showFilter();">Filter</a>
+                                 <!-- for filter end -->
                             </div>
                             <h3>{{json.json.description}}
                                 <span class="tableTotal ">(Total : {{totalItems}}) </span>

@@ -157,7 +157,7 @@ module.exports = mongoose.model('Rule', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant applicableMerchant status transactionType createdBy lastUpdatedBy', 'merchant applicableMerchant status transactionType createdBy lastUpdatedBy'));
 var model = {
 
-    searchNew: function (data, callback) {
+    search: function (data, callback) {
         console.log("inside new search");
         var Model = this;
         var Const = this(data);
@@ -173,7 +173,7 @@ var model = {
             field: data.field,
             filters: {
                 keyword: {
-                    fields: ['name','merchant.name'],
+                    fields: ['name'],
                     term: data.keyword
                 }
             },
@@ -184,20 +184,20 @@ var model = {
             count: maxRow
         };
 
-console.log("options",options.filters.keyword);
+        console.log("options", options.filters.keyword);
 
-// var aggregatePipeline = [
-//     // Stage 1
-//     {
-//         $match: {
-//             "isDeleted": 0,
-//             $text: { 
-//                 $search: data.keyword
-//             }
-//         }
-         
-//     }
-// ];
+        // var aggregatePipeline = [
+        //     // Stage 1
+        //     {
+        //         $match: {
+        //             "isDeleted": 0,
+        //             $text: { 
+        //                 $search: data.keyword
+        //             }
+        //         }
+
+        //     }
+        // ];
         var aggregatePipeline = [
             // Stage 1
             {
@@ -263,22 +263,114 @@ console.log("options",options.filters.keyword);
         });
 
         // Stage 7
-        if (data.keyword != "") {
+        var merchant = {};
 
-            aggregatePipeline.push({
-                $match: {
-                    "isDeleted": 0,
-                    "$merchant.name": data.keyword
-                }
-            });
-        } else {
-
-            aggregatePipeline.push({
-                $match: {
-                    "isDeleted": 0
-                }
-            });
+        if (data.filter.merchant) {
+            merchant = {
+                "merchant._id": ObjectId(data.filter.merchant)
+            }
         }
+        var startDate = {};
+
+        if (data.filter.startDate) {
+            startDate = {
+                "validFrom": {
+                    $gte: new Date(data.filter.startDate)
+                }
+            }
+        }
+        var endDate = {};
+
+        if (data.filter.endDate) {
+            endDate = {
+                "validTo": {
+                    $lte: new Date(data.filter.endDate)
+                }
+            }
+        }
+        // var fixedObject1 = {
+        //     "merchant.name": {
+        //         $regex: data.keyword,
+        //         $options: "i"
+        //     }
+        // }
+        var fixedObject3 = {
+            "name": {
+                $regex: data.keyword,
+                $options: "i"
+            }
+        }
+        var fixedObject1 = {
+            $or: [{
+                "name": {
+                    $regex: data.keyword,
+                    $options: "i"
+                }
+            },{
+                "merchant.name":{
+                    $regex: data.keyword,
+                    $options: "i"
+                }
+            }]
+        }
+        var fixedObject2 = {
+            "isDeleted": 0
+        }
+
+        var aggMatch = Object.assign(fixedObject2,startDate,endDate,merchant,fixedObject1);
+
+        aggregatePipeline.push({
+                    $match: aggMatch
+                });
+                console.log("ABC",aggMatch);
+        // Stage 2
+
+
+        //     aggregatePipeline.push({
+        //         $match: {
+        //             "merchant._id" : ObjectId(data.filter.merchant),
+        //             "isDeleted":0,
+        //             "validFrom":{$gte: new Date(data.filter.startDate) },
+        //             "validTo":{$lte: new Date(data.filter.endDate) },
+        //             "name":{
+        //                             $regex: data.keyword,
+        //                             $options: "i"
+        //                             }
+        //         }
+        //     });
+        //     console.log(aggregatePipeline);
+        // } else{
+        //     console.log("else");
+        //     aggregatePipeline.push({
+        //         $match: {
+        //             "isDeleted": 0
+        //         }
+        //     });
+        // }
+        // if (data.keyword != "") {
+        //     aggregatePipeline.push({
+        //         $match: {
+        //             "name": {
+        //             $regex: data.keyword,
+        //             $options: "i"
+        //             }
+        //             }
+        //     });
+        // }
+
+        //     aggregatePipeline.push({
+        //         $match: {
+        //             "isDeleted": 0
+        //         }
+        //     });
+        // } else {
+
+        //     aggregatePipeline.push({
+        //         $match: {
+        //             "isDeleted": 0
+        //         }
+        //     });
+        // }
 
         //Stage 8
         aggregatePipeline.push({
@@ -343,7 +435,7 @@ console.log("options",options.filters.keyword);
     },
 
 
-    search: function (data, callback) {
+    search1: function (data, callback) {
         console.log("in custom", data);
         var maxRow = Config.maxRow;
         var page = 1;
@@ -352,14 +444,28 @@ console.log("options",options.filters.keyword);
         }
         var field = data.field;
         // var conditionParameters={};
-        if (data.keyword == "") {
+        // if (data.keyword.filter.merchant) {
+        if (_.isEmpty(data.filter)) {
+            console.log("if");
             var conditionParameters = {
                 isDeleted: 0
             };
         } else {
-            var conditionParameters = {
-                isDeleted: 0
-            };
+            console.log("else");
+            if (data.filter.merchant) {
+
+                var conditionParameters = {
+                    isDeleted: 0,
+                    merchant: data.filter.merchant
+                };
+                // var conditionParameters = {
+                //     isDeleted: 0,
+                //     merchant: data.filter.merchant,
+                //     startDate: {
+                //         $gte: data.filter.startDate
+                //     }
+                // };
+            }
         }
         var options = {
             field: data.field,

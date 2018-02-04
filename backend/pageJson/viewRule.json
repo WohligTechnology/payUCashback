@@ -7,6 +7,7 @@
     "urlFields": ["_id"],
     "colorExpired": true,
     "showCountOnView":true,
+    "filter1": "ruleFilter",
     "roles":["Super Admin","Creator","Executor","Viewer"],
     "fields": [{
         "name": "Name",
