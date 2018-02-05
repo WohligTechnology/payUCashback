@@ -1,40 +1,195 @@
-<form name="modalForm" ng-submit="$dismiss()" class="min-hit">
-    
-        <div class="modal-header blue-bg  ">
-            <div class="pull-right">
-                <a class="btn btn-clear" ng-click="$dismiss()">
-                    <i class="ln-cross"></i>
-                </a>
-            </div>
-            <h5 class="modal-title">
-                <b>{{singleExposureMerchantForModal.name}}</b></h5>
-    
-        </div>
-        <div class="modal-body">
-            <div class="singleRuleHeadings">Merchant Details</div>
-            <div class="row" ng-if="singleExposureMerchantForModal.name">
-                <div class="col-md-12">
-                    Merchant Name- {{singleExposureMerchantForModal.name}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    SQL Id- {{singleExposureMerchantForModal.sqlId}}
-                </div>
-            </div>
+<!-- <html> -->
 
-            <div class="singleRuleHeadings">Merchant Categories</div>
-    
-            <div class="row" ng-if="singleExposureMerchantForModal.exposureMerchantCategory">
-                <div class="col-md-12">
-                    Merchant Categories -
-                    <span ng-repeat="inc in singleExposureMerchantForModal.exposureMerchantCategory">{{inc.name}} {{$last ? '' : ($index==singleExposureMerchantForModal.exposureMerchantCategory.length-2) ? ' and ' : ', '}}</span>
-                    
-                </div>
-            </div>
-    <br>
-            <div class="text-center">
-                <button class="btn btn-primary btn-save" type="submit" ng-disabled="modalForm.$invalid" ng-click="$dismiss()">Cancel</button>
+<head>
+    <!-- <title>HTML &amp; CSS tree</title> -->
+
+    <!-- tree -->
+    <style type="text/css">
+        ul.tree {
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        ul.tree,
+        ul.tree ul {
+            width: auto;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        ul.tree li {
+            display: block;
+            width: auto;
+            float: left;
+            vertical-align: top;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul.tree ul li {
+            background-image: url(data:image/gif;base64,R0lGODdhAQABAIABAAAAAP///ywAAAAAAQABAAACAkQBADs=);
+            background-repeat: repeat-x;
+            background-position: left top;
+        }
+
+        ul.tree li span {
+            display: block;
+            width: 5em;
+            /*
+        uncomment to fix levels
+        height: 1.5em;
+      */
+            margin: 0 auto;
+            text-align: center;
+            white-space: normal;
+            letter-spacing: normal;
+        }
+    </style>
+    <!--[if IE gt 8]> IE 9+ and not IE -->
+    <style type="text/css">
+        ul.tree ul li:last-child {
+            background-repeat: no-repeat;
+            background-size: 50% 1px;
+            background-position: left top;
+        }
+
+        ul.tree ul li:first-child {
+            background-repeat: no-repeat;
+            background-size: 50% 1px;
+            background-position: right top;
+        }
+
+        ul.tree ul li:first-child:last-child {
+            background: none;
+        }
+
+        ul.tree ul li span {
+            background: url(data:image/gif;base64,R0lGODdhAQABAIABAAAAAP///ywAAAAAAQABAAACAkQBADs=) no-repeat 50% top;
+            background-size: 1px 0.8em;
+            padding-top: 1.2em;
+        }
+
+        ul.tree ul {
+            background: url(data:image/gif;base64,R0lGODdhAQABAIABAAAAAP///ywAAAAAAQABAAACAkQBADs=) no-repeat 50% top;
+            background-size: 1px 0.8em;
+            margin-top: 0.2ex;
+            padding-top: 0.8em;
+        }
+    </style>
+
+    <!-- page presentation -->
+    <style type="text/css">
+        body {
+            font-family: sans-serif;
+            color: #666;
+            text-align: center;
+        }
+
+        A,
+        A:visited,
+        A:active {
+            color: #c00;
+            text-decoration: none;
+        }
+
+        A:hover {
+            text-decoration: underline;
+        }
+
+        ul.tree,
+        #wrapper {
+            margin: 0 auto;
+        }
+
+        ul.tree {
+            margin-left: 170px;
+        }
+
+        .clearer {
+            clear: both;
+        }
+
+        p {
+            margin-top: 2em;
+        }
+    </style>
+</head>
+
+<body>
+
+<form name="modalForm" ng-submit="$dismiss()" class="min-hit">
+
+    <div class="modal-header blue-bg  ">
+        <div class="pull-right">
+            <a class="btn btn-clear" ng-click="$dismiss()">
+                <i class="ln-cross"></i>
+            </a>
+        </div>
+        <h5 class="modal-title">
+            <b>{{singleExposureMerchantForModal.name}}</b>
+        </h5>
+
+    </div>
+    <div class="modal-body">
+        <div class="singleRuleHeadings">Merchant Details</div>
+        <div class="row" ng-if="singleExposureMerchantForModal.name">
+            <div class="col-md-12">
+                Merchant Name- {{singleExposureMerchantForModal.name}}
             </div>
         </div>
-    </form>
+        <div class="row">
+            <div class="col-md-12">
+                SQL Id- {{singleExposureMerchantForModal.sqlId}}
+            </div>
+        </div>
+
+        <div class="singleRuleHeadings">Merchant Categories</div>
+
+        <div class="row" ng-if="singleExposureMerchantForModal.exposureMerchantCategory">
+            <div class="col-md-12">
+                Merchant Categories -
+                <span ng-repeat="inc in singleExposureMerchantForModal.exposureMerchantCategory">{{inc.name}} {{$last ? '' : ($index==singleExposureMerchantForModal.exposureMerchantCategory.length-2) ?
+                    ' and ' : ', '}}</span>
+
+            </div>
+        </div>
+        <br>
+        <div class="text-center">
+            <!-- <button class="btn btn-primary" ng-click="showTreeDataFunction()">Show Tree Structure</button> -->
+
+            <button class="btn btn-primary btn-save" type="submit" ng-disabled="modalForm.$invalid" ng-click="$dismiss()">Cancel</button>
+        </div>
+        <br>
+
+        <div id="wrapper" style="display:none;">
+                <!-- <h1>HTML &amp; CSS tree </h1> -->
+                <ul class="tree">
+                    <li>
+                        <span>
+                            <b>{{singleExposureMerchantData[0].name}}</b>
+                        </span>
+                        <ul>
+                            <li ng-repeat="x in singleExposureMerchantData">
+                                <span>
+                                    <b>{{x.exposureMerchantCategory.name}}</b>
+                                </span>
+                                <ul>
+                                    <li ng-repeat="y in x.exposureMerchantCategory.exposureRule">
+                                        <span>
+                                            <b>{{y.name}}</b>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </li>
+                    </li>
+                    </ul>
+                    <div class="clearer"></div>
+                    <p>
+                        <a href=""></a>
+                    </p>
+            </div>
+    </div>
+</form>
+
+</body>

@@ -964,40 +964,48 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         // Exposure Merchant view button click start
         $scope.viewSingleExposureMerchantModal = function (exposureMerchant) {
             console.log("viewexposureMerchantModal",exposureMerchant);
-            
-            $scope.singleExposureMerchantForModal = exposureMerchant;
-            $scope.singleExposureMerchantForModalInstance = $uibModal.open({
-                animation: true,
-                templateUrl: 'views/modal/singleExposureMerchantForModal.html',
-                size: 'md',
-                scope: $scope
-            });
-            // NavigationService.viewSingleExposureMerchantModal(exposureMerchant, function (data) {
-            //     console.log("verifyQuery", data);
-            //     var query = data.data.cashbackQuery;
-            //     $scope.queryToShow = query;
-            //     if (data.data.success == true) {
-            //         $scope.singleRuleModal = $uibModal.open({
-            //             animation: true,
-            //             templateUrl: 'views/modal/queryModal.html',
-            //             size: 'lg',
-            //             scope: $scope
-            //         });
-            //     } else {
-            //         $scope.queryToShow = "Something Went Wrong: Server is Failed to Generate Query."
-            //         $scope.singleRuleModal = $uibModal.open({
-            //             animation: true,
-            //             templateUrl: 'views/modal/queryModal.html',
-            //             size: 'lg',
-            //             scope: $scope
-            //         });
+            $scope.showTreeData=false;
+            NavigationService.viewSingleExposureMerchantModal(exposureMerchant._id, function (data) {
+                console.log("verifyQuery", data);
+                if (data.data) {
+                    $scope.singleExposureMerchantData=data.data.results;
+                    $scope.singleExposureMerchantForModal = exposureMerchant;
+                    $scope.singleExposureMerchantForModalInstance = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/singleExposureMerchantForModal.html',
+                        size: 'md',
+                        scope: $scope
+                    });
+                } else {
+                    alert("errrrr");
+                    // $scope.queryToShow = "Something Went Wrong: Server is Failed to Generate Query."
+                    // $scope.singleRuleModal = $uibModal.open({
+                    //     animation: true,
+                    //     templateUrl: 'views/modal/queryModal.html',
+                    //     size: 'lg',
+                    //     scope: $scope
+                    // });
 
-            //     }
+                }
 
-            // })
+            })
+
+            // $scope.singleExposureMerchantData={};
+            // $scope.singleExposureMerchantForModal = exposureMerchant;
+            // $scope.singleExposureMerchantForModalInstance = $uibModal.open({
+            //     animation: true,
+            //     templateUrl: 'views/modal/singleExposureMerchantForModal.html',
+            //     size: 'lg',
+            //     scope: $scope
+            // });
 
         }
+
         // Exposure Merchant view button click end
+
+        $scope.showTreeDataFunction=function(){
+            $scope.showTreeData=true;
+        }
 
 
         // Exposure Merchant Category view button click start

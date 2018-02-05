@@ -177,6 +177,67 @@ var model = {
 
             }
         });
+    },
+    viewSingleExposureMerchantModal:function(data,callback){
+        var aggArr=[
+                // Stage 1
+                {
+                    $match: {
+                        "_id":ObjectId(data._id)
+                    }
+                },
+        
+                // Stage 2
+                {
+                    $lookup: // Equality Match
+                    {
+                        from: "exposuremerchantcategories",
+                        localField: "exposureMerchantCategory",
+                        foreignField: "_id",
+                        as: "exposureMerchantCategory"
+                    }
+                    
+                },
+        
+                // Stage 3
+                {
+                    $unwind: {
+                        path : "$exposureMerchantCategory"
+                    }
+                },
+        
+                // Stage 4
+                {
+                    $lookup: // Equality Match
+                    {
+                        from: "exposurerules",
+                        localField: "exposureMerchantCategory.exposureRule",
+                        foreignField: "_id",
+                        as: "exposureMerchantCategory.exposureRule"
+                    }
+                },
+        
+            ];
+        
+            async.parallel({
+                results: function (callback) {
+                    ExposureMerchant.aggregate(aggArr, function (err, data1) {
+                        if (err) {
+                            callback(err, null);
+                        } else {
+                            callback(null, data1);
+                        }
+                    });
+    
+                }
+            }, function (err, result) {
+                if (err) {
+                    console.log("in if", err);
+                    callback(err);
+                } else {
+                    callback(null, result);
+                }
+            });
     }
 };
 module.exports = _.assign(module.exports, exports, model);

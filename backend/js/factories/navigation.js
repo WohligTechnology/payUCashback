@@ -325,5 +325,16 @@ myApp.factory('NavigationService', function ($http,$state) {
             });
         },
 
+        viewSingleExposureMerchantModal: function (id, callback) {
+            $http.post(adminurl + 'ExposureMerchant/viewSingleExposureMerchantModal', {
+                _id: id
+            }).then(function (data) {
+                data = data.data;
+                console.log("data in viewSingleExposureMerchantModal inside navigation service",data);
+                callback(data);
+
+            });
+        },
+
     };
 });
