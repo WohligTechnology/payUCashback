@@ -102,9 +102,9 @@
             margin: 0 auto;
         }
 
-        ul.tree {
+        /* ul.tree {
             margin-left: 170px;
-        }
+        } */
 
         .clearer {
             clear: both;
@@ -155,14 +155,10 @@
             </div>
         </div>
         <br>
-        <div class="text-center">
-            <!-- <button class="btn btn-primary" ng-click="showTreeDataFunction()">Show Tree Structure</button> -->
-
-            <button class="btn btn-primary btn-save" type="submit" ng-disabled="modalForm.$invalid" ng-click="$dismiss()">Cancel</button>
-        </div>
         <br>
 
-        <div id="wrapper" style="display:none;">
+        <div class="singleRuleHeadings">Exposure Merchant Hierarchy</div>
+        <div id="wrapper" style="display: table;margin-right: auto;margin-left: auto;" >
                 <!-- <h1>HTML &amp; CSS tree </h1> -->
                 <ul class="tree">
                     <li>
@@ -190,6 +186,13 @@
                     </p>
             </div>
     </div>
+
+    <div class="text-center">
+            <!-- <button class="btn btn-primary" ng-click="showTreeDataFunction()">Show Tree Structure</button> -->
+
+            <button class="btn btn-primary btn-save" type="submit" ng-disabled="modalForm.$invalid" ng-click="$dismiss()">Cancel</button>
+        </div>
+        <br>
 </form>
 
 </body>
