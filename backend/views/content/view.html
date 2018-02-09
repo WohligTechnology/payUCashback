@@ -61,6 +61,7 @@
                                         <th ng-if="json.json.rowCheckBox==true">Check</th>
                                         <th ng-if="json.json.rowCheckBoxForMarketing==true">Check</th>
                                         <th ng-if="json.json.rowCheckBoxForPerformance==true">Check</th>
+                                        <th ng-if="json.json.rowCheckBoxForMerchantExposureCategory==true">Check</th>
                                         <th>Sr. No.</th>
                                         <th ng-repeat="field in json.json.fields">
                                             {{field.name}}
@@ -78,6 +79,9 @@
                                         </td>
                                         <td ng-if="json.json.rowCheckBoxForPerformance==true">
                                             <input type="checkbox" ng-model="myChkModel" ng-change="checkboxPerformanceClick(item._id)">
+                                        </td>
+                                        <td ng-if="json.json.rowCheckBoxForMerchantExposureCategory==true">
+                                            <input type="checkbox" ng-model="myChkModel" ng-change="checkboxMerchantExposureCategoryClick(item._id)">
                                         </td>
                                         <td>{{($index + 1)+((currentPage-1)*maxRow)}}</td>
                                         <td ng-repeat="field in json.json.fields">

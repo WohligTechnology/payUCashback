@@ -1,5 +1,5 @@
 {
-    "title": "Copy Merchant Category",
+    "title": "Copy Rule Category",
     "name": "ExposureMerchantCategory",
     "jsonPage": "viewExposureMerchantCategory",
     "desciption": "",
@@ -8,6 +8,10 @@
     "urlFields": ["_id"],
     "roles":["Super Admin","Merchant Exposure"],
     "fields": [{
+        "name": "Category Details",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
         "name": "Name",
         "type": "text",
         "tableRef": "name",
@@ -15,6 +19,10 @@
         "id": "name",
         "validation": ["required", "trim", "unique"],
         "url": ""
+    },{
+        "name": "Select Rules To Be Play",
+        "type": "heading",
+        "onlyHeading":true
     }, {
         "name": "Exposure Rule ( Multiple Select )",
         "type": "tags",
@@ -24,6 +32,23 @@
         "searchApi": "searchCall",
         "fieldType": "",
         "url": "ExposureRule/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
+    },{
+        "name": "Assign Merchants",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Merchants ( Multiple Select )",
+        "type": "tags",
+        "tableRef": "exposureMerchant",
+        "placeholder": "Select Merchant",
+        "id": "exposureMerchant",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "exposureMerchant/search",
         "dropDownField": "name",
         "view": true,
         "dropDownType": "multiple",

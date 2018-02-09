@@ -27,23 +27,6 @@
         "id": "sqlId",
         "validation": ["required", "trim"],
         "url": ""
-    },{
-        "name": "Merchant Categories",
-        "type": "heading",
-        "onlyHeading":true
-    }, {
-        "name": "Merchant Categories ( Multiple Select )",
-        "type": "tags",
-        "tableRef": "exposureMerchantCategory",
-        "placeholder": "Select Merchant Categories",
-        "id": "exposureMerchantCategory",
-        "searchApi": "searchCall",
-        "fieldType": "",
-        "url": "ExposureMerchantCategory/search",
-        "dropDownField": "name",
-        "view": true,
-        "dropDownType": "multiple",
-        "validation": ["required", "", "trim"]
     }],
     "action": [{
         "name": "submit",

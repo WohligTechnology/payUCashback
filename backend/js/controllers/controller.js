@@ -308,6 +308,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.selectArr = [];
         $scope.selectArrMarketing = [];
         $scope.selectArrPerformance = [];
+        $scope.selectArrMerchantExposureCategory = [];
         if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
             $scope.currentPage = $stateParams.page;
         } else {
@@ -521,7 +522,21 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 console.log("in else after splice", $scope.selectArrPerformance);
             }
         }
+        
 
+        $scope.checkboxMerchantExposureCategoryClick = function (id) {
+            
+            console.log("id in checkboxMerchantExposureCategoryClick", id);
+            
+            var idx = $.inArray(id, $scope.selectArrMerchantExposureCategory);
+            if (idx == -1) {
+                $scope.selectArrMerchantExposureCategory.push(id);
+                console.log("in if after push", $scope.selectArrMerchantExposureCategory);
+            } else {
+                $scope.selectArrMerchantExposureCategory.splice(idx, 1);
+                console.log("in else after splice", $scope.selectArrMerchantExposureCategory);
+            }
+        }
 
         $scope.playSelectedClick = function () {
             if ($scope.selectArr.length == 0) {

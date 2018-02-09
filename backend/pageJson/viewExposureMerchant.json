@@ -16,11 +16,6 @@
         "name": "SQL ID",
         "isSort": "",
         "tableRef": "sqlId"
-    },{
-        "name": "Categories",
-        "isSort": "",
-        "tableRef": "exposureMerchantCategory",
-        "type":"objectNamesOfArray"
     }],
     "action": [{
         "name": "Edit ExposureMerchant",

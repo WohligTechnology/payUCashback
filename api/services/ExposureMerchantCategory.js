@@ -7,6 +7,10 @@ var schema = new Schema({
           type: Schema.Types.ObjectId,
           ref: 'ExposureRule'
       }],
+      exposureMerchant: [{
+          type: Schema.Types.ObjectId,
+          ref: 'ExposureMerchant'
+      }],
       isDeleted:{
           type:Number,
           default: 0
@@ -24,13 +28,16 @@ var schema = new Schema({
   schema.plugin(deepPopulate, {
     populate: {
         'exposureRule': {
-            select: 'name _id'
+            select: ''
         },
         'createdBy': {
             select: 'name _id email'
         },
         'lastUpdatedBy': {
             select: 'name _id email'
+        },
+        'exposureMerchant': {
+            select: ''
         }
     }
   });
@@ -38,7 +45,7 @@ var schema = new Schema({
   schema.plugin(timestamps);
   module.exports = mongoose.model('ExposureMerchantCategory', schema);
   
-  var exports = _.cloneDeep(require("sails-wohlig-service")(schema,'exposureRule createdBy lastUpdatedBy','exposureRule createdBy lastUpdatedBy'));
+  var exports = _.cloneDeep(require("sails-wohlig-service")(schema,'exposureRule createdBy lastUpdatedBy exposureMerchant','exposureRule createdBy lastUpdatedBy exposureMerchant'));
   var model = {
     search: function (data, callback) {
         // console.log("in custom");
@@ -67,7 +74,7 @@ var schema = new Schema({
             }).sort({
                 createdAt: -1
             })
-            .populate('exposureRule createdBy lastUpdatedBy')
+            .populate('exposureRule createdBy lastUpdatedBy exposureMerchant')
             .order(options)
             .keyword(options)
             .page(options,

@@ -1,8 +1,9 @@
 {
-    "title": "Merchant Category",
-    "description": "List of Merchant Categories",
+    "title": "Rule Category",
+    "description": "List of Rule Categories",
     "pageType": "view",
     "sendIdWithCreate": true,
+    "rowCheckBoxForMerchantExposureCategory":true,
     "urlFields": ["_id"],
     "roles":["Super Admin","Merchant Exposure"],
     "fields": [{

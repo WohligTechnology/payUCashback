@@ -146,10 +146,10 @@
 
         <div class="singleRuleHeadings">Merchant Categories</div>
 
-        <div class="row" ng-if="singleExposureMerchantForModal.exposureMerchantCategory">
+        <div class="row" ng-if="singleExposureMerchantData">
             <div class="col-md-12">
                 Merchant Categories -
-                <span ng-repeat="inc in singleExposureMerchantForModal.exposureMerchantCategory">{{inc.name}} {{$last ? '' : ($index==singleExposureMerchantForModal.exposureMerchantCategory.length-2) ?
+                <span ng-repeat="inc in singleExposureMerchantData">{{inc.name}} {{$last ? '' : ($index==singleExposureMerchantData.length-2) ?
                     ' and ' : ', '}}</span>
 
             </div>
@@ -163,15 +163,15 @@
                 <ul class="tree">
                     <li>
                         <span>
-                            <b>{{singleExposureMerchantData[0].name}}</b>
+                            <b>{{singleExposureMerchantForModal.name}}</b>
                         </span>
                         <ul>
                             <li ng-repeat="x in singleExposureMerchantData">
                                 <span>
-                                    <b>{{x.exposureMerchantCategory.name}}</b>
+                                    <b>{{x.name}}</b>
                                 </span>
                                 <ul>
-                                    <li ng-repeat="y in x.exposureMerchantCategory.exposureRule">
+                                    <li ng-repeat="y in x.exposureRule">
                                         <span>
                                             <b>{{y.name}}</b>
                                         </span>

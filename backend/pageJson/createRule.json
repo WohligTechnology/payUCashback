@@ -313,32 +313,6 @@
         "view": true,
         "dropDownType": "multiple",
         "validation": ["", "", "trim"]
-    }, {
-        "name": "Gift Cards ( if any )",
-        "type": "heading",
-        "onlyHeading":true
-    },{
-        "name": "",
-        "type": "box",
-        "tableRef": "giftCard",
-        "validation": ["", "trim", ""],
-        "fields": [{
-            "name": "Transaction",
-            "type": "text",
-            "tableRef": "transaction",
-            "placeholder": "Enter Transaction",
-            "id": "transaction",
-            "url": "",
-            "onView": true
-        },{
-        "name": "Cashback Details",
-        "type": "text",
-        "tableRef": "cashbackDetails",
-        "placeholder": "Enter Cashback Details",
-        "id": "cashbackDetails",
-        "url": "",
-        "onView": true
-    }]
     }],
     "action": [{
         "name": "submit",

@@ -14,6 +14,22 @@ myApp.directive('dateModel', function ($filter, $timeout) {
     };
 });
 
+myApp.directive('loading', function () {
+    return {
+        restrict: 'E',
+        replace:true,
+        template: '<div class="loading"><img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif" width="20" height="20" />LOADING...</div>',
+        link: function (scope, element, attr) {
+              scope.$watch('loading', function (val) {
+                  if (val)
+                      $(element).show();
+                  else
+                      $(element).hide();
+              });
+        }
+      }
+});
+
 
 myApp.directive('imageonload', function () {
     return {
@@ -434,6 +450,7 @@ myApp.directive('viewField', function ($http, $filter) {
             value: "=value"
         },
         link: function ($scope, element, attrs) {
+            // console.log("$scope.type",$scope.type);
             if (!$scope.type.type) {
                 $scope.type.type = "text";
             }
@@ -458,6 +475,22 @@ myApp.directive('viewField', function ($http, $filter) {
                 $scope.form.model = $scope.value[$scope.type.tableRef];
             }
 
+            // $scope.showCSV=function(item){
+            //     console.log("showCSV clicked");
+            //     var fileName="http://localhost:8082/api/upload/readFile?file=".$scope.value;
+            //     $scope.csvData=CSVToTable(fileName);
+            //     console.log("csvData",$scope.csvData);
+            //     // $scope.viewSingleRuleModal = function (singleRule) {
+            //     //     console.log("viewSingleRuleModal", singleRule);
+            //     //     $scope.singleRuleForModal = singleRule;
+            //     //     $scope.singleRuleModal = $uibModal.open({
+            //     //         animation: true,
+            //     //         templateUrl: 'views/modal/SingleRuleModal.html',
+            //     //         size: 'md',
+            //     //         scope: $scope
+            //     //     });
+            //     // }
+            // }
             $scope.template = "views/viewField/" + $scope.type.type + ".html";
         }
     };
@@ -484,6 +517,23 @@ myApp.directive('detailField', function ($http, $filter, JsonService) {
         },
         controller: 'DetailFieldCtrl',
         link: function ($scope, element, attrs) {
+            // console.log($scope.formData["firstDate"]);
+            // $scope.$watch($scope.formData["firstDate"], validateDates);
+            // $scope.$watch($scope.formData["lastDate"], validateDates);
+             
+            // function validateDates() {
+
+            //     if (!$scope.formData) return;
+            //     if ($scope.formData["firstDate"].$error.invalidDate || $scope.formData["lastDate"].$error.invalidDate) {
+            //         $scope.formData["firstDate"].$setValidity("endBeforeStart", true);  //already invalid (per validDate directive)
+            //     } else {
+            //         //depending on whether the user used the date picker or typed it, this will be different (text or date type).  
+            //         //creating a new date object takes care of that.  
+            //         var endDate = new Date($scope.formData["lastDate"]);
+            //         var startDate = new Date($scope.formData["firstDate"]);
+            //         $scope.formData["firstDate"].$setValidity("endBeforeStart", endDate >= startDate);
+            //     }
+            // }
 
             $scope.condition = {};
             $scope.condition.hidePercentage = function() {
@@ -511,8 +561,20 @@ myApp.directive('detailField', function ($http, $filter, JsonService) {
                     return true;
                 }
             }
+
+            $scope.condition.hideFirstTransactionDate = function() {
+                if($scope.formData["firstDate"] > $scope.formData["lastDate"]){
+                    $scope.formData["firstDate"]=null; 
+                    // console.log("in else",$scope.formData["firstDate"]," & ",$scope.formData["lastDate"]);
+                    
+                    alert("Last Date Should Be Greater Than First Date");
+                }else{
+                    console.log("in else",$scope.formData["firstDate"]," & ",$scope.formData["lastDate"]);
+                }
+            }
+
             $scope.condition.hidePerUser = function() {
-                console.log("avinash");
+                // console.log("avinash");
                 // if($scope.formData["isFirstTransaction"]=="true"){
                 //     return true;
                 // } else {

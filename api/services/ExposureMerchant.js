@@ -6,10 +6,6 @@ var schema = new Schema({
     sqlId: {
         type: Number
     },
-    exposureMerchantCategory: [{
-        type: Schema.Types.ObjectId,
-        ref: 'ExposureMerchantCategory'
-    }],
     isDeleted: {
         type: Number,
         default: 0
@@ -31,9 +27,6 @@ schema.plugin(deepPopulate, {
         },
         'lastUpdatedBy': {
             select: 'name _id email'
-        },
-        'exposureMerchantCategory': {
-            select: ''
         }
     }
 });
@@ -41,7 +34,7 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('ExposureMerchant', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'createdBy lastUpdatedBy exposureMerchantCategory', 'createdBy lastUpdatedBy exposureMerchantCategory'));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'createdBy lastUpdatedBy', 'createdBy lastUpdatedBy'));
 var model = {
     search: function (data, callback) {
         // console.log("in custom");
@@ -70,7 +63,7 @@ var model = {
             }).sort({
                 createdAt: -1
             })
-            .populate('createdBy lastUpdatedBy exposureMerchantCategory')
+            .populate('createdBy lastUpdatedBy')
             .order(options)
             .keyword(options)
             .page(options,
@@ -113,7 +106,7 @@ var model = {
                 ExposureMerchant.findOne({
                         _id: data._id
                     })
-                    .deepPopulate("createdBy lastUpdatedBy exposureMerchantCategory")
+                    .deepPopulate("createdBy lastUpdatedBy")
                     .exec(function (err, found) {
                         if (err) {
                             callback(err);
@@ -179,49 +172,89 @@ var model = {
         });
     },
     viewSingleExposureMerchantModal:function(data,callback){
+
+        var aggArrOld=[
+            // Stage 1
+            {
+                $match: {
+                    "_id":ObjectId(data._id)
+                }
+            },
+    
+            // Stage 2
+            {
+                $lookup: // Equality Match
+                {
+                    from: "exposuremerchantcategories",
+                    localField: "exposureMerchantCategory",
+                    foreignField: "_id",
+                    as: "exposureMerchantCategory"
+                }
+                
+            },
+    
+            // Stage 3
+            {
+                $unwind: {
+                    path : "$exposureMerchantCategory"
+                }
+            },
+    
+            // Stage 4
+            {
+                $lookup: // Equality Match
+                {
+                    from: "exposurerules",
+                    localField: "exposureMerchantCategory.exposureRule",
+                    foreignField: "_id",
+                    as: "exposureMerchantCategory.exposureRule"
+                }
+            },
+    
+        ];
+    
         var aggArr=[
-                // Stage 1
+            // Stage 1
+            {
+                $lookup: // Equality Match
                 {
-                    $match: {
-                        "_id":ObjectId(data._id)
-                    }
-                },
-        
-                // Stage 2
+                    from: "exposuremerchants",
+                    localField: "exposureMerchant",
+                    foreignField: "_id",
+                    as: "exposureMerchant"
+                }
+                
+            },
+    
+            // Stage 2
+            {
+                $unwind: {
+                    path : "$exposureMerchant"
+                }
+            },
+    
+            // Stage 3
+            {
+                $match: {
+                "exposureMerchant._id":ObjectId(data._id)
+                }
+            },
+    
+            // Stage 4
+            {
+                $lookup: // Equality Match
                 {
-                    $lookup: // Equality Match
-                    {
-                        from: "exposuremerchantcategories",
-                        localField: "exposureMerchantCategory",
-                        foreignField: "_id",
-                        as: "exposureMerchantCategory"
-                    }
-                    
-                },
-        
-                // Stage 3
-                {
-                    $unwind: {
-                        path : "$exposureMerchantCategory"
-                    }
-                },
-        
-                // Stage 4
-                {
-                    $lookup: // Equality Match
-                    {
-                        from: "exposurerules",
-                        localField: "exposureMerchantCategory.exposureRule",
-                        foreignField: "_id",
-                        as: "exposureMerchantCategory.exposureRule"
-                    }
-                },
-        
-            ];
-        
+                    from: "exposurerules",
+                    localField: "exposureRule",
+                    foreignField: "_id",
+                    as: "exposureRule"
+                }
+            },
+    
+        ];
             async.parallel({
                 results: function (callback) {
-                    ExposureMerchant.aggregate(aggArr, function (err, data1) {
+                    ExposureMerchantCategory.aggregate(aggArr, function (err, data1) {
                         if (err) {
                             callback(err, null);
                         } else {

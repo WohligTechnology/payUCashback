@@ -6,7 +6,11 @@ var uploadurl = imgurl;
 
 
 myApp.factory('NavigationService', function ($http,$state) {
+    var navigation={};
+    var defaultNav=true;
+    function initiateNavigation() {
     if($.jStorage.get("profile")){
+        var defaultNav=false;
         console.log("$.jStorage.get('profile').accessLevel",$.jStorage.get("profile").accessLevel);
         if($.jStorage.get("profile").accessLevel=="Super Admin"){
             console.log("inside super admin navigation block");
@@ -38,6 +42,14 @@ myApp.factory('NavigationService', function ($http,$state) {
                 name: "Mailer List",
                 classis: "active",
                 sref: "#!/page/viewMailerList//"
+            },{
+                name: "Exposure Rule",
+                classis: "active",
+                sref: "#!/page/viewExposureRule//"
+            },{
+                name: "Merchant Category",
+                classis: "active",
+                sref: "#!/page/viewExposureMerchantCategory//"
             }
             ];
         } else if($.jStorage.get("profile").accessLevel=="Creator"){
@@ -116,6 +128,7 @@ myApp.factory('NavigationService', function ($http,$state) {
             ];
         }
     }else{
+        var defaultNav=true;
         var navigation = [{
             name: "Cashback Merchant",
             classis: "active",
@@ -142,10 +155,166 @@ myApp.factory('NavigationService', function ($http,$state) {
 
     }
     
+}
 
     return {
         getnav: function () {
-            return navigation;
+            if($.jStorage.get("profile")){
+                var defaultNav=false;
+                console.log("$.jStorage.get('profile').accessLevel",$.jStorage.get("profile").accessLevel);
+                if($.jStorage.get("profile").accessLevel=="Super Admin"){
+                    console.log("inside super admin navigation block");
+                    var navigation = [{
+                        name: "User",
+                        classis: "active",
+                        sref: "#!/page/viewUser//"
+                    }, {
+                        name: "Cashback Merchant",
+                        classis: "active",
+                        sref: "#!/page/viewMerchant//"
+                    },{
+                        name: "Cashback Rules",
+                        classis: "active",
+                        sref: "#!/page/viewRule//"
+                    }, {
+                        name: "Marketing Merchant",
+                        classis: "active",
+                        sref: "#!/page/viewMarketingMerchant//"
+                    },{
+                        name: "Marketing Rules",
+                        classis: "active",
+                        sref: "#!/page/viewMarketingRule//"
+                    },{
+                        name: "Performance",
+                        classis: "active",
+                        sref: "#!/page/viewPerformance//"
+                    },{
+                        name: "Mailer List",
+                        classis: "active",
+                        sref: "#!/page/viewMailerList//"
+                    },{
+                        name: "Exposure Rule",
+                        classis: "active",
+                        sref: "#!/page/viewExposureRule//"
+                    },{
+                        name: "Rule Category",
+                        classis: "active",
+                        sref: "#!/page/viewExposureMerchantCategory//"
+                    }
+                    ];
+                } else if($.jStorage.get("profile").accessLevel=="Creator"){
+                    var navigation = [{
+                        name: "Cashback Merchant",
+                        classis: "active",
+                        sref: "#!/page/viewMerchant//"
+                    },{
+                        name: "Rule",
+                        classis: "active",
+                        sref: "#!/page/viewRule//"
+                    }
+                    ];
+                } else if($.jStorage.get("profile").accessLevel=="Executor"){
+                    var navigation = [{
+                        name: "Cashback Merchant",
+                        classis: "active",
+                        sref: "#!/page/viewMerchant//"
+                    },{
+                        name: "Rule",
+                        classis: "active",
+                        sref: "#!/page/viewRule//"
+                    }
+                    ];
+                } else if($.jStorage.get("profile").accessLevel=="Viewer"){
+                    var navigation = [{
+                        name: "Cashback Merchant",
+                        classis: "active",
+                        sref: "#!/page/viewMerchant//"
+                    },{
+                        name: "Rule",
+                        classis: "active",
+                        sref: "#!/page/viewRule//"
+                    }
+                    ];
+                } else if($.jStorage.get("profile").accessLevel=="Marketing Creator" || $.jStorage.get("profile").accessLevel=="Marketing Executor" || $.jStorage.get("profile").accessLevel=="Marketing Viewer" ){
+                    var navigation = [{
+                        name: "Marketing Merchant",
+                        classis: "active",
+                        sref: "#!/page/viewMarketingMerchant//"
+                    },{
+                        name: "Marketing Rule",
+                        classis: "active",
+                        sref: "#!/page/viewMarketingRule//"
+                    }
+                    ];
+                } else if($.jStorage.get("profile").accessLevel=="Performance"){
+                    var navigation = [{
+                        name: "Performance",
+                        classis: "active",
+                        sref: "#!/page/viewPerformance//"
+                    }, {
+                        name: "Marketing Merchant",
+                        classis: "active",
+                        sref: "#!/page/viewMarketingMerchant//"
+                    },{
+                        name: "Marketing Rules",
+                        classis: "active",
+                        sref: "#!/page/viewMarketingRule//"
+                    }
+                    ];
+                } else if($.jStorage.get("profile").accessLevel=="Merchant Exposure"){
+                    var navigation = [{
+                        name: "Mailer List",
+                        classis: "active",
+                        sref: "#!/page/viewMailerList//"
+                    },{
+                        name: "Merchant Exposure Rules",
+                        classis: "active",
+                        sref: "#!/page/viewExposureRule//"
+                    },{
+                        name: "Merchant Categories",
+                        classis: "active",
+                        sref: "#!/page/viewExposureMerchantCategory//"
+                    }
+                    ];
+                }
+            }else{
+                var defaultNav=true;
+                var navigation = [{
+                    name: "Cashback Merchant",
+                    classis: "active",
+                    sref: "#!/page/viewMerchant//"
+                },{
+                    name: "Cashback Rules",
+                    classis: "active",
+                    sref: "#!/page/viewRule//"
+                }, {
+                    name: "Marketing Merchant",
+                    classis: "active",
+                    sref: "#!/page/viewMarketingMerchant//"
+                },{
+                    name: "Marketing Rules",
+                    classis: "active",
+                    sref: "#!/page/viewMarketingRule//"
+                },{
+                    name: "Performance",
+                    classis: "active",
+                    sref: "#!/page/viewPerformance//"
+                }
+                ];
+                $state.go("login");
+        
+            }
+
+            // if(defaultNav==true){
+            //     initiateNavigation();
+            //     // if($.jStorage.get("profile"))
+            //     console.log("hgvghsc");
+            //     return navigation;
+            //     // $state.reload();
+            // }else{
+            //     console.log("hgvghsc_else");
+                return navigation;
+            // }
         },
 
         parseAccessToken: function (data, callback) {

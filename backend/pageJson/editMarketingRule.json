@@ -101,7 +101,8 @@
         "placeholder": "Enter First Transaction Date",
         "id": "firstDate",
         "validation": ["required", "trim"],
-        "url": ""
+        "url": "",
+        "hideMethod1":"hideFirstTransactionDate"
     }, {
         "name": "First Transaction Date Operator",
         "type": "tags",
@@ -190,14 +191,14 @@
         "dropDownField": "name",
         "view": true,
         "dropDownType": "single",
-        "validation": ["required", "", ""]
+        "validation": ["", "", ""]
     }, {
         "name": "Amount",
         "type": "number",
         "tableRef": "amount",
         "placeholder": "Enter Amount",
         "id": "amount",
-        "validation": ["", "trim"],
+        "validation": ["required", "trim"],
         "url": ""
     }, {
         "name": "Transaction Behaviour",

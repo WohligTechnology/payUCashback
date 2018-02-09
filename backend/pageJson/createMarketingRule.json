@@ -101,7 +101,8 @@
         "placeholder": "Enter First Transaction Date",
         "id": "firstDate",
         "validation": ["required", "trim"],
-        "url": ""
+        "url": "",
+        "hideMethod1":"hideFirstTransactionDate"
     }, {
         "name": "First Transaction Date Operator",
         "type": "tags",
@@ -197,7 +198,7 @@
         "tableRef": "amount",
         "placeholder": "Enter Amount",
         "id": "amount",
-        "validation": ["", "trim"],
+        "validation": ["required", "trim"],
         "url": ""
     }, {
         "name": "Transaction Behaviour",
