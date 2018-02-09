@@ -294,18 +294,6 @@
         "dropDownType": "single",
         "onView": true,
         "dropDown": [30,180]
-    }, {
-        "name": "Digital Score",
-        "type": "tags",
-        "tableRef": "score",
-        "placeholder": "Select Digital Score",
-        "id": "score",
-        "validation": ["required", "trim", ""],
-        "url": "",
-        "dropDownField": "",
-        "dropDownType": "single",
-        "onView": true,
-        "dropDown": ["Influence Score", "Affleunce Score","Multiplied Score"]
     }],
     "action": [{
         "name": "submit",
