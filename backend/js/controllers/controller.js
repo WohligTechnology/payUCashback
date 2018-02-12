@@ -664,6 +664,25 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         }
 
+        $scope.playSelectedClickExposureMerchantCategory = function () {
+            console.log("allSelectedMarketingRules",$scope.selectArrMerchantExposureCategory);
+            if ($scope.selectArrMerchantExposureCategory.length == 0) {
+                console.log("empty array inside playSelectedClickExposureMerchantCategory if");
+                alert("No Marketing Rules to Play");
+            }else if($scope.selectArrMerchantExposureCategory.length > 1){
+                console.log("cannot play more than 1 rule!");
+                alert("Please select only 1 Category at a time to Play the Rules!!!");
+            } else {
+                $scope.playSelectedClickExposureMerchantCategoryFolderNameModal = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'views/modal/playAllExposureMerchantCategoryFolderNameModal.html',
+                    size: 'md',
+                    scope: $scope
+                });
+            }
+
+        }
+
         $scope.playSelectedAllClickPerformance = function () {
             console.log("allSelectedPerformanceRules",$scope.selectArrPerformance);
             if ($scope.selectArrPerformance.length == 0) {
@@ -878,7 +897,78 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 })
             }
         }
+        
 
+        $scope.playAllExposureMerchantCategoryClickAfterFolderName = function (formData) {
+            $scope.playSelectedClickExposureMerchantCategoryFolderNameModal.close();
+            // console.log("formData in playAllClickAfterFolderName",formData);
+            if ($.jStorage.get("profile")) {
+                var loggedInUserId = $.jStorage.get("profile")._id;
+            } else {
+                loggedInUserId = null;
+            }
+            var folder = formData.name;
+            var objectToSend = {
+                userId: loggedInUserId,
+                folderName: folder
+            };
+
+            if ($scope.selectArrMerchantExposureCategory.length == 0) {
+                console.log("empty array inside playSelectedClick if");
+                alert("No Rules To Play!!!");
+            } else {
+                $scope.json.json.loader=true;
+                objectToSend.ruleIds = $scope.selectArrMerchantExposureCategory;
+                console.log("selected id inside playSelectedClick else", objectToSend);
+                $timeout(function () {
+                    $scope.json.json.loader=false;
+                }, 4000);
+                // NavigationService.playSelectedExposureMerchantCategoryRule(objectToSend, function (data) {
+                //     console.log("*****", data);
+                //     if(data){
+                //         $scope.json.json.loader=false;
+                //     }else{
+                //         $scope.json.json.loader=false;
+                //     }
+                //     var totalAmount = data.data.totalAmount;
+                //     var totalAmountWithDecimal=totalAmount.toLocaleString();
+                //     var numberOfUsers = data.data.numberOfUsers;
+                //     var numberOfTransactions = data.data.numberOfTransactions;
+                //     var totalUsersInFile = data.data.totalUsersInFile;
+
+                //     //data for modal
+                //     $scope.playExposureMerchantCategoryResponse={
+                //         totalAmount:totalAmountWithDecimal,
+                //         numberOfUsers:data.data.numberOfUsers,
+                //         numberOfTransactions:data.data.numberOfTransactions,
+                //         totalUsersInFile:data.data.totalUsersInFile
+                //     }
+
+                //     if (data.data.success == true) {
+                //         $scope.playExposureMerchantCategoryResponseModal = $uibModal.open({
+                //             animation: true,
+                //             templateUrl: 'views/modal/playExposureMerchantCategoryResponseModal.html',
+                //             size: 'md',
+                //             scope: $scope
+                //         });
+                //     } else {
+                //         toastr.error("Failed To Play Rule ! Try Again !!!", {
+                //             "closeButton": true,
+                //             "debug": false,
+                //             "newestOnTop": false,
+                //             "progressBar": true,
+                //             "positionClass": "toast-top-center",
+                //             "preventDuplicates": false,
+                //             "onclick": null,
+                //             "timeOut": "3000",
+                //             "extendedTimeOut": "1000",
+                //             "tapToDismiss": false
+                //         });
+                //     }
+                    
+                // })
+            }
+        }
         $scope.playSelectedAllActiveClick = function () {
             console.log("allSelectedActiveRules",$scope.allSelectedActiveRules);
             if ($scope.allSelectedRules.length == 0) {
@@ -1436,7 +1526,12 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             }
         }
 
-
+        // if($scope.data.operator){
+        //     $scope.data.operator = $scope.data.operator.push({
+        //         _id: "",
+        //         name: "Select Operator"
+        //     });
+        // }
         if ($scope.json.json.pageType == 'create' && $scope.json.json.title == 'Create Rule') {
             console.log("right");
             $scope.data.status = [{

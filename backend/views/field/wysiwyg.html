@@ -1,5 +1,5 @@
 <div class="form-group tinymce">
-    <label>{{type.name}} <span ng-show="type.required">*</span></label>
+    <label>{{type.name}} <span ng-show="type.required" style="color:red">*</span></label>
     <text-angular ng-model="formData[type.tableRef]" name="{{type.tableRef}}{{$id}}" ng-required="type.required"></text-angular>
     <div class="error-msg" ng-show="detailForm[type.tableRef].$invalid && detailForm[type.tableRef].$touched">Please enter valid {{type.name}}</div>
 </div>

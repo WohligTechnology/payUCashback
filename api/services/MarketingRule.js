@@ -161,6 +161,7 @@ module.exports = mongoose.model('MarketingRule', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator createdBy lastUpdatedBy','merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator createdBy lastUpdatedBy'));
 var model = {
+
     search: function (data, callback) {
         // console.log("in custom");
         var maxRow = Config.maxRow;

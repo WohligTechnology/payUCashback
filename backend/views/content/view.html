@@ -153,6 +153,9 @@
                             
                             <a class="btn btn-primary" ng-if="json.json.bottomButtonPerformance" ng-show="hasRole({{json.json.bottomButtonPerformance[0].roles}})" ng-class="btn.class "
                                 ng-click="playSelectedAllClickPerformance()">{{json.json.bottomButtonPerformance[0].name}}</a>
+
+                            <a class="btn btn-primary" ng-if="json.json.bottomButtonExposureMerchantCategory" ng-show="hasRole({{json.json.bottomButtonExposureMerchantCategory[0].roles}})" ng-class="btn.class "
+                                ng-click="playSelectedClickExposureMerchantCategory()">{{json.json.bottomButtonExposureMerchantCategory[0].name}}</a>
                         </div>
                         <!-- <div ng-if="json.json.bottomButtonPlayAll">
                                 

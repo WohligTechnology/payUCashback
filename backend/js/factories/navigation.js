@@ -469,6 +469,20 @@ myApp.factory('NavigationService', function ($http,$state) {
 
             });
         },
+        playSelectedExposureMerchantCategoryRule: function (ruleArr, callback) {
+            console.log("inside navigationservice playSelectedExposureMerchantCategoryRule",ruleArr);
+            $http({
+                url: 'http://172.31.2.124:8090/merchantExposure',
+                method: 'POST',
+                data: ruleArr,
+                withCredentials: false
+            }).then(function (data) {
+                console.log("######",data);
+                // data = data.data;
+                callback(data);
+
+            });
+        },
         viewQueryModal: function (ruleObject, callback) {
             console.log("inside navigationservice viewQueryModal",ruleObject);
             $http({

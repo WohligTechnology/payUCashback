@@ -1,0 +1,32 @@
+<form name="modalForm" ng-submit="$dismiss()" class="min-hit">
+
+    <div class="modal-header blue-bg  ">
+        <div class="pull-right">
+            <a class="btn btn-clear" ng-click="$dismiss()">
+                <i class="ln-cross"></i>
+            </a>
+        </div>
+        <h5 class="modal-title">
+            <b>Exposure Marchant Category Rules Played Successfully</b>
+        </h5>
+
+    </div>
+
+    <div class="row" style="margin:20px;">
+        <span style="color:green;">Total Users In File: </span>
+        <b>{{playExposureMarchantCategoryResponse.totalUsersInFile}}</b>
+    </div>
+    <div class="row" style="margin:20px;">
+        <span style="color:green;">Total Users Transacted: </span>
+        <b>{{playExposureMarchantCategoryResponse.numberOfUsers}}</b>
+    </div>
+    <div class="row" style="margin:20px;">
+        <span style="color:green;">Number Of Transactions: </span>
+        <b>{{playExposureMarchantCategoryResponse.numberOfTransactions}}</b>
+    </div>
+    <div class="row" style="margin:20px;">
+        <span style="color:green;">Total Amount is: </span>
+        <b>{{playExposureMarchantCategoryResponse.totalAmount}}</b>
+    </div>
+    <br>
+</form>

@@ -3,6 +3,7 @@
     "description": "List of Rule Categories",
     "pageType": "view",
     "sendIdWithCreate": true,
+    "loader":false,
     "rowCheckBoxForMerchantExposureCategory":true,
     "urlFields": ["_id"],
     "roles":["Super Admin","Merchant Exposure"],
@@ -62,6 +63,15 @@
         "type": "page",
         "roles":["Super Admin","Merchant Exposure"],
         "action": "createExposureMerchantCategory"
+    }],
+    "bottomButtonExposureMerchantCategory": [{
+        "name": "Play Selected",
+        "icon": "plus",
+        "class": "btn-success",
+        "type": "page",
+        "action": "",
+        "functionName":"playSelectedClickExposureMerchantCategory()",
+        "roles":["Super Admin","Exposure Merchant"]
     }],
     "apiCall": {
         "url": "ExposureMerchantCategory/search",

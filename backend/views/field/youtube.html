@@ -1,5 +1,5 @@
 <div class="form-group" fields>
-    <label>{{type.name}} <span ng-show="type.required">*</span></label>
+    <label>{{type.name}} <span ng-show="type.required" style="color:red">*</span></label>
     <div class="row">
         <div class="col-md-9"><input type="text" name="{{type.tableRef}}" placeholder="{{type.placeholder}}" ng-change="changeYoutubeUrl(youtubeValue);"
                 ng-model="youtubeValue" class="form-control" ng-required="type.required" ng-disabled="{{type.disabled}}">
