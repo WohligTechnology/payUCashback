@@ -200,6 +200,10 @@ myApp.factory('NavigationService', function ($http,$state) {
                         name: "Rule Category",
                         classis: "active",
                         sref: "#!/page/viewExposureMerchantCategory//"
+                    },{
+                        name: "Exposure Merchants",
+                        classis: "active",
+                        sref: "#!/page/viewExposureMerchant//"
                     }
                     ];
                 } else if($.jStorage.get("profile").accessLevel=="Creator"){
