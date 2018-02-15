@@ -431,8 +431,10 @@ myApp.factory('NavigationService', function ($http,$state) {
         },
         playSelectedEmail: function (ruleArr, callback) {
             console.log("inside navigationservice playSelectedEmail",ruleArr);
+
+            // url: 'http://172.31.2.124:8080/playnow',
             $http({
-                url: 'http://172.31.2.124:8080/playnow',
+                url: 'http://172-31-12-15:8080/playnow',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
@@ -447,7 +449,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         playSelectedMarketingRule: function (ruleArr, callback) {
             console.log("inside navigationservice playSelectedMarketingRule",ruleArr);
             $http({
-                url: 'http://172.31.2.124:8080/generate',
+                url: 'http://172-31-12-15:8080/generate',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
@@ -462,7 +464,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         playSelectedPerformanceRule: function (ruleArr, callback) {
             console.log("inside navigationservice playSelectedPerformanceRule",ruleArr);
             $http({
-                url: 'http://172.31.2.124:8090/performance',
+                url: 'http://172-31-12-15:8080/performance',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
@@ -476,7 +478,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         playSelectedExposureMerchantCategoryRule: function (ruleArr, callback) {
             console.log("inside navigationservice playSelectedExposureMerchantCategoryRule",ruleArr);
             $http({
-                url: 'http://172.31.2.124:8090/merchantExposure',
+                url: 'http://172-31-12-15:8090/merchantExposure',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
@@ -490,7 +492,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         viewQueryModal: function (ruleObject, callback) {
             console.log("inside navigationservice viewQueryModal",ruleObject);
             $http({
-                url: 'http://172.31.2.124:8080/verifyquery',
+                url: 'http://172-31-12-15:8080/verifyquery',
                 method: 'POST',
                 data: ruleObject,
                 withCredentials: false
@@ -502,7 +504,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         viewMarketingQueryModal: function (ruleObject, callback) {
             console.log("inside navigationservice viewMarketingQueryModal",ruleObject);
             $http({
-                url: 'http://172.31.2.124:8080/verifyquery',
+                url: 'http://172-31-12-15:8080/verifyquery',
                 method: 'POST',
                 data: ruleObject,
                 withCredentials: false
