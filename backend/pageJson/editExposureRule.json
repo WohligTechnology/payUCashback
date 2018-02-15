@@ -18,14 +18,6 @@
         "id": "name",
         "validation": ["required", "trim"],
         "url": ""
-    }, {
-        "name": "Sql Id",
-        "type": "number",
-        "tableRef": "sqlId",
-        "placeholder": "Enter Sql Id",
-        "id": "sqlId",
-        "validation": ["required", "trim"],
-        "url": ""
     },{
         "name": "Rule Details",
         "type": "heading",

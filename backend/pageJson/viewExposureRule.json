@@ -13,10 +13,6 @@
         "isSort": "",
         "tableRef": "name"
     },{
-        "name": "SQL ID",
-        "isSort": "",
-        "tableRef": "sqlId"
-    },{
         "name": "Mailer List Name",
         "isSort": "",
         "tableRef": "mailerList",
