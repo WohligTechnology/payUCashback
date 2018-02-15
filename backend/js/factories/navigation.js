@@ -434,7 +434,7 @@ myApp.factory('NavigationService', function ($http,$state) {
 
             // url: 'http://172.31.2.124:8080/playnow',
             $http({
-                url: 'http://172.31.12.15:8080/playnow',
+                url: 'http://172.31.12.15:8080/scheduler-0.0.2-SNAPSHOT/playnow',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
@@ -492,7 +492,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         viewQueryModal: function (ruleObject, callback) {
             console.log("inside navigationservice viewQueryModal",ruleObject);
             $http({
-                url: 'http://172.31.12.15:8080/verifyquery',
+                url: 'http://172.31.12.15:8080/scheduler-0.0.2-SNAPSHOT/verifyquery',
                 method: 'POST',
                 data: ruleObject,
                 withCredentials: false
