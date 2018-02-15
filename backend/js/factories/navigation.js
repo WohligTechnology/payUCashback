@@ -449,7 +449,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         playSelectedMarketingRule: function (ruleArr, callback) {
             console.log("inside navigationservice playSelectedMarketingRule",ruleArr);
             $http({
-                url: 'http://172.31.12.15:8080/generate',
+                url: 'http://172.31.12.15:8080/scheduler-0.0.2-SNAPSHOT/generate',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
@@ -464,7 +464,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         playSelectedPerformanceRule: function (ruleArr, callback) {
             console.log("inside navigationservice playSelectedPerformanceRule",ruleArr);
             $http({
-                url: 'http://172.31.12.15:8080/performance',
+                url: 'http://172.31.12.15:8080/Marketing_Performance-1.0-SNAPSHOT/performance',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
