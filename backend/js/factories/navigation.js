@@ -436,7 +436,7 @@ myApp.factory('NavigationService', function ($http,$state) {
             // url: 'http://172.31.12.15:8080/scheduler-0.0.2-SNAPSHOT/playnow',
             // url: 'http://172.31.2.124:8080/playnow',
             $http({
-                url: serverUrl+'scheduler-0.0.2-SNAPSHOT/playnow',
+                url: serverUrl+'scheduler/playnow',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
@@ -451,7 +451,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         playSelectedMarketingRule: function (ruleArr, callback) {
             console.log("inside navigationservice playSelectedMarketingRule",ruleArr);
             $http({
-                url: serverUrl+'scheduler-0.0.2-SNAPSHOT/generate',
+                url: serverUrl+'scheduler/generate',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
@@ -466,7 +466,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         playSelectedPerformanceRule: function (ruleArr, callback) {
             //console.log("inside navigationservice playSelectedPerformanceRule",ruleArr);
             $http({
-                url: serverUrl+'Marketing_Performance-1.0-SNAPSHOT/performance',
+                url: serverUrl+'performance',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
@@ -494,7 +494,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         viewQueryModal: function (ruleObject, callback) {
             console.log("inside navigationservice viewQueryModal",ruleObject);
             $http({
-                url: serverUrl+'scheduler-0.0.2-SNAPSHOT/verifyquery',
+                url: serverUrl+'scheduler/verifyquery',
                 method: 'POST',
                 data: ruleObject,
                 withCredentials: false
