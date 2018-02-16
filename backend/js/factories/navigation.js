@@ -2,6 +2,7 @@ var imgurl = adminurl + "upload/";
 
 var imgpath = imgurl + "readFile";
 var uploadurl = imgurl;
+var serverUrl = "http://ds-services-1247084187.ap-south-1.elb.amazonaws.com/"
 
 
 
@@ -432,9 +433,10 @@ myApp.factory('NavigationService', function ($http,$state) {
         playSelectedEmail: function (ruleArr, callback) {
             console.log("inside navigationservice playSelectedEmail",ruleArr);
 
+            // url: 'http://172.31.12.15:8080/scheduler-0.0.2-SNAPSHOT/playnow',
             // url: 'http://172.31.2.124:8080/playnow',
             $http({
-                url: 'http://172.31.12.15:8080/scheduler-0.0.2-SNAPSHOT/playnow',
+                url: serverUrl+'scheduler-0.0.2-SNAPSHOT/playnow',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
@@ -449,7 +451,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         playSelectedMarketingRule: function (ruleArr, callback) {
             console.log("inside navigationservice playSelectedMarketingRule",ruleArr);
             $http({
-                url: 'http://172.31.12.15:8080/scheduler-0.0.2-SNAPSHOT/generate',
+                url: serverUrl+'scheduler-0.0.2-SNAPSHOT/generate',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
@@ -462,9 +464,9 @@ myApp.factory('NavigationService', function ($http,$state) {
         },
 
         playSelectedPerformanceRule: function (ruleArr, callback) {
-            console.log("inside navigationservice playSelectedPerformanceRule",ruleArr);
+            //console.log("inside navigationservice playSelectedPerformanceRule",ruleArr);
             $http({
-                url: 'http://172.31.12.15:8080/Marketing_Performance-1.0-SNAPSHOT/performance',
+                url: serverUrl+'Marketing_Performance-1.0-SNAPSHOT/performance',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
@@ -478,7 +480,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         playSelectedExposureMerchantCategoryRule: function (ruleArr, callback) {
             console.log("inside navigationservice playSelectedExposureMerchantCategoryRule",ruleArr);
             $http({
-                url: 'http://172.31.12.15:8090/merchantExposure',
+                url: serverUrl+'merchantExposure',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
@@ -492,7 +494,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         viewQueryModal: function (ruleObject, callback) {
             console.log("inside navigationservice viewQueryModal",ruleObject);
             $http({
-                url: 'http://172.31.12.15:8080/scheduler-0.0.2-SNAPSHOT/verifyquery',
+                url: serverUrl+'scheduler-0.0.2-SNAPSHOT/verifyquery',
                 method: 'POST',
                 data: ruleObject,
                 withCredentials: false
@@ -504,7 +506,7 @@ myApp.factory('NavigationService', function ($http,$state) {
         viewMarketingQueryModal: function (ruleObject, callback) {
             console.log("inside navigationservice viewMarketingQueryModal",ruleObject);
             $http({
-                url: 'http://172.31.12.15:8080/verifyquery',
+                url: serverUrl+'verifyquery',
                 method: 'POST',
                 data: ruleObject,
                 withCredentials: false
