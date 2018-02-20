@@ -16,7 +16,7 @@
         "placeholder": "Select File",
         "id": "name",
         "option": "single",
-        "validation": ["", "trim", ""],
+        "validation": ["required", "trim", ""],
         "url": ""
     }, {
         "name": "Start Date , End Date & Remark",
@@ -47,7 +47,7 @@
         "id": "email",
         "validation": ["", "trim"],
         "url": "",
-        "note":"Email Will Be Default Marked To chinmay.jain@payu.in"
+        "note":"Email Will Be Default Marked To Chinmay Jain, Rutuja Viregaonkar, Animesh Mishra, Sudhakar Chavan & Royston Dsilva"
     }, {
         "name": "Remark (Preferable For Future Use)",
         "type": "text",

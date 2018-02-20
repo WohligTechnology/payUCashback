@@ -8,7 +8,7 @@
     "urlFields": ["Performance"],
     "roles":["Super Admin","Performance"],
     "fields": [{
-        "name": "Upload File ( Currently Supporting Only CSV File Format )",
+        "name": "Upload File (Currently Supporting Only CSV File Format)",
         "type": "excel",
         "size": "",
         "tableRef": "name",
@@ -47,7 +47,7 @@
         "id": "email",
         "validation": ["", "trim"],
         "url": "",
-        "note":"Email Will Be Default Marked To chinmay.jain@payu.in"
+        "note":"Email Will Be Default Marked To Chinmay Jain, Rutuja Viregaonkar, Animesh Mishra, Sudhakar Chavan & Royston Dsilva"
     }, {
         "name": "Remark (Preferable For Future Use)",
         "type": "text",

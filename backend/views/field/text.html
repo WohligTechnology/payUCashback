@@ -2,6 +2,6 @@
     <!-- <div class="form-group" fields ng-hide="formData[type.hideCondition]"  ng-if="!condition[type.hideMethod]()"> -->
     <label>{{type.name}} <span ng-show="type.required" style="color:red">*</span></label>
     <input type="text" name="{{type.tableRef}}" placeholder="{{type.placeholder}}" ng-model="formData[type.tableRef]" class="form-control"
-        ng-required="type.required" ng-disabled="{{type.disabled}}"><span ng-if="type.note" style="color:blue">{{type.note}}</span>
+        ng-required="type.required" ng-disabled="{{type.disabled}}"><span ng-if="type.note" style="color:#58c665">{{type.note}}</span>
     <div class="error-msg" ng-show="detailForm[type.tableRef].$invalid && detailForm[type.tableRef].$touched">Please enter valid {{type.name}}</div>
 </div>
