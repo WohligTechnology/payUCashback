@@ -206,7 +206,8 @@
         "placeholder": "Enter Valid From Date",
         "id": "validFrom",
         "validation": ["required", "trim"],
-        "url": ""
+        "url": "",
+        "hideMethod1":"hideFromDate"
     }, {
         "name": "Valid To",
         "type": "date",

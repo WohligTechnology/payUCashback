@@ -13,12 +13,12 @@
         "isSort": "",
         "tableRef": "name"
     },{
-        "name": "SQL ID",
+        "name": "Merchant SQL ID",
         "isSort": "",
         "tableRef": "sqlId"
     }],
     "action": [{
-        "name": "Edit ExposureMerchant",
+        "name": "Edit Exposure Merchant",
         "icon": "fa-pencil",
         "buttonClass": "btn-primary",
         "type": "page",
@@ -28,7 +28,7 @@
             "_id": "_id"
         }
     }, {
-        "name": "Delete ExposureMerchant",
+        "name": "Delete Exposure Merchant",
         "icon": "fa-trash",
         "buttonClass": "btn-danger",
         "type": "apiCallConfirm",
@@ -41,7 +41,7 @@
             "value": "_id"
         }
     },{
-        "name": "Copy Rule",
+        "name": "Copy Exposure Merchant",
         "icon": "fa-copy",
         "buttonClass": "btn-primary",
         "type": "page",
@@ -57,7 +57,7 @@
         "buttonClass": "btn-primary"
     },
     "button": [{
-        "name": "Add ExposureMerchant",
+        "name": "Add Merchant",
         "icon": "plus",
         "class": "btn-success",
         "type": "page",

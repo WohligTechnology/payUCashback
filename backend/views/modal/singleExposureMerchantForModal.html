@@ -144,21 +144,23 @@
             </div>
         </div>
 
-        <div class="singleRuleHeadings">Merchant Categories</div>
+        <div class="singleRuleHeadings">Rule Categories</div>
 
         <div class="row" ng-if="singleExposureMerchantData">
             <div class="col-md-12">
-                Merchant Categories -
+                Rule Categories -
                 <span ng-repeat="inc in singleExposureMerchantData">{{inc.name}} {{$last ? '' : ($index==singleExposureMerchantData.length-2) ?
                     ' and ' : ', '}}</span>
+                    <span ng-show="!singleExposureMerchantData.length">
+                        No Rule Category Assigned
+                    </span>
 
             </div>
         </div>
         <br>
         <br>
-
-        <div class="singleRuleHeadings">Exposure Merchant Hierarchy</div>
-        <div id="wrapper" style="display: table;margin-right: auto;margin-left: auto;" >
+        <div class="singleRuleHeadings" ng-show="singleExposureMerchantData.length">Exposure Merchant Hierarchy</div>
+        <div id="wrapper" style="display: table;margin-right: auto;margin-left: auto;"  ng-show="singleExposureMerchantData.length">
                 <!-- <h1>HTML &amp; CSS tree </h1> -->
                 <ul class="tree">
                     <li>

@@ -573,6 +573,17 @@ myApp.directive('detailField', function ($http, $filter, JsonService) {
                 }
             }
 
+            $scope.condition.hideStartDate = function() {
+                if($scope.formData["startDate"] > $scope.formData["endDate"]){
+                    $scope.formData["startDate"]=null; 
+                    // console.log("in else",$scope.formData["firstDate"]," & ",$scope.formData["lastDate"]);
+                    
+                    alert("End Date Should Be Greater Than First Date");
+                }else{
+                    console.log("in else",$scope.formData["startDate"]," & ",$scope.formData["endDate"]);
+                }
+            }
+
             $scope.condition.hidePerUser = function() {
                 // console.log("avinash");
                 // if($scope.formData["isFirstTransaction"]=="true"){

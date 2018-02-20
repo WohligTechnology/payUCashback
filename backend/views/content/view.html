@@ -119,6 +119,13 @@
                                             <i class="fa" ng-class="json.json.viewExposureRuleButton.icon"></i>
                                         </a>
                                         <!-- Exposure Rule View button ends -->
+
+                                            <!-- Mailer List button start -->
+                                            <a style="margin-left:5px;" ng-if="json.json.viewMailerListButton" title="{{json.json.viewMailerListButton.name}}" class="btn" ng-class="json.json.viewMailerListButton.buttonClass"
+                                            ng-click="viewSingleMailerListModal(item)">
+                                            <i class="fa" ng-class="json.json.viewMailerListButton.icon"></i>
+                                        </a>
+                                        <!-- Mailer List button ends -->
                                             <a style="margin-left:5px;" ng-repeat="but in json.json.action" ng-show="hasRole({{but.roles}})" title="{{but.name}}" class="btn"
                                                 ng-class="but.buttonClass" ng-click="json.eventAction(but,item) ">
                                                 <i class="fa" ng-class="but.icon"></i>

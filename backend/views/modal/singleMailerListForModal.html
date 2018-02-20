@@ -1,0 +1,37 @@
+<form name="modalForm" ng-submit="$dismiss()" class="min-hit">
+    
+        <div class="modal-header blue-bg  ">
+            <div class="pull-right">
+                <a class="btn btn-clear" ng-click="$dismiss()">
+                    <i class="ln-cross"></i>
+                </a>
+            </div>
+            <h5 class="modal-title">
+                <b>{{singleMailerListForModal.name}}</b></h5>
+    
+        </div>
+        <div class="modal-body">
+            <div class="singleRuleHeadings">Mailer List Details</div>
+            <div class="row" ng-if="singleMailerListForModal.name">
+                <div class="col-md-12">
+                    Name- {{singleMailerListForModal.name}}
+                </div>
+            </div>
+            <div class="singleRuleHeadings"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    Type- {{singleMailerListForModal.type}}
+                </div>
+            </div>
+            <div class="singleRuleHeadings"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    Email Ids- {{singleMailerListForModal.emailIds}}
+                </div>
+            </div>
+    <br>
+            <div class="text-center">
+                <button class="btn btn-primary btn-save" type="submit" ng-disabled="modalForm.$invalid" ng-click="$dismiss()">Cancel</button>
+            </div>
+        </div>
+    </form>

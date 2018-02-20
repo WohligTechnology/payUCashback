@@ -29,7 +29,8 @@
         "placeholder": "Enter Start Date",
         "id": "startDate",
         "validation": ["required", "trim"],
-        "url": ""
+        "url": "",
+        "hideMethod1":"hideStartDate"
     }, {
         "name": "End Date",
         "type": "date",
@@ -38,6 +39,15 @@
         "id": "endDate",
         "validation": ["required", "trim"],
         "url": ""
+    }, {
+        "name": "Email IDs (Enter Comma Seperated Email IDs)",
+        "type": "text",
+        "tableRef": "email",
+        "placeholder": "Enter Email IDs",
+        "id": "email",
+        "validation": ["", "trim"],
+        "url": "",
+        "note":"Email Will Be Default Marked To chinmay.jain@payu.in"
     }, {
         "name": "Remark (Preferable For Future Use)",
         "type": "text",

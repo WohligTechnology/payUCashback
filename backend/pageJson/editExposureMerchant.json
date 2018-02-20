@@ -19,10 +19,10 @@
         "validation": ["required", "trim"],
         "url": ""
     }, {
-        "name": "Sql Id",
+        "name": " Merchant SQL Id",
         "type": "number",
         "tableRef": "sqlId",
-        "placeholder": "Enter Sql Id",
+        "placeholder": "Enter  Merchant SQL Id",
         "id": "sqlId",
         "validation": ["required", "trim"],
         "url": ""

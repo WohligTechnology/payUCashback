@@ -922,7 +922,14 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 console.log("selected id inside playSelectedClick else", objectToSend);
                 $timeout(function () {
                     $scope.json.json.loader=false;
-                }, 4000);
+                    $scope.afterTimeoutModalData="Mail Will Be Send After Processing.";
+                    $scope.afterTimeoutModalInstance = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/afterTimeoutModal.html',
+                        size: 'md',
+                        scope: $scope
+                    });
+                }, 2000);
                 // NavigationService.playSelectedExposureMerchantCategoryRule(objectToSend, function (data) {
                 //     console.log("*****", data);
                 //     if(data){
@@ -1078,7 +1085,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     $scope.singleExposureMerchantForModalInstance = $uibModal.open({
                         animation: true,
                         templateUrl: 'views/modal/singleExposureMerchantForModal.html',
-                        size: 'md',
+                        size: 'lg',
                         scope: $scope
                     });
                 } else {
@@ -1142,6 +1149,21 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         }
         // Exposure Rule view button click end
+
+        // Mailer List view button click start
+        $scope.viewSingleMailerListModal = function (mailerList) {
+            console.log("viewmailerListModal",mailerList);
+            
+            $scope.singleMailerListForModal = mailerList;
+            $scope.singleMailerListForModalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/singleMailerListForModal.html',
+                size: 'md',
+                scope: $scope
+            });
+
+        }
+        // Mailer List view button click end
 
 
         $scope.viewQueryModal = function (singleRule) {

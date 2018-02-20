@@ -44,7 +44,7 @@
         "type": "apiCallConfirm",
         "title": "Delete Performance",
         "content": "Are you sure you want to delete Performance?",
-        "api": "Performance/delete",
+        "api": "Performance/deleteWithChangeStatus",
         "roles":["Super Admin"],
         "fieldsToSend": {
             "name": "_id",
@@ -71,6 +71,5 @@
     "apiCall": {
         "url": "Performance/search",
         "params": "_id"
-    },
-    "removeSearch": true
+    }
 }
