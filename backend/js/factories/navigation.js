@@ -20,6 +20,42 @@ myApp.factory('NavigationService', function ($http,$state) {
                 classis: "active",
                 sref: "#!/page/viewUser//"
             }, {
+                name: "Digital Course",
+                classis: "active",
+                sref: "",
+                icon: "phone",
+                subnav: [{
+                        name: "List",
+                        classis: "active",
+                        sref: "#!/page/viewDigitalCourse//",
+                        icon: "phone",
+                    },
+                    {
+                        name: "Test Result Filters",
+                        classis: "active",
+                        uiSref: "testResultFilter",
+                        icon: "phone",
+                    }, {
+                        name: "Questions",
+                        classis: "active",
+                        sref: "#!/page/viewQuestion//",
+                        icon: "phone",
+    
+                    },
+                    {
+                        name: "Participants",
+                        classis: "active",
+                        sref: "#!/page/viewDigitalUser//",
+                        icon: "phone",
+                    }, {
+                        name: "Right Results",
+                        classis: "active",
+                        sref: "#!/page/viewTestResult//",
+                        icon: "phone",
+                    }
+                ]
+    
+            }, {
                 name: "Cashback Merchant",
                 classis: "active",
                 sref: "#!/page/viewMerchant//"
@@ -168,43 +204,73 @@ myApp.factory('NavigationService', function ($http,$state) {
                     var navigation = [{
                         name: "User",
                         classis: "active",
-                        sref: "#!/page/viewUser//"
+                        sref: "#!/page/viewUser//",
+                        icon: "user",
                     }, {
-                        name: "Cashback Merchant",
+                        name: "Cashback",
                         classis: "active",
-                        sref: "#!/page/viewMerchant//"
-                    },{
-                        name: "Cashback Rules",
-                        classis: "active",
-                        sref: "#!/page/viewRule//"
+                        sref: "",
+                        icon: "file",
+                        subnav: [{
+                                name: "Cashback Merchant",
+                                classis: "active",
+                                sref: "#!/page/viewMerchant//"
+                            }, {
+                                name: "Cashback Rules",
+                                classis: "active",
+                                sref: "#!/page/viewRule//"
+            
+                            }
+                        ]
+            
                     }, {
-                        name: "Marketing Merchant",
+                        name: "Targeted Marketing",
                         classis: "active",
-                        sref: "#!/page/viewMarketingMerchant//"
-                    },{
-                        name: "Marketing Rules",
+                        sref: "",
+                        icon: "file",
+                        subnav: [{
+                                name: "Marketing Merchant",
+                                classis: "active",
+                                sref: "#!/page/viewMarketingMerchant//"
+                            }, {
+                                name: "Marketing Rules",
+                                classis: "active",
+                                sref: "#!/page/viewMarketingRule//"
+            
+                            }, {
+                                name: "Performance",
+                                classis: "active",
+                                sref: "#!/page/viewPerformance//"
+            
+                            }
+                        ]
+            
+                    }, {
+                        name: "Merchant Exposure",
                         classis: "active",
-                        sref: "#!/page/viewMarketingRule//"
-                    },{
-                        name: "Performance",
-                        classis: "active",
-                        sref: "#!/page/viewPerformance//"
-                    },{
-                        name: "Mailer List",
-                        classis: "active",
-                        sref: "#!/page/viewMailerList//"
-                    },{
-                        name: "Exposure Rule",
-                        classis: "active",
-                        sref: "#!/page/viewExposureRule//"
-                    },{
-                        name: "Rule Category",
-                        classis: "active",
-                        sref: "#!/page/viewExposureMerchantCategory//"
-                    },{
-                        name: "Exposure Merchants",
-                        classis: "active",
-                        sref: "#!/page/viewExposureMerchant//"
+                        sref: "",
+                        icon: "file",
+                        subnav: [{
+                                name: "Mailer List",
+                                classis: "active",
+                                sref: "#!/page/viewMailerList//"
+                            }, {
+                                name: "Exposure Rule",
+                                classis: "active",
+                                sref: "#!/page/viewExposureRule//"
+            
+                            }, {
+                                name: "Rule Category",
+                                classis: "active",
+                                sref: "#!/page/viewExposureMerchantCategory//"
+            
+                            }, {
+                                name: "Exposure Merchants",
+                                classis: "active",
+                                sref: "#!/page/viewExposureMerchant//"
+                            }
+                        ]
+            
                     }
                     ];
                 } else if($.jStorage.get("profile").accessLevel=="Creator"){
