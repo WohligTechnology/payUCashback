@@ -2042,7 +2042,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         }
         $scope.loginError = null;
         $scope.login = function (formData) {
-            console.log("login", formData);
+            // console.log("login", formData);
             NavigationService.apiCall("User/login", formData, function (data) {
                 if (data.value === true) {
                     $scope.profileDetails = data.data;
