@@ -6,60 +6,165 @@ var serverUrl = "http://ds-services-1247084187.ap-south-1.elb.amazonaws.com/"
 
 
 
-myApp.factory('NavigationService', function ($http,$state) {
-    var navigation={};
-    var defaultNav=true;
+myApp.factory('NavigationService', function ($http, $state) {
+    var navigation = {};
+    var defaultNav = true;
+
     function initiateNavigation() {
-    if($.jStorage.get("profile")){
-        var defaultNav=false;
-        console.log("$.jStorage.get('profile').accessLevel",$.jStorage.get("profile").accessLevel);
-        if($.jStorage.get("profile").accessLevel=="Super Admin"){
-            console.log("inside super admin navigation block");
+        if ($.jStorage.get("profile")) {
+            var defaultNav = false;
+            console.log("$.jStorage.get('profile').accessLevel", $.jStorage.get("profile").accessLevel);
+            if ($.jStorage.get("profile").accessLevel == "Super Admin") {
+                console.log("inside super admin navigation block");
+                var navigation = [{
+                    name: "User",
+                    classis: "active",
+                    sref: "#!/page/viewUser//"
+                }, {
+                    name: "Digital Course",
+                    classis: "active",
+                    sref: "",
+                    icon: "phone",
+                    subnav: [{
+                            name: "List",
+                            classis: "active",
+                            sref: "#!/page/viewDigitalCourse//",
+                            icon: "phone",
+                        },
+                        {
+                            name: "Test Result Filters",
+                            classis: "active",
+                            uiSref: "testResultFilter",
+                            icon: "phone",
+                        }, {
+                            name: "Questions",
+                            classis: "active",
+                            sref: "#!/page/viewQuestion//",
+                            icon: "phone",
+
+                        },
+                        {
+                            name: "Participants",
+                            classis: "active",
+                            sref: "#!/page/viewDigitalUser//",
+                            icon: "phone",
+                        }, {
+                            name: "Right Results",
+                            classis: "active",
+                            sref: "#!/page/viewTestResult//",
+                            icon: "phone",
+                        }
+                    ]
+
+                }, {
+                    name: "Cashback Merchant",
+                    classis: "active",
+                    sref: "#!/page/viewMerchant//"
+                }, {
+                    name: "Cashback Rules",
+                    classis: "active",
+                    sref: "#!/page/viewRule//"
+                }, {
+                    name: "Marketing Merchant",
+                    classis: "active",
+                    sref: "#!/page/viewMarketingMerchant//"
+                }, {
+                    name: "Marketing Rules",
+                    classis: "active",
+                    sref: "#!/page/viewMarketingRule//"
+                }, {
+                    name: "Performance",
+                    classis: "active",
+                    sref: "#!/page/viewPerformance//"
+                }, {
+                    name: "Mailer List",
+                    classis: "active",
+                    sref: "#!/page/viewMailerList//"
+                }, {
+                    name: "Exposure Rule",
+                    classis: "active",
+                    sref: "#!/page/viewExposureRule//"
+                }, {
+                    name: "Merchant Category",
+                    classis: "active",
+                    sref: "#!/page/viewExposureMerchantCategory//"
+                }];
+            } else if ($.jStorage.get("profile").accessLevel == "Creator") {
+                var navigation = [{
+                    name: "Cashback Merchant",
+                    classis: "active",
+                    sref: "#!/page/viewMerchant//"
+                }, {
+                    name: "Rule",
+                    classis: "active",
+                    sref: "#!/page/viewRule//"
+                }];
+            } else if ($.jStorage.get("profile").accessLevel == "Executor") {
+                var navigation = [{
+                    name: "Cashback Merchant",
+                    classis: "active",
+                    sref: "#!/page/viewMerchant//"
+                }, {
+                    name: "Rule",
+                    classis: "active",
+                    sref: "#!/page/viewRule//"
+                }];
+            } else if ($.jStorage.get("profile").accessLevel == "Viewer") {
+                var navigation = [{
+                    name: "Cashback Merchant",
+                    classis: "active",
+                    sref: "#!/page/viewMerchant//"
+                }, {
+                    name: "Rule",
+                    classis: "active",
+                    sref: "#!/page/viewRule//"
+                }];
+            } else if ($.jStorage.get("profile").accessLevel == "Marketing Creator" || $.jStorage.get("profile").accessLevel == "Marketing Executor" || $.jStorage.get("profile").accessLevel == "Marketing Viewer") {
+                var navigation = [{
+                    name: "Marketing Merchant",
+                    classis: "active",
+                    sref: "#!/page/viewMarketingMerchant//"
+                }, {
+                    name: "Marketing Rule",
+                    classis: "active",
+                    sref: "#!/page/viewMarketingRule//"
+                }];
+            } else if ($.jStorage.get("profile").accessLevel == "Performance") {
+                var navigation = [{
+                    name: "Performance",
+                    classis: "active",
+                    sref: "#!/page/viewPerformance//"
+                }, {
+                    name: "Marketing Merchant",
+                    classis: "active",
+                    sref: "#!/page/viewMarketingMerchant//"
+                }, {
+                    name: "Marketing Rules",
+                    classis: "active",
+                    sref: "#!/page/viewMarketingRule//"
+                }];
+            } else if ($.jStorage.get("profile").accessLevel == "Merchant Exposure") {
+                var navigation = [{
+                    name: "Mailer List",
+                    classis: "active",
+                    sref: "#!/page/viewMailerList//"
+                }, {
+                    name: "Merchant Exposure Rules",
+                    classis: "active",
+                    sref: "#!/page/viewExposureRule//"
+                }, {
+                    name: "Merchant Categories",
+                    classis: "active",
+                    sref: "#!/page/viewExposureMerchantCategory//"
+                }];
+            }
+        } else {
+            var defaultNav = true;
             var navigation = [{
-                name: "User",
-                classis: "active",
-                sref: "#!/page/viewUser//"
-            }, {
-                name: "Digital Course",
-                classis: "active",
-                sref: "",
-                icon: "phone",
-                subnav: [{
-                        name: "List",
-                        classis: "active",
-                        sref: "#!/page/viewDigitalCourse//",
-                        icon: "phone",
-                    },
-                    {
-                        name: "Test Result Filters",
-                        classis: "active",
-                        uiSref: "testResultFilter",
-                        icon: "phone",
-                    }, {
-                        name: "Questions",
-                        classis: "active",
-                        sref: "#!/page/viewQuestion//",
-                        icon: "phone",
-    
-                    },
-                    {
-                        name: "Participants",
-                        classis: "active",
-                        sref: "#!/page/viewDigitalUser//",
-                        icon: "phone",
-                    }, {
-                        name: "Right Results",
-                        classis: "active",
-                        sref: "#!/page/viewTestResult//",
-                        icon: "phone",
-                    }
-                ]
-    
-            }, {
                 name: "Cashback Merchant",
                 classis: "active",
                 sref: "#!/page/viewMerchant//"
-            },{
+            }, {
                 name: "Cashback Rules",
                 classis: "active",
                 sref: "#!/page/viewRule//"
@@ -67,261 +172,40 @@ myApp.factory('NavigationService', function ($http,$state) {
                 name: "Marketing Merchant",
                 classis: "active",
                 sref: "#!/page/viewMarketingMerchant//"
-            },{
-                name: "Marketing Rules",
-                classis: "active",
-                sref: "#!/page/viewMarketingRule//"
-            },{
-                name: "Performance",
-                classis: "active",
-                sref: "#!/page/viewPerformance//"
-            },{
-                name: "Mailer List",
-                classis: "active",
-                sref: "#!/page/viewMailerList//"
-            },{
-                name: "Exposure Rule",
-                classis: "active",
-                sref: "#!/page/viewExposureRule//"
-            },{
-                name: "Merchant Category",
-                classis: "active",
-                sref: "#!/page/viewExposureMerchantCategory//"
-            }
-            ];
-        } else if($.jStorage.get("profile").accessLevel=="Creator"){
-            var navigation = [{
-                name: "Cashback Merchant",
-                classis: "active",
-                sref: "#!/page/viewMerchant//"
-            },{
-                name: "Rule",
-                classis: "active",
-                sref: "#!/page/viewRule//"
-            }
-            ];
-        } else if($.jStorage.get("profile").accessLevel=="Executor"){
-            var navigation = [{
-                name: "Cashback Merchant",
-                classis: "active",
-                sref: "#!/page/viewMerchant//"
-            },{
-                name: "Rule",
-                classis: "active",
-                sref: "#!/page/viewRule//"
-            }
-            ];
-        } else if($.jStorage.get("profile").accessLevel=="Viewer"){
-            var navigation = [{
-                name: "Cashback Merchant",
-                classis: "active",
-                sref: "#!/page/viewMerchant//"
-            },{
-                name: "Rule",
-                classis: "active",
-                sref: "#!/page/viewRule//"
-            }
-            ];
-        } else if($.jStorage.get("profile").accessLevel=="Marketing Creator" || $.jStorage.get("profile").accessLevel=="Marketing Executor" || $.jStorage.get("profile").accessLevel=="Marketing Viewer" ){
-            var navigation = [{
-                name: "Marketing Merchant",
-                classis: "active",
-                sref: "#!/page/viewMarketingMerchant//"
-            },{
-                name: "Marketing Rule",
-                classis: "active",
-                sref: "#!/page/viewMarketingRule//"
-            }
-            ];
-        } else if($.jStorage.get("profile").accessLevel=="Performance"){
-            var navigation = [{
-                name: "Performance",
-                classis: "active",
-                sref: "#!/page/viewPerformance//"
             }, {
-                name: "Marketing Merchant",
-                classis: "active",
-                sref: "#!/page/viewMarketingMerchant//"
-            },{
                 name: "Marketing Rules",
                 classis: "active",
                 sref: "#!/page/viewMarketingRule//"
-            }
-            ];
-        } else if($.jStorage.get("profile").accessLevel=="Merchant Exposure"){
-            var navigation = [{
-                name: "Mailer List",
+            }, {
+                name: "Performance",
                 classis: "active",
-                sref: "#!/page/viewMailerList//"
-            },{
-                name: "Merchant Exposure Rules",
-                classis: "active",
-                sref: "#!/page/viewExposureRule//"
-            },{
-                name: "Merchant Categories",
-                classis: "active",
-                sref: "#!/page/viewExposureMerchantCategory//"
-            }
-            ];
+                sref: "#!/page/viewPerformance//"
+            }];
+            $state.go("login");
+
         }
-    }else{
-        var defaultNav=true;
-        var navigation = [{
-            name: "Cashback Merchant",
-            classis: "active",
-            sref: "#!/page/viewMerchant//"
-        },{
-            name: "Cashback Rules",
-            classis: "active",
-            sref: "#!/page/viewRule//"
-        }, {
-            name: "Marketing Merchant",
-            classis: "active",
-            sref: "#!/page/viewMarketingMerchant//"
-        },{
-            name: "Marketing Rules",
-            classis: "active",
-            sref: "#!/page/viewMarketingRule//"
-        },{
-            name: "Performance",
-            classis: "active",
-            sref: "#!/page/viewPerformance//"
-        }
-        ];
-        $state.go("login");
 
     }
-    
-}
 
     return {
         getnav: function () {
-            if($.jStorage.get("profile")){
-                var defaultNav=false;
-                console.log("$.jStorage.get('profile').accessLevel",$.jStorage.get("profile").accessLevel);
-                if($.jStorage.get("profile").accessLevel=="Super Admin"){
+            if ($.jStorage.get("profile")) {
+                var defaultNav = false;
+                console.log("$.jStorage.get('profile').accessLevel", $.jStorage.get("profile").accessLevel);
+                if ($.jStorage.get("profile").accessLevel == "Super Admin") {
                     console.log("inside super admin navigation block");
                     var navigation = [{
                         name: "User",
                         classis: "active",
-                        sref: "#!/page/viewUser//",
-                        icon: "user",
+                        sref: "#!/page/viewUser//"
                     }, {
-                        name: "Cashback",
-                        classis: "active",
-                        sref: "",
-                        icon: "file",
-                        subnav: [{
-                                name: "Cashback Merchant",
-                                classis: "active",
-                                sref: "#!/page/viewMerchant//"
-                            }, {
-                                name: "Cashback Rules",
-                                classis: "active",
-                                sref: "#!/page/viewRule//"
-            
-                            }
-                        ]
-            
-                    }, {
-                        name: "Targeted Marketing",
-                        classis: "active",
-                        sref: "",
-                        icon: "file",
-                        subnav: [{
-                                name: "Marketing Merchant",
-                                classis: "active",
-                                sref: "#!/page/viewMarketingMerchant//"
-                            }, {
-                                name: "Marketing Rules",
-                                classis: "active",
-                                sref: "#!/page/viewMarketingRule//"
-            
-                            }, {
-                                name: "Performance",
-                                classis: "active",
-                                sref: "#!/page/viewPerformance//"
-            
-                            }
-                        ]
-            
-                    }, {
-                        name: "Merchant Exposure",
-                        classis: "active",
-                        sref: "",
-                        icon: "file",
-                        subnav: [{
-                                name: "Mailer List",
-                                classis: "active",
-                                sref: "#!/page/viewMailerList//"
-                            }, {
-                                name: "Exposure Rule",
-                                classis: "active",
-                                sref: "#!/page/viewExposureRule//"
-            
-                            }, {
-                                name: "Rule Category",
-                                classis: "active",
-                                sref: "#!/page/viewExposureMerchantCategory//"
-            
-                            }, {
-                                name: "Exposure Merchants",
-                                classis: "active",
-                                sref: "#!/page/viewExposureMerchant//"
-                            }
-                        ]
-            
-                    }
-                    ];
-                } else if($.jStorage.get("profile").accessLevel=="Creator"){
-                    var navigation = [{
                         name: "Cashback Merchant",
                         classis: "active",
                         sref: "#!/page/viewMerchant//"
                     },{
-                        name: "Rule",
+                        name: "Cashback Rules",
                         classis: "active",
                         sref: "#!/page/viewRule//"
-                    }
-                    ];
-                } else if($.jStorage.get("profile").accessLevel=="Executor"){
-                    var navigation = [{
-                        name: "Cashback Merchant",
-                        classis: "active",
-                        sref: "#!/page/viewMerchant//"
-                    },{
-                        name: "Rule",
-                        classis: "active",
-                        sref: "#!/page/viewRule//"
-                    }
-                    ];
-                } else if($.jStorage.get("profile").accessLevel=="Viewer"){
-                    var navigation = [{
-                        name: "Cashback Merchant",
-                        classis: "active",
-                        sref: "#!/page/viewMerchant//"
-                    },{
-                        name: "Rule",
-                        classis: "active",
-                        sref: "#!/page/viewRule//"
-                    }
-                    ];
-                } else if($.jStorage.get("profile").accessLevel=="Marketing Creator" || $.jStorage.get("profile").accessLevel=="Marketing Executor" || $.jStorage.get("profile").accessLevel=="Marketing Viewer" ){
-                    var navigation = [{
-                        name: "Marketing Merchant",
-                        classis: "active",
-                        sref: "#!/page/viewMarketingMerchant//"
-                    },{
-                        name: "Marketing Rule",
-                        classis: "active",
-                        sref: "#!/page/viewMarketingRule//"
-                    }
-                    ];
-                } else if($.jStorage.get("profile").accessLevel=="Performance"){
-                    var navigation = [{
-                        name: "Performance",
-                        classis: "active",
-                        sref: "#!/page/viewPerformance//"
                     }, {
                         name: "Marketing Merchant",
                         classis: "active",
@@ -330,31 +214,88 @@ myApp.factory('NavigationService', function ($http,$state) {
                         name: "Marketing Rules",
                         classis: "active",
                         sref: "#!/page/viewMarketingRule//"
+                    },{
+                        name: "Performance",
+                        classis: "active",
+                        sref: "#!/page/viewPerformance//"
                     }
                     ];
-                } else if($.jStorage.get("profile").accessLevel=="Merchant Exposure"){
+                } else if ($.jStorage.get("profile").accessLevel == "Creator") {
+                    var navigation = [{
+                        name: "Cashback Merchant",
+                        classis: "active",
+                        sref: "#!/page/viewMerchant//"
+                    }, {
+                        name: "Rule",
+                        classis: "active",
+                        sref: "#!/page/viewRule//"
+                    }];
+                } else if ($.jStorage.get("profile").accessLevel == "Executor") {
+                    var navigation = [{
+                        name: "Cashback Merchant",
+                        classis: "active",
+                        sref: "#!/page/viewMerchant//"
+                    }, {
+                        name: "Rule",
+                        classis: "active",
+                        sref: "#!/page/viewRule//"
+                    }];
+                } else if ($.jStorage.get("profile").accessLevel == "Viewer") {
+                    var navigation = [{
+                        name: "Cashback Merchant",
+                        classis: "active",
+                        sref: "#!/page/viewMerchant//"
+                    }, {
+                        name: "Rule",
+                        classis: "active",
+                        sref: "#!/page/viewRule//"
+                    }];
+                } else if ($.jStorage.get("profile").accessLevel == "Marketing Creator" || $.jStorage.get("profile").accessLevel == "Marketing Executor" || $.jStorage.get("profile").accessLevel == "Marketing Viewer") {
+                    var navigation = [{
+                        name: "Marketing Merchant",
+                        classis: "active",
+                        sref: "#!/page/viewMarketingMerchant//"
+                    }, {
+                        name: "Marketing Rule",
+                        classis: "active",
+                        sref: "#!/page/viewMarketingRule//"
+                    }];
+                } else if ($.jStorage.get("profile").accessLevel == "Performance") {
+                    var navigation = [{
+                        name: "Performance",
+                        classis: "active",
+                        sref: "#!/page/viewPerformance//"
+                    }, {
+                        name: "Marketing Merchant",
+                        classis: "active",
+                        sref: "#!/page/viewMarketingMerchant//"
+                    }, {
+                        name: "Marketing Rules",
+                        classis: "active",
+                        sref: "#!/page/viewMarketingRule//"
+                    }];
+                } else if ($.jStorage.get("profile").accessLevel == "Merchant Exposure") {
                     var navigation = [{
                         name: "Mailer List",
                         classis: "active",
                         sref: "#!/page/viewMailerList//"
-                    },{
+                    }, {
                         name: "Merchant Exposure Rules",
                         classis: "active",
                         sref: "#!/page/viewExposureRule//"
-                    },{
+                    }, {
                         name: "Merchant Categories",
                         classis: "active",
                         sref: "#!/page/viewExposureMerchantCategory//"
-                    }
-                    ];
+                    }];
                 }
-            }else{
-                var defaultNav=true;
+            } else {
+                var defaultNav = true;
                 var navigation = [{
                     name: "Cashback Merchant",
                     classis: "active",
                     sref: "#!/page/viewMerchant//"
-                },{
+                }, {
                     name: "Cashback Rules",
                     classis: "active",
                     sref: "#!/page/viewRule//"
@@ -362,18 +303,17 @@ myApp.factory('NavigationService', function ($http,$state) {
                     name: "Marketing Merchant",
                     classis: "active",
                     sref: "#!/page/viewMarketingMerchant//"
-                },{
+                }, {
                     name: "Marketing Rules",
                     classis: "active",
                     sref: "#!/page/viewMarketingRule//"
-                },{
+                }, {
                     name: "Performance",
                     classis: "active",
                     sref: "#!/page/viewPerformance//"
-                }
-                ];
+                }];
                 $state.go("login");
-        
+
             }
 
             // if(defaultNav==true){
@@ -384,7 +324,7 @@ myApp.factory('NavigationService', function ($http,$state) {
             //     // $state.reload();
             // }else{
             //     console.log("hgvghsc_else");
-                return navigation;
+            return navigation;
             // }
         },
 
@@ -398,12 +338,12 @@ myApp.factory('NavigationService', function ($http,$state) {
             $.jStorage.flush();
         },
         profile: function (callback, errorCallback) {
-            console.log("inside profile",$.jStorage.get("accessToken"));
+            console.log("inside profile", $.jStorage.get("accessToken"));
             var data = {
                 _id: $.jStorage.get("accessToken")
             };
             $http.post(adminurl + 'User/getOne', data).then(function (data) {
-                console.log("inside profile -> http.post",data.data);
+                console.log("inside profile -> http.post", data.data);
                 data = data.data;
                 if (data.value === true) {
                     $.jStorage.set("profile", data.data);
@@ -497,32 +437,32 @@ myApp.factory('NavigationService', function ($http,$state) {
 
         },
         playSelectedEmail: function (ruleArr, callback) {
-            console.log("inside navigationservice playSelectedEmail",ruleArr);
+            console.log("inside navigationservice playSelectedEmail", ruleArr);
 
             // url: 'http://172.31.12.15:8080/scheduler-0.0.2-SNAPSHOT/playnow',
             // url: 'http://172.31.2.124:8080/playnow',
             $http({
-                url: serverUrl+'scheduler/playnow',
+                url: serverUrl + 'scheduler/playnow',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
             }).then(function (data) {
-                console.log("######",data);
+                console.log("######", data);
                 // data = data.data;
                 callback(data);
 
             });
         },
-        
+
         playSelectedMarketingRule: function (ruleArr, callback) {
-            console.log("inside navigationservice playSelectedMarketingRule",ruleArr);
+            console.log("inside navigationservice playSelectedMarketingRule", ruleArr);
             $http({
-                url: serverUrl+'scheduler/generate',
+                url: serverUrl + 'scheduler/generate',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
             }).then(function (data) {
-                console.log("######",data);
+                console.log("######", data);
                 // data = data.data;
                 callback(data);
 
@@ -532,52 +472,52 @@ myApp.factory('NavigationService', function ($http,$state) {
         playSelectedPerformanceRule: function (ruleArr, callback) {
             //console.log("inside navigationservice playSelectedPerformanceRule",ruleArr);
             $http({
-                url: serverUrl+'performance',
+                url: serverUrl + 'performance',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
             }).then(function (data) {
-                console.log("######",data);
+                console.log("######", data);
                 // data = data.data;
                 callback(data);
 
             });
         },
         playSelectedExposureMerchantCategoryRule: function (ruleArr, callback) {
-            console.log("inside navigationservice playSelectedExposureMerchantCategoryRule",ruleArr);
+            console.log("inside navigationservice playSelectedExposureMerchantCategoryRule", ruleArr);
             $http({
-                url: serverUrl+'merchantExposure',
+                url: serverUrl + 'merchantExposure',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
             }).then(function (data) {
-                console.log("######",data);
+                console.log("######", data);
                 // data = data.data;
                 callback(data);
 
             });
         },
         viewQueryModal: function (ruleObject, callback) {
-            console.log("inside navigationservice viewQueryModal",ruleObject);
+            console.log("inside navigationservice viewQueryModal", ruleObject);
             $http({
-                url: serverUrl+'scheduler/verifyquery',
+                url: serverUrl + 'scheduler/verifyquery',
                 method: 'POST',
                 data: ruleObject,
                 withCredentials: false
             }).then(function (data) {
-                console.log("######",data);
+                console.log("######", data);
                 callback(data);
             });
         },
         viewMarketingQueryModal: function (ruleObject, callback) {
-            console.log("inside navigationservice viewMarketingQueryModal",ruleObject);
+            console.log("inside navigationservice viewMarketingQueryModal", ruleObject);
             $http({
-                url: serverUrl+'verifyquery',
+                url: serverUrl + 'verifyquery',
                 method: 'POST',
                 data: ruleObject,
                 withCredentials: false
             }).then(function (data) {
-                console.log("######",data);
+                console.log("######", data);
                 callback(data);
             });
         },
@@ -587,7 +527,7 @@ myApp.factory('NavigationService', function ($http,$state) {
                 _id: id
             }).then(function (data) {
                 data = data.data;
-                console.log("data in viewSingleExposureMerchantModal inside navigation service",data);
+                console.log("data in viewSingleExposureMerchantModal inside navigation service", data);
                 callback(data);
 
             });
