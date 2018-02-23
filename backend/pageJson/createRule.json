@@ -79,7 +79,7 @@
         "dropDownField": "name",
         "view": true,
         "dropDownType": "multiple",
-        "validation": ["required", "", "trim"]
+        "validation": ["", "", "trim"]
     }, {
         "name": "Promo Code (if any) ",
         "type": "text",
@@ -207,7 +207,7 @@
         "id": "validFrom",
         "validation": ["required", "trim"],
         "url": "",
-        "hideMethod1":"hideFromDate"
+        "hideMethod1":"hideValidFromDate"
     }, {
         "name": "Valid To",
         "type": "date",
@@ -251,7 +251,8 @@
         "placeholder": "Enter Processing Start Date Date",
         "id": "processingStartDate",
         "validation": ["", "trim"],
-        "url": ""
+        "url": "",
+        "hideMethod1":"hideProcessingStartDate"
     }, {
         "name": "Processing End Date",
         "type": "date",
@@ -267,7 +268,8 @@
         "placeholder": "Enter Relative Transaction Date",
         "id": "relativeTransactionDate",
         "validation": ["", "trim"],
-        "url": ""
+        "url": "",
+        "hideMethod1":"hideRelativeRransactionStartDate"
     }, {
         "name": "Relative Transaction End Date",
         "type": "date",
