@@ -8,7 +8,7 @@
     "colorExpired": true,
     "showCountOnView":true,
     "filter1": "ruleFilter",
-    "roles":["Super Admin","Creator","Executor","Viewer"],
+    "roles":["Super Admin","Creator","Executor","Viewer","Cashback"],
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -51,7 +51,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editRule",
-        "roles":["Super Admin","Creator"],
+        "roles":["Super Admin","Creator","Cashback"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -61,7 +61,7 @@
         "buttonClass": "btn-danger",
         "type": "apiCallConfirm",
         "title": "Delete Rule",
-        "roles":["Super Admin"],
+        "roles":["Super Admin","Cashback"],
         "content": "Are you sure you want to delete Rule?",
         "api": "Rule/deleteWithChangeStatus",
         "fieldsToSend": {
@@ -74,7 +74,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "copyRule",  
-        "roles":["Super Admin","Creator"], 
+        "roles":["Super Admin","Creator","Cashback"], 
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -85,13 +85,13 @@
         "class": "btn-success",
         "type": "page",
         "action": "createRule",
-        "roles":["Super Admin","Creator"]
+        "roles":["Super Admin","Creator","Cashback"]
     }],
     "topButtonChangeAll": {
         "name": "Change All X Days Values",
         "icon": "plus",
         "class": "btn-primary",
-        "roles":["Super Admin","Creator","Executor"]
+        "roles":["Super Admin","Creator","Executor","Cashback"]
     },
     "bottomButton": [{
         "name": "Play Selected",
@@ -100,7 +100,7 @@
         "type": "page",
         "action": "",
         "functionName":"playSelectedClick()",
-        "roles":["Super Admin","Executor"]
+        "roles":["Super Admin","Executor","Cashback"]
     }],
     "bottomButtonPlayAll": [{
         "name": "Play All Rules",
@@ -109,7 +109,7 @@
         "type": "page",
         "action": "",
         "functionName":"playSelectedAllClick()",
-        "roles":["Super Admin","Executor"]
+        "roles":["Super Admin","Executor","Cashback"]
     }],
     "bottomButtonPlayAllActive": {
         "name": "Play All Active Rules",
@@ -118,7 +118,7 @@
         "type": "page",
         "action": "",
         "functionName":"playSelectedAllActiveClick()",
-        "roles":["Super Admin","Executor"]
+        "roles":["Super Admin","Executor","Cashback"]
     },
     "apiCall": {
         "url": "Rule/search",

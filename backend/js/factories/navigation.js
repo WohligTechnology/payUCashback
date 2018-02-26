@@ -220,7 +220,7 @@ myApp.factory('NavigationService', function ($http, $state) {
                         sref: "#!/page/viewPerformance//"
                     }
                     ];
-                } else if ($.jStorage.get("profile").accessLevel == "Creator") {
+                } else if ($.jStorage.get("profile").accessLevel == "Cashback") {
                     var navigation = [{
                         name: "Cashback Merchant",
                         classis: "active",
@@ -230,15 +230,15 @@ myApp.factory('NavigationService', function ($http, $state) {
                         classis: "active",
                         sref: "#!/page/viewRule//"
                     }];
-                } else if ($.jStorage.get("profile").accessLevel == "Executor") {
+                } else if ($.jStorage.get("profile").accessLevel == "Marketing") {
                     var navigation = [{
-                        name: "Cashback Merchant",
+                        name: "Marketing Merchant",
                         classis: "active",
-                        sref: "#!/page/viewMerchant//"
+                        sref: "#!/page/viewMarketingMerchant//"
                     }, {
-                        name: "Rule",
+                        name: "Marketing Rule",
                         classis: "active",
-                        sref: "#!/page/viewRule//"
+                        sref: "#!/page/viewMarketingRule//"
                     }];
                 } else if ($.jStorage.get("profile").accessLevel == "Viewer") {
                     var navigation = [{

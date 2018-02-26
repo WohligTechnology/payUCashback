@@ -4,7 +4,7 @@
     "pageType": "view",
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
-    "roles":["Super Admin","Creator","Executor","Viewer"],
+    "roles":["Super Admin","Creator","Executor","Viewer","Cashback"],
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -25,7 +25,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editMerchant",
-        "roles":["Super Admin","Creator"],
+        "roles":["Super Admin","Creator","Cashback"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -37,7 +37,7 @@
         "title": "Delete Merchant",
         "content": "Are you sure you want to delete Merchant?",
         "api": "Merchant/deleteWithChangeStatus",
-        "roles":["Super Admin"],
+        "roles":["Super Admin","Cashback"],
         "fieldsToSend": {
             "name": "_id",
             "value": "_id"
@@ -48,7 +48,7 @@
         "icon": "plus",
         "class": "btn-success",
         "type": "page",
-        "roles":["Super Admin","Creator"],
+        "roles":["Super Admin","Creator","Cashback"],
         "action": "createMerchant"
     }],
     "apiCall": {

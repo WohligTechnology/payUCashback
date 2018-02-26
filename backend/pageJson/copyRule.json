@@ -6,7 +6,7 @@
     "pageType": "edit",
     "createFromEdit":true,
     "urlFields": ["_id"],
-    "roles":["Super Admin","Creator"],
+    "roles":["Super Admin","Creator","Cashback"],
     "fields": [{
         "name": "Campaign Details",
         "type": "heading",
@@ -80,7 +80,7 @@
         "dropDownField": "name",
         "view": true,
         "dropDownType": "multiple",
-        "validation": ["", "", "trim"]
+        "validation": ["required", "", "trim"]
     }, {
         "name": "Promo Code (if any) ",
         "type": "text",

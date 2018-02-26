@@ -582,8 +582,39 @@ myApp.directive('detailField', function ($http, $filter, JsonService) {
                 }else{
                     console.log("in else",$scope.formData["startDate"]," & ",$scope.formData["endDate"]);
                 }
+            }            
+            $scope.condition.hideValidFromDate = function() {
+                if($scope.formData["validFrom"] > $scope.formData["validTo"]){
+                    $scope.formData["validFrom"]=null; 
+                    // console.log("in else",$scope.formData["firstDate"]," & ",$scope.formData["lastDate"]);
+                    
+                    alert("End Date Should Be Greater Than First Date");
+                }else{
+                    console.log("in else",$scope.formData["validFrom"]," & ",$scope.formData["validTo"]);
+                }
             }
 
+            $scope.condition.hideProcessingStartDate = function() {
+                if($scope.formData["processingStartDate"] > $scope.formData["processingEndDate"]){
+                    $scope.formData["processingStartDate"]=null; 
+                    // console.log("in else",$scope.formData["firstDate"]," & ",$scope.formData["lastDate"]);
+                    
+                    alert("Processing End Date Should Be Greater Than Start Date");
+                }else{
+                    console.log("in else",$scope.formData["processingStartDate"]," & ",$scope.formData["processingEndDate"]);
+                }
+            }
+
+            $scope.condition.hideRelativeRransactionStartDate = function() {
+                if($scope.formData["relativeTransactionDate"] > $scope.formData["relativeTransactionEndDate"]){
+                    $scope.formData["relativeTransactionDate"]=null; 
+                    // console.log("in else",$scope.formData["firstDate"]," & ",$scope.formData["lastDate"]);
+                    
+                    alert("Relative Transaction End Date Should Be Greater Than Start Date");
+                }else{
+                    console.log("in else",$scope.formData["relativeTransactionDate"]," & ",$scope.formData["relativeTransactionEndDate"]);
+                }
+            }
             $scope.condition.hidePerUser = function() {
                 // console.log("avinash");
                 // if($scope.formData["isFirstTransaction"]=="true"){
