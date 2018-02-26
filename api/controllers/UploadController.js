@@ -24,7 +24,7 @@ module.exports = {
     index: function (req, res) {
         var fileNames = [];
         req.file("file").upload({
-            maxBytes: 10485760 // 10 MB Storage 1 MB = 10^6
+            maxBytes: 104857600000 // 10 MB Storage 1 MB = 10^6
         }, function (err, uploadedFile) {
             //console.log(err);
             //console.log(uploadedFile);
