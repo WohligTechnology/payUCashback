@@ -215,7 +215,7 @@ myApp.factory('NavigationService', function ($http, $state) {
                         classis: "active",
                         sref: "#!/page/viewMarketingRule//"
                     },{
-                        name: "Performance",
+                        name: "Marketing Performance",
                         classis: "active",
                         sref: "#!/page/viewPerformance//"
                     }
@@ -230,7 +230,7 @@ myApp.factory('NavigationService', function ($http, $state) {
                         classis: "active",
                         sref: "#!/page/viewRule//"
                     }];
-                } else if ($.jStorage.get("profile").accessLevel == "Marketing") {
+                } else if ($.jStorage.get("profile").accessLevel == "Targeted Marketing") {
                     var navigation = [{
                         name: "Marketing Merchant",
                         classis: "active",
@@ -261,18 +261,18 @@ myApp.factory('NavigationService', function ($http, $state) {
                         sref: "#!/page/viewMarketingRule//"
                     }];
                 } else if ($.jStorage.get("profile").accessLevel == "Performance") {
-                    var navigation = [{
-                        name: "Performance",
+                    var navigation = [,{
+                        name: "Marketing Performance",
                         classis: "active",
                         sref: "#!/page/viewPerformance//"
+                    },{
+                        name: "Repay Performance",
+                        classis: "active",
+                        sref: "#!/page/viewPerformanceRepay//"
                     }, {
                         name: "Marketing Merchant",
                         classis: "active",
                         sref: "#!/page/viewMarketingMerchant//"
-                    }, {
-                        name: "Marketing Rules",
-                        classis: "active",
-                        sref: "#!/page/viewMarketingRule//"
                     }];
                 } else if ($.jStorage.get("profile").accessLevel == "Merchant Exposure") {
                     var navigation = [{
@@ -473,6 +473,21 @@ myApp.factory('NavigationService', function ($http, $state) {
             //console.log("inside navigationservice playSelectedPerformanceRule",ruleArr);
             $http({
                 url: serverUrl + 'performance',
+                method: 'POST',
+                data: ruleArr,
+                withCredentials: false
+            }).then(function (data) {
+                console.log("######", data);
+                // data = data.data;
+                callback(data);
+
+            });
+        },
+
+        playSelectedPerformanceRepayRule: function (ruleArr, callback) {
+            //console.log("inside navigationservice playSelectedPerformanceRule",ruleArr);
+            $http({
+                url: serverUrl + 'repayperformance',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
