@@ -61,6 +61,7 @@
                                         <th ng-if="json.json.rowCheckBox==true">Check</th>
                                         <th ng-if="json.json.rowCheckBoxForMarketing==true">Check</th>
                                         <th ng-if="json.json.rowCheckBoxForPerformance==true">Check</th>
+                                        <th ng-if="json.json.rowCheckBoxForPerformanceRepay==true">Check</th>
                                         <th ng-if="json.json.rowCheckBoxForMerchantExposureCategory==true">Check</th>
                                         <!-- <th>Sr. No.</th> -->
                                         <th ng-repeat="field in json.json.fields">
@@ -79,6 +80,9 @@
                                         </td>
                                         <td ng-if="json.json.rowCheckBoxForPerformance==true">
                                             <input type="checkbox" ng-model="myChkModel" ng-change="checkboxPerformanceClick(item._id)">
+                                        </td>
+                                        <td ng-if="json.json.rowCheckBoxForPerformanceRepay==true">
+                                            <input type="checkbox" ng-model="myChkModel" ng-change="checkboxPerformanceRepayClick(item._id)">
                                         </td>
                                         <td ng-if="json.json.rowCheckBoxForMerchantExposureCategory==true">
                                             <input type="checkbox" ng-model="myChkModel" ng-change="checkboxMerchantExposureCategoryClick(item._id)">
@@ -160,6 +164,9 @@
                             
                             <a class="btn btn-primary" ng-if="json.json.bottomButtonPerformance" ng-show="hasRole({{json.json.bottomButtonPerformance[0].roles}})" ng-class="btn.class "
                                 ng-click="playSelectedAllClickPerformance()">{{json.json.bottomButtonPerformance[0].name}}</a>
+
+                            <a class="btn btn-primary" ng-if="json.json.bottomButtonPerformanceRepay" ng-show="hasRole({{json.json.bottomButtonPerformanceRepay[0].roles}})" ng-class="btn.class "
+                                ng-click="playSelectedAllClickPerformanceRepay()">{{json.json.bottomButtonPerformanceRepay[0].name}}</a>
 
                             <a class="btn btn-primary" ng-if="json.json.bottomButtonExposureMerchantCategory" ng-show="hasRole({{json.json.bottomButtonExposureMerchantCategory[0].roles}})" ng-class="btn.class "
                                 ng-click="playSelectedClickExposureMerchantCategory()">{{json.json.bottomButtonExposureMerchantCategory[0].name}}</a>

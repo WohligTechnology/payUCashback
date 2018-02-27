@@ -1,0 +1,88 @@
+{
+    "title": "Edit PerformanceRepay",
+    "name": "PerformanceRepay",
+    "jsonPage": "viewPerformanceRepay",
+    "desciption": "",
+    "pageType": "edit",
+    "showFormatImagePerformance": true,
+    "urlFields": ["_id"],
+    "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
+    "fields": [{
+        "name": "CSV File ( Choose only If you Want to replace File!)",
+        "type": "excel",
+        "size": "",
+        "tableRef": "name",
+        "tableValue": "name",
+        "placeholder": "Select File",
+        "id": "name",
+        "option": "single",
+        "validation": ["required", "trim", ""],
+        "url": ""
+    }, {
+        "name": "Start Date , End Date & Remark",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Start Date",
+        "type": "date",
+        "tableRef": "startDate",
+        "placeholder": "Enter Start Date",
+        "id": "startDate",
+        "validation": ["required", "trim"],
+        "url": "",
+        "hideMethod1":"hideStartDate"
+    }, {
+        "name": "End Date",
+        "type": "date",
+        "tableRef": "endDate",
+        "placeholder": "Enter End Date",
+        "id": "endDate",
+        "validation": ["required", "trim"],
+        "url": ""
+    }, {
+        "name": "Email IDs (Enter Comma Seperated Email IDs)",
+        "type": "text",
+        "tableRef": "email",
+        "placeholder": "Enter Email IDs",
+        "id": "email",
+        "validation": ["", "trim"],
+        "url": "",
+        "note":"Email Will Be Default Marked To Chinmay Jain, Rutuja Viregaonkar, Animesh Mishra, Sudhakar Chavan & Royston Dsilva"
+    }, {
+        "name": "Remark (Preferable For Future Use)",
+        "type": "text",
+        "tableRef": "remark",
+        "placeholder": "Enter Remark",
+        "id": "remark",
+        "validation": ["required", "trim"],
+        "url": ""
+    }],
+    "action": [{
+        "name": "submit",
+        "action": "submitPerformanceRepay",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewPerformanceRepay"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewPerformanceRepay"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "PerformanceRepay/save",
+        "params": "_id"
+    },
+    "preApi": {
+        "url": "PerformanceRepay/getOne",
+        "params": "_id"
+    }
+
+}

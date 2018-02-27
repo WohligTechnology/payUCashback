@@ -1,0 +1,75 @@
+{
+    "title": "Performance Repay",
+    "description": "List of Performance Repays",
+    "pageType": "view",
+    "sendIdWithCreate": true,
+    "rowCheckBoxForPerformanceRepay":true,
+    "urlFields": ["_id"],
+    "loader":false,
+    "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
+    "fields": [{
+        "name": "Remark",
+        "isSort": "",
+        "tableRef": "remark"
+    }, {
+        "name": "Name",
+        "isSort": "",
+        "tableRef": "name",
+        "type":"fileWithLink"
+    },{
+        "name": "Start Date",
+        "isSort": "",
+        "tableRef": "startDate",
+        "type":"formattedDate"
+    },{
+        "name": "End Date",
+        "isSort": "",
+        "tableRef": "endDate",
+        "type":"formattedDate"
+    }],
+    "action": [{
+        "name": "edit",
+        "icon": "fa-pencil",
+        "buttonClass": "btn-primary",
+        "type": "page",
+        "action": "editPerformanceRepay",
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
+        "fieldsToSend": {
+            "_id": "_id"
+        }
+    }, {
+        "name": "delete",
+        "icon": "fa-trash",
+        "buttonClass": "btn-danger",
+        "type": "apiCallConfirm",
+        "title": "Delete Performance Repay",
+        "content": "Are you sure you want to delete Performance Repay?",
+        "api": "PerformanceRepay/deleteWithChangeStatus",
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
+        "fieldsToSend": {
+            "name": "_id",
+            "value": "_id"
+        }
+    }],
+    "button": [{
+        "name": "Add",
+        "icon": "plus",
+        "class": "btn-success",
+        "type": "page",
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
+        "action": "createPerformanceRepay"
+    }],
+    "bottomButtonPerformanceRepay": [{
+        "name": "Play Selected",
+        "icon": "plus",
+        "class": "btn-primary",
+        "type": "page",
+        "action": "",
+        "functionName":"playPerformanceRepaySelectedClick()",
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"]
+    }],
+    "apiCall": {
+        "url": "PerformanceRepay/search",
+        "params": "_id"
+    }
+}
