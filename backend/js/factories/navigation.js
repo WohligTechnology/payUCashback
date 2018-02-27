@@ -262,17 +262,17 @@ myApp.factory('NavigationService', function ($http, $state) {
                     }];
                 } else if ($.jStorage.get("profile").accessLevel == "Performance") {
                     var navigation = [,{
-                        name: "Marketing Performance",
+                        name: "Performance",
                         classis: "active",
                         sref: "#!/page/viewPerformance//"
-                    },{
-                        name: "Repay Performance",
-                        classis: "active",
-                        sref: "#!/page/viewPerformanceRepay//"
                     }, {
                         name: "Marketing Merchant",
                         classis: "active",
                         sref: "#!/page/viewMarketingMerchant//"
+                    }, {		
+                        name: "Marketing Rules",		
+                        classis: "active",		
+                        sref: "#!/page/viewMarketingRule//"		
                     }];
                 } else if ($.jStorage.get("profile").accessLevel == "Merchant Exposure") {
                     var navigation = [{
