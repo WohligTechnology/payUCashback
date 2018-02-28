@@ -218,6 +218,10 @@ myApp.factory('NavigationService', function ($http, $state) {
                         name: "Marketing Performance",
                         classis: "active",
                         sref: "#!/page/viewPerformance//"
+                    },{		
+                        name: "Repay Performance",		
+                        classis: "active",		
+                        sref: "#!/page/viewPerformanceRepay//"		
                     }
                     ];
                 } else if ($.jStorage.get("profile").accessLevel == "Cashback") {
@@ -261,10 +265,14 @@ myApp.factory('NavigationService', function ($http, $state) {
                         sref: "#!/page/viewMarketingRule//"
                     }];
                 } else if ($.jStorage.get("profile").accessLevel == "Performance") {
-                    var navigation = [,{
+                    var navigation = [{
                         name: "Performance",
                         classis: "active",
                         sref: "#!/page/viewPerformance//"
+                    },{		
+                        name: "Repay Performance",		
+                        classis: "active",		
+                        sref: "#!/page/viewPerformanceRepay//"		
                     }, {
                         name: "Marketing Merchant",
                         classis: "active",
