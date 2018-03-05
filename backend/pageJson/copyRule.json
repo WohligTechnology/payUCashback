@@ -80,7 +80,7 @@
         "dropDownField": "name",
         "view": true,
         "dropDownType": "multiple",
-        "validation": ["required", "", "trim"]
+        "validation": ["", "", "trim"]
     }, {
         "name": "Promo Code (if any) ",
         "type": "text",
