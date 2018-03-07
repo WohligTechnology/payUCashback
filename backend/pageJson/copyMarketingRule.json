@@ -206,19 +206,6 @@
         "type": "heading",
         "onlyHeading":true
     }, {
-        "name": "Day Of Week ( Multiple Select )",
-        "type": "tags",
-        "tableRef": "dayOfWeek",
-        "placeholder": "Select Day Of Week",
-        "id": "dayOfWeek",
-        "searchApi": "searchCall",
-        "fieldType": "",
-        "url": "DayOfWeek/search",
-        "dropDownField": "name",
-        "view": true,
-        "dropDownType": "multiple",
-        "validation": ["", "", "trim"]
-    }, {
         "name": "Payment Mode ( Multiple Select )",
         "type": "tags",
         "tableRef": "paymentMode",
@@ -253,32 +240,6 @@
         "searchApi": "searchCall",
         "fieldType": "",
         "url": "Device/search",
-        "dropDownField": "name",
-        "view": true,
-        "dropDownType": "multiple",
-        "validation": ["", "", "trim"]
-    }, {
-        "name": "Checkout Type ( Multiple Select )",
-        "type": "tags",
-        "tableRef": "checkoutType",
-        "placeholder": "Select Checkout Type",
-        "id": "checkoutType",
-        "searchApi": "searchCall",
-        "fieldType": "",
-        "url": "Checkout/search",
-        "dropDownField": "name",
-        "view": true,
-        "dropDownType": "multiple",
-        "validation": ["", "", "trim"]
-    }, {
-        "name": "Time Of Day ( Multiple Select )",
-        "type": "tags",
-        "tableRef": "timeOfDay",
-        "placeholder": "Select Time Of Day",
-        "id": "timeOfDay",
-        "searchApi": "searchCall",
-        "fieldType": "",
-        "url": "TimeOfDay/search",
         "dropDownField": "name",
         "view": true,
         "dropDownType": "multiple",
