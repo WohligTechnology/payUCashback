@@ -2101,7 +2101,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             data.splice(index, 1);
         };
 
-
+        $scope.thirtyMinuteInterval=["00:00","00:30","01:00","01:30","02:00","02:30","03:00","03:30","04:00","04:30","05:00","05:30"]
+        
         //  TAGS STATIC AND FROM TABLE
         $scope.refreshTags = function (search) {
             if ($scope.type.url !== "") {
@@ -2116,6 +2117,24 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         };
         if ($scope.type.type == "tags") {
             $scope.refreshTags();
+        }
+
+        if ($scope.type.type == "tags1") {
+            $scope.type.dropDown=[];
+            for (var i = 0; i < 24; i = i + 1)
+            {
+                if(i<=9){
+                   var value='0'+i;
+                }else{
+                    var value=i;
+                }
+              $scope.type.dropDown.push(value + ":00");
+              $scope.type.dropDown.push(value + ":30");
+            }
+            // console.log("xxxxxxxx",$scope.type.dropDown);
+            // $scope.thirtyMinuteInterval=["00:00","00:30","01:00","01:30","02:00","02:30","03:00","03:30","04:00","04:30","05:00","05:30","06:00","06:30","07:00"]
+            // // $scope.tags[$scope.type.tableRef] = $scope.thirtyMinuteInterval;
+            // $scope.type.dropDown=$scope.thirtyMinuteInterval;
         }
 
         $scope.tagClicked = function (select, index) {
