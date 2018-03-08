@@ -574,13 +574,52 @@ myApp.directive('detailField', function ($http, $filter, JsonService) {
             }
 
             $scope.condition.hideStartDate = function() {
+
+                var startDate=new Date($scope.formData["startDate"]);
+                var endDate=new Date($scope.formData["endDate"]);
+                var startYear = startDate.getFullYear() + "";
+                var startMonth = (startDate.getMonth() + 1) + "";
+                var startDay = startDate.getDate() + "";
+
+                var endYear = endDate.getFullYear() + "";
+                var endMonth = (endDate.getMonth() + 1) + "";
+                var endDay = endDate.getDate() + "";
+
+                concatinatedStartDate=startYear + "/" + startMonth + "/" + startDay;
+                finalStartDate=new Date(concatinatedStartDate);
+
+
+                concatinatedEndDate=endYear + "/" + endMonth + "/" + endDay;
+                finalEndDate=new Date(concatinatedEndDate);
+
+                console.log(finalStartDate,"---",finalEndDate);
                 if($scope.formData["startDate"] > $scope.formData["endDate"]){
                     $scope.formData["startDate"]=null; 
                     // console.log("in else",$scope.formData["firstDate"]," & ",$scope.formData["lastDate"]);
                     
-                    alert("End Date Should Be Greater Than First Date");
+                    alert("End Date Should Be Greater Than First Date 11");
+                }else if(finalEndDate > finalStartDate){
+                    console.log("in else if");
+                    // console.log($scope.formData["startTime"]);
+                    // console.log("in else",$scope.formData["startDate"]," & ",$scope.formData["endDate"]);
                 }else{
-                    console.log("in else",$scope.formData["startDate"]," & ",$scope.formData["endDate"]);
+                    if($scope.formData["startTime"]==undefined){
+
+                    }else{
+
+                    var startTime=$scope.formData["startTime"].replace(":", "");
+                    console.log("changed time****-",startTime);
+                    var endTime=$scope.formData["endTime"].replace(":", "");
+                    console.log("changed endtime****-",endTime);
+                    if(startTime>endTime){
+                        $scope.formData["endTime"]=null;
+                        alert("Start Date & Time should less than End Date & Time");
+                    }else if(startTime==endTime){
+                        $scope.formData["endTime"]=null;
+                        alert("Start Date & Time should less than End Date & Time");
+                    }
+
+                    }
                 }
             }            
             $scope.condition.hideValidFromDate = function() {

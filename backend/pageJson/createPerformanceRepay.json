@@ -32,6 +32,21 @@
         "url": "",
         "hideMethod1":"hideStartDate"
     }, {
+        "name": "Start Time",
+        "type": "tags1",
+        "tableRef": "startTime",
+        "placeholder": "Select Start Time",
+        "id": "startTime",
+        "validation": ["required", "trim", ""],
+        "url": "",
+        "dropDownField": "",
+        "dropDownType": "single",
+        "onView": true
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
         "name": "End Date",
         "type": "date",
         "tableRef": "endDate",
@@ -39,6 +54,21 @@
         "id": "endDate",
         "validation": ["required", "trim"],
         "url": ""
+    }, {
+        "name": "End Time",
+        "type": "tags1",
+        "tableRef": "endTime",
+        "placeholder": "Select End Time",
+        "id": "endTime",
+        "validation": ["required", "trim", ""],
+        "url": "",
+        "dropDownField": "",
+        "dropDownType": "single",
+        "onView": true
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
     }, {
         "name": "Email IDs (Enter Comma Seperated Email IDs)",
         "type": "text",

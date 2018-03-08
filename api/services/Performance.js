@@ -5,6 +5,12 @@ var schema = new Schema({
     startDate:{
         type:Date
     },
+    startTime: {
+        type: String
+    },
+    endTime: {
+        type: String
+    },
     endDate:{
         type:Date
     },

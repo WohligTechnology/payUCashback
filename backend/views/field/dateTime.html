@@ -1,0 +1,12 @@
+.ijnijn{{type.tableRef}}
+<div class="form-group" ng-if="!condition[type.hideMethod1]()">
+    <label>{{type.name}} <span ng-show="type.required" style="color:red">*</span></label>
+    <!-- <input type="date" name="date" date-model ng-click="popup[type.tableRef] = true" placeholder="{{type.placeholder}}" ng-model="formData[type.tableRef]"
+        class="form-control un-disable" ng-required="type.required" ng-disabled="type.disabled"
+        /> -->
+        
+        <input type="datetime-local" date-model id="exampleInput" name="date" ng-model="formData[type.tableRef]"
+        placeholder="yyyy-MM-ddTHH:mm:ss" class="form-control un-disable" ng-required="type.required" ng-disabled="type.disabled"/>
+        
+    <div class="error-msg" ng-show="detailForm[type.tableRef].$invalid && detailForm[type.tableRef].$touched">Please enter valid {{type.name}}</div>
+</div>

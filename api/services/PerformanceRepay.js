@@ -8,6 +8,12 @@ var schema = new Schema({
     endDate:{
         type:Date
     },
+    startTime: {
+        type: String
+    },
+    endTime: {
+        type: String
+    },
     remark: {
         type: String
     },
