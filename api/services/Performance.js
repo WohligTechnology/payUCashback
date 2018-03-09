@@ -20,6 +20,10 @@ var schema = new Schema({
     email: {
         type: String
     },
+    merchant: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Merchant'
+    }],
     isDeleted:{
         type:Number,
         default: 0
@@ -34,12 +38,24 @@ var schema = new Schema({
     }
   });
   
-  schema.plugin(deepPopulate, {});
+  schema.plugin(deepPopulate, {
+    populate: {
+        'merchant': {
+            select: 'name _id merchantSqlId'
+        },
+        'createdBy': {
+            select: 'name _id email'
+        },
+        'lastUpdatedBy': {
+            select: 'name _id email'
+        }
+    }
+  });
   schema.plugin(uniqueValidator);
   schema.plugin(timestamps);
   module.exports = mongoose.model('Performance', schema);
   
-  var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
+  var exports = _.cloneDeep(require("sails-wohlig-service")(schema,'merchant createdBy lastUpdatedBy','merchant createdBy lastUpdatedBy'));
   var model = {
 
     search: function (data, callback) {
