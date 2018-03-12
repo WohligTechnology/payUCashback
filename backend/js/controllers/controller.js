@@ -955,15 +955,23 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     console.log("*****", data9);
                     if(data9.data){
                         
+                        var merchantsSql=[];
+                        if(data9.data.merchant.length>0){
+                            for(var i=0;i<data9.data.merchant.length;i++){
+                                merchantsSql.push(data9.data.merchant[i].merchantSqlId)
+                            }
+
+                        }
                         // objectToSend.merchantFlag = $scope.selectArrPerformance;
                         console.log("in if getOnePerformance controller length",data9.data.merchant.length);
-                        if(data9.data.merchant.length==0){
-                            console.log("length=0");
-                            objectToSend.merchantFlag=true;
-                        }else{
-                            objectToSend.merchantFlag=false;
-                            console.log("length=1");
-                        }
+                        // if(data9.data.merchant.length==0){
+                        //     console.log("length=0");
+                        //     objectToSend.merchants=data9.data.merchant;
+                        // }else{
+                        //     objectToSend.merchants=data9.data.merchant;
+                        //     console.log("length=1");
+                        // }
+                        objectToSend.merchants=merchantsSql;
                         NavigationService.playSelectedPerformanceRule(objectToSend, function (data) {
                             console.log("*****", data);
                             if(data){
