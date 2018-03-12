@@ -66,23 +66,6 @@
         "dropDownType": "single",
         "onView": true
     }, {
-        "name": "Lazypay Merchants",
-        "type": "heading",
-        "onlyHeading":true
-    }, {
-        "name": "Merchants ( Multiple Select )",
-        "type": "tags",
-        "tableRef": "merchant",
-        "placeholder": "Select Merchants",
-        "id": "merchant",
-        "searchApi": "searchCall",
-        "fieldType": "",
-        "url": "Merchant/search",
-        "dropDownField": "name",
-        "view": true,
-        "dropDownType": "multiple",
-        "validation": ["", "", "trim"]
-    }, {
         "name": "",
         "type": "heading",
         "onlyHeading":true

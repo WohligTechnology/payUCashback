@@ -792,7 +792,6 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 })
             }
         }
-
         $scope.playAllMarketingClickAfterFolderName = function (formData) {
             $scope.playSelectedAllClickMarketingFolderNameModal.close();
             // console.log("formData in playAllClickAfterFolderName",formData);
@@ -849,6 +848,83 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 })
             }
         }
+        // $scope.playAllMarketingClickAfterFolderName = function (formData) {
+        //     $scope.playSelectedAllClickMarketingFolderNameModal.close();
+        //     // console.log("formData in playAllClickAfterFolderName",formData);
+        //     if ($.jStorage.get("profile")) {
+        //         var loggedInUserId = $.jStorage.get("profile")._id;
+        //     } else {
+        //         loggedInUserId = null;
+        //     }
+        //     var folder = formData.name;
+        //     var objectToSend = {
+        //         userId: loggedInUserId,
+        //         folderName: folder
+        //     };
+
+        //     if ($scope.selectArrMarketing.length == 0) {
+        //         console.log("empty array inside playSelectedClick if");
+        //         alert("No Rules To Play!!!");
+        //     } else {
+        //         objectToSend.ruleIds = $scope.selectArrMarketing;
+        //         console.log("selected id inside playSelectedClick else", objectToSend);
+        //         $scope.playMarketingRuleResponse={
+        //             url:"/test1/test1.csv",
+        //             cashbackCount:"120"
+        //         };
+        //         $scope.playMarketingRuleResponseModal = $uibModal.open({
+        //             animation: true,
+        //             templateUrl: 'views/modal/playMarketingRuleResponseModal.html',
+        //             size: 'md',
+        //             scope: $scope
+        //         });
+        //         // NavigationService.playSelectedMarketingRule(objectToSend, function (data) {
+        //         //     console.log("*****", data);
+        //         //     var count = data.data.cashbackCount;
+        //         //     if (data.data.success == true) {
+        //         //         $scope.playMarketingRuleResponse=data.data;
+        //         //         $scope.playMarketingRuleResponseModal = $uibModal.open({
+        //         //             animation: true,
+        //         //             templateUrl: 'views/modal/playMarketingRuleResponseModal.html',
+        //         //             size: 'md',
+        //         //             scope: $scope
+        //         //         });
+        //         //         // toastr.success("Rules Played Successfully. Total Cashback Count is - " + count, {
+        //         //         //     "closeButton": true,
+        //         //         //     "debug": false,
+        //         //         //     "newestOnTop": false,
+        //         //         //     "progressBar": true,
+        //         //         //     "positionClass": "toast-top-center",
+        //         //         //     "preventDuplicates": false,
+        //         //         //     "onclick": null,
+        //         //         //     "timeOut": "4000",
+        //         //         //     "extendedTimeOut": "1000",
+        //         //         //     "tapToDismiss": false
+        //         //         // });
+        //         //     } else {
+        //         //         toastr.error("Failed To Play Rules", {
+        //         //             "closeButton": true,
+        //         //             "debug": false,
+        //         //             "newestOnTop": false,
+        //         //             "progressBar": true,
+        //         //             "positionClass": "toast-top-center",
+        //         //             "preventDuplicates": false,
+        //         //             "onclick": null,
+        //         //             "timeOut": "2000",
+        //         //             "extendedTimeOut": "1000",
+        //         //             "tapToDismiss": false
+        //         //         });
+        //         //     }
+        //         //     $state.reload();
+                    
+        //         // })
+        //     }
+        // }
+
+        $scope.getMailMarketingRule=function(url){
+            console.log("inside getMailMarketingRule url",url);
+        }
+
 
         $scope.playAllPerformanceClickAfterFolderName = function (formData) {
             $scope.playSelectedAllClickPerformanceFolderNameModal.close();
@@ -872,63 +948,73 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 objectToSend.ruleIds = $scope.selectArrPerformance;
                 console.log("selected id inside playSelectedClick else", objectToSend);
 
-                NavigationService.playSelectedPerformanceRule(objectToSend, function (data) {
-                    console.log("*****", data);
-                    if(data){
-                        $scope.json.json.loader=false;
+
+                objectToSend.ruleIds = $scope.selectArrPerformance;
+                var performanceId=$scope.selectArrPerformance[0];
+                NavigationService.getOnePerformance(performanceId, function (data9) {
+                    console.log("*****", data9);
+                    if(data9.data){
+                        
+                        // objectToSend.merchantFlag = $scope.selectArrPerformance;
+                        console.log("in if getOnePerformance controller length",data9.data.merchant.length);
+                        if(data9.data.merchant.length==0){
+                            console.log("length=0");
+                            objectToSend.merchantFlag=true;
+                        }else{
+                            objectToSend.merchantFlag=false;
+                            console.log("length=1");
+                        }
+                        NavigationService.playSelectedPerformanceRule(objectToSend, function (data) {
+                            console.log("*****", data);
+                            if(data){
+                                $scope.json.json.loader=false;
+                            }else{
+                                $scope.json.json.loader=false;
+                            }
+                            var totalAmount = data.data.totalAmount;
+                            var totalAmountWithDecimal=totalAmount.toLocaleString();
+                            var numberOfUsers = data.data.numberOfUsers;
+                            var numberOfTransactions = data.data.numberOfTransactions;
+                            var totalUsersInFile = data.data.totalUsersInFile;
+
+                            //data for modal
+                            $scope.playPerformanceResponse={
+                                totalAmount:totalAmountWithDecimal,
+                                numberOfUsers:data.data.numberOfUsers,
+                                numberOfTransactions:data.data.numberOfTransactions,
+                                totalUsersInFile:data.data.totalUsersInFile
+                            }
+
+                            if (data.data.success == true) {
+                                $scope.playPerformanceResponseModal = $uibModal.open({
+                                    animation: true,
+                                    templateUrl: 'views/modal/playPerformanceResponseModal.html',
+                                    size: 'md',
+                                    scope: $scope
+                                });
+                            } else {
+                                toastr.error("Failed To Play Rule ! Try Again !!!", {
+                                    "closeButton": true,
+                                    "debug": false,
+                                    "newestOnTop": false,
+                                    "progressBar": true,
+                                    "positionClass": "toast-top-center",
+                                    "preventDuplicates": false,
+                                    "onclick": null,
+                                    "timeOut": "3000",
+                                    "extendedTimeOut": "1000",
+                                    "tapToDismiss": false
+                                });
+                            }
+                            // $state.reload();
+                            
+                        })
                     }else{
-                        $scope.json.json.loader=false;
+                        console.log("something failed while getting merchant",data9);
                     }
-                    var totalAmount = data.data.totalAmount;
-                    var totalAmountWithDecimal=totalAmount.toLocaleString();
-                    var numberOfUsers = data.data.numberOfUsers;
-                    var numberOfTransactions = data.data.numberOfTransactions;
-                    var totalUsersInFile = data.data.totalUsersInFile;
-
-                    //data for modal
-                    $scope.playPerformanceResponse={
-                        totalAmount:totalAmountWithDecimal,
-                        numberOfUsers:data.data.numberOfUsers,
-                        numberOfTransactions:data.data.numberOfTransactions,
-                        totalUsersInFile:data.data.totalUsersInFile
-                    }
-
-                    if (data.data.success == true) {
-                        $scope.playPerformanceResponseModal = $uibModal.open({
-                            animation: true,
-                            templateUrl: 'views/modal/playPerformanceResponseModal.html',
-                            size: 'md',
-                            scope: $scope
-                        });
-                        // toastr.success("Rule Played Successfully. Total Users In File: "+ totalUsersInFile + " & Total Users Transacted : " + numberOfUsers + " & Number Of Transactions - "+ numberOfTransactions +" & Total Amount is - " + totalAmount, {
-                        //     "closeButton": true,
-                        //     "debug": false,
-                        //     "newestOnTop": false,
-                        //     "progressBar": true,
-                        //     "positionClass": "toast-top-screenCenter",
-                        //     "preventDuplicates": false,
-                        //     "onclick": null,
-                        //     "timeOut": "7000",
-                        //     "extendedTimeOut": "1000",
-                        //     "tapToDismiss": false
-                        // });
-                    } else {
-                        toastr.error("Failed To Play Rule ! Try Again !!!", {
-                            "closeButton": true,
-                            "debug": false,
-                            "newestOnTop": false,
-                            "progressBar": true,
-                            "positionClass": "toast-top-center",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "timeOut": "3000",
-                            "extendedTimeOut": "1000",
-                            "tapToDismiss": false
-                        });
-                    }
-                    // $state.reload();
-                    
                 })
+                console.log("selected id inside playSelectedClick else", objectToSend);
+
             }
         }
         
