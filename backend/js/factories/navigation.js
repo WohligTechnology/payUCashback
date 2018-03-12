@@ -424,6 +424,16 @@ myApp.factory('NavigationService', function ($http, $state) {
 
             });
         },
+
+        getOnePerformance: function (id, callback) {
+            $http.post(adminurl + 'Performance/getOne', {
+                _id: id
+            }).then(function (data) {
+                data = data.data;
+                callback(data);
+
+            });
+        },
         getLatLng: function (address, i, callback) {
             $http({
                 url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=AIzaSyC62zlixVsjaq4zDaL4cefNCubjCgxkte4",
