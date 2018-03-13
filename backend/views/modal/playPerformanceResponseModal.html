@@ -45,7 +45,7 @@
                 <span style="color:green;">Total Overall Amount: </span><b>{{playPerformanceResponse.totalAmountOverall}}</b>
             </div>
 
-<div>
+<div  ng-if="playPerformanceResponse.numberOfUniqueUsersOtherMerchants">
             <div class="row" style="margin:20px;">
                 <span style="color:green;">Number Of Transacted Users On Other Merchants: </span><b>{{playPerformanceResponse.numberOfUniqueUsersOtherMerchants}}</b>
             </div>
