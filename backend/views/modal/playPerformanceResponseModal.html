@@ -31,19 +31,48 @@
                     </tr>
                 </table>
             </div> -->
-
+            <!-- {{playPerformanceResponse}} -->
             <div class="row" style="margin:20px;">
                 <span style="color:green;">Total Users In File: </span><b>{{playPerformanceResponse.totalUsersInFile}}</b>
             </div>
             <div class="row" style="margin:20px;">
-                <span style="color:green;">Total Users Transacted: </span><b>{{playPerformanceResponse.numberOfUsers}}</b>
+                <span style="color:green;">Number Of Transacted Users Overall: </span><b>{{playPerformanceResponse.numberOfUniqueUsers}}</b>
             </div>
             <div class="row" style="margin:20px;">
-                <span style="color:green;">Number Of Transactions: </span><b>{{playPerformanceResponse.numberOfTransactions}}</b>
+                <span style="color:green;">Number Of Transactions Overall: </span><b>{{playPerformanceResponse.numberOfTransactionsOverall}}</b>
             </div>
             <div class="row" style="margin:20px;">
-                <span style="color:green;">Total Amount is: </span><b>{{playPerformanceResponse.totalAmount}}</b>
+                <span style="color:green;">Total Overall Amount: </span><b>{{playPerformanceResponse.totalAmountOverall}}</b>
             </div>
+
+<div>
+            <div class="row" style="margin:20px;">
+                <span style="color:green;">Number Of Transacted Users On Other Merchants: </span><b>{{playPerformanceResponse.numberOfUniqueUsersOtherMerchants}}</b>
+            </div>
+            <div class="row" style="margin:20px;">
+                <span style="color:green;">Number Of Transactions On Other Merchants: </span><b>{{playPerformanceResponse.numberOfTransactionsOtherMerchants}}</b>
+            </div>
+            <div class="row" style="margin:20px;">
+                <span style="color:green;">Total Amount On Other Merchants: </span><b>{{playPerformanceResponse.totalAmountOtherMerchants}}</b>
+            </div>
+
+
+            <div class="row" style="margin:20px;">
+                <span style="color:green;">Number Of Transacted Users On Given Merchants: </span><b>{{playPerformanceResponse.numberOfUniqueUsersGivenMerchants}}</b>
+            </div>
+            <div class="row" style="margin:20px;">
+                <span style="color:green;">Number Of Transactions On Given Merchants: </span><b>{{playPerformanceResponse.numberOfTransactionsGivenMerchants}}</b>
+            </div>
+            <div class="row" style="margin:20px;">
+                <span style="color:green;">Total Amount On Given Merchants: </span><b>{{playPerformanceResponse.totalAmountGivenMerchants}}</b>
+            </div>
+        </div>
+
+
+
+            <!-- <div class="row" style="margin:20px;" ng-if="">
+                <span style="color:green;">Total Overall Amount is: </span><b>{{playPerformanceResponse.totalAmountOverall}}</b>
+            </div> -->
         <br>
         </form>      
         

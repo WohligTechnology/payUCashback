@@ -979,20 +979,42 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                             }else{
                                 $scope.json.json.loader=false;
                             }
-                            var totalAmount = data.data.totalAmount;
-                            var totalAmountWithDecimal=totalAmount.toLocaleString();
-                            var numberOfUsers = data.data.numberOfUsers;
-                            var numberOfTransactions = data.data.numberOfTransactions;
-                            var totalUsersInFile = data.data.totalUsersInFile;
+                            
+                            // var totalAmount = data.data.totalAmount;
+                            // var totalAmountWithDecimal=totalAmount.toLocaleString();
+                            // var numberOfUsers = data.data.numberOfUsers;
+                            // var numberOfTransactions = data.data.numberOfTransactions;
+                            // var totalUsersInFile = data.data.totalUsersInFile;
 
                             //data for modal
+                            var totalUsersInFile=data.data.totalUsersInFile;
+                            var numberOfUniqueUsers=data.data.numberOfUniqueUsers;
+                            var totalAmountOverall=data.data.totalAmountOverall;
+                            var numberOfTransactionsOverall=data.data.numberOfTransactionsOverall;
+                            
                             $scope.playPerformanceResponse={
-                                totalAmount:totalAmountWithDecimal,
-                                numberOfUsers:data.data.numberOfUsers,
-                                numberOfTransactions:data.data.numberOfTransactions,
-                                totalUsersInFile:data.data.totalUsersInFile
+                                totalUsersInFile:totalUsersInFile,
+                                numberOfUniqueUsers:data.data.numberOfUniqueUsers,
+                                totalAmountOverall:data.data.totalAmountOverall,
+                                numberOfTransactionsOverall:data.data.numberOfTransactionsOverall
                             }
 
+                            if(data.data.numberOfUniqueUsersOtherMerchants){
+                                $scope.playPerformanceResponse.numberOfUniqueUsersOtherMerchants=data.data.numberOfUniqueUsersOtherMerchants;
+                                $scope.playPerformanceResponse.numberOfTransactionsOtherMerchants=data.data.numberOfTransactionsOtherMerchants;
+                                $scope.playPerformanceResponse.totalAmountOtherMerchants=data.data.totalAmountOtherMerchants;
+                                $scope.playPerformanceResponse.numberOfUniqueUsersGivenMerchants=data.data.numberOfUniqueUsersGivenMerchants;
+                                $scope.playPerformanceResponse.numberOfTransactionsGivenMerchants=data.data.numberOfTransactionsGivenMerchants;
+                                $scope.playPerformanceResponse.totalAmountGivenMerchants=data.data.totalAmountGivenMerchants;
+                                
+                            }
+                            // $scope.playPerformanceResponse={
+                            //     "numberOfUniqueUsers":2,
+                            //     "success":true,
+                            //     "totalUsersInFile":2,
+                            //     "numberOfTransactionsOverall":4,
+                            //     "totalAmountOverall":"2050"
+                            // }
                             if (data.data.success == true) {
                                 $scope.playPerformanceResponseModal = $uibModal.open({
                                     animation: true,
@@ -1118,60 +1140,60 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 $scope.json.json.loader=true;
                 objectToSend.ruleIds = $scope.selectArrMerchantExposureCategory;
                 console.log("selected id inside playSelectedClick else", objectToSend);
-                $timeout(function () {
-                    $scope.json.json.loader=false;
-                    $scope.afterTimeoutModalData="Mail Will Be Send After Processing.";
-                    $scope.afterTimeoutModalInstance = $uibModal.open({
-                        animation: true,
-                        templateUrl: 'views/modal/afterTimeoutModal.html',
-                        size: 'md',
-                        scope: $scope
-                    });
-                }, 2000);
-                // NavigationService.playSelectedExposureMerchantCategoryRule(objectToSend, function (data) {
-                //     console.log("*****", data);
-                //     if(data){
-                //         $scope.json.json.loader=false;
-                //     }else{
-                //         $scope.json.json.loader=false;
-                //     }
-                //     var totalAmount = data.data.totalAmount;
-                //     var totalAmountWithDecimal=totalAmount.toLocaleString();
-                //     var numberOfUsers = data.data.numberOfUsers;
-                //     var numberOfTransactions = data.data.numberOfTransactions;
-                //     var totalUsersInFile = data.data.totalUsersInFile;
+                // $timeout(function () {
+                //     $scope.json.json.loader=false;
+                //     $scope.afterTimeoutModalData="Mail Will Be Send After Processing.";
+                //     $scope.afterTimeoutModalInstance = $uibModal.open({
+                //         animation: true,
+                //         templateUrl: 'views/modal/afterTimeoutModal.html',
+                //         size: 'md',
+                //         scope: $scope
+                //     });
+                // }, 2000);
+                NavigationService.playSelectedExposureMerchantCategoryRule(objectToSend, function (data) {
+                    console.log("*****", data);
+                    if(data){
+                        $scope.json.json.loader=false;
+                    }else{
+                        $scope.json.json.loader=false;
+                    }
+                    var totalAmount = data.data.totalAmount;
+                    var totalAmountWithDecimal=totalAmount.toLocaleString();
+                    var numberOfUsers = data.data.numberOfUsers;
+                    var numberOfTransactions = data.data.numberOfTransactions;
+                    var totalUsersInFile = data.data.totalUsersInFile;
 
-                //     //data for modal
-                //     $scope.playExposureMerchantCategoryResponse={
-                //         totalAmount:totalAmountWithDecimal,
-                //         numberOfUsers:data.data.numberOfUsers,
-                //         numberOfTransactions:data.data.numberOfTransactions,
-                //         totalUsersInFile:data.data.totalUsersInFile
-                //     }
+                    //data for modal
+                    $scope.playExposureMerchantCategoryResponse={
+                        totalAmount:totalAmountWithDecimal,
+                        numberOfUsers:data.data.numberOfUsers,
+                        numberOfTransactions:data.data.numberOfTransactions,
+                        totalUsersInFile:data.data.totalUsersInFile
+                    }
 
-                //     if (data.data.success == true) {
-                //         $scope.playExposureMerchantCategoryResponseModal = $uibModal.open({
-                //             animation: true,
-                //             templateUrl: 'views/modal/playExposureMerchantCategoryResponseModal.html',
-                //             size: 'md',
-                //             scope: $scope
-                //         });
-                //     } else {
-                //         toastr.error("Failed To Play Rule ! Try Again !!!", {
-                //             "closeButton": true,
-                //             "debug": false,
-                //             "newestOnTop": false,
-                //             "progressBar": true,
-                //             "positionClass": "toast-top-center",
-                //             "preventDuplicates": false,
-                //             "onclick": null,
-                //             "timeOut": "3000",
-                //             "extendedTimeOut": "1000",
-                //             "tapToDismiss": false
-                //         });
-                //     }
+                    if (data.data.success == true) {
+                        $scope.playExposureMerchantCategoryResponseModal = $uibModal.open({
+                            animation: true,
+                            templateUrl: 'views/modal/playExposureMerchantCategoryResponseModal.html',
+                            size: 'md',
+                            scope: $scope
+                        });
+                    } else {
+                        toastr.error("Failed To Play Rule ! Try Again !!!", {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "3000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    }
                     
-                // })
+                })
             }
         }
         $scope.playSelectedAllActiveClick = function () {
