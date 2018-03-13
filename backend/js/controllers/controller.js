@@ -1094,7 +1094,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     if (data.data.success == true) {
                         $scope.playPerformanceResponseModal = $uibModal.open({
                             animation: true,
-                            templateUrl: 'views/modal/playPerformanceResponseModal.html',
+                            templateUrl: 'views/modal/playPerformanceRepayResponseModal.html',
                             size: 'md',
                             scope: $scope
                         });
