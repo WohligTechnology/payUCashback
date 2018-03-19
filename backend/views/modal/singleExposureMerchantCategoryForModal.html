@@ -11,22 +11,39 @@
     
         </div>
         <div class="modal-body">
-            <div class="singleRuleHeadings">Merchant Details</div>
+            <div class="singleRuleHeadings">Applicable Merchants</div>
             <div class="row" ng-if="singleExposureMerchantCategoryForModal.name">
                 <div class="col-md-12">
-                    Merchant Name- {{singleExposureMerchantCategoryForModal.name}}
-                </div>
-            </div>
-
-            <div class="singleRuleHeadings">Merchant Rules</div>
-    
-            <div class="row" ng-if="singleExposureMerchantCategoryForModal.exposureRule">
-                <div class="col-md-12">
-                    Merchant Rules -
-                    <span ng-repeat="inc in singleExposureMerchantCategoryForModal.exposureRule">{{inc.name}} {{$last ? '' : ($index==singleExposureMerchantCategoryForModal.exposureRule.length-2) ? ' and ' : ', '}}</span>
+                    Merchant Name- 
+                    <span ng-repeat="inc in singleExposureMerchantCategoryForModal.exposureMerchant
+                    ">{{inc.name}} {{$last ? '' : ($index==singleExposureMerchantCategoryForModal.exposureMerchant.length-2) ? ' and ' : ', '}}</span>
                     
                 </div>
             </div>
+            <br>
+
+            <div class="singleRuleHeadings"> Rules</div>
+            <div style="height: auto;">
+                <table border="1" class="table table-striped">
+                    <tr align="center">
+                        <td style="width:130px"><b>Type</b></td>
+                        <td style="width:120px"><b>Txn. $ </b></td>
+                        <td style="width:70px"><b> % </b></td>
+                        <td style="width:130px"><b>Mailer List</b></td>
+                    </tr>
+                    <tr ng-repeat="obj in singleExposureMerchantCategoryForModal.rules" align="center">
+                            <td style="width:130px">{{obj.exposureRuleType.name}}</td>
+                            <td style="width:120px">{{obj.transactionAmount}}</td>
+                            <td style="width:70px">{{obj.percentageContribution}}</td>
+                            <td style="width:70px">{{obj.mailerList.name}}</td>
+                            <!-- <td>5</td>
+                            <td>6</td> -->
+                        </tr>
+                
+                </table>
+                <!-- <span ng-repeat="obj in value[type.tableRef]">{{obj.name}} {{$last ? '' : ($index==value[type.tableRef].length-2) ? ' and ' : ', '}}</span> -->
+                </div>
+            
     <br>
             <div class="text-center">
                 <button class="btn btn-primary btn-save" type="submit" ng-disabled="modalForm.$invalid" ng-click="$dismiss()">Cancel</button>

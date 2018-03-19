@@ -1,5 +1,5 @@
 {
-    "title": "Create Rule Category",
+    "title": "Create Merchant Exposure Category",
     "name": "ExposureMerchantCategory",
     "jsonPage": "viewExposureMerchantCategory",
     "desciption": "",
@@ -19,23 +19,6 @@
         "validation": ["required", "trim", "unique"],
         "url": ""
     },{
-        "name": "Select Rules To Be Play",
-        "type": "heading",
-        "onlyHeading":true
-    }, {
-        "name": "Exposure Rule ( Multiple Select )",
-        "type": "tags",
-        "tableRef": "exposureRule",
-        "placeholder": "Select Exposure Rule",
-        "id": "exposureRule",
-        "searchApi": "searchCall",
-        "fieldType": "",
-        "url": "ExposureRule/search",
-        "dropDownField": "name",
-        "view": true,
-        "dropDownType": "multiple",
-        "validation": ["", "", "trim"]
-    },{
         "name": "Assign Merchants",
         "type": "heading",
         "onlyHeading":true
@@ -51,7 +34,59 @@
         "dropDownField": "name",
         "view": true,
         "dropDownType": "multiple",
-        "validation": ["", "", "trim"]
+        "validation": ["required", "", "trim"]
+    }, {
+        "name": "Rules",
+        "type": "box",
+        "tableRef": "rules",
+        "validation": ["required","trim",""],
+        "fields": [{
+            "name": "Rule Type",
+            "type": "tags",
+            "tableRef": "exposureRuleType",
+            "placeholder": "Select Rule Type",
+            "id": "exposureRuleType",
+            "searchApi": "searchCall",
+            "fieldType": "",
+            "url": "ExposureRuleType/search",
+            "dropDownField": "name",
+            "view": true,
+            "dropDownType": "single",
+            "validation": ["required", "", ""],
+            "onView":true
+        }, {
+            "name": "Transaction Amount",
+            "type": "number",
+            "tableRef": "transactionAmount",
+            "placeholder": "Enter Transaction Amount",
+            "id": "transactionAmount",
+            "validation": ["required", "trim"],
+            "url": "",
+            "onView":true
+        }, {
+            "name": "Percentage Contribution",
+            "type": "number",
+            "tableRef": "percentageContribution",
+            "placeholder": "Enter Percentage Contribution",
+            "id": "percentageContribution",
+            "validation": ["required", "trim"],
+            "url": "",
+            "onView":true
+        }, {
+            "name": "Mailer List",
+            "type": "tags",
+            "tableRef": "mailerList",
+            "placeholder": "Select Mailer List",
+            "id": "mailerList",
+            "searchApi": "searchCall",
+            "fieldType": "",
+            "url": "MailerList/search",
+            "dropDownField": "name",
+            "view": true,
+            "dropDownType": "single",
+            "validation": ["required", "", ""],
+            "onView":true
+        }]
     }],
     "action": [{
         "name": "submit",

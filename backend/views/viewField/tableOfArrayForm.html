@@ -1,0 +1,58 @@
+<!-- <div class="text-center1" style="height: auto;width: 80px;">{{value[type.tableRef].name}}</div> -->
+<!-- {{value}} -->
+<div style="height: auto;">
+    <table border="1" class="table table-striped">
+        <!-- <tr>
+            <td ng-repeat="obj in value[type.tableRef]">{{obj.exposureRuleType.name}}</td>
+        </tr>
+        <tr>
+            <td ng-repeat="obj in value[type.tableRef]">
+                {{obj.transactionAmount}}
+            </td>
+        </tr>
+        <tr>
+            <td ng-repeat="obj in value[type.tableRef]">{{obj.percentageContribution}}</td>
+        </tr> -->
+
+        <!-- <tr ng-if="value.tableHeaderForRule==true" align="center" style="display:none;">
+                <td style="width:130px">
+                    <b>Type</b>
+                </td>
+                <td style="width:120px">
+                    <b>Txn. $ </b>
+                </td>
+                <td style="width:70px">
+                    <b> % </b>
+                </td>
+            </tr>
+            <tr ng-repeat="obj in value[type.tableRef]" align="center">
+                <td style="width:130px">{{obj.exposureRuleType.name}}</td>
+                <td style="width:120px">
+                    <detail-field class="col-md-1" type="field" form="detailForm" value="item" data="data"></detail-field>
+                        
+                    {{obj.transactionAmount}}
+                </td>
+                <td style="width:70px">{{obj.percentageContribution}}</td>
+            </tr> -->
+    
+        <tr ng-if="value.tableHeaderForRule==true" align="center" style="display:none;">
+            <td style="width:130px">
+                <b>Type</b>
+            </td>
+            <td style="width:120px">
+                <b>Txn. $ </b>
+            </td>
+            <td style="width:70px">
+                <b> % </b>
+            </td>
+        </tr>
+        <tr ng-repeat="obj in value[type.tableRef]" align="center">
+            <td style="width:130px">{{obj.exposureRuleType.name}}</td>
+            <td style="width:120px">{{obj.transactionAmount}}</td>
+            <td style="width:70px">{{obj.percentageContribution}}</td>
+        </tr>
+
+    </table>
+    <!-- <span ng-repeat="obj in value[type.tableRef]">{{obj.name}} {{$last ? '' : ($index==value[type.tableRef].length-2) ? ' and ' : ', '}}</span> -->
+</div>
+<!-- {{value[type.tableRef]}} -->

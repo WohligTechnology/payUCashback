@@ -1,21 +1,29 @@
 {
-    "title": "Rule Category",
-    "description": "List of Rule Categories",
+    "title": "Merchant Exposure Category",
+    "description": "List of Merchant Exposure Categories",
     "pageType": "view",
     "sendIdWithCreate": true,
     "loader":false,
     "rowCheckBoxForMerchantExposureCategory":true,
+    "tableHeaderOnce":true,
     "urlFields": ["_id"],
     "roles":["Super Admin","Merchant Exposure"],
     "fields": [{
         "name": "Name",
         "isSort": "",
-        "tableRef": "name"
+        "tableRef": "name",
+        "type":"textTopCenter"
+    }, {
+        "name": "Merchants",
+        "isSort": "",
+        "tableRef": "exposureMerchant",
+        "type":"objectNamesOfArrayWithWidth"
     }, {
         "name": "Rules",
         "isSort": "",
-        "tableRef": "exposureRule",
-        "type":"objectNamesOfArray"
+        "tableRef": "rules",
+        "type":"tableOfArray",
+        "customHeader":true
     }],
     "action": [{
         "name": "edit",
@@ -39,16 +47,6 @@
         "fieldsToSend": {
             "name": "_id",
             "value": "_id"
-        }
-    },{
-        "name": "Copy Merchant Category",
-        "icon": "fa-copy",
-        "buttonClass": "btn-primary",
-        "type": "page",
-        "action": "copyExposureMerchantCategory",  
-        "roles":["Super Admin","Creator"], 
-        "fieldsToSend": {
-            "_id": "_id"
         }
     }],
     "viewExposureMerchantCategoryButton":{

@@ -1,9 +1,10 @@
-<form name="modalForm" ng-submit="submitModal(data);$dismiss()" class="min-hit">
+<form name="modalForm" ng-submit="$dismiss()" class="min-hit">
     <div class="modal-header blue-bg  ">
         <div class="pull-right">
-            <a class="btn btn-clear" ng-click="$dismiss()">
+            <!-- <a class="btn btn-clear" ng-click="$dismiss()"> -->
+            <!-- <a class="btn btn-clear" ng-click="clearBoxLastElement(data);$dismiss()">
                 <i class="ln-cross"></i>
-            </a>
+            </a> -->
         </div>
         <h5 class="modal-title">{{state}} {{type.name}}</h5>
     </div>
@@ -16,6 +17,7 @@
 
         <div class="text-center">
             <button class="btn btn-primary btn-save" type="submit" ng-disabled="modalForm.$invalid">{{state}}</button>
+            <button class="btn btn-danger" ng-click="clearBoxLastElement(data);$dismiss()">Cancel</button>
         </div>
     </div>
 </form>

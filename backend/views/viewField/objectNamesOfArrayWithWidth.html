@@ -1,0 +1,5 @@
+<!-- <div class="text-center1" style="height: auto;width: 80px;">{{value[type.tableRef].name}}</div> -->
+<div style="height: auto;
+width: 120px;"><span ng-repeat="obj in value[type.tableRef]">{{obj.name}} {{$last ? '' : ($index==value[type.tableRef].length-2) ? ' and ' : ', '}}</span>
+</div>
+<!-- {{value[type.tableRef]}} -->

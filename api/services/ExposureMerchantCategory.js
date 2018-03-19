@@ -1,32 +1,56 @@
 var schema = new Schema({
     name: {
-          type: String,
-          unique: true
-      },
-      exposureRule: [{
-          type: Schema.Types.ObjectId,
-          ref: 'ExposureRule'
-      }],
-      exposureMerchant: [{
-          type: Schema.Types.ObjectId,
-          ref: 'ExposureMerchant'
-      }],
-      isDeleted:{
-          type:Number,
-          default: 0
-      },
-      createdBy: {
-          type: Schema.Types.ObjectId,
-          ref: 'User'
-      },
-      lastUpdatedBy: {
-          type: Schema.Types.ObjectId,
-          ref: 'User'
-      }
-  });
-  
-  schema.plugin(deepPopulate, {
+        type: String,
+        unique: true
+    },
+    exposureRule: [{
+        type: Schema.Types.ObjectId,
+        ref: 'ExposureRule'
+    }],
+    rules: [{
+        mailerList: {
+            type: Schema.Types.ObjectId,
+            ref: 'MailerList',
+            required: true
+        },
+        exposureRuleType: {
+            type: Schema.Types.ObjectId,
+            ref: 'ExposureRuleType',
+            required: true
+        },
+        name: String,
+        transactionAmount: Number,
+        percentageContribution: Number
+    }],
+    exposureMerchant: [{
+        type: Schema.Types.ObjectId,
+        ref: 'ExposureMerchant'
+    }],
+    isDeleted: {
+        type: Number,
+        default: 0
+    },
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    lastUpdatedBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }
+});
+
+schema.plugin(deepPopulate, {
     populate: {
+        'rules': {
+            select: ''
+        },
+        'rules.exposureRuleType': {
+            select: ''
+        },
+        'rules.mailerList': {
+            select: ''
+        },
         'exposureRule': {
             select: ''
         },
@@ -40,13 +64,13 @@ var schema = new Schema({
             select: ''
         }
     }
-  });
-  schema.plugin(uniqueValidator);
-  schema.plugin(timestamps);
-  module.exports = mongoose.model('ExposureMerchantCategory', schema);
-  
-  var exports = _.cloneDeep(require("sails-wohlig-service")(schema,'exposureRule createdBy lastUpdatedBy exposureMerchant','exposureRule createdBy lastUpdatedBy exposureMerchant'));
-  var model = {
+});
+schema.plugin(uniqueValidator);
+schema.plugin(timestamps);
+module.exports = mongoose.model('ExposureMerchantCategory', schema);
+
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'rules rules.exposureRuleType rules.mailerList exposureRule createdBy lastUpdatedBy exposureMerchant', 'rules rules.exposureRuleType rules.mailerList exposureRule createdBy lastUpdatedBy exposureMerchant'));
+var model = {
     search: function (data, callback) {
         // console.log("in custom");
         var maxRow = Config.maxRow;
@@ -74,7 +98,7 @@ var schema = new Schema({
             }).sort({
                 createdAt: -1
             })
-            .populate('exposureRule createdBy lastUpdatedBy exposureMerchant')
+            .populate('rules rules.exposureRuleType rules.mailerList exposureRule createdBy lastUpdatedBy exposureMerchant')
             .order(options)
             .keyword(options)
             .page(options,
@@ -90,13 +114,12 @@ var schema = new Schema({
     },
     deleteWithChangeStatus: function (data, callback) {
         // var Model = this;
-        console.log("deleteWithChangeStatus ExposureMerchantCategory service",data);
+        console.log("deleteWithChangeStatus ExposureMerchantCategory service", data);
         var Const = this(data);
         ExposureMerchantCategory.update({
             _id: data._id
-        },{
-            $set:
-            {
+        }, {
+            $set: {
                 isDeleted: 1
             }
         }, function (err, data2) {
@@ -109,5 +132,5 @@ var schema = new Schema({
             }
         });
     }
-  };
-  module.exports = _.assign(module.exports, exports, model);
+};
+module.exports = _.assign(module.exports, exports, model);

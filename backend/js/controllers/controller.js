@@ -6,7 +6,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.menutitle = NavigationService.makeactive("Dashboard");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        if(_.isEmpty($scope.navigation)){
+        if (_.isEmpty($scope.navigation)) {
             $state.reload();
         }
         // var script = document.currentScript;
@@ -17,7 +17,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         //       url: '/home/thirtysix/Documents/avinash/payUCashback/backend/uploads',
         //       data: {username: $scope.username, file: file},
         //     });
-        
+
         //     file.upload.then(function (response) {
         //       $timeout(function () {
         //         file.result = response.data;
@@ -348,13 +348,13 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.showFilter = function () {
             console.log("Filter Clicked");
             //for getting cashback rule filters data start
-            if($scope.json.json.filter=="ruleFilter"){
+            if ($scope.json.json.filter == "ruleFilter") {
                 NavigationService.apiCall("Merchant/search", {}, function (data) {
                     $scope.merchants = data.data.results;
                     console.log("$scope.merchants", $scope.merchants);
                 });
             }
-            
+
             //for getting cashback rule filters data end
 
             $scope.showFilterModal = $uibModal.open({
@@ -511,9 +511,9 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         }
 
         $scope.checkboxPerformanceClick = function (id) {
-            
+
             console.log("id in checkboxPerformanceClick", id);
-            
+
             var idx = $.inArray(id, $scope.selectArrPerformance);
             if (idx == -1) {
                 $scope.selectArrPerformance.push(id);
@@ -523,11 +523,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 console.log("in else after splice", $scope.selectArrPerformance);
             }
         }
-        
+
         $scope.checkboxPerformanceRepayClick = function (id) {
-            
+
             console.log("id in checkboxPerformanceRepayClick", id);
-            
+
             var idx = $.inArray(id, $scope.selectArrPerformanceRepay);
             if (idx == -1) {
                 $scope.selectArrPerformanceRepay.push(id);
@@ -537,12 +537,12 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 console.log("in else after splice", $scope.selectArrPerformanceRepay);
             }
         }
-        
+
 
         $scope.checkboxMerchantExposureCategoryClick = function (id) {
-            
+
             console.log("id in checkboxMerchantExposureCategoryClick", id);
-            
+
             var idx = $.inArray(id, $scope.selectArrMerchantExposureCategory);
             if (idx == -1) {
                 $scope.selectArrMerchantExposureCategory.push(id);
@@ -645,7 +645,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         }
 
         $scope.playSelectedAllClick = function () {
-            console.log("allSelectedRules",$scope.allSelectedRules);
+            console.log("allSelectedRules", $scope.allSelectedRules);
             if ($scope.allSelectedRules.length == 0) {
                 console.log("empty array inside playSelectedAllClick if");
                 alert("No Rules to Play");
@@ -661,11 +661,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         }
 
         $scope.playSelectedAllClickMarketing = function () {
-            console.log("allSelectedMarketingRules",$scope.selectArrMarketing);
+            console.log("allSelectedMarketingRules", $scope.selectArrMarketing);
             if ($scope.selectArrMarketing.length == 0) {
                 console.log("empty array inside playSelectedAllClickMarketing if");
                 alert("No Marketing Rules to Play");
-            }else if($scope.selectArrMarketing.length > 1){
+            } else if ($scope.selectArrMarketing.length > 1) {
                 console.log("cannot play more than 1 rule!");
                 alert("Please select only 1 Rule at a time to Play!!!");
             } else {
@@ -680,30 +680,33 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         }
 
         $scope.playSelectedClickExposureMerchantCategory = function () {
-            console.log("allSelectedMarketingRules",$scope.selectArrMerchantExposureCategory);
+            console.log("allSelectedMarketingRules", $scope.selectArrMerchantExposureCategory);
             if ($scope.selectArrMerchantExposureCategory.length == 0) {
                 console.log("empty array inside playSelectedClickExposureMerchantCategory if");
                 alert("No Marketing Rules to Play");
-            }else if($scope.selectArrMerchantExposureCategory.length > 1){
+            } else if ($scope.selectArrMerchantExposureCategory.length > 1) {
                 console.log("cannot play more than 1 rule!");
                 alert("Please select only 1 Category at a time to Play the Rules!!!");
             } else {
-                $scope.playSelectedClickExposureMerchantCategoryFolderNameModal = $uibModal.open({
-                    animation: true,
-                    templateUrl: 'views/modal/playAllExposureMerchantCategoryFolderNameModal.html',
-                    size: 'md',
-                    scope: $scope
+                $scope.playAllExposureMerchantCategoryClickAfterFolderName({
+                    name: "passedFolderName"
                 });
+                // $scope.playSelectedClickExposureMerchantCategoryFolderNameModal = $uibModal.open({
+                //     animation: true,
+                //     templateUrl: 'views/modal/playAllExposureMerchantCategoryFolderNameModal.html',
+                //     size: 'md',
+                //     scope: $scope
+                // });
             }
 
         }
 
         $scope.playSelectedAllClickPerformance = function () {
-            console.log("allSelectedPerformanceRules",$scope.selectArrPerformance);
+            console.log("allSelectedPerformanceRules", $scope.selectArrPerformance);
             if ($scope.selectArrPerformance.length == 0) {
                 console.log("empty array inside playSelectedAllClickPerformance if");
                 alert("No Marketing Rules to Play");
-            }else if($scope.selectArrPerformance.length > 1){
+            } else if ($scope.selectArrPerformance.length > 1) {
                 console.log("cannot play more than 1 rule!");
                 alert("Please select only 1 Rule at a time to Play!!!");
             } else {
@@ -718,11 +721,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         }
 
         $scope.playSelectedAllClickPerformanceRepay = function () {
-            console.log("allSelectedPerformanceRules",$scope.selectArrPerformanceRepay);
+            console.log("allSelectedPerformanceRules", $scope.selectArrPerformanceRepay);
             if ($scope.selectArrPerformanceRepay.length == 0) {
                 console.log("empty array inside playSelectedAllClickPerformanceRepay if");
                 alert("No Marketing Rules to Play");
-            }else if($scope.selectArrPerformanceRepay.length > 1){
+            } else if ($scope.selectArrPerformanceRepay.length > 1) {
                 console.log("cannot play more than 1 rule!");
                 alert("Please select only 1 Rule at a time to Play!!!");
             } else {
@@ -788,7 +791,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                         });
                     }
                     $state.reload();
-                    
+
                 })
             }
         }
@@ -844,7 +847,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                         });
                     }
                     $state.reload();
-                    
+
                 })
             }
         }
@@ -916,13 +919,13 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         //         //         });
         //         //     }
         //         //     $state.reload();
-                    
+
         //         // })
         //     }
         // }
 
-        $scope.getMailMarketingRule=function(url){
-            console.log("inside getMailMarketingRule url",url);
+        $scope.getMailMarketingRule = function (url) {
+            console.log("inside getMailMarketingRule url", url);
         }
 
 
@@ -944,26 +947,26 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 console.log("empty array inside playSelectedClick if");
                 alert("No Rules To Play!!!");
             } else {
-                $scope.json.json.loader=true;
+                $scope.json.json.loader = true;
                 objectToSend.ruleIds = $scope.selectArrPerformance;
                 console.log("selected id inside playSelectedClick else", objectToSend);
 
 
                 objectToSend.ruleIds = $scope.selectArrPerformance;
-                var performanceId=$scope.selectArrPerformance[0];
+                var performanceId = $scope.selectArrPerformance[0];
                 NavigationService.getOnePerformance(performanceId, function (data9) {
                     console.log("*****", data9);
-                    if(data9.data){
-                        
-                        var merchantsSql=[];
-                        if(data9.data.merchant.length>0){
-                            for(var i=0;i<data9.data.merchant.length;i++){
+                    if (data9.data) {
+
+                        var merchantsSql = [];
+                        if (data9.data.merchant.length > 0) {
+                            for (var i = 0; i < data9.data.merchant.length; i++) {
                                 merchantsSql.push(data9.data.merchant[i].merchantSqlId)
                             }
 
                         }
                         // objectToSend.merchantFlag = $scope.selectArrPerformance;
-                        console.log("in if getOnePerformance controller length",data9.data.merchant.length);
+                        console.log("in if getOnePerformance controller length", data9.data.merchant.length);
                         // if(data9.data.merchant.length==0){
                         //     console.log("length=0");
                         //     objectToSend.merchants=data9.data.merchant;
@@ -971,15 +974,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                         //     objectToSend.merchants=data9.data.merchant;
                         //     console.log("length=1");
                         // }
-                        objectToSend.merchants=merchantsSql;
+                        objectToSend.merchants = merchantsSql;
                         NavigationService.playSelectedPerformanceRule(objectToSend, function (data) {
                             console.log("*****", data);
-                            if(data){
-                                $scope.json.json.loader=false;
-                            }else{
-                                $scope.json.json.loader=false;
+                            if (data) {
+                                $scope.json.json.loader = false;
+                            } else {
+                                $scope.json.json.loader = false;
                             }
-                            
+
                             // var totalAmount = data.data.totalAmount;
                             // var totalAmountWithDecimal=totalAmount.toLocaleString();
                             // var numberOfUsers = data.data.numberOfUsers;
@@ -987,26 +990,26 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                             // var totalUsersInFile = data.data.totalUsersInFile;
 
                             //data for modal
-                            var totalUsersInFile=data.data.totalUsersInFile;
-                            var numberOfUniqueUsers=data.data.numberOfUniqueUsers;
-                            var totalAmountOverall=data.data.totalAmountOverall;
-                            var numberOfTransactionsOverall=data.data.numberOfTransactionsOverall;
-                            
-                            $scope.playPerformanceResponse={
-                                totalUsersInFile:totalUsersInFile,
-                                numberOfUniqueUsers:data.data.numberOfUniqueUsers,
-                                totalAmountOverall:data.data.totalAmountOverall,
-                                numberOfTransactionsOverall:data.data.numberOfTransactionsOverall
+                            var totalUsersInFile = data.data.totalUsersInFile;
+                            var numberOfUniqueUsers = data.data.numberOfUniqueUsers;
+                            var totalAmountOverall = data.data.totalAmountOverall;
+                            var numberOfTransactionsOverall = data.data.numberOfTransactionsOverall;
+
+                            $scope.playPerformanceResponse = {
+                                totalUsersInFile: totalUsersInFile,
+                                numberOfUniqueUsers: data.data.numberOfUniqueUsers,
+                                totalAmountOverall: data.data.totalAmountOverall,
+                                numberOfTransactionsOverall: data.data.numberOfTransactionsOverall
                             }
 
-                            if(data.data.numberOfUniqueUsersOtherMerchants){
-                                $scope.playPerformanceResponse.numberOfUniqueUsersOtherMerchants=data.data.numberOfUniqueUsersOtherMerchants;
-                                $scope.playPerformanceResponse.numberOfTransactionsOtherMerchants=data.data.numberOfTransactionsOtherMerchants;
-                                $scope.playPerformanceResponse.totalAmountOtherMerchants=data.data.totalAmountOtherMerchants;
-                                $scope.playPerformanceResponse.numberOfUniqueUsersGivenMerchants=data.data.numberOfUniqueUsersGivenMerchants;
-                                $scope.playPerformanceResponse.numberOfTransactionsGivenMerchants=data.data.numberOfTransactionsGivenMerchants;
-                                $scope.playPerformanceResponse.totalAmountGivenMerchants=data.data.totalAmountGivenMerchants;
-                                
+                            if (data.data.numberOfUniqueUsersOtherMerchants) {
+                                $scope.playPerformanceResponse.numberOfUniqueUsersOtherMerchants = data.data.numberOfUniqueUsersOtherMerchants;
+                                $scope.playPerformanceResponse.numberOfTransactionsOtherMerchants = data.data.numberOfTransactionsOtherMerchants;
+                                $scope.playPerformanceResponse.totalAmountOtherMerchants = data.data.totalAmountOtherMerchants;
+                                $scope.playPerformanceResponse.numberOfUniqueUsersGivenMerchants = data.data.numberOfUniqueUsersGivenMerchants;
+                                $scope.playPerformanceResponse.numberOfTransactionsGivenMerchants = data.data.numberOfTransactionsGivenMerchants;
+                                $scope.playPerformanceResponse.totalAmountGivenMerchants = data.data.totalAmountGivenMerchants;
+
                             }
                             // $scope.playPerformanceResponse={
                             //     "numberOfUniqueUsers":2,
@@ -1037,17 +1040,17 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                                 });
                             }
                             // $state.reload();
-                            
+
                         })
-                    }else{
-                        console.log("something failed while getting merchant",data9);
+                    } else {
+                        console.log("something failed while getting merchant", data9);
                     }
                 })
                 console.log("selected id inside playSelectedClick else", objectToSend);
 
             }
         }
-        
+
         $scope.playAllPerformanceRepayClickAfterFolderName = function (formData) {
             $scope.playSelectedAllClickPerformanceRepayFolderNameModal.close();
             // console.log("formData in playAllClickAfterFolderName",formData);
@@ -1066,29 +1069,29 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 console.log("empty array inside playSelectedClick if");
                 alert("No Rules To Play!!!");
             } else {
-                $scope.json.json.loader=true;
+                $scope.json.json.loader = true;
                 objectToSend.ruleIds = $scope.selectArrPerformanceRepay;
                 console.log("selected id inside playSelectedClick else", objectToSend);
 
                 NavigationService.playSelectedPerformanceRepayRule(objectToSend, function (data) {
                     console.log("*****", data);
-                    if(data){
-                        $scope.json.json.loader=false;
-                    }else{
-                        $scope.json.json.loader=false;
+                    if (data) {
+                        $scope.json.json.loader = false;
+                    } else {
+                        $scope.json.json.loader = false;
                     }
                     var totalAmount = data.data.totalAmount;
-                    var totalAmountWithDecimal=totalAmount.toLocaleString();
+                    var totalAmountWithDecimal = totalAmount.toLocaleString();
                     var numberOfUsers = data.data.numberOfUsers;
                     var numberOfTransactions = data.data.numberOfTransactions;
                     var totalUsersInFile = data.data.totalUsersInFile;
 
                     //data for modal
-                    $scope.playPerformanceResponse={
-                        totalAmount:totalAmountWithDecimal,
-                        numberOfUsers:data.data.numberOfUsers,
-                        numberOfTransactions:data.data.numberOfTransactions,
-                        totalUsersInFile:data.data.totalUsersInFile
+                    $scope.playPerformanceResponse = {
+                        totalAmount: totalAmountWithDecimal,
+                        numberOfUsers: data.data.numberOfUsers,
+                        numberOfTransactions: data.data.numberOfTransactions,
+                        totalUsersInFile: data.data.totalUsersInFile
                     }
 
                     if (data.data.success == true) {
@@ -1113,14 +1116,17 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                         });
                     }
                     // $state.reload();
-                    
+
                 })
             }
         }
-        
+
+        $scope.playAllExposureMerchantCategoryClickAfterFolderNameTest = function (formData) {
+            console.log("inside playAllExposureMerchantCategoryClickAfterFolderNameOld ***", formData);
+        }
 
         $scope.playAllExposureMerchantCategoryClickAfterFolderName = function (formData) {
-            $scope.playSelectedClickExposureMerchantCategoryFolderNameModal.close();
+            // $scope.playSelectedClickExposureMerchantCategoryFolderNameModal.close();
             // console.log("formData in playAllClickAfterFolderName",formData);
             if ($.jStorage.get("profile")) {
                 var loggedInUserId = $.jStorage.get("profile")._id;
@@ -1137,8 +1143,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 console.log("empty array inside playSelectedClick if");
                 alert("No Rules To Play!!!");
             } else {
-                $scope.json.json.loader=true;
-                objectToSend.ruleIds = $scope.selectArrMerchantExposureCategory;
+                $scope.json.json.loader = true;
+                objectToSend.categoryId = $scope.selectArrMerchantExposureCategory[0];
                 console.log("selected id inside playSelectedClick else", objectToSend);
                 // $timeout(function () {
                 //     $scope.json.json.loader=false;
@@ -1152,31 +1158,24 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 // }, 2000);
                 NavigationService.playSelectedExposureMerchantCategoryRule(objectToSend, function (data) {
                     console.log("*****", data);
-                    if(data){
-                        $scope.json.json.loader=false;
-                    }else{
-                        $scope.json.json.loader=false;
-                    }
-                    var totalAmount = data.data.totalAmount;
-                    var totalAmountWithDecimal=totalAmount.toLocaleString();
-                    var numberOfUsers = data.data.numberOfUsers;
-                    var numberOfTransactions = data.data.numberOfTransactions;
-                    var totalUsersInFile = data.data.totalUsersInFile;
-
-                    //data for modal
-                    $scope.playExposureMerchantCategoryResponse={
-                        totalAmount:totalAmountWithDecimal,
-                        numberOfUsers:data.data.numberOfUsers,
-                        numberOfTransactions:data.data.numberOfTransactions,
-                        totalUsersInFile:data.data.totalUsersInFile
+                    if (data) {
+                        $scope.json.json.loader = false;
+                    } else {
+                        $scope.json.json.loader = false;
                     }
 
-                    if (data.data.success == true) {
-                        $scope.playExposureMerchantCategoryResponseModal = $uibModal.open({
-                            animation: true,
-                            templateUrl: 'views/modal/playExposureMerchantCategoryResponseModal.html',
-                            size: 'md',
-                            scope: $scope
+                    if (data.data.status == true) {
+                        toastr.success(data.data.message, {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "3000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
                         });
                     } else {
                         toastr.error("Failed To Play Rule ! Try Again !!!", {
@@ -1192,12 +1191,12 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                             "tapToDismiss": false
                         });
                     }
-                    
+
                 })
             }
         }
         $scope.playSelectedAllActiveClick = function () {
-            console.log("allSelectedActiveRules",$scope.allSelectedActiveRules);
+            console.log("allSelectedActiveRules", $scope.allSelectedActiveRules);
             if ($scope.allSelectedRules.length == 0) {
                 console.log("empty array inside playSelectedAllClick if");
                 alert("No Rules to Play");
@@ -1265,7 +1264,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                         });
                     }
                     $state.reload();
-                    
+
                 })
             }
         }
@@ -1295,12 +1294,12 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         // Exposure Merchant view button click start
         $scope.viewSingleExposureMerchantModal = function (exposureMerchant) {
-            console.log("viewexposureMerchantModal",exposureMerchant);
-            $scope.showTreeData=false;
+            console.log("viewexposureMerchantModal", exposureMerchant);
+            $scope.showTreeData = false;
             NavigationService.viewSingleExposureMerchantModal(exposureMerchant._id, function (data) {
                 console.log("verifyQuery", data);
                 if (data.data) {
-                    $scope.singleExposureMerchantData=data.data.results;
+                    $scope.singleExposureMerchantData = data.data.results;
                     $scope.singleExposureMerchantForModal = exposureMerchant;
                     $scope.singleExposureMerchantForModalInstance = $uibModal.open({
                         animation: true,
@@ -1335,15 +1334,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         // Exposure Merchant view button click end
 
-        $scope.showTreeDataFunction=function(){
-            $scope.showTreeData=true;
+        $scope.showTreeDataFunction = function () {
+            $scope.showTreeData = true;
         }
 
 
         // Exposure Merchant Category view button click start
         $scope.viewSingleExposureMerchantCategoryModal = function (exposureMerchantCategory) {
-            console.log("viewexposureMerchantCategoryModal",exposureMerchantCategory);
-            
+            console.log("viewexposureMerchantCategoryModal", exposureMerchantCategory);
+
             $scope.singleExposureMerchantCategoryForModal = exposureMerchantCategory;
             $scope.singleExposureMerchantCategoryForModalInstance = $uibModal.open({
                 animation: true,
@@ -1357,8 +1356,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         // Exposure Rule view button click start
         $scope.viewSingleExposureRuleModal = function (exposureRule) {
-            console.log("viewexposureRuleModal",exposureRule);
-            
+            console.log("viewexposureRuleModal", exposureRule);
+
             $scope.singleExposureRuleForModal = exposureRule;
             $scope.singleExposureRuleForModalInstance = $uibModal.open({
                 animation: true,
@@ -1372,8 +1371,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         // Mailer List view button click start
         $scope.viewSingleMailerListModal = function (mailerList) {
-            console.log("viewmailerListModal",mailerList);
-            
+            console.log("viewmailerListModal", mailerList);
+
             $scope.singleMailerListForModal = mailerList;
             $scope.singleMailerListForModalInstance = $uibModal.open({
                 animation: true,
@@ -1454,7 +1453,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         }
 
-        $scope.clickChangeAllButton=function(){
+        $scope.clickChangeAllButton = function () {
             console.log("inside clickChangeAllButton");
             $scope.changeAllValues = $uibModal.open({
                 animation: true,
@@ -1463,15 +1462,14 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 scope: $scope
             });
         }
-        $scope.changeAllValuesModalSubmit=function(formData){
-            console.log("inside changeAllValuesModalSubmit",formData);
-            if($.jStorage.get("profile"))
-            {
-                formData.lastUpdatedBy=$.jStorage.get("profile")._id;
+        $scope.changeAllValuesModalSubmit = function (formData) {
+            console.log("inside changeAllValuesModalSubmit", formData);
+            if ($.jStorage.get("profile")) {
+                formData.lastUpdatedBy = $.jStorage.get("profile")._id;
                 NavigationService.apiCall("Rule/changeAllValues", formData, function (data) {
                     // $scope.data1 = data.data;
                     // $scope.generateField = true;
-                    if(data.value==true){
+                    if (data.value == true) {
                         toastr.success("All Rules Updated Successfully", {
                             "closeButton": true,
                             "debug": false,
@@ -1484,7 +1482,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                             "extendedTimeOut": "1000",
                             "tapToDismiss": false
                         });
-                    }else{
+                    } else {
                         toastr.error("Failed To Update Rules", {
                             "closeButton": true,
                             "debug": false,
@@ -1502,11 +1500,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 });
                 $scope.changeAllValues.close();
                 $state.reload();
-            }else{
-                console.log("Formdata",formData);
+            } else {
+                console.log("Formdata", formData);
                 state.go("login");
             }
-            
+
         }
         $scope.copyClick = function () {
             console.log("copyClick clicked");
@@ -1525,7 +1523,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         };
 
         $scope.getAllItems = function (keywordChange) {
-            console.log("inside getAllItems",keywordChange);
+            console.log("inside getAllItems", keywordChange);
             $scope.totalItems = undefined;
             if (keywordChange) {
                 $scope.currentPage = 1;
@@ -1540,26 +1538,29 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 }, ++i,
                 function (data, ini) {
 
-                
-                $scope.allSelectedRules=[];
-                $scope.allSelectedActiveRules=[];
-                $scope.allActiveRulesCount=0;
-                $scope.allInactiveRulesCount=0;
-                $scope.allProcessingRulesCount=0;
 
-                //variables for marketing rules
+                    $scope.allSelectedRules = [];
+                    $scope.allSelectedActiveRules = [];
+                    $scope.allActiveRulesCount = 0;
+                    $scope.allInactiveRulesCount = 0;
+                    $scope.allProcessingRulesCount = 0;
 
-                $scope.allSelectedMarketingRules=[];
-                $scope.allSelectedActiveMarketingRules=[];
-                $scope.allActiveMarketingRulesCount=0;
-                $scope.allInactiveMarketingRulesCount=0;
-                $scope.allProcessingMarketingRulesCount=0;
+                    //variables for marketing rules
+
+                    $scope.allSelectedMarketingRules = [];
+                    $scope.allSelectedActiveMarketingRules = [];
+                    $scope.allActiveMarketingRulesCount = 0;
+                    $scope.allInactiveMarketingRulesCount = 0;
+                    $scope.allProcessingMarketingRulesCount = 0;
 
 
 
                     if (ini == i) {
                         $scope.items = data.data.results;
-                        console.log("data after search",data.data);
+                        if ($scope.json.json.tableHeaderOnce == true) {
+                            $scope.items[0].tableHeaderForRule = true;
+                        }
+                        console.log("data after search", data.data);
                         if ($scope.json.json.colorExpired == true) {
                             console.log("right");
                             _.forEach($scope.items, function (value) {
@@ -1602,21 +1603,21 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
                                 if (date1 > date2) {
                                     value.color = "red";
-                                    value.active=true;
-                                    $scope.allInactiveRulesCount=$scope.allInactiveRulesCount+1;
+                                    value.active = true;
+                                    $scope.allInactiveRulesCount = $scope.allInactiveRulesCount + 1;
                                     $scope.allSelectedRules.push(value._id);
                                     // console.log("name-",value.name," color-",value.color);
-                                } else if(date1 <= date2 && date1>=date3){
+                                } else if (date1 <= date2 && date1 >= date3) {
                                     value.color = "green";
-                                    $scope.allActiveRulesCount=$scope.allActiveRulesCount+1;
-                                    value.active=true;
+                                    $scope.allActiveRulesCount = $scope.allActiveRulesCount + 1;
+                                    value.active = true;
                                     $scope.allSelectedRules.push(value._id);
                                     $scope.allSelectedActiveRules.push(value._id);
                                     // console.log("name-",value.name," color-",value.color);
-                                }else{
+                                } else {
                                     value.color = "yellow";
-                                    $scope.allProcessingRulesCount=$scope.allProcessingRulesCount+1;
-                                    value.active=false;
+                                    $scope.allProcessingRulesCount = $scope.allProcessingRulesCount + 1;
+                                    value.active = false;
                                 }
 
                                 // console.log(value);
@@ -1694,26 +1695,27 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
                                 if (date1 > date2) {
                                     value.color = "red";
-                                    value.active=true;
-                                    $scope.allInactiveMarketingRulesCount=$scope.allInactiveMarketingRulesCount+1;
+                                    value.active = true;
+                                    $scope.allInactiveMarketingRulesCount = $scope.allInactiveMarketingRulesCount + 1;
                                     $scope.allSelectedMarketingRules.push(value._id);
                                     // console.log("name-",value.name," color-",value.color);
-                                } else if(date1 <= date2 && date1>=date3){
+                                } else if (date1 <= date2 && date1 >= date3) {
                                     value.color = "green";
-                                    $scope.allActiveMarketingRulesCount=$scope.allActiveMarketingRulesCount+1;
-                                    value.active=true;
+                                    $scope.allActiveMarketingRulesCount = $scope.allActiveMarketingRulesCount + 1;
+                                    value.active = true;
                                     $scope.allSelectedMarketingRules.push(value._id);
                                     $scope.allSelectedActiveMarketingRules.push(value._id);
                                     // console.log("name-",value.name," color-",value.color);
-                                }else{
+                                } else {
                                     value.color = "yellow";
-                                    $scope.allProcessingMarketingRulesCount=$scope.allProcessingMarketingRulesCount+1;
-                                    value.active=false;
+                                    $scope.allProcessingMarketingRulesCount = $scope.allProcessingMarketingRulesCount + 1;
+                                    value.active = false;
                                 }
 
                             });
                         }
                         $scope.totalItems = data.data.total;
+                        console.log("$scope.items[0]", $scope.items[0]);
                         $scope.maxRow = data.data.options.count;
                     }
                 });
@@ -1723,7 +1725,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
     })
 
-    .controller('DetailCtrl', function ($scope, TemplateService, NavigationService, JsonService, $timeout, $state, $stateParams, toastr,$uibModal) {
+    .controller('DetailCtrl', function ($scope, TemplateService, NavigationService, JsonService, $timeout, $state, $stateParams, toastr, $uibModal) {
         $scope.json = JsonService;
         JsonService.setKeyword($stateParams.keyword);
         $scope.template = TemplateService;
@@ -1731,13 +1733,13 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         console.log("detail controller");
         console.log("$scope.json", $scope.json);
 
-        $scope.hideFirstTransaction=function(operatorValue){
-            console.log("hideFirstTransaction and operator is",operatorValue);
+        $scope.hideFirstTransaction = function (operatorValue) {
+            console.log("hideFirstTransaction and operator is", operatorValue);
         }
 
         //for view File Format in performance start
 
-        $scope.viewFileFormat=function(){
+        $scope.viewFileFormat = function () {
             console.log("file");
             $scope.viewFileFormatModal = $uibModal.open({
                 animation: true,
@@ -1832,8 +1834,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             // });
 
             //for rule on one field make others to zero
-            console.log("perUser",formData.perUser," nthPerUserTransaction",formData.nthPerUserTransaction," nthPerUserTransactionOffer",formData.nthPerUserTransactionOffer," perUserTransactionOffer",formData.perUserTransactionOffer);
-            if($scope.json.json.apiCall.url=="Rule/save"){
+            console.log("perUser", formData.perUser, " nthPerUserTransaction", formData.nthPerUserTransaction, " nthPerUserTransactionOffer", formData.nthPerUserTransactionOffer, " perUserTransactionOffer", formData.perUserTransactionOffer);
+            if ($scope.json.json.apiCall.url == "Rule/save") {
                 console.log("hide what u want to hide in this section for rule");
                 // if(formData.perUser=="" || formData.perUser==null){
                 //     console.log("perUser is Blank",formData.perUser);
@@ -1882,10 +1884,10 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ($scope.json.keyword._id) {
                 if ($scope.json.json.createFromEdit == true) {
                     delete formData.lastUpdatedBy;
-                }else{
+                } else {
                     formData.lastUpdatedBy = currentLoggedInUser;
                 }
-                
+
             }
 
             NavigationService.apiCall($scope.json.json.apiCall.url, formData, function (data) {
@@ -2145,6 +2147,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
             };
         }
+
         if ($scope.type.type == "box") {
 
             if (!_.isArray($scope.formData[$scope.type.tableRef]) && $scope.formData[$scope.type.tableRef] === '') {
@@ -2153,7 +2156,6 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             } else {
                 if ($scope.formData[$scope.type.tableRef]) {
                     $scope.model = $scope.formData[$scope.type.tableRef];
-                    console.log("on initialization $scope.model", $scope.model);
                 }
             }
             $scope.search = {
@@ -2163,42 +2165,18 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.state = "";
         $scope.createBox = function (state) {
             $scope.state = state;
-            var emptyObject = {};
-            if (_.isEmpty($scope.model)) {
-                console.log("$scope.model empty block", $scope.model);
-                $scope.model.push({});
-                $scope.editBox("Create", $scope.model[$scope.model.length - 1]);
-            } else {
-                $scope.editBox("Create", {});
-            }
-
-
-            // console.log("$scope.model in createbox before push",$scope.model);
-            // $scope.model.push({});
-            // console.log("$scope.model in createbox after push",$scope.model);
-            // console.log("*********",$scope.model[$scope.model.length - 2],"&",$scope.model[$scope.model.length - 1]);
-            // if($scope.model[$scope.model.length - 1]==$scope.model[$scope.model.length - 2]){
-            //     console.log("in pop");
-            //     $scope.model.pop();
-            // }
-            // console.log("after processing $scope.model",$scope.model);
-            // $scope.editBox("Create", $scope.model[$scope.model.length - 1]);
-            // $scope.editBox("Create", {});
-
-            // $scope.editBox("Create", $scope.model);
+            $scope.model.push({});
+            $scope.editBox("Create", $scope.model[$scope.model.length - 1]);
         };
         $scope.editBox = function (state, data) {
             $scope.state = state;
-
             $scope.data = data;
-            console.log("$scope.data in box controller", $scope.data);
             if (!$scope.formData[$scope.type.tableRef]) {
                 $scope.formData[$scope.type.tableRef] = []
             }
 
-            if (state == 'Create') {
+            if (state == 'Create' && $scope.json.json.pageType=="create") {
                 $scope.formData[$scope.type.tableRef].push(data);
-                console.log("where state is create in box", $scope.formData);
             }
 
             var modalInstance = $uibModal.open({
@@ -2217,8 +2195,155 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             data.splice(index, 1);
         };
 
-        $scope.thirtyMinuteInterval=["00:00","00:30","01:00","01:30","02:00","02:30","03:00","03:30","04:00","04:30","05:00","05:30"]
-        
+
+        if ($scope.type.type == "boxEditable") {
+            
+                        if (!_.isArray($scope.formData[$scope.type.tableRef]) && $scope.formData[$scope.type.tableRef] === '') {
+                            $scope.formData[$scope.type.tableRef] = [];
+                            $scope.model = [];
+                        } else {
+                            if ($scope.formData[$scope.type.tableRef]) {
+                                $scope.model = $scope.formData[$scope.type.tableRef];
+                            }
+                        }
+                        $scope.search = {
+                            text: ""
+                        };
+                    }
+                    $scope.state = "";
+                    $scope.createBoxEditable = function (state) {
+                        $scope.state = state;
+                        $scope.model.push({});
+                        $scope.editBoxEditable("Create", $scope.model[$scope.model.length - 1]);
+                    };
+                    $scope.editBoxEditable = function (state, data) {
+                        console.log("testttttt");
+                        $scope.state = state;
+                        $scope.data = data;
+                        if (!$scope.formData[$scope.type.tableRef]) {
+                            $scope.formData[$scope.type.tableRef] = []
+                        }
+            
+                        if (state == 'Create' && $scope.json.json.pageType=="create") {
+                            $scope.formData[$scope.type.tableRef].push(data);
+                        }
+            
+                        // var modalInstance = $uibModal.open({
+                        //     animation: $scope.animationsEnabled,
+                        //     templateUrl: 'views/modal/modal.html',
+                        //     size: 'lg',
+                        //     scope: $scope
+                        // });
+                        $scope.close = function (value) {
+                            callback(value);
+                            modalInstance.close("cancel");
+                        };
+                    };
+                    $scope.deleteBox = function (index, data) {
+                        console.log(data);
+                        data.splice(index, 1);
+                    };
+            
+            
+        //avi box start
+        // if ($scope.type.type == "box") {
+        //     console.log("inside $scope.type.type == box");
+        //     if (!_.isArray($scope.formData[$scope.type.tableRef]) && $scope.formData[$scope.type.tableRef] === '') {
+        //         console.log("inside if");
+        //         $scope.formData[$scope.type.tableRef] = [];
+        //         $scope.model = [];
+        //     } else {
+        //         if ($scope.formData[$scope.type.tableRef]) {
+        //             // console.log("inside elseif");
+        //             $scope.model = $scope.formData[$scope.type.tableRef];
+        //             console.log("on initialization $scope.model", $scope.model);
+        //         }
+        //     }
+        //     $scope.search = {
+        //         text: ""
+        //     };
+        // }
+        // $scope.state = "";
+        // $scope.createBox = function (state) {
+        //     $scope.state = state;
+        //     var emptyObject = {};
+
+        //     console.log("$scope.model in createbox before push",$scope.model);
+        //     $scope.model.push({});
+        //     console.log("$scope.model in createbox after push",$scope.model);
+        //     console.log("*********",$scope.model[$scope.model.length - 2],"&",$scope.model[$scope.model.length - 1]);
+        //     if($scope.model[$scope.model.length - 1]==$scope.model[$scope.model.length - 2]){
+        //         console.log("in pop");
+        //         $scope.model.pop();
+        //     }
+        //     console.log("after processing $scope.model",$scope.model);
+        //     console.log("$scope.model",$scope.model);
+        //     if (_.isEmpty($scope.model)) {
+        //         console.log("$scope.model empty block", $scope.model);
+        //         $scope.model.push({});
+        //         console.log("$scope.model[$scope.model.length - 1]",$scope.model[$scope.model.length - 1]);
+        //         $scope.editBox("Create", $scope.model[$scope.model.length - 1]);
+        //     } else {
+        //         console.log("$scope.model not empty block", $scope.model);
+        //         $scope.editBox("Create", {});
+        //     }
+
+
+        //     // console.log("$scope.model in createbox before push",$scope.model);
+        //     // $scope.model.push({});
+        //     // console.log("$scope.model in createbox after push",$scope.model);
+        //     // console.log("*********",$scope.model[$scope.model.length - 2],"&",$scope.model[$scope.model.length - 1]);
+        //     // if($scope.model[$scope.model.length - 1]==$scope.model[$scope.model.length - 2]){
+        //     //     console.log("in pop");
+        //     //     $scope.model.pop();
+        //     // }
+        //     // console.log("after processing $scope.model",$scope.model);
+        //     // $scope.editBox("Create", $scope.model[$scope.model.length - 1]);
+        //     // $scope.editBox("Create", {});
+
+        //     // $scope.editBox("Create", $scope.model);
+        // };
+        // $scope.editBox = function (state, data) {
+        //     $scope.state = state;
+
+        //     $scope.data = data;
+        //     console.log("$scope.data in box controller", $scope.data);
+        //     console.log("$scope.formData[$scope.type.tableRef]",$scope.formData[$scope.type.tableRef]);
+        //     if (!$scope.formData[$scope.type.tableRef]) {
+        //         $scope.formData[$scope.type.tableRef] = []
+        //     }
+
+        //     if (state == 'Create') {
+        //         console.log("$scope.formData[$scope.type.tableRef]",$scope.formData[$scope.type.tableRef],"------ data-",data);
+        //         $scope.formData[$scope.type.tableRef].push(data);
+        //         console.log("where state is create in box", $scope.formData[$scope.type.tableRef]);
+        //     }
+
+        //     var modalInstance = $uibModal.open({
+        //         animation: $scope.animationsEnabled,
+        //         templateUrl: 'views/modal/modal.html',
+        //         size: 'lg',
+        //         scope: $scope
+        //     });
+        //     $scope.close = function (value) {
+        //         callback(value);
+        //         modalInstance.close("cancel");
+        //     };
+        // };
+        // $scope.deleteBox = function (index, data) {
+        //     console.log(data);
+        //     data.splice(index, 1);
+        // };
+        //avi box end
+        $scope.clearBoxLastElement = function (data) {
+            console.log(data);
+            console.log("--------", $scope.formData[$scope.type.tableRef]);
+            $scope.formData[$scope.type.tableRef].pop();
+            // data.splice(index, 1);
+        };
+
+        $scope.thirtyMinuteInterval = ["00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30", "04:00", "04:30", "05:00", "05:30"]
+
         //  TAGS STATIC AND FROM TABLE
         $scope.refreshTags = function (search) {
             if ($scope.type.url !== "") {
@@ -2236,16 +2361,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         }
 
         if ($scope.type.type == "tags1") {
-            $scope.type.dropDown=[];
-            for (var i = 0; i < 24; i = i + 1)
-            {
-                if(i<=9){
-                   var value='0'+i;
-                }else{
-                    var value=i;
+            $scope.type.dropDown = [];
+            for (var i = 0; i < 24; i = i + 1) {
+                if (i <= 9) {
+                    var value = '0' + i;
+                } else {
+                    var value = i;
                 }
-              $scope.type.dropDown.push(value + ":00");
-              $scope.type.dropDown.push(value + ":30");
+                $scope.type.dropDown.push(value + ":00");
+                $scope.type.dropDown.push(value + ":30");
             }
             // console.log("xxxxxxxx",$scope.type.dropDown);
             // $scope.thirtyMinuteInterval=["00:00","00:30","01:00","01:30","02:00","02:30","03:00","03:30","04:00","04:30","05:00","05:30","06:00","06:30","07:00"]
@@ -2899,6 +3023,36 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             $(window).scrollTop(0);
         });
+
+    })
+
+    .controller('exposureMerchantCategoryCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("exposureMerchantCategory");
+        $scope.menutitle = NavigationService.makeactive("exposureMerchantCategory");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+            NavigationService.apiCall("ExposureMerchantCategory/search",{}, function (data) {
+                console.log("inside contest ctrl:", data.data.name);
+                $scope.tableData = data.data.results;
+                console.log("inside contest ctrl*****:", data.data);
+            });
+            NavigationService.apiCall("Merchant/search", {}, function (data) {
+                $scope.merchants = data.data.results;
+                console.log("$scope.merchants", $scope.merchants);
+            });
+
+        // $scope.getAllItems = function (month) {
+        //     console.log("in getAllItems", month);
+        //     var month=1;
+        //     NavigationService.apiCall("ExposureMerchantCategory/search", month, function (data) {
+        //         console.log("inside contest ctrl:", data.data.name);
+        //         $scope.tableData = data.data;
+        //         console.log("inside contest ctrl*****:", data.data);
+        //     });
+
+        // };
+
 
     })
 

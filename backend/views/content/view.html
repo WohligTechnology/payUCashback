@@ -65,7 +65,17 @@
                                         <th ng-if="json.json.rowCheckBoxForMerchantExposureCategory==true">Check</th>
                                         <!-- <th>Sr. No.</th> -->
                                         <th ng-repeat="field in json.json.fields">
-                                            {{field.name}}
+                                                <table style="margin-bottom:-8px;" border="0" class="table" ng-if="field.customHeader">
+                                                    <tr align="center" style="border-top: none important;">
+                                                        <td style="width:130px"><b>Type</b></td>
+                                                        <td style="width:120px"><b>Txn. Amount </b></td>
+                                                        <td style="width:70px"><b> % </b></td>
+                                                    </tr>
+                                                </table>
+                                                <span ng-if="!field.customHeader">
+                                                        {{field.name}}
+                                                </span>
+                                            
                                         </th>
                                         <th>Actions</th>
                                     </tr>
@@ -88,7 +98,7 @@
                                             <input type="checkbox" ng-model="myChkModel" ng-change="checkboxMerchantExposureCategoryClick(item._id)">
                                         </td>
                                         <!-- <td>{{($index + 1)+((currentPage-1)*maxRow)}}</td> -->
-                                        <td ng-repeat="field in json.json.fields">
+                                        <td  valign="center" ng-repeat="field in json.json.fields">
                                             <view-field type="field" value="item"></view-field>
                                         </td>
                                         <td>
