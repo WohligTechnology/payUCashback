@@ -222,6 +222,18 @@ myApp.factory('NavigationService', function ($http, $state) {
                         name: "Repay Performance",		
                         classis: "active",		
                         sref: "#!/page/viewPerformanceRepay//"		
+                    },{
+                        name: "Mailer List",
+                        classis: "active",
+                        sref: "#!/page/viewMailerList//"
+                    }, {
+                        name: "Exposure Merchant",
+                        classis: "active",
+                        sref: "#!/page/viewExposureMerchant//"
+                    }, {
+                        name: "Merchant Categories",
+                        classis: "active",
+                        sref: "#!/page/viewExposureMerchantCategory//"
                     }
                     ];
                 } else if ($.jStorage.get("profile").accessLevel == "Cashback") {
@@ -518,8 +530,9 @@ myApp.factory('NavigationService', function ($http, $state) {
         },
         playSelectedExposureMerchantCategoryRule: function (ruleArr, callback) {
             console.log("inside navigationservice playSelectedExposureMerchantCategoryRule", ruleArr);
+            // url: 'http://10.160.80.135:8080/exposure/playRule',
             $http({
-                url: serverUrl + 'merchantExposure',
+                url: serverUrl + 'exposure/playRule',
                 method: 'POST',
                 data: ruleArr,
                 withCredentials: false
