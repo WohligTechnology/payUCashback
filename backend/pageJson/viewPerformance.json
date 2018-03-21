@@ -10,7 +10,8 @@
     "fields": [{
         "name": "Remark",
         "isSort": "",
-        "tableRef": "remark"
+        "tableRef": "remark",
+        "type":"textWithWidth"
     }, {
         "name": "Name",
         "isSort": "",

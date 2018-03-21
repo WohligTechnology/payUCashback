@@ -125,6 +125,12 @@ var schema = new Schema({
     lastUpdatedBy: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    excludeStartDate: {
+        type: Date
+    },
+    excludeEndDate: {
+        type: Date
     }
 });
 

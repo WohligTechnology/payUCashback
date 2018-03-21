@@ -40,9 +40,10 @@
                             <!--<pre>{{data|json}}</pre>-->
                             <div class="row">
                                 <div ng-repeat="field in json.json.fields" ng-if="json.json.pageType == 'create'" >
-                                    <detail-field class="col-md-6"  ng-if="!field.onlyHeading && field.type != 'box'" type="field" form="detailForm" value="item" data="data"></detail-field>
-                                    <div class="col-md-12" ng-if="field.onlyHeading == true  && field.type != 'box'"><h4 style="color:rgb(124, 194, 11)">{{field.name}}</h4></div>
+                                    <detail-field class="col-md-6"  ng-if="!field.onlyHeading && field.type != 'box' && field.type != 'boxEditable'" type="field" form="detailForm" value="item" data="data"></detail-field>
+                                    <div class="col-md-12" ng-if="field.onlyHeading == true  && field.type != 'box' && field.type != 'boxEditable'"><h4 style="color:rgb(124, 194, 11)">{{field.name}}</h4></div>
                                     <detail-field class="col-md-12"  ng-if="field.type == 'box'" type="field" form="detailForm" value="item" data="data"></detail-field>
+                                    <detail-field class="col-md-12"  ng-if="field.type == 'boxEditable'" type="field" form="detailForm" value="item" data="data"></detail-field>
                                 </div>
                                 <div  ng-repeat="field in json.json.fields" ng-if="json.json.pageType == 'edit' && data._id">
                                     <detail-field class="col-md-6" ng-if="!field.onlyHeading && field.type != 'box' && field.type != 'boxEditable'" type="field" form="detailForm" value="item" data="data"></detail-field>

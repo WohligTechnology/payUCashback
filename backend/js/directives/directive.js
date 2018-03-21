@@ -644,6 +644,17 @@ myApp.directive('detailField', function ($http, $filter, JsonService) {
                 }
             }
 
+            $scope.condition.hideExcludeStartDate = function() {
+                if($scope.formData["excludeStartDate"] > $scope.formData["excludeEndDate"]){
+                    $scope.formData["excludeStartDate"]=null; 
+                    // console.log("in else",$scope.formData["firstDate"]," & ",$scope.formData["lastDate"]);
+                    
+                    alert("exclude End Date Should Be Greater Than Start Date");
+                }else{
+                    console.log("in else",$scope.formData["excludeStartDate"]," & ",$scope.formData["excludeEndDate"]);
+                }
+            }
+
             $scope.condition.hideRelativeRransactionStartDate = function() {
                 if($scope.formData["relativeTransactionDate"] > $scope.formData["relativeTransactionEndDate"]){
                     $scope.formData["relativeTransactionDate"]=null; 

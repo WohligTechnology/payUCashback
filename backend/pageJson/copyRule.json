@@ -216,6 +216,27 @@
         "validation": ["required", "trim"],
         "url": ""
     }, {
+        "name": "Exclude Dates",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Exclude Start Date",
+        "type": "date",
+        "tableRef": "excludeStartDate",
+        "placeholder": "Enter Exclude Start Date Date",
+        "id": "excludeStartDate",
+        "validation": ["", "trim"],
+        "url": "",
+        "hideMethod1":"hideExcludeStartDate"
+    }, {
+        "name": "Exclude End Date",
+        "type": "date",
+        "tableRef": "excludeEndDate",
+        "placeholder": "Enter Exclude End Date Date",
+        "id": "excludeEndDate",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
         "name": "Processing Conditions",
         "type": "heading",
         "onlyHeading":true

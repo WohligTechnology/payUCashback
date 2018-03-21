@@ -38,12 +38,22 @@
             <div class="row" style="margin:20px;">
                 <span style="color:green;">Number Of Transacted Users Overall: </span><b>{{playPerformanceResponse.numberOfUniqueUsers}}</b>
             </div>
+
+
+            <div class="row" style="margin:20px;">
+                <span style="color:green;">Number Of New Users: </span><b>{{playPerformanceResponse.numberOfNewUsers}}</b>
+            </div>
+            <div class="row" style="margin:20px;">
+                <span style="color:green;">Number Of Existing Users: </span><b>{{playPerformanceResponse.numberOfExistingUsers}}</b>
+            </div>
+
             <div class="row" style="margin:20px;">
                 <span style="color:green;">Number Of Transactions Overall: </span><b>{{playPerformanceResponse.numberOfTransactionsOverall}}</b>
             </div>
             <div class="row" style="margin:20px;">
                 <span style="color:green;">Total Overall Amount: </span><b>{{playPerformanceResponse.totalAmountOverall}}</b>
             </div>
+
 
 <div  ng-if="playPerformanceResponse.numberOfUniqueUsersOtherMerchants">
 

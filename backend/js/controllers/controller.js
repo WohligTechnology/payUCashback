@@ -999,7 +999,9 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                                 totalUsersInFile: totalUsersInFile,
                                 numberOfUniqueUsers: data.data.numberOfUniqueUsers,
                                 totalAmountOverall: data.data.totalAmountOverall,
-                                numberOfTransactionsOverall: data.data.numberOfTransactionsOverall
+                                numberOfTransactionsOverall: data.data.numberOfTransactionsOverall,
+                                numberOfNewUsers:data.data.numberOfNewUsers,
+                                numberOfExistingUsers:data.data.numberOfExistingUsers
                             }
 
                             if (data.data.numberOfUniqueUsersOtherMerchants) {
@@ -1803,6 +1805,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             }];
             $scope.data.processingStartDate = "";
             $scope.data.processingEndDate = "";
+            $scope.data.excludeStartDate = "";
+            $scope.data.excludeEndDate = "";
             $scope.data.relativeTransactionDate = "";
             $scope.data.relativeTransactionEndDate = "";
         }

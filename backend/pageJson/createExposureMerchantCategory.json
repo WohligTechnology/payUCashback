@@ -37,12 +37,12 @@
         "validation": ["required", "", "trim"]
     }, {
         "name": "Rules",
-        "type": "box",
+        "type": "boxEditable",
         "tableRef": "rules",
         "validation": ["required","trim",""],
         "fields": [{
             "name": "Rule Type",
-            "type": "tags",
+            "type": "tagsOnBox",
             "tableRef": "exposureRuleType",
             "placeholder": "Select Rule Type",
             "id": "exposureRuleType",
@@ -56,7 +56,7 @@
             "onView":true
         }, {
             "name": "Transaction Amount",
-            "type": "number",
+            "type": "numberOnBox",
             "tableRef": "transactionAmount",
             "placeholder": "Enter Transaction Amount",
             "id": "transactionAmount",
@@ -65,7 +65,7 @@
             "onView":true
         }, {
             "name": "Percentage Contribution",
-            "type": "number",
+            "type": "numberOnBox",
             "tableRef": "percentageContribution",
             "placeholder": "Enter Percentage Contribution",
             "id": "percentageContribution",
@@ -74,7 +74,7 @@
             "onView":true
         }, {
             "name": "Mailer List",
-            "type": "tags",
+            "type": "tagsOnBox",
             "tableRef": "mailerList",
             "placeholder": "Select Mailer List",
             "id": "mailerList",
