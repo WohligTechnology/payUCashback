@@ -2425,7 +2425,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             return item;
             };
 
-        $scope.tagClicked = function (select, index) {
+        $scope.tagClickedNew = function (select, index) {
             $scope.refreshTags();            
             console.log("tag clicked");
             if ($scope.type.fieldType === "array") {
@@ -2440,8 +2440,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 }
                 }
         };
-        $scope.tagClickedOld = function (select, index) {
-
+        $scope.tagClicked = function (select, index) {
+            $scope.refreshTags();
             console.log("tag clickedOld");
             if ($scope.type.fieldType === "array") {
                 $scope.formData[$scope.type.tableRef] = [];
