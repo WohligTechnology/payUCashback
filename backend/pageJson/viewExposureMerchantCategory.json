@@ -48,6 +48,16 @@
             "name": "_id",
             "value": "_id"
         }
+    },{
+        "name": "Copy Category",
+        "icon": "fa-copy",
+        "buttonClass": "btn-primary",
+        "type": "page",
+        "action": "copyExposureMerchantCategory",  
+        "roles":["Super Admin","Merchant Exposure"], 
+        "fieldsToSend": {
+            "_id": "_id"
+        }
     }],
     "viewExposureMerchantCategoryButton":{
         "name": "View Merchant",

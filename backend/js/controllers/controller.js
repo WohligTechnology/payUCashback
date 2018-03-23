@@ -2349,12 +2349,49 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.thirtyMinuteInterval = ["00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30", "04:00", "04:30", "05:00", "05:30"]
 
         //  TAGS STATIC AND FROM TABLE
+
+
+        // $scope.abc=function(value){
+        //     var a=true;
+        //     console.log("value",value,$scope.formData[$scope.type.tableRef]);
+        //     _.each($scope.formData[$scope.type.tableRef],function(n){
+        //         if(n.name==value){
+        //             console.log("XXXXXXXXXX")
+        //             a=false;
+        //         }
+        //     });
+        //     return a;
+        // }
         $scope.refreshTags = function (search) {
+            console.log("search",search);
             if ($scope.type.url !== "") {
                 NavigationService.searchCall($scope.type.url, {
                     keyword: search
                 }, 1, function (data1) {
                     $scope.tags[$scope.type.tableRef] = data1.data.results;
+
+                    var result = [];
+                    // console.log("TYPE OF", typeof $scope.formData[$scope.type.tableRef]);
+                    // console.log("HI1", data1.data.results, "HI2", $scope.formData[$scope.type.tableRef])
+                    
+                    if($scope.type.type=="tags" && $scope.type.dropDownType=="multiple"){
+                        console.log("tags multiple");
+
+
+                        var lastResult=[];
+                        _.each($scope.formData[$scope.type.tableRef],function(m,key1){
+                            var temp=_.find(data1.data.results, function(o) { 
+                                 if(o._id==m._id){
+                                     return o;
+                                 }
+                            });
+
+                            if(temp !=undefined){
+                                _.pull(data1.data.results,temp);
+                            }
+                        });
+                    }
+
                 });
             } else {
                 $scope.tags[$scope.type.tableRef] = $scope.type.dropDown;
@@ -2380,8 +2417,32 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             // // $scope.tags[$scope.type.tableRef] = $scope.thirtyMinuteInterval;
             // $scope.type.dropDown=$scope.thirtyMinuteInterval;
         }
+        $scope.tagTransform = function (newTag) {
+            console.log("tagTransfoem",newTag);
+            var item = {
+            name: newTag
+            };
+            return item;
+            };
 
         $scope.tagClicked = function (select, index) {
+            $scope.refreshTags();            
+            console.log("tag clicked");
+            if ($scope.type.fieldType === "array") {
+                $scope.formData[$scope.type.tableRef] = [];
+                _.each(select, function (n) {
+                $scope.formData[$scope.type.tableRef].push(n._id);
+                });
+                } else {
+                $scope.formData[$scope.type.tableRef] = select;
+                if ($scope.tags[$scope.type.tableRef].indexOf(item) < 0) {
+                $scope.tags[$scope.type.tableRef].push(item);
+                }
+                }
+        };
+        $scope.tagClickedOld = function (select, index) {
+
+            console.log("tag clickedOld");
             if ($scope.type.fieldType === "array") {
                 $scope.formData[$scope.type.tableRef] = [];
                 _.each(select, function (n) {
