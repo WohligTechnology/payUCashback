@@ -547,7 +547,7 @@ myApp.factory('NavigationService', function ($http, $state) {
             console.log("inside navigationservice playSelectedExposureMerchantCategoryRule", singleUserExposureObject);
             // url: 'http://10.160.80.135:8080/exposure/playRule',
             $http({
-                url: serverUrl + 'userExposure/playRule',
+                url: serverUrl + 'userexposure/playRule',
                 method: 'POST',
                 data: singleUserExposureObject,
                 withCredentials: false
