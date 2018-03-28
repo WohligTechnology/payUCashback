@@ -3140,6 +3140,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 alert("Lower Bound Risk Score is Mandatory Field");
             }else if(!dataToBeSave.upperBoundRiskScore || dataToBeSave.upperBoundRiskScore==undefined || dataToBeSave.upperBoundRiskScore==""){
                 alert("Upper Bound Risk Score is Mandatory Field");
+            }else if(!dataToBeSave.userType || dataToBeSave.userType==undefined || dataToBeSave.userType==""){
+                alert("User Type is Mandatory Field, Please Select Type Of User!!!");
             }else{
                 NavigationService.apiCall("ExposureUserCategory/save", dataToBeSave, function (data) {
                 console.log("response of save", data);
