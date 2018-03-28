@@ -3131,6 +3131,9 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         
         $scope.saveSingleObject = function (dataToBeSave) {
             console.log("Data inside save data", dataToBeSave);
+            if(dataToBeSave.createdAt){
+                delete dataToBeSave.createdAt;
+            }
             if(!dataToBeSave.name || dataToBeSave.name==undefined || dataToBeSave.name==""){
                 alert("Category Name is Mandatory Field!!!");
             }else if(!dataToBeSave.lowerBoundRiskScore || dataToBeSave.lowerBoundRiskScore==undefined || dataToBeSave.lowerBoundRiskScore==""){
