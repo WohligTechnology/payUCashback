@@ -89,6 +89,10 @@ var schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'MailerList'
     },
+    userType: {
+        type: String,
+        enum: ["NEW", "NON-REPAID", "REPAID"]
+    },
     isDeleted: {
         type: Number,
         default: 0

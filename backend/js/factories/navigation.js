@@ -543,6 +543,21 @@ myApp.factory('NavigationService', function ($http, $state) {
 
             });
         },
+        playExposureUserCategory: function (singleUserExposureObject, callback) {
+            console.log("inside navigationservice playSelectedExposureMerchantCategoryRule", ruleArr);
+            // url: 'http://10.160.80.135:8080/exposure/playRule',
+            $http({
+                url: serverUrl + 'userExposure/playRule',
+                method: 'POST',
+                data: singleUserExposureObject,
+                withCredentials: false
+            }).then(function (data) {
+                console.log("######", data);
+                // data = data.data;
+                callback(data);
+
+            });
+        },
         viewQueryModal: function (ruleObject, callback) {
             console.log("inside navigationservice viewQueryModal", ruleObject);
             $http({

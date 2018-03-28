@@ -26,19 +26,27 @@
                                     <input type="text" ng-model="item.name" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
-                                    <label>Lower Bound Risk Score <span style="color:red">*</span></label>
+                                    <label>Lower R S <span style="color:red">*</span></label>
                                     <input type="number" ng-model="item.lowerBoundRiskScore" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
-                                    <label>Upper Bound Risk Score <span style="color:red">*</span></label>
+                                    <label>Upper R S <span style="color:red">*</span></label>
                                     <input type="number" ng-model="item.upperBoundRiskScore" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-md-4" style="margin-top:24px;">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>User Type <span style="color:red">*</span></label>
+                                    <!-- <select class="form-control" ng-model="item.userType" ng-options="item for item in userTypes" required></select> -->
+                                    <select class="form-control" ng-options="item for item in userTypes" ng-model="item.userType" required>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3" style="margin-top:24px;">
                                 <div class="form-group">
                                     <button ng-disabled='$index.$invalid' class="btn btn-success" type="button" ng-click="saveSingleObject(item)">Save</button>
                                     <button style="display:none;" class="btn btn-info" type="button" ng-click="viewSingleObject(item)">View</button>

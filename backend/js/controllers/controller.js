@@ -3127,7 +3127,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
 
-
+        $scope.userTypes=["NEW", "NON-REPAID", "REPAID"];
+        
         $scope.saveSingleObject = function (dataToBeSave) {
             console.log("Data inside save data", dataToBeSave);
             if(!dataToBeSave.name || dataToBeSave.name==undefined || dataToBeSave.name==""){
@@ -3302,7 +3303,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             }
             singleObject.rules=rules;
             var objectToSend={};
-            objectToSend.category=singleObject;
+            // objectToSend.category=singleObject;
+            objectToSend.category={
+                lowerBoundRiskScore:singleObject.lowerBoundRiskScore,
+                upperBoundRiskScore:singleObject.upperBoundRiskScore,
+                userType:singleObject.userType,
+                rules:singleObject.rules,
+                _id:singleObject._id,
+                name:singleObject.name,
+            };
             console.log("objectToSend",objectToSend);
             NavigationService.playExposureUserCategory(objectToSend, function (data) {
                 console.log("*****", data);
