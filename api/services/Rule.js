@@ -381,8 +381,8 @@ var model = {
         //Stage 8
         aggregatePipeline.push({
             $sort: {
-                validFrom: -1,
-                validTo: -1
+                validTo: -1,
+                validFrom: -1
             }
         });
 

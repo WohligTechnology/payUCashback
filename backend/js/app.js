@@ -90,6 +90,12 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             controller: 'ExcelUploadCtrl'
         })
 
+        .state('userExposure', {
+            url: "/userExposure",
+            templateUrl: "views/template.html",
+            controller: 'userExposureCtrl'
+        })
+
         .state('jagz', {
             url: "/jagz",
             templateUrl: "views/jagz.html",

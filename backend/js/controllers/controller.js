@@ -1000,8 +1000,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                                 numberOfUniqueUsers: data.data.numberOfUniqueUsers,
                                 totalAmountOverall: data.data.totalAmountOverall,
                                 numberOfTransactionsOverall: data.data.numberOfTransactionsOverall,
-                                numberOfNewUsers:data.data.numberOfNewUsers,
-                                numberOfExistingUsers:data.data.numberOfExistingUsers
+                                numberOfNewUsers: data.data.numberOfNewUsers,
+                                numberOfExistingUsers: data.data.numberOfExistingUsers
                             }
 
                             if (data.data.numberOfUniqueUsersOtherMerchants) {
@@ -2179,7 +2179,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 $scope.formData[$scope.type.tableRef] = []
             }
 
-            if (state == 'Create' && $scope.json.json.pageType=="create") {
+            if (state == 'Create' && $scope.json.json.pageType == "create") {
                 $scope.formData[$scope.type.tableRef].push(data);
             }
 
@@ -2201,54 +2201,54 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
 
         if ($scope.type.type == "boxEditable") {
-            
-                        if (!_.isArray($scope.formData[$scope.type.tableRef]) && $scope.formData[$scope.type.tableRef] === '') {
-                            $scope.formData[$scope.type.tableRef] = [];
-                            $scope.model = [];
-                        } else {
-                            if ($scope.formData[$scope.type.tableRef]) {
-                                $scope.model = $scope.formData[$scope.type.tableRef];
-                            }
-                        }
-                        $scope.search = {
-                            text: ""
-                        };
-                    }
-                    $scope.state = "";
-                    $scope.createBoxEditable = function (state) {
-                        $scope.state = state;
-                        $scope.model.push({});
-                        $scope.editBoxEditable("Create", $scope.model[$scope.model.length - 1]);
-                    };
-                    $scope.editBoxEditable = function (state, data) {
-                        console.log("testttttt");
-                        $scope.state = state;
-                        $scope.data = data;
-                        if (!$scope.formData[$scope.type.tableRef]) {
-                            $scope.formData[$scope.type.tableRef] = []
-                        }
-            
-                        if (state == 'Create' && $scope.json.json.pageType=="create") {
-                            $scope.formData[$scope.type.tableRef].push(data);
-                        }
-            
-                        // var modalInstance = $uibModal.open({
-                        //     animation: $scope.animationsEnabled,
-                        //     templateUrl: 'views/modal/modal.html',
-                        //     size: 'lg',
-                        //     scope: $scope
-                        // });
-                        $scope.close = function (value) {
-                            callback(value);
-                            modalInstance.close("cancel");
-                        };
-                    };
-                    $scope.deleteBox = function (index, data) {
-                        console.log(data);
-                        data.splice(index, 1);
-                    };
-            
-            
+
+            if (!_.isArray($scope.formData[$scope.type.tableRef]) && $scope.formData[$scope.type.tableRef] === '') {
+                $scope.formData[$scope.type.tableRef] = [];
+                $scope.model = [];
+            } else {
+                if ($scope.formData[$scope.type.tableRef]) {
+                    $scope.model = $scope.formData[$scope.type.tableRef];
+                }
+            }
+            $scope.search = {
+                text: ""
+            };
+        }
+        $scope.state = "";
+        $scope.createBoxEditable = function (state) {
+            $scope.state = state;
+            $scope.model.push({});
+            $scope.editBoxEditable("Create", $scope.model[$scope.model.length - 1]);
+        };
+        $scope.editBoxEditable = function (state, data) {
+            console.log("testttttt");
+            $scope.state = state;
+            $scope.data = data;
+            if (!$scope.formData[$scope.type.tableRef]) {
+                $scope.formData[$scope.type.tableRef] = []
+            }
+
+            if (state == 'Create' && $scope.json.json.pageType == "create") {
+                $scope.formData[$scope.type.tableRef].push(data);
+            }
+
+            // var modalInstance = $uibModal.open({
+            //     animation: $scope.animationsEnabled,
+            //     templateUrl: 'views/modal/modal.html',
+            //     size: 'lg',
+            //     scope: $scope
+            // });
+            $scope.close = function (value) {
+                callback(value);
+                modalInstance.close("cancel");
+            };
+        };
+        $scope.deleteBox = function (index, data) {
+            console.log(data);
+            data.splice(index, 1);
+        };
+
+
         //avi box start
         // if ($scope.type.type == "box") {
         //     console.log("inside $scope.type.type == box");
@@ -2363,7 +2363,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         //     return a;
         // }
         $scope.refreshTags = function (search) {
-            console.log("search",search);
+            console.log("search", search);
             if ($scope.type.url !== "") {
                 NavigationService.searchCall($scope.type.url, {
                     keyword: search
@@ -2373,21 +2373,21 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     var result = [];
                     // console.log("TYPE OF", typeof $scope.formData[$scope.type.tableRef]);
                     // console.log("HI1", data1.data.results, "HI2", $scope.formData[$scope.type.tableRef])
-                    
-                    if($scope.type.type=="tags" && $scope.type.dropDownType=="multiple"){
+
+                    if ($scope.type.type == "tags" && $scope.type.dropDownType == "multiple") {
                         console.log("tags multiple");
 
 
-                        var lastResult=[];
-                        _.each($scope.formData[$scope.type.tableRef],function(m,key1){
-                            var temp=_.find(data1.data.results, function(o) { 
-                                 if(o._id==m._id){
-                                     return o;
-                                 }
+                        var lastResult = [];
+                        _.each($scope.formData[$scope.type.tableRef], function (m, key1) {
+                            var temp = _.find(data1.data.results, function (o) {
+                                if (o._id == m._id) {
+                                    return o;
+                                }
                             });
 
-                            if(temp !=undefined){
-                                _.pull(data1.data.results,temp);
+                            if (temp != undefined) {
+                                _.pull(data1.data.results, temp);
                             }
                         });
                     }
@@ -2418,27 +2418,27 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             // $scope.type.dropDown=$scope.thirtyMinuteInterval;
         }
         $scope.tagTransform = function (newTag) {
-            console.log("tagTransfoem",newTag);
+            console.log("tagTransfoem", newTag);
             var item = {
-            name: newTag
+                name: newTag
             };
             return item;
-            };
+        };
 
         $scope.tagClickedNew = function (select, index) {
-            $scope.refreshTags();            
+            $scope.refreshTags();
             console.log("tag clicked");
             if ($scope.type.fieldType === "array") {
                 $scope.formData[$scope.type.tableRef] = [];
                 _.each(select, function (n) {
-                $scope.formData[$scope.type.tableRef].push(n._id);
+                    $scope.formData[$scope.type.tableRef].push(n._id);
                 });
-                } else {
+            } else {
                 $scope.formData[$scope.type.tableRef] = select;
                 if ($scope.tags[$scope.type.tableRef].indexOf(item) < 0) {
-                $scope.tags[$scope.type.tableRef].push(item);
+                    $scope.tags[$scope.type.tableRef].push(item);
                 }
-                }
+            }
         };
         $scope.tagClicked = function (select, index) {
             $scope.refreshTags();
@@ -3097,15 +3097,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.menutitle = NavigationService.makeactive("exposureMerchantCategory");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-            NavigationService.apiCall("ExposureMerchantCategory/search",{}, function (data) {
-                console.log("inside contest ctrl:", data.data.name);
-                $scope.tableData = data.data.results;
-                console.log("inside contest ctrl*****:", data.data);
-            });
-            NavigationService.apiCall("Merchant/search", {}, function (data) {
-                $scope.merchants = data.data.results;
-                console.log("$scope.merchants", $scope.merchants);
-            });
+        NavigationService.apiCall("ExposureMerchantCategory/search", {}, function (data) {
+            console.log("inside contest ctrl:", data.data.name);
+            $scope.tableData = data.data.results;
+            console.log("inside contest ctrl*****:", data.data);
+        });
+        NavigationService.apiCall("Merchant/search", {}, function (data) {
+            $scope.merchants = data.data.results;
+            console.log("$scope.merchants", $scope.merchants);
+        });
 
         // $scope.getAllItems = function (month) {
         //     console.log("in getAllItems", month);
@@ -3120,7 +3120,314 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
 
     })
+    .controller('userExposureCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("userExposure");
+        $scope.menutitle = NavigationService.makeactive("userExposure");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
 
+
+        $scope.saveSingleObject = function (dataToBeSave) {
+            console.log("Data inside save data", dataToBeSave);
+            if(!dataToBeSave.name || dataToBeSave.name==undefined || dataToBeSave.name==""){
+                alert("Category Name is Mandatory Field!!!");
+            }else if(!dataToBeSave.lowerBoundRiskScore || dataToBeSave.lowerBoundRiskScore==undefined || dataToBeSave.lowerBoundRiskScore==""){
+                alert("Lower Bound Risk Score is Mandatory Field");
+            }else if(!dataToBeSave.upperBoundRiskScore || dataToBeSave.upperBoundRiskScore==undefined || dataToBeSave.upperBoundRiskScore==""){
+                alert("Upper Bound Risk Score is Mandatory Field");
+            }else{
+                NavigationService.apiCall("ExposureUserCategory/save", dataToBeSave, function (data) {
+                console.log("response of save", data);
+                if (data.value == true) {
+                    toastr.success(dataToBeSave.name +" Edited Successfully!!!", {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "timeOut": "4000",
+                        "extendedTimeOut": "1000",
+                        "tapToDismiss": false
+                    });
+                } else {
+                    toastr.error("Failed To Update Category", {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "timeOut": "2000",
+                        "extendedTimeOut": "1000",
+                        "tapToDismiss": false
+                    });
+                }
+                $state.reload();
+            });
+            }
+            
+        }
+
+        $scope.addSingleObject = function () {
+            console.log("inside addSingleObject");
+            $scope.results.unshift({});
+            // $scope.results.push({});
+        }
+
+        $scope.deleteUserCategory=function(objectToDelete){
+            console.log("inside deleteUserCategory",objectToDelete);
+            NavigationService.apiCall("ExposureUserCategory/deleteWithChangeStatus", objectToDelete, function (data) {
+                console.log("inside deleteUserCategory after response:", data);
+                $state.reload();
+                
+            });
+        }
+
+        $scope.viewSingleObject=function(objectToShow){
+            console.log("inside viewSingleObject->objectToShow",objectToShow);
+
+                $scope.playSelectedFolderNameModal = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'views/modal/viewSingleUserExposureCategory.html',
+                    size: 'md',
+                    scope: $scope
+                });
+
+        }
+
+        $scope.playUserCategory = function (singleObject) {
+            console.log(singleObject);
+            // var objectToBeSend={};
+            var rules = [];
+            console.log("singleObject.oneHourAmount", singleObject.oneHourAmount);
+            oneHourRuleObject = {};
+            if (singleObject.oneHourAmount == "" || singleObject.oneHourAmount == 0 || singleObject.oneHourAmount == null || singleObject.oneHourPercentage == "" || singleObject.oneHourPercentage == 0 || singleObject.oneHourPercentage == null) {
+                console.log("inside if- oneHour");
+            } else {
+                oneHourRuleObject.type="In Last 1 hour";
+                oneHourRuleObject.amount = singleObject.oneHourAmount;
+                oneHourRuleObject.percentage = singleObject.oneHourPercentage;
+                oneHourRuleObject.mailerList = singleObject.oneHourMailerList;
+                // console.log("oneHourRuleObject",oneHourRuleObject);
+                rules.push(oneHourRuleObject);
+            }
+
+            threeHourRuleObject = {};
+            if (singleObject.threeHourAmount == "" || singleObject.threeHourAmount == 0 || singleObject.threeHourAmount == null || singleObject.threeHourPercentage == "" || singleObject.threeHourPercentage == 0 || singleObject.threeHourPercentage == null) {
+                console.log("inside if- threeHour");
+            } else {
+                threeHourRuleObject.type="In Last 3 hours";
+                threeHourRuleObject.amount = singleObject.threeHourAmount;
+                threeHourRuleObject.percentage = singleObject.threeHourPercentage;
+                threeHourRuleObject.mailerList = singleObject.threeHourMailerList;
+                // console.log("threeHourRuleObject",threeHourRuleObject);
+                rules.push(threeHourRuleObject);
+            }
+
+            sixHourRuleObject = {};
+            if (singleObject.sixHourAmount == "" || singleObject.sixHourAmount == 0 || singleObject.sixHourAmount == null || singleObject.sixHourPercentage == "" || singleObject.sixHourPercentage == 0 || singleObject.sixHourPercentage == null) {
+                console.log("inside if- sixHour");
+            } else {
+                sixHourRuleObject.type = "In Last 6 hours";
+                sixHourRuleObject.amount = singleObject.sixHourAmount;
+                sixHourRuleObject.percentage = singleObject.sixHourPercentage;
+                sixHourRuleObject.mailerList = singleObject.sixHourMailerList;
+                // console.log("sixHourRuleObject",sixHourRuleObject);
+                rules.push(sixHourRuleObject);
+            }
+
+            twelveHourRuleObject = {};
+            if (singleObject.twelveHourAmount == "" || singleObject.twelveHourAmount == 0 || singleObject.twelveHourAmount == null || singleObject.twelveHourPercentage == "" || singleObject.twelveHourPercentage == 0 || singleObject.twelveHourPercentage == null) {
+                console.log("inside if- twelveHour");
+            } else {
+                twelveHourRuleObject.type = "In Last 12 hours";
+                twelveHourRuleObject.amount = singleObject.twelveHourAmount;
+                twelveHourRuleObject.percentage = singleObject.twelveHourPercentage;
+                twelveHourRuleObject.mailerList = singleObject.twelveHourMailerList;
+                // console.log("twelveHourRuleObject",twelveHourRuleObject);
+                rules.push(twelveHourRuleObject);
+            }
+            
+            dailyRuleObject = {};
+                if (singleObject.dailyAmount == "" || singleObject.dailyAmount == 0 || singleObject.dailyAmount == null || singleObject.dailyPercentage == "" || singleObject.dailyPercentage == 0 || singleObject.dailyPercentage == null) {
+                    console.log("inside if- daily");
+                } else {
+                    dailyRuleObject.type = "In Last 24 hours";
+                    dailyRuleObject.amount = singleObject.dailyAmount;
+                    dailyRuleObject.percentage = singleObject.dailyPercentage;
+                    dailyRuleObject.mailerList = singleObject.dailyMailerList;
+                    // console.log("dailyRuleObject",dailyRuleObject);
+                    rules.push(dailyRuleObject);
+                }
+            
+
+            weeklyRuleObject = {};
+            if (singleObject.weeklyAmount == "" || singleObject.weeklyAmount == 0 || singleObject.weeklyAmount == null || singleObject.weeklyPercentage == "" || singleObject.weeklyPercentage == 0 || singleObject.weeklyPercentage == null) {
+                console.log("inside if- weekly");
+            } else {
+                weeklyRuleObject.type = "Weekly";
+                weeklyRuleObject.amount = singleObject.weeklyAmount;
+                weeklyRuleObject.percentage = singleObject.weeklyPercentage;
+                weeklyRuleObject.mailerList = singleObject.weeklyMailerList;
+                // console.log("weeklyRuleObject",weeklyRuleObject);
+                rules.push(weeklyRuleObject);
+            }
+
+            cycleWiseRuleObject = {};
+            if (singleObject.cycleWiseAmount == "" || singleObject.cycleWiseAmount == 0 || singleObject.cycleWiseAmount == null || singleObject.cycleWisePercentage == "" || singleObject.cycleWisePercentage == 0 || singleObject.cycleWisePercentage == null) {
+                console.log("inside if- cycleWise");
+            } else {
+                cycleWiseRuleObject.type = "Cycle Wise";
+                cycleWiseRuleObject.amount = singleObject.cycleWiseAmount;
+                cycleWiseRuleObject.percentage = singleObject.cycleWisePercentage;
+                cycleWiseRuleObject.mailerList = singleObject.cycleWiseMailerList;
+                // console.log("cycleWiseRuleObject",cycleWiseRuleObject);
+                rules.push(cycleWiseRuleObject);
+            }
+
+            monthlyRuleObject = {};
+            if (singleObject.monthlyAmount == "" || singleObject.monthlyAmount == 0 || singleObject.monthlyAmount == null || singleObject.monthlyPercentage == "" || singleObject.monthlyPercentage == 0 || singleObject.monthlyPercentage == null) {
+                console.log("inside if- monthly");
+            } else {
+                monthlyRuleObject.type = "Monthly";
+                monthlyRuleObject.amount = singleObject.monthlyAmount;
+                monthlyRuleObject.percentage = singleObject.monthlyPercentage;
+                monthlyRuleObject.mailerList = singleObject.monthlyMailerList;
+                // console.log("monthlyRuleObject",monthlyRuleObject);
+                rules.push(monthlyRuleObject);
+            }
+            singleObject.rules=rules;
+            var objectToSend={};
+            objectToSend.category=singleObject;
+            console.log("objectToSend",objectToSend);
+            NavigationService.playExposureUserCategory(objectToSend, function (data) {
+                console.log("*****", data);
+                if (data.data.status == true) {
+                    toastr.success(data.data.message, {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "timeOut": "3000",
+                        "extendedTimeOut": "1000",
+                        "tapToDismiss": false
+                    });
+                } else {
+                    toastr.error("Failed To Play Rule ! Try Again !!!", {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "timeOut": "3000",
+                        "extendedTimeOut": "1000",
+                        "tapToDismiss": false
+                    });
+                }
+
+            })
+            // console.log("singleObject after pushing rule", singleObject);
+
+        }
+
+        $scope.getAllItemsOld=function(){
+
+            NavigationService.apiCall("ExposureUserCategory/search", {}, function (data) {
+                console.log("inside ExposureUserCategory ctrl:", data.data);
+                $scope.results = data.data.results;
+                $scope.data = data.data;
+                $scope.totalItems = data.data.total;
+                $scope.maxRow = data.data.options.count;
+                console.log("inside contest ctrl*****:", data.data);
+            });
+
+        }
+
+        NavigationService.apiCall("MailerList/search", {}, function (data) {
+            console.log("inside ExposureUserCategory ctrl:", data.data);
+            $scope.mailerList = data.data.results;
+            $scope.data = data.data;
+            console.log("inside contest ctrl*****:", data.data);
+        });
+
+        //pagination start
+        var formdata = {};
+        // formdata.user = userId;
+        var i = 0;
+        if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
+            $scope.currentPage = $stateParams.page;
+        } else {
+            $scope.currentPage = 1;
+        }
+
+        $scope.search = {
+            keyword: ""
+        };
+        if ($stateParams.keyword) {
+            $scope.search.keyword = $stateParams.keyword;
+        }
+        $scope.changePage = function (page) {
+            var goTo = "userExposure";
+            $scope.currentPage = page;
+            if ($scope.search.keyword) {
+                goTo = "userExposure";
+            }
+            $state.go(goTo, {
+                page: page
+            });
+            $scope.getAllItems();
+        };
+        $scope.getAllItems = function (keywordChange, count) {
+            if (keywordChange != undefined && keywordChange != true) {
+                $scope.maxCount = keywordChange;
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("ExposureUserCategory/search", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        if (ini == i) {
+                            $scope.results = data.data.results;
+                            console.log("$scope.productData***", $scope.results);
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            } else {
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("ExposureUserCategory/search", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        if (ini == i) {
+                            $scope.results = data.data.results;
+                           
+                            console.log("final data in else", $scope.results);
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            }
+
+        };
+        //pagination end
+
+        $scope.getAllItems();
+    })
     .controller('languageCtrl', function ($scope, TemplateService, $translate, $rootScope) {
 
         $scope.changeLanguage = function () {
