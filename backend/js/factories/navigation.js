@@ -544,7 +544,7 @@ myApp.factory('NavigationService', function ($http, $state) {
             });
         },
         playExposureUserCategory: function (singleUserExposureObject, callback) {
-            console.log("inside navigationservice playSelectedExposureMerchantCategoryRule", ruleArr);
+            console.log("inside navigationservice playSelectedExposureMerchantCategoryRule", singleUserExposureObject);
             // url: 'http://10.160.80.135:8080/exposure/playRule',
             $http({
                 url: serverUrl + 'userExposure/playRule',
