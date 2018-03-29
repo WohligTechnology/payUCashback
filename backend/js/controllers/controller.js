@@ -3152,12 +3152,12 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 // if(dataToBeSave.threeHourMailerList==null || dataToBeSave.threeHourMailerList=="" || dataToBeSave.threeHourMailerList==undefined){
                     alert("Please Select Mailer List For 'In Last 3 hour'  Rule of Category "+dataToBeSave.name);
                 // }
-            }else if((dataToBeSave.sixHourAmount >= 0 || dataToBeSave.sixHourPercentage >= 0) && dataToBeSave.sixHourMailerList==null || dataToBeSave.sixHourMailerList=="" || dataToBeSave.sixHourMailerList==undefined){
+            }else if((dataToBeSave.sixHourAmount >= 0 || dataToBeSave.sixHourPercentage >= 0) && (dataToBeSave.sixHourMailerList==null || dataToBeSave.sixHourMailerList=="" || dataToBeSave.sixHourMailerList==undefined)){
                 // console.log("6");
                 // if(dataToBeSave.sixHourMailerList==null || dataToBeSave.sixHourMailerList=="" || dataToBeSave.sixHourMailerList==undefined){
                     alert("Please Select Mailer List For 'In Last 6 hour'  Rule of Category "+dataToBeSave.name);
                 // }
-            }else if((dataToBeSave.twelveHourAmount >= 0 || dataToBeSave.twelveHourPercentage >= 0) && dataToBeSave.twelveHourMailerList==null || dataToBeSave.twelveHourMailerList=="" || dataToBeSave.twelveHourMailerList==undefined){
+            }else if((dataToBeSave.twelveHourAmount >= 0 || dataToBeSave.twelveHourPercentage >= 0) && (dataToBeSave.twelveHourMailerList==null || dataToBeSave.twelveHourMailerList=="" || dataToBeSave.twelveHourMailerList==undefined)){
                 // console.log("12");
                 // if(dataToBeSave.twelveHourMailerList==null || dataToBeSave.twelveHourMailerList=="" || dataToBeSave.twelveHourMailerList==undefined){
                     alert("Please Select Mailer List For 'In Last 12 hour'  Rule of Category "+dataToBeSave.name);
