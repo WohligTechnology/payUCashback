@@ -3159,45 +3159,35 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 alert("Upper Bound Risk Score is Mandatory Field");
             }else if(!dataToBeSave.userType || dataToBeSave.userType==undefined || dataToBeSave.userType==""){
                 alert("User Type is Mandatory Field, Please Select Type Of User!!!");
-            }else if((dataToBeSave.oneHourAmount >= 0 || dataToBeSave.oneHourPercentage >= 0) && (dataToBeSave.oneHourMailerList==null || dataToBeSave.oneHourMailerList=="" || dataToBeSave.oneHourMailerList==undefined)){
-                // console.log("1");
-                // if(dataToBeSave.oneHourMailerList==null || dataToBeSave.oneHourMailerList=="" || dataToBeSave.oneHourMailerList==undefined){
+            }else if(((dataToBeSave.oneHourAmount >= 0 && dataToBeSave.oneHourAmount != null) || (dataToBeSave.oneHourPercentage >= 0 && dataToBeSave.oneHourPercentage != null)) && (dataToBeSave.oneHourMailerList==null || dataToBeSave.oneHourMailerList=="" || dataToBeSave.oneHourMailerList==undefined)){
                     alert("Please Select Mailer List For 'In Last 1 hour'  Rule of Category "+dataToBeSave.name);
+            // }else if((dataToBeSave.threeHourAmount >= 0 || dataToBeSave.threeHourPercentage >= 0 || dataToBeSave.threeHourAmount != null || dataToBeSave.threeHourPercentage != null) && (dataToBeSave.threeHourMailerList==null || dataToBeSave.threeHourMailerList=="" || dataToBeSave.threeHourMailerList==undefined)){
+            }else if(((dataToBeSave.threeHourAmount >= 0 && dataToBeSave.threeHourAmount != null) || (dataToBeSave.threeHourPercentage >= 0 && dataToBeSave.threeHourPercentage != null)) && (dataToBeSave.threeHourMailerList==null || dataToBeSave.threeHourMailerList=="" || dataToBeSave.threeHourMailerList==undefined)){
+                alert("Please Select Mailer List For 'In Last 3 hour'  Rule of Category "+dataToBeSave.name);
                 // }
-            }else if((dataToBeSave.threeHourAmount >= 0 || dataToBeSave.threeHourPercentage >= 0) && (dataToBeSave.threeHourMailerList==null || dataToBeSave.threeHourMailerList=="" || dataToBeSave.threeHourMailerList==undefined)){
-                // console.log("3");
-                // if(dataToBeSave.threeHourMailerList==null || dataToBeSave.threeHourMailerList=="" || dataToBeSave.threeHourMailerList==undefined){
-                    alert("Please Select Mailer List For 'In Last 3 hour'  Rule of Category "+dataToBeSave.name);
+            // }else if((dataToBeSave.sixHourAmount >= 0 || dataToBeSave.sixHourPercentage >= 0) && (dataToBeSave.sixHourMailerList==null || dataToBeSave.sixHourMailerList=="" || dataToBeSave.sixHourMailerList==undefined)){
+            }else if(((dataToBeSave.sixHourAmount >= 0 && dataToBeSave.sixHourAmount != null) || (dataToBeSave.sixHourPercentage >= 0 && dataToBeSave.sixHourPercentage != null)) && (dataToBeSave.sixHourMailerList==null || dataToBeSave.sixHourMailerList=="" || dataToBeSave.sixHourMailerList==undefined)){
+                alert("Please Select Mailer List For 'In Last 6 hour'  Rule of Category "+dataToBeSave.name);
                 // }
-            }else if((dataToBeSave.sixHourAmount >= 0 || dataToBeSave.sixHourPercentage >= 0) && (dataToBeSave.sixHourMailerList==null || dataToBeSave.sixHourMailerList=="" || dataToBeSave.sixHourMailerList==undefined)){
-                // console.log("6");
-                // if(dataToBeSave.sixHourMailerList==null || dataToBeSave.sixHourMailerList=="" || dataToBeSave.sixHourMailerList==undefined){
-                    alert("Please Select Mailer List For 'In Last 6 hour'  Rule of Category "+dataToBeSave.name);
+            // }else if((dataToBeSave.twelveHourAmount >= 0 || dataToBeSave.twelveHourPercentage >= 0) && (dataToBeSave.twelveHourMailerList==null || dataToBeSave.twelveHourMailerList=="" || dataToBeSave.twelveHourMailerList==undefined)){
+            }else if(((dataToBeSave.twelveHourAmount >= 0 && dataToBeSave.twelveHourAmount != null) || (dataToBeSave.twelveHourPercentage >= 0 && dataToBeSave.twelveHourPercentage != null)) && (dataToBeSave.twelveHourMailerList==null || dataToBeSave.twelveHourMailerList=="" || dataToBeSave.twelveHourMailerList==undefined)){
+                alert("Please Select Mailer List For 'In Last 12 hour'  Rule of Category "+dataToBeSave.name);
                 // }
-            }else if((dataToBeSave.twelveHourAmount >= 0 || dataToBeSave.twelveHourPercentage >= 0) && (dataToBeSave.twelveHourMailerList==null || dataToBeSave.twelveHourMailerList=="" || dataToBeSave.twelveHourMailerList==undefined)){
-                // console.log("12");
-                // if(dataToBeSave.twelveHourMailerList==null || dataToBeSave.twelveHourMailerList=="" || dataToBeSave.twelveHourMailerList==undefined){
-                    alert("Please Select Mailer List For 'In Last 12 hour'  Rule of Category "+dataToBeSave.name);
+            // }else if((dataToBeSave.dailyAmount >= 0 || dataToBeSave.dailyPercentage >= 0) && (dataToBeSave.dailyMailerList==null || dataToBeSave.dailyMailerList=="" || dataToBeSave.dailyMailerList==undefined)){
+            }else if(((dataToBeSave.dailyAmount >= 0 && dataToBeSave.dailyAmount != null) || (dataToBeSave.dailyPercentage >= 0 && dataToBeSave.dailyPercentage != null)) && (dataToBeSave.dailyMailerList==null || dataToBeSave.dailyMailerList=="" || dataToBeSave.dailyMailerList==undefined)){
+                alert("Please Select Mailer List For 'In Last 24 hour'  Rule of Category "+dataToBeSave.name);
                 // }
-            }else if((dataToBeSave.dailyAmount >= 0 || dataToBeSave.dailyPercentage >= 0) && (dataToBeSave.dailyMailerList==null || dataToBeSave.dailyMailerList=="" || dataToBeSave.dailyMailerList==undefined)){
-                // console.log("24");
-                // if(dataToBeSave.dailyMailerList==null || dataToBeSave.dailyMailerList=="" || dataToBeSave.dailyMailerList==undefined){
-                    alert("Please Select Mailer List For 'In Last 24 hour'  Rule of Category "+dataToBeSave.name);
+            // }else if((dataToBeSave.weeklyAmount >= 0 || dataToBeSave.weeklyPercentage >= 0) && (dataToBeSave.weeklyMailerList==null || dataToBeSave.weeklyMailerList=="" || dataToBeSave.weeklyMailerList==undefined)){
+            }else if(((dataToBeSave.weeklyAmount >= 0 && dataToBeSave.weeklyAmount != null) || (dataToBeSave.weeklyPercentage >= 0 && dataToBeSave.weeklyPercentage != null)) && (dataToBeSave.weeklyMailerList==null || dataToBeSave.weeklyMailerList=="" || dataToBeSave.weeklyMailerList==undefined)){
+                alert("Please Select Mailer List For 'In Last week'  Rule of Category "+dataToBeSave.name);
                 // }
-            }else if((dataToBeSave.weeklyAmount >= 0 || dataToBeSave.weeklyPercentage >= 0) && (dataToBeSave.weeklyMailerList==null || dataToBeSave.weeklyMailerList=="" || dataToBeSave.weeklyMailerList==undefined)){
-                // console.log("weekly");
-                // if(dataToBeSave.weeklyMailerList==null || dataToBeSave.weeklyMailerList=="" || dataToBeSave.weeklyMailerList==undefined){
-                    alert("Please Select Mailer List For 'In Last week'  Rule of Category "+dataToBeSave.name);
+            // }else if((dataToBeSave.cycleWiseAmount >= 0 || dataToBeSave.cycleWisePercentage >= 0) && (dataToBeSave.cycleWiseMailerList==null || dataToBeSave.cycleWiseMailerList=="" || dataToBeSave.cycleWiseMailerList==undefined)){
+            }else if(((dataToBeSave.cycleWiseAmount >= 0 && dataToBeSave.cycleWiseAmount != null) || (dataToBeSave.cycleWisePercentage >= 0 && dataToBeSave.cycleWisePercentage != null)) && (dataToBeSave.cycleWiseMailerList==null || dataToBeSave.cycleWiseMailerList=="" || dataToBeSave.cycleWiseMailerList==undefined)){
+                alert("Please Select Mailer List For 'In Last 15 Days'  Rule of Category "+dataToBeSave.name);
                 // }
-            }else if((dataToBeSave.cycleWiseAmount >= 0 || dataToBeSave.cycleWisePercentage >= 0) && (dataToBeSave.cycleWiseMailerList==null || dataToBeSave.cycleWiseMailerList=="" || dataToBeSave.cycleWiseMailerList==undefined)){
-                // console.log("cycle");
-                // if(dataToBeSave.cycleWiseMailerList==null || dataToBeSave.cycleWiseMailerList=="" || dataToBeSave.cycleWiseMailerList==undefined){
-                    alert("Please Select Mailer List For 'In Last 15 Days'  Rule of Category "+dataToBeSave.name);
-                // }
-            }else if((dataToBeSave.monthlyAmount >= 0 || dataToBeSave.monthlyPercentage >= 0) && (dataToBeSave.monthlyMailerList==null || dataToBeSave.monthlyMailerList=="" || dataToBeSave.monthlyMailerList==undefined)){
-                // console.log("monthly");
-                // if(dataToBeSave.monthlyMailerList==null || dataToBeSave.monthlyMailerList=="" || dataToBeSave.monthlyMailerList==undefined){
-                    alert("Please Select Mailer List For 'In Last Month'  Rule of Category "+dataToBeSave.name);
+            // }else if((dataToBeSave.monthlyAmount >= 0 || dataToBeSave.monthlyPercentage >= 0) && (dataToBeSave.monthlyMailerList==null || dataToBeSave.monthlyMailerList=="" || dataToBeSave.monthlyMailerList==undefined)){
+            }else if(((dataToBeSave.monthlyAmount >= 0 && dataToBeSave.monthlyAmount != null) || (dataToBeSave.monthlyPercentage >= 0 && dataToBeSave.monthlyPercentage != null)) && (dataToBeSave.monthlyMailerList==null || dataToBeSave.monthlyMailerList=="" || dataToBeSave.monthlyMailerList==undefined)){
+                alert("Please Select Mailer List For 'In Last Month'  Rule of Category "+dataToBeSave.name);
                 // }
             }else{
 
