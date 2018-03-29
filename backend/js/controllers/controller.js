@@ -3085,6 +3085,23 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             // $state.go("dashboard");
             $state.go("login");
         }
+        $scope.hasRole = function (roles) {
+            // console.log("roles",roles);
+            if (roles) {
+                if ($.jStorage.get("profile")) {
+                    var accessLevel = $.jStorage.get("profile").accessLevel;
+                    if (roles.includes(accessLevel)) {
+                        // console.log("you have access");
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+            } else {
+                return true;
+            }
+        }
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             $(window).scrollTop(0);
         });

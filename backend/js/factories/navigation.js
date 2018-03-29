@@ -195,10 +195,6 @@ myApp.factory('NavigationService', function ($http, $state) {
                 if ($.jStorage.get("profile").accessLevel == "Super Admin") {
                     console.log("inside super admin navigation block");
                     var navigation = [{
-                        name: "User",
-                        classis: "active",
-                        sref: "#!/page/viewUser//"
-                    }, {
                         name: "Cashback Merchant",
                         classis: "active",
                         sref: "#!/page/viewMerchant//"
