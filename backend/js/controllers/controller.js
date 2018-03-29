@@ -3142,38 +3142,79 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 alert("Upper Bound Risk Score is Mandatory Field");
             }else if(!dataToBeSave.userType || dataToBeSave.userType==undefined || dataToBeSave.userType==""){
                 alert("User Type is Mandatory Field, Please Select Type Of User!!!");
+            }else if((dataToBeSave.oneHourAmount >= 0 || dataToBeSave.oneHourPercentage >= 0) && (dataToBeSave.oneHourMailerList==null || dataToBeSave.oneHourMailerList=="" || dataToBeSave.oneHourMailerList==undefined)){
+                // console.log("1");
+                // if(dataToBeSave.oneHourMailerList==null || dataToBeSave.oneHourMailerList=="" || dataToBeSave.oneHourMailerList==undefined){
+                    alert("Please Select Mailer List For 'In Last 1 hour'  Rule of Category "+dataToBeSave.name);
+                // }
+            }else if((dataToBeSave.threeHourAmount >= 0 || dataToBeSave.threeHourPercentage >= 0) && (dataToBeSave.threeHourMailerList==null || dataToBeSave.threeHourMailerList=="" || dataToBeSave.threeHourMailerList==undefined)){
+                // console.log("3");
+                // if(dataToBeSave.threeHourMailerList==null || dataToBeSave.threeHourMailerList=="" || dataToBeSave.threeHourMailerList==undefined){
+                    alert("Please Select Mailer List For 'In Last 3 hour'  Rule of Category "+dataToBeSave.name);
+                // }
+            }else if((dataToBeSave.sixHourAmount >= 0 || dataToBeSave.sixHourPercentage >= 0) && dataToBeSave.sixHourMailerList==null || dataToBeSave.sixHourMailerList=="" || dataToBeSave.sixHourMailerList==undefined){
+                // console.log("6");
+                // if(dataToBeSave.sixHourMailerList==null || dataToBeSave.sixHourMailerList=="" || dataToBeSave.sixHourMailerList==undefined){
+                    alert("Please Select Mailer List For 'In Last 6 hour'  Rule of Category "+dataToBeSave.name);
+                // }
+            }else if((dataToBeSave.twelveHourAmount >= 0 || dataToBeSave.twelveHourPercentage >= 0) && dataToBeSave.twelveHourMailerList==null || dataToBeSave.twelveHourMailerList=="" || dataToBeSave.twelveHourMailerList==undefined){
+                // console.log("12");
+                // if(dataToBeSave.twelveHourMailerList==null || dataToBeSave.twelveHourMailerList=="" || dataToBeSave.twelveHourMailerList==undefined){
+                    alert("Please Select Mailer List For 'In Last 12 hour'  Rule of Category "+dataToBeSave.name);
+                // }
+            }else if((dataToBeSave.dailyAmount >= 0 || dataToBeSave.dailyPercentage >= 0) && (dataToBeSave.dailyMailerList==null || dataToBeSave.dailyMailerList=="" || dataToBeSave.dailyMailerList==undefined)){
+                // console.log("24");
+                // if(dataToBeSave.dailyMailerList==null || dataToBeSave.dailyMailerList=="" || dataToBeSave.dailyMailerList==undefined){
+                    alert("Please Select Mailer List For 'In Last 24 hour'  Rule of Category "+dataToBeSave.name);
+                // }
+            }else if((dataToBeSave.weeklyAmount >= 0 || dataToBeSave.weeklyPercentage >= 0) && (dataToBeSave.weeklyMailerList==null || dataToBeSave.weeklyMailerList=="" || dataToBeSave.weeklyMailerList==undefined)){
+                // console.log("weekly");
+                // if(dataToBeSave.weeklyMailerList==null || dataToBeSave.weeklyMailerList=="" || dataToBeSave.weeklyMailerList==undefined){
+                    alert("Please Select Mailer List For 'In Last week'  Rule of Category "+dataToBeSave.name);
+                // }
+            }else if((dataToBeSave.cycleWiseAmount >= 0 || dataToBeSave.cycleWisePercentage >= 0) && (dataToBeSave.cycleWiseMailerList==null || dataToBeSave.cycleWiseMailerList=="" || dataToBeSave.cycleWiseMailerList==undefined)){
+                // console.log("cycle");
+                // if(dataToBeSave.cycleWiseMailerList==null || dataToBeSave.cycleWiseMailerList=="" || dataToBeSave.cycleWiseMailerList==undefined){
+                    alert("Please Select Mailer List For 'In Last 15 Days'  Rule of Category "+dataToBeSave.name);
+                // }
+            }else if((dataToBeSave.monthlyAmount >= 0 || dataToBeSave.monthlyPercentage >= 0) && (dataToBeSave.monthlyMailerList==null || dataToBeSave.monthlyMailerList=="" || dataToBeSave.monthlyMailerList==undefined)){
+                // console.log("monthly");
+                // if(dataToBeSave.monthlyMailerList==null || dataToBeSave.monthlyMailerList=="" || dataToBeSave.monthlyMailerList==undefined){
+                    alert("Please Select Mailer List For 'In Last Month'  Rule of Category "+dataToBeSave.name);
+                // }
             }else{
+
                 NavigationService.apiCall("ExposureUserCategory/save", dataToBeSave, function (data) {
-                console.log("response of save", data);
-                if (data.value == true) {
-                    toastr.success(dataToBeSave.name +" Edited Successfully!!!", {
-                        "closeButton": true,
-                        "debug": false,
-                        "newestOnTop": false,
-                        "progressBar": true,
-                        "positionClass": "toast-top-center",
-                        "preventDuplicates": false,
-                        "onclick": null,
-                        "timeOut": "4000",
-                        "extendedTimeOut": "1000",
-                        "tapToDismiss": false
-                    });
-                } else {
-                    toastr.error("Failed To Update Category", {
-                        "closeButton": true,
-                        "debug": false,
-                        "newestOnTop": false,
-                        "progressBar": true,
-                        "positionClass": "toast-top-center",
-                        "preventDuplicates": false,
-                        "onclick": null,
-                        "timeOut": "2000",
-                        "extendedTimeOut": "1000",
-                        "tapToDismiss": false
-                    });
-                }
-                $state.reload();
-            });
+                    console.log("response of save", data);
+                    if (data.value == true) {
+                        toastr.success(dataToBeSave.name +" Edited Successfully!!!", {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "4000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    } else {
+                        toastr.error("Failed To Update Category", {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "2000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    }
+                    $state.reload();
+                });
             }
             
         }
@@ -3211,9 +3252,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             var rules = [];
             console.log("singleObject.oneHourAmount", singleObject.oneHourAmount);
             oneHourRuleObject = {};
-            if (singleObject.oneHourAmount == "" || singleObject.oneHourAmount == 0 || singleObject.oneHourAmount == null || singleObject.oneHourPercentage == "" || singleObject.oneHourPercentage == 0 || singleObject.oneHourPercentage == null) {
+            if ((singleObject.oneHourAmount == "" || singleObject.oneHourAmount == 0 || singleObject.oneHourAmount == null) && (singleObject.oneHourPercentage == "" || singleObject.oneHourPercentage == 0 || singleObject.oneHourPercentage == null)) {
                 console.log("inside if- oneHour");
             } else {
+                if(singleObject.oneHourAmount==undefined){
+                    singleObject.oneHourAmount=null;
+                }
+                if(singleObject.oneHourPercentage==undefined){
+                    singleObject.oneHourPercentage=null;
+                }
                 oneHourRuleObject.type="In Last 1 hour";
                 oneHourRuleObject.amount = singleObject.oneHourAmount;
                 oneHourRuleObject.percentage = singleObject.oneHourPercentage;
@@ -3223,9 +3270,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             }
 
             threeHourRuleObject = {};
-            if (singleObject.threeHourAmount == "" || singleObject.threeHourAmount == 0 || singleObject.threeHourAmount == null || singleObject.threeHourPercentage == "" || singleObject.threeHourPercentage == 0 || singleObject.threeHourPercentage == null) {
+            if ((singleObject.threeHourAmount == "" || singleObject.threeHourAmount == 0 || singleObject.threeHourAmount == null) && (singleObject.threeHourPercentage == "" || singleObject.threeHourPercentage == 0 || singleObject.threeHourPercentage == null)) {
                 console.log("inside if- threeHour");
             } else {
+                if(singleObject.threeHourAmount==undefined){
+                    singleObject.threeHourAmount=null;
+                }
+                if(singleObject.threeHourPercentage==undefined){
+                    singleObject.threeHourPercentage=null;
+                }
                 threeHourRuleObject.type="In Last 3 hours";
                 threeHourRuleObject.amount = singleObject.threeHourAmount;
                 threeHourRuleObject.percentage = singleObject.threeHourPercentage;
@@ -3235,9 +3288,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             }
 
             sixHourRuleObject = {};
-            if (singleObject.sixHourAmount == "" || singleObject.sixHourAmount == 0 || singleObject.sixHourAmount == null || singleObject.sixHourPercentage == "" || singleObject.sixHourPercentage == 0 || singleObject.sixHourPercentage == null) {
+            if ((singleObject.sixHourAmount == "" || singleObject.sixHourAmount == 0 || singleObject.sixHourAmount == null) && (singleObject.sixHourPercentage == "" || singleObject.sixHourPercentage == 0 || singleObject.sixHourPercentage == null)) {
                 console.log("inside if- sixHour");
             } else {
+                if(singleObject.sixHourAmount==undefined){
+                    singleObject.sixHourAmount=null;
+                }
+                if(singleObject.sixHourPercentage==undefined){
+                    singleObject.sixHourPercentage=null;
+                }
                 sixHourRuleObject.type = "In Last 6 hours";
                 sixHourRuleObject.amount = singleObject.sixHourAmount;
                 sixHourRuleObject.percentage = singleObject.sixHourPercentage;
@@ -3247,9 +3306,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             }
 
             twelveHourRuleObject = {};
-            if (singleObject.twelveHourAmount == "" || singleObject.twelveHourAmount == 0 || singleObject.twelveHourAmount == null || singleObject.twelveHourPercentage == "" || singleObject.twelveHourPercentage == 0 || singleObject.twelveHourPercentage == null) {
+            if ((singleObject.twelveHourAmount == "" || singleObject.twelveHourAmount == 0 || singleObject.twelveHourAmount == null) && (singleObject.twelveHourPercentage == "" || singleObject.twelveHourPercentage == 0 || singleObject.twelveHourPercentage == null)) {
                 console.log("inside if- twelveHour");
             } else {
+                if(singleObject.twelveHourAmount==undefined){
+                    singleObject.twelveHourAmount=null;
+                }
+                if(singleObject.twelveHourPercentage==undefined){
+                    singleObject.twelveHourPercentage=null;
+                }
                 twelveHourRuleObject.type = "In Last 12 hours";
                 twelveHourRuleObject.amount = singleObject.twelveHourAmount;
                 twelveHourRuleObject.percentage = singleObject.twelveHourPercentage;
@@ -3259,9 +3324,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             }
             
             dailyRuleObject = {};
-                if (singleObject.dailyAmount == "" || singleObject.dailyAmount == 0 || singleObject.dailyAmount == null || singleObject.dailyPercentage == "" || singleObject.dailyPercentage == 0 || singleObject.dailyPercentage == null) {
+                if ((singleObject.dailyAmount == "" || singleObject.dailyAmount == 0 || singleObject.dailyAmount == null) && (singleObject.dailyPercentage == "" || singleObject.dailyPercentage == 0 || singleObject.dailyPercentage == null)) {
                     console.log("inside if- daily");
                 } else {
+                    if(singleObject.dailyAmount==undefined){
+                        singleObject.dailyAmount=null;
+                    }
+                    if(singleObject.dailyPercentage==undefined){
+                        singleObject.dailyPercentage=null;
+                    }
                     dailyRuleObject.type = "In Last 24 hours";
                     dailyRuleObject.amount = singleObject.dailyAmount;
                     dailyRuleObject.percentage = singleObject.dailyPercentage;
@@ -3272,9 +3343,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             
 
             weeklyRuleObject = {};
-            if (singleObject.weeklyAmount == "" || singleObject.weeklyAmount == 0 || singleObject.weeklyAmount == null || singleObject.weeklyPercentage == "" || singleObject.weeklyPercentage == 0 || singleObject.weeklyPercentage == null) {
+            if ((singleObject.weeklyAmount == "" || singleObject.weeklyAmount == 0 || singleObject.weeklyAmount == null) && (singleObject.weeklyPercentage == "" || singleObject.weeklyPercentage == 0 || singleObject.weeklyPercentage == null)) {
                 console.log("inside if- weekly");
             } else {
+                if(singleObject.weeklyAmount==undefined){
+                    singleObject.weeklyAmount=null;
+                }
+                if(singleObject.weeklyPercentage==undefined){
+                    singleObject.weeklyPercentage=null;
+                }
                 weeklyRuleObject.type = "Weekly";
                 weeklyRuleObject.amount = singleObject.weeklyAmount;
                 weeklyRuleObject.percentage = singleObject.weeklyPercentage;
@@ -3284,9 +3361,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             }
 
             cycleWiseRuleObject = {};
-            if (singleObject.cycleWiseAmount == "" || singleObject.cycleWiseAmount == 0 || singleObject.cycleWiseAmount == null || singleObject.cycleWisePercentage == "" || singleObject.cycleWisePercentage == 0 || singleObject.cycleWisePercentage == null) {
+            if ((singleObject.cycleWiseAmount == "" || singleObject.cycleWiseAmount == 0 || singleObject.cycleWiseAmount == null) && (singleObject.cycleWisePercentage == "" || singleObject.cycleWisePercentage == 0 || singleObject.cycleWisePercentage == null)) {
                 console.log("inside if- cycleWise");
             } else {
+                if(singleObject.cycleWiseAmount==undefined){
+                    singleObject.cycleWiseAmount=null;
+                }
+                if(singleObject.cycleWisePercentage==undefined){
+                    singleObject.cycleWisePercentage=null;
+                }
                 cycleWiseRuleObject.type = "Cycle Wise";
                 cycleWiseRuleObject.amount = singleObject.cycleWiseAmount;
                 cycleWiseRuleObject.percentage = singleObject.cycleWisePercentage;
@@ -3296,9 +3379,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             }
 
             monthlyRuleObject = {};
-            if (singleObject.monthlyAmount == "" || singleObject.monthlyAmount == 0 || singleObject.monthlyAmount == null || singleObject.monthlyPercentage == "" || singleObject.monthlyPercentage == 0 || singleObject.monthlyPercentage == null) {
+            if ((singleObject.monthlyAmount == "" || singleObject.monthlyAmount == 0 || singleObject.monthlyAmount == null) && (singleObject.monthlyPercentage == "" || singleObject.monthlyPercentage == 0 || singleObject.monthlyPercentage == null)) {
                 console.log("inside if- monthly");
             } else {
+                if(singleObject.monthlyAmount==undefined){
+                    singleObject.monthlyAmount=null;
+                }
+                if(singleObject.monthlyPercentage==undefined){
+                    singleObject.monthlyPercentage=null;
+                }
                 monthlyRuleObject.type = "Monthly";
                 monthlyRuleObject.amount = singleObject.monthlyAmount;
                 monthlyRuleObject.percentage = singleObject.monthlyPercentage;
@@ -3318,9 +3407,16 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 name:singleObject.name,
             };
             console.log("objectToSend",objectToSend);
+            objectForIsPlay={
+                _id:objectToSend.category._id
+            }
+
+            
+
             NavigationService.playExposureUserCategory(objectToSend, function (data) {
                 console.log("*****", data);
                 if (data.data.status == true) {
+
                     toastr.success(data.data.message, {
                         "closeButton": true,
                         "debug": false,
@@ -3333,6 +3429,219 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                         "extendedTimeOut": "1000",
                         "tapToDismiss": false
                     });
+
+                    NavigationService.apiCall("ExposureUserCategory/playWithChangeStatus", objectForIsPlay, function (data) {
+                        console.log("inside playExposureUserCategory after response:", data);
+                        $state.reload();
+                    });
+
+                } else {
+                    toastr.error("Failed To Play Rule ! Try Again !!!", {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "timeOut": "3000",
+                        "extendedTimeOut": "1000",
+                        "tapToDismiss": false
+                    });
+                }
+
+            })
+            // console.log("singleObject after pushing rule", singleObject);
+
+        }
+        $scope.stopUserCategory = function (singleObject) {
+            console.log(singleObject);
+            // var objectToBeSend={};
+            var rules = [];
+            console.log("singleObject.oneHourAmount", singleObject.oneHourAmount);
+            oneHourRuleObject = {};
+            if ((singleObject.oneHourAmount == "" || singleObject.oneHourAmount == 0 || singleObject.oneHourAmount == null) && (singleObject.oneHourPercentage == "" || singleObject.oneHourPercentage == 0 || singleObject.oneHourPercentage == null)) {
+                console.log("inside if- oneHour");
+            } else {
+                if(singleObject.oneHourAmount==undefined){
+                    singleObject.oneHourAmount=null;
+                }
+                if(singleObject.oneHourPercentage==undefined){
+                    singleObject.oneHourPercentage=null;
+                }
+                oneHourRuleObject.type="In Last 1 hour";
+                oneHourRuleObject.amount = singleObject.oneHourAmount;
+                oneHourRuleObject.percentage = singleObject.oneHourPercentage;
+                oneHourRuleObject.mailerList = singleObject.oneHourMailerList;
+                // console.log("oneHourRuleObject",oneHourRuleObject);
+                rules.push(oneHourRuleObject);
+            }
+
+            threeHourRuleObject = {};
+            if ((singleObject.threeHourAmount == "" || singleObject.threeHourAmount == 0 || singleObject.threeHourAmount == null) && (singleObject.threeHourPercentage == "" || singleObject.threeHourPercentage == 0 || singleObject.threeHourPercentage == null)) {
+                console.log("inside if- threeHour");
+            } else {
+                if(singleObject.threeHourAmount==undefined){
+                    singleObject.threeHourAmount=null;
+                }
+                if(singleObject.threeHourPercentage==undefined){
+                    singleObject.threeHourPercentage=null;
+                }
+                threeHourRuleObject.type="In Last 3 hours";
+                threeHourRuleObject.amount = singleObject.threeHourAmount;
+                threeHourRuleObject.percentage = singleObject.threeHourPercentage;
+                threeHourRuleObject.mailerList = singleObject.threeHourMailerList;
+                // console.log("threeHourRuleObject",threeHourRuleObject);
+                rules.push(threeHourRuleObject);
+            }
+
+            sixHourRuleObject = {};
+            if ((singleObject.sixHourAmount == "" || singleObject.sixHourAmount == 0 || singleObject.sixHourAmount == null) && (singleObject.sixHourPercentage == "" || singleObject.sixHourPercentage == 0 || singleObject.sixHourPercentage == null)) {
+                console.log("inside if- sixHour");
+            } else {
+                if(singleObject.sixHourAmount==undefined){
+                    singleObject.sixHourAmount=null;
+                }
+                if(singleObject.sixHourPercentage==undefined){
+                    singleObject.sixHourPercentage=null;
+                }
+                sixHourRuleObject.type = "In Last 6 hours";
+                sixHourRuleObject.amount = singleObject.sixHourAmount;
+                sixHourRuleObject.percentage = singleObject.sixHourPercentage;
+                sixHourRuleObject.mailerList = singleObject.sixHourMailerList;
+                // console.log("sixHourRuleObject",sixHourRuleObject);
+                rules.push(sixHourRuleObject);
+            }
+
+            twelveHourRuleObject = {};
+            if ((singleObject.twelveHourAmount == "" || singleObject.twelveHourAmount == 0 || singleObject.twelveHourAmount == null) && (singleObject.twelveHourPercentage == "" || singleObject.twelveHourPercentage == 0 || singleObject.twelveHourPercentage == null)) {
+                console.log("inside if- twelveHour");
+            } else {
+                if(singleObject.twelveHourAmount==undefined){
+                    singleObject.twelveHourAmount=null;
+                }
+                if(singleObject.twelveHourPercentage==undefined){
+                    singleObject.twelveHourPercentage=null;
+                }
+                twelveHourRuleObject.type = "In Last 12 hours";
+                twelveHourRuleObject.amount = singleObject.twelveHourAmount;
+                twelveHourRuleObject.percentage = singleObject.twelveHourPercentage;
+                twelveHourRuleObject.mailerList = singleObject.twelveHourMailerList;
+                // console.log("twelveHourRuleObject",twelveHourRuleObject);
+                rules.push(twelveHourRuleObject);
+            }
+            
+            dailyRuleObject = {};
+                if ((singleObject.dailyAmount == "" || singleObject.dailyAmount == 0 || singleObject.dailyAmount == null) && (singleObject.dailyPercentage == "" || singleObject.dailyPercentage == 0 || singleObject.dailyPercentage == null)) {
+                    console.log("inside if- daily");
+                } else {
+                    if(singleObject.dailyAmount==undefined){
+                        singleObject.dailyAmount=null;
+                    }
+                    if(singleObject.dailyPercentage==undefined){
+                        singleObject.dailyPercentage=null;
+                    }
+                    dailyRuleObject.type = "In Last 24 hours";
+                    dailyRuleObject.amount = singleObject.dailyAmount;
+                    dailyRuleObject.percentage = singleObject.dailyPercentage;
+                    dailyRuleObject.mailerList = singleObject.dailyMailerList;
+                    // console.log("dailyRuleObject",dailyRuleObject);
+                    rules.push(dailyRuleObject);
+                }
+            
+
+            weeklyRuleObject = {};
+            if ((singleObject.weeklyAmount == "" || singleObject.weeklyAmount == 0 || singleObject.weeklyAmount == null) && (singleObject.weeklyPercentage == "" || singleObject.weeklyPercentage == 0 || singleObject.weeklyPercentage == null)) {
+                console.log("inside if- weekly");
+            } else {
+                if(singleObject.weeklyAmount==undefined){
+                    singleObject.weeklyAmount=null;
+                }
+                if(singleObject.weeklyPercentage==undefined){
+                    singleObject.weeklyPercentage=null;
+                }
+                weeklyRuleObject.type = "Weekly";
+                weeklyRuleObject.amount = singleObject.weeklyAmount;
+                weeklyRuleObject.percentage = singleObject.weeklyPercentage;
+                weeklyRuleObject.mailerList = singleObject.weeklyMailerList;
+                // console.log("weeklyRuleObject",weeklyRuleObject);
+                rules.push(weeklyRuleObject);
+            }
+
+            cycleWiseRuleObject = {};
+            if ((singleObject.cycleWiseAmount == "" || singleObject.cycleWiseAmount == 0 || singleObject.cycleWiseAmount == null) && (singleObject.cycleWisePercentage == "" || singleObject.cycleWisePercentage == 0 || singleObject.cycleWisePercentage == null)) {
+                console.log("inside if- cycleWise");
+            } else {
+                if(singleObject.cycleWiseAmount==undefined){
+                    singleObject.cycleWiseAmount=null;
+                }
+                if(singleObject.cycleWisePercentage==undefined){
+                    singleObject.cycleWisePercentage=null;
+                }
+                cycleWiseRuleObject.type = "Cycle Wise";
+                cycleWiseRuleObject.amount = singleObject.cycleWiseAmount;
+                cycleWiseRuleObject.percentage = singleObject.cycleWisePercentage;
+                cycleWiseRuleObject.mailerList = singleObject.cycleWiseMailerList;
+                // console.log("cycleWiseRuleObject",cycleWiseRuleObject);
+                rules.push(cycleWiseRuleObject);
+            }
+
+            monthlyRuleObject = {};
+            if ((singleObject.monthlyAmount == "" || singleObject.monthlyAmount == 0 || singleObject.monthlyAmount == null) && (singleObject.monthlyPercentage == "" || singleObject.monthlyPercentage == 0 || singleObject.monthlyPercentage == null)) {
+                console.log("inside if- monthly");
+            } else {
+                if(singleObject.monthlyAmount==undefined){
+                    singleObject.monthlyAmount=null;
+                }
+                if(singleObject.monthlyPercentage==undefined){
+                    singleObject.monthlyPercentage=null;
+                }
+                monthlyRuleObject.type = "Monthly";
+                monthlyRuleObject.amount = singleObject.monthlyAmount;
+                monthlyRuleObject.percentage = singleObject.monthlyPercentage;
+                monthlyRuleObject.mailerList = singleObject.monthlyMailerList;
+                // console.log("monthlyRuleObject",monthlyRuleObject);
+                rules.push(monthlyRuleObject);
+            }
+            singleObject.rules=rules;
+            var objectToSend={};
+            // objectToSend.category=singleObject;
+            objectToSend.category={
+                lowerBoundRiskScore:singleObject.lowerBoundRiskScore,
+                upperBoundRiskScore:singleObject.upperBoundRiskScore,
+                userType:singleObject.userType,
+                rules:singleObject.rules,
+                _id:singleObject._id,
+                name:singleObject.name,
+            };
+            console.log("objectToSend",objectToSend);
+            objectForIsPlay={
+                _id:objectToSend.category._id
+            }
+
+            
+            NavigationService.stopExposureUserCategory(objectToSend, function (data) {
+                console.log("*****", data);
+                if (data.data.status == true) {
+
+                    toastr.success(data.data.message, {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "timeOut": "3000",
+                        "extendedTimeOut": "1000",
+                        "tapToDismiss": false
+                    });
+
+                    NavigationService.apiCall("ExposureUserCategory/stopWithChangeStatus", objectForIsPlay, function (data) {
+                        console.log("inside stopWithChangeStatus after response:", data);
+                        $state.reload();
+                    });
+
                 } else {
                     toastr.error("Failed To Play Rule ! Try Again !!!", {
                         "closeButton": true,

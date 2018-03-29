@@ -562,6 +562,21 @@ myApp.factory('NavigationService', function ($http, $state) {
 
             });
         },
+        stopExposureUserCategory: function (singleUserExposureObject, callback) {
+            console.log("inside navigationservice stopSelectedExposureMerchantCategoryRule", singleUserExposureObject);
+            // url: 'http://10.160.80.135:8080/exposure/stopRule',
+            $http({
+                url: serverUrl + 'userexposure/stopRule',
+                method: 'POST',
+                data: singleUserExposureObject,
+                withCredentials: false
+            }).then(function (data) {
+                console.log("######", data);
+                // data = data.data;
+                callback(data);
+
+            });
+        },
         viewQueryModal: function (ruleObject, callback) {
             console.log("inside navigationservice viewQueryModal", ruleObject);
             $http({

@@ -97,6 +97,10 @@ var schema = new Schema({
         type: Number,
         default: 0
     },
+    isPlay: {
+        type: Number,
+        default: 0
+    },
     createdBy: {
         type: Schema.Types.ObjectId,
         ref: 'User'
@@ -198,6 +202,46 @@ var model = {
         }, {
             $set: {
                 isDeleted: 1
+            }
+        }, function (err, data2) {
+            if (err) {
+                // console.log("in if",err);
+                callback(err);
+            } else {
+                // console.log("else");
+                callback(null, data2);
+            }
+        });
+    },
+    playWithChangeStatus: function (data, callback) {
+        // var Model = this;
+        console.log("playWithChangeStatus ExposureUserCategory service", data);
+        var Const = this(data);
+        ExposureUserCategory.update({
+            _id: data._id
+        }, {
+            $set: {
+                isPlay: 1
+            }
+        }, function (err, data2) {
+            if (err) {
+                // console.log("in if",err);
+                callback(err);
+            } else {
+                // console.log("else");
+                callback(null, data2);
+            }
+        });
+    },
+    stopWithChangeStatus: function (data, callback) {
+        // var Model = this;
+        console.log("stopWithChangeStatus ExposureUserCategory service", data);
+        var Const = this(data);
+        ExposureUserCategory.update({
+            _id: data._id
+        }, {
+            $set: {
+                isPlay: 0
             }
         }, function (err, data2) {
             if (err) {

@@ -51,7 +51,8 @@
                                     <button ng-disabled='$index.$invalid' class="btn btn-success" type="button" ng-click="saveSingleObject(item)">Save</button>
                                     <button style="display:none;" class="btn btn-info" type="button" ng-click="viewSingleObject(item)">View</button>
                                     <button style="display:none;" class="btn btn-danger" type="button"  confirmed-click="deleteUserCategory(item)" ng-confirm-click="Are You Sure?">Delete</button>
-                                    <button class="btn btn-primary" type="button" ng-click="playUserCategory(item)">Play</button>
+                                    <button ng-if="item.isPlay==0" class="btn btn-primary" type="button" ng-click="playUserCategory(item)">Play</button>
+                                    <button ng-if="item.isPlay==1" class="btn btn-danger" type="button" ng-click="stopUserCategory(item)">Stop</button>
                                 </div>
                             </div>
                         </div>

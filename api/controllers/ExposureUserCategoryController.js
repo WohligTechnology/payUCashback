@@ -17,7 +17,45 @@ var controller = {
             });
         }
 
-    }
+    },
+
+    playWithChangeStatus: function (req, res) {
+        if (req.body) {
+            if (mongoose.Types.ObjectId.isValid(req.body._id)) {
+                ExposureUserCategory.playWithChangeStatus(req.body, res.callback);
+            } else {
+                res.json({
+                    value: false,
+                    data: "ObjectId Invalid"
+                });
+            }
+        } else {
+            res.json({
+                value: false,
+                data: "Invalid Request"
+            });
+        }
+
+    },
+    
+        stopWithChangeStatus: function (req, res) {
+            if (req.body) {
+                if (mongoose.Types.ObjectId.isValid(req.body._id)) {
+                    ExposureUserCategory.stopWithChangeStatus(req.body, res.callback);
+                } else {
+                    res.json({
+                        value: false,
+                        data: "ObjectId Invalid"
+                    });
+                }
+            } else {
+                res.json({
+                    value: false,
+                    data: "Invalid Request"
+                });
+            }
+    
+        }
     
 };
 module.exports = _.assign(module.exports, controller);
