@@ -573,6 +573,36 @@ myApp.factory('NavigationService', function ($http, $state) {
 
             });
         },
+
+        playExposureMerchantCategory: function (singleUserExposureObject, callback) {
+            console.log("inside navigationservice playSelectedExposureMerchantCategoryRule", singleUserExposureObject);
+            // url: 'http://10.160.80.135:8080/exposure/playRule',
+            $http({
+                url: serverUrl + 'merchantexposure/playRule',
+                method: 'POST',
+                data: singleUserExposureObject,
+                withCredentials: false
+            }).then(function (data) {
+                console.log("######", data);
+                // data = data.data;
+                callback(data);
+
+            });
+        },
+        stopExposureMerchantCategory: function (singleUserExposureObject, callback) {
+            console.log("inside navigationservice stopSelectedExposureMerchantCategoryRule", singleUserExposureObject);
+            // url: 'http://10.160.80.135:8080/exposure/stopRule',
+            $http({
+                url: serverUrl + 'merchantexposure/stopRule',
+                method: 'POST',
+                data: singleUserExposureObject,
+                withCredentials: false
+            }).then(function (data) {
+                console.log("######", data);
+                // data = data.data;
+                callback(data);
+            });
+        },
         viewQueryModal: function (ruleObject, callback) {
             console.log("inside navigationservice viewQueryModal", ruleObject);
             $http({

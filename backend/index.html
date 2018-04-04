@@ -23,8 +23,8 @@
 
     <script>
         // var adminurl = "http://localhost:8082/api/";
-        // var adminurl = "http://172.31.0.109:8082/api/";
         var adminurl = "http://ds-services-1247084187.ap-south-1.elb.amazonaws.com/api/";
+        
         var isproduction = false;
         var chintan = function(content) {
             console.log("%c ---------------------------------------", 'background: #222; color: #bada55');
@@ -109,8 +109,6 @@
         
         <script src="bower_components/ngclipboard/dist/ngclipboard.min.js"></script>
         
-        <script src="bower_components/ng-file-upload-shim/ng-file-upload.min.js"></script>
-        
         <script src="backend/js/app.js"></script>
         
         <script src="backend/js/languages/language.js"></script>
@@ -126,6 +124,12 @@
         <script src="backend/js/factories/navigation.js"></script>
         
         <script src="backend/js/controllers/controller.js"></script>
+        
+        <script src="backend/js/directives/multiselect.js"></script>
+        
+        <script src="backend/js/directives/angular-dropdownMultiselect.js"></script>
+        
+        <script src="backend/js/directives/angularjs-dropdown-multiselect.js"></script>
         
 </body>
 

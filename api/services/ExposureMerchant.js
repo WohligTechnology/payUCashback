@@ -77,6 +77,47 @@ var model = {
                     }
                 });
     },
+    searchWithoutPopulate: function (data, callback) {
+        // console.log("in custom");
+        // var maxRow = Config.maxRow;
+        var maxRow = 10;
+        var page = 1;
+        if (data.page) {
+            page = data.page;
+        }
+        var field = data.field;
+        var options = {
+            field: data.field,
+            filters: {
+                keyword: {
+                    fields: ['name'],
+                    term: data.keyword
+                }
+            },
+            sort: {
+                desc: 'createdAt'
+            },
+            start: (page - 1) * maxRow,
+            count: maxRow
+        };
+        ExposureMerchant.find({
+                isDeleted: 0
+            },{_id:1,name:1,sqlId:1}).sort({
+                createdAt: -1
+            })
+            .order(options)
+            .keyword(options)
+            .page(options,
+                function (err, found) {
+                    if (err) {
+                        callback(err, null);
+                    } else if (_.isEmpty(found)) {
+                        callback(null, []);
+                    } else {
+                        callback(null, found);
+                    }
+                });
+    },
     deleteWithChangeStatus: function (data, callback) {
         // var Model = this;
         console.log("deleteWithChangeStatus exposureMerchant service", data._id);

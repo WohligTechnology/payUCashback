@@ -3144,6 +3144,54 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
 
+        // multiple select test code
+
+        // $scope.name = 'World';
+        // $scope.cars = [{id:1, name: 'Audi'}, {id:2, name: 'BMW'}, {id:1, name: 'Honda'}];
+        // $scope.selectedCar = [{id:1, name: 'Audi'}];
+
+
+    //     var options = [ {
+    //         'Id': 1,
+    //         'Name': 'Batman',
+    //         'Costume': 'Black'
+    //     }, {
+    //         'Id': 2,
+    //         'Name': 'Superman',
+    //         'Costume': 'Red & Blue'
+    //     }, {
+    //         'Id': 3,
+    //         'Name': 'Hulk',
+    //         'Costume': 'Green'
+    //     }, {
+    //         'Id': 4,
+    //         'Name': 'Flash',
+    //         'Costume': 'Red'
+    //     }, {
+    //         'Id': 5,
+    //         'Name': 'Dare-Devil',
+    //         'Costume': 'Maroon'
+    //     }, {
+    //         'Id': 6,
+    //         'Name': 'Wonder-woman',
+    //         'Costume': 'Red'
+    //     }];
+    
+    // $scope.config = {
+    //     options: options,
+    //     trackBy: 'Id',
+    //     displayBy: [ 'Name', 'Costume' ],
+    //     divider: ':',
+    //     icon: 'glyphicon glyphicon-heart',
+    //     displayBadge: true,
+    //     height: '200px',
+    //     filter: true,
+    //     multiSelect: true
+    // };
+
+        // multiple select test code ends here
+
+
         $scope.userTypes=["NEW", "NON-REPAID", "REPAID"];
         
         $scope.saveSingleObject = function (dataToBeSave) {
@@ -3758,6 +3806,740 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         $scope.getAllItems();
     })
+
+    .controller('merchantExposureCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr, $uibModal) {
+        //Used to name the .html file
+        $scope.template = TemplateService.changecontent("merchantExposure");
+        $scope.menutitle = NavigationService.makeactive("merchantExposure");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+        // multiple select test code
+
+        // $scope.name = 'World';
+        // $scope.cars = [{id:1, name: 'Audi'}, {id:2, name: 'BMW'}, {id:1, name: 'Honda'}];
+        // $scope.selectedCar = [{id:1, name: 'Audi'}];
+
+
+        var options = [ {
+            'Id': 1,
+            'Name': 'Batman',
+            'Costume': 'Black'
+        }, {
+            'Id': 2,
+            'Name': 'Superman',
+            'Costume': 'Red & Blue'
+        }, {
+            'Id': 3,
+            'Name': 'Hulk',
+            'Costume': 'Green'
+        }, {
+            'Id': 4,
+            'Name': 'Flash',
+            'Costume': 'Red'
+        }, {
+            'Id': 5,
+            'Name': 'Dare-Devil',
+            'Costume': 'Maroon'
+        }, {
+            'Id': 6,
+            'Name': 'Wonder-woman',
+            'Costume': 'Red'
+        }];
+    $scope.selectedItems=[{
+        'Id': 1,
+        'Name': 'Batman',
+        'Costume': 'Black'
+    }, {
+        'Id': 2,
+        'Name': 'Superman',
+        'Costume': 'Red & Blue'
+    }]
+    $scope.config1 = {
+        options: options,
+        trackBy: 'Id',
+        displayBy: [ 'Name' ],
+        divider: '',
+        icon: 'glyphicon glyphicon-heart',
+        displayBadge: true,
+        height: '200px',
+        filter: true,
+        multiSelect: true
+    };
+
+    $scope.example6data = [ { "id": "1", "name": "David" }, { "id": "2", "name": "Jhon" }, { "id": "3", "name": "Danny" } ]; 
+    $scope.example6model = [{ "id": "1", "name": "David" }, { "id": "2", "name": "Jhon" }]; 
+    $scope.example6settings = {};
+    $scope.angularjsMultipleSelectsettings = {
+        scrollableHeight: '200px',
+        scrollable: true,
+        enableSearch: true
+    };
+
+        // multiple select test code ends here
+
+
+        // $scope.userTypes=["NEW", "NON-REPAID", "REPAID"];
+        
+    $scope.cars = [{id:1, name: 'Audi'}, {id:2, name: 'BMW'}, {id:1, name: 'Honda'}];
+    $scope.selectedCar = [{id:1, name: 'Audi'}, {id:2, name: 'BMW'}];
+
+        $scope.saveSingleObject = function (dataToBeSave) {
+            console.log("Data inside save data", dataToBeSave);
+            if(dataToBeSave.createdAt){
+                delete dataToBeSave.createdAt;
+            }
+            if(!dataToBeSave.name || dataToBeSave.name==undefined || dataToBeSave.name==""){
+                alert("Category Name is Mandatory Field!!!");
+            }else if(((dataToBeSave.oneHourAmount >= 0 && dataToBeSave.oneHourAmount != null) || (dataToBeSave.oneHourPercentage >= 0 && dataToBeSave.oneHourPercentage != null)) && (dataToBeSave.oneHourMailerList==null || dataToBeSave.oneHourMailerList=="" || dataToBeSave.oneHourMailerList==undefined)){
+                    alert("Please Select Mailer List For 'In Last 1 hour'  Rule of Category "+dataToBeSave.name);
+            // }else if((dataToBeSave.threeHourAmount >= 0 || dataToBeSave.threeHourPercentage >= 0 || dataToBeSave.threeHourAmount != null || dataToBeSave.threeHourPercentage != null) && (dataToBeSave.threeHourMailerList==null || dataToBeSave.threeHourMailerList=="" || dataToBeSave.threeHourMailerList==undefined)){
+            }else if(((dataToBeSave.threeHourAmount >= 0 && dataToBeSave.threeHourAmount != null) || (dataToBeSave.threeHourPercentage >= 0 && dataToBeSave.threeHourPercentage != null)) && (dataToBeSave.threeHourMailerList==null || dataToBeSave.threeHourMailerList=="" || dataToBeSave.threeHourMailerList==undefined)){
+                alert("Please Select Mailer List For 'In Last 3 hour'  Rule of Category "+dataToBeSave.name);
+                // }
+            // }else if((dataToBeSave.sixHourAmount >= 0 || dataToBeSave.sixHourPercentage >= 0) && (dataToBeSave.sixHourMailerList==null || dataToBeSave.sixHourMailerList=="" || dataToBeSave.sixHourMailerList==undefined)){
+            }else if(((dataToBeSave.sixHourAmount >= 0 && dataToBeSave.sixHourAmount != null) || (dataToBeSave.sixHourPercentage >= 0 && dataToBeSave.sixHourPercentage != null)) && (dataToBeSave.sixHourMailerList==null || dataToBeSave.sixHourMailerList=="" || dataToBeSave.sixHourMailerList==undefined)){
+                alert("Please Select Mailer List For 'In Last 6 hour'  Rule of Category "+dataToBeSave.name);
+                // }
+            // }else if((dataToBeSave.twelveHourAmount >= 0 || dataToBeSave.twelveHourPercentage >= 0) && (dataToBeSave.twelveHourMailerList==null || dataToBeSave.twelveHourMailerList=="" || dataToBeSave.twelveHourMailerList==undefined)){
+            }else if(((dataToBeSave.twelveHourAmount >= 0 && dataToBeSave.twelveHourAmount != null) || (dataToBeSave.twelveHourPercentage >= 0 && dataToBeSave.twelveHourPercentage != null)) && (dataToBeSave.twelveHourMailerList==null || dataToBeSave.twelveHourMailerList=="" || dataToBeSave.twelveHourMailerList==undefined)){
+                alert("Please Select Mailer List For 'In Last 12 hour'  Rule of Category "+dataToBeSave.name);
+                // }
+            // }else if((dataToBeSave.dailyAmount >= 0 || dataToBeSave.dailyPercentage >= 0) && (dataToBeSave.dailyMailerList==null || dataToBeSave.dailyMailerList=="" || dataToBeSave.dailyMailerList==undefined)){
+            }else if(((dataToBeSave.dailyAmount >= 0 && dataToBeSave.dailyAmount != null) || (dataToBeSave.dailyPercentage >= 0 && dataToBeSave.dailyPercentage != null)) && (dataToBeSave.dailyMailerList==null || dataToBeSave.dailyMailerList=="" || dataToBeSave.dailyMailerList==undefined)){
+                alert("Please Select Mailer List For 'In Last 24 hour'  Rule of Category "+dataToBeSave.name);
+                // }
+            // }else if((dataToBeSave.weeklyAmount >= 0 || dataToBeSave.weeklyPercentage >= 0) && (dataToBeSave.weeklyMailerList==null || dataToBeSave.weeklyMailerList=="" || dataToBeSave.weeklyMailerList==undefined)){
+            }else if(((dataToBeSave.weeklyAmount >= 0 && dataToBeSave.weeklyAmount != null) || (dataToBeSave.weeklyPercentage >= 0 && dataToBeSave.weeklyPercentage != null)) && (dataToBeSave.weeklyMailerList==null || dataToBeSave.weeklyMailerList=="" || dataToBeSave.weeklyMailerList==undefined)){
+                alert("Please Select Mailer List For 'In Last week'  Rule of Category "+dataToBeSave.name);
+                // }
+            // }else if((dataToBeSave.cycleWiseAmount >= 0 || dataToBeSave.cycleWisePercentage >= 0) && (dataToBeSave.cycleWiseMailerList==null || dataToBeSave.cycleWiseMailerList=="" || dataToBeSave.cycleWiseMailerList==undefined)){
+            }else if(((dataToBeSave.cycleWiseAmount >= 0 && dataToBeSave.cycleWiseAmount != null) || (dataToBeSave.cycleWisePercentage >= 0 && dataToBeSave.cycleWisePercentage != null)) && (dataToBeSave.cycleWiseMailerList==null || dataToBeSave.cycleWiseMailerList=="" || dataToBeSave.cycleWiseMailerList==undefined)){
+                alert("Please Select Mailer List For 'In Last 15 Days'  Rule of Category "+dataToBeSave.name);
+                // }
+            // }else if((dataToBeSave.monthlyAmount >= 0 || dataToBeSave.monthlyPercentage >= 0) && (dataToBeSave.monthlyMailerList==null || dataToBeSave.monthlyMailerList=="" || dataToBeSave.monthlyMailerList==undefined)){
+            }else if(((dataToBeSave.monthlyAmount >= 0 && dataToBeSave.monthlyAmount != null) || (dataToBeSave.monthlyPercentage >= 0 && dataToBeSave.monthlyPercentage != null)) && (dataToBeSave.monthlyMailerList==null || dataToBeSave.monthlyMailerList=="" || dataToBeSave.monthlyMailerList==undefined)){
+                alert("Please Select Mailer List For 'In Last Month'  Rule of Category "+dataToBeSave.name);
+                // }
+            }else{
+
+                NavigationService.apiCall("ExposureMerchantCat/save", dataToBeSave, function (data) {
+                    console.log("response of save", data);
+                    if (data.value == true) {
+                        toastr.success(dataToBeSave.name +" Edited Successfully!!!", {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "4000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    } else {
+                        toastr.error("Failed To Update Category", {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "2000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    }
+                    $state.reload();
+                });
+            }
+            
+        }
+
+        $scope.addSingleObject = function () {
+            console.log("inside addSingleObject");
+            $scope.results.unshift({});
+            // $scope.results.push({});
+        }
+
+        $scope.deleteMerchantCategory=function(objectToDelete){
+            console.log("inside deleteMerchantCategory",objectToDelete);
+            NavigationService.apiCall("ExposureMerchantCat/deleteWithChangeStatus", objectToDelete, function (data) {
+                console.log("inside deleteMerchantCategory after response:", data);
+                $state.reload();
+                
+            });
+        }
+
+        $scope.viewSingleObject=function(objectToShow){
+            console.log("inside viewSingleObject->objectToShow",objectToShow);
+
+                $scope.playSelectedFolderNameModal = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'views/modal/viewSingleMerchantExposureCategory.html',
+                    size: 'md',
+                    scope: $scope
+                });
+
+        }
+
+        $scope.playMerchantCategory = function (singleObject) {
+            console.log(singleObject);
+            // var objectToBeSend={};
+            var rules = [];
+            console.log("singleObject.oneHourAmount", singleObject.oneHourAmount);
+            oneHourRuleObject = {};
+            if ((singleObject.oneHourAmount == "" || singleObject.oneHourAmount == 0 || singleObject.oneHourAmount == null) && (singleObject.oneHourPercentage == "" || singleObject.oneHourPercentage == 0 || singleObject.oneHourPercentage == null)) {
+                console.log("inside if- oneHour");
+            } else {
+                if(singleObject.oneHourAmount==undefined){
+                    singleObject.oneHourAmount=null;
+                }
+                if(singleObject.oneHourPercentage==undefined){
+                    singleObject.oneHourPercentage=null;
+                }
+                oneHourRuleObject.type="In Last 1 hour";
+                oneHourRuleObject.amount = singleObject.oneHourAmount;
+                oneHourRuleObject.percentage = singleObject.oneHourPercentage;
+                oneHourRuleObject.mailerList = singleObject.oneHourMailerList;
+                // console.log("oneHourRuleObject",oneHourRuleObject);
+                rules.push(oneHourRuleObject);
+            }
+
+            threeHourRuleObject = {};
+            if ((singleObject.threeHourAmount == "" || singleObject.threeHourAmount == 0 || singleObject.threeHourAmount == null) && (singleObject.threeHourPercentage == "" || singleObject.threeHourPercentage == 0 || singleObject.threeHourPercentage == null)) {
+                console.log("inside if- threeHour");
+            } else {
+                if(singleObject.threeHourAmount==undefined){
+                    singleObject.threeHourAmount=null;
+                }
+                if(singleObject.threeHourPercentage==undefined){
+                    singleObject.threeHourPercentage=null;
+                }
+                threeHourRuleObject.type="In Last 3 hours";
+                threeHourRuleObject.amount = singleObject.threeHourAmount;
+                threeHourRuleObject.percentage = singleObject.threeHourPercentage;
+                threeHourRuleObject.mailerList = singleObject.threeHourMailerList;
+                // console.log("threeHourRuleObject",threeHourRuleObject);
+                rules.push(threeHourRuleObject);
+            }
+
+            sixHourRuleObject = {};
+            if ((singleObject.sixHourAmount == "" || singleObject.sixHourAmount == 0 || singleObject.sixHourAmount == null) && (singleObject.sixHourPercentage == "" || singleObject.sixHourPercentage == 0 || singleObject.sixHourPercentage == null)) {
+                console.log("inside if- sixHour");
+            } else {
+                if(singleObject.sixHourAmount==undefined){
+                    singleObject.sixHourAmount=null;
+                }
+                if(singleObject.sixHourPercentage==undefined){
+                    singleObject.sixHourPercentage=null;
+                }
+                sixHourRuleObject.type = "In Last 6 hours";
+                sixHourRuleObject.amount = singleObject.sixHourAmount;
+                sixHourRuleObject.percentage = singleObject.sixHourPercentage;
+                sixHourRuleObject.mailerList = singleObject.sixHourMailerList;
+                // console.log("sixHourRuleObject",sixHourRuleObject);
+                rules.push(sixHourRuleObject);
+            }
+
+            twelveHourRuleObject = {};
+            if ((singleObject.twelveHourAmount == "" || singleObject.twelveHourAmount == 0 || singleObject.twelveHourAmount == null) && (singleObject.twelveHourPercentage == "" || singleObject.twelveHourPercentage == 0 || singleObject.twelveHourPercentage == null)) {
+                console.log("inside if- twelveHour");
+            } else {
+                if(singleObject.twelveHourAmount==undefined){
+                    singleObject.twelveHourAmount=null;
+                }
+                if(singleObject.twelveHourPercentage==undefined){
+                    singleObject.twelveHourPercentage=null;
+                }
+                twelveHourRuleObject.type = "In Last 12 hours";
+                twelveHourRuleObject.amount = singleObject.twelveHourAmount;
+                twelveHourRuleObject.percentage = singleObject.twelveHourPercentage;
+                twelveHourRuleObject.mailerList = singleObject.twelveHourMailerList;
+                // console.log("twelveHourRuleObject",twelveHourRuleObject);
+                rules.push(twelveHourRuleObject);
+            }
+            
+            dailyRuleObject = {};
+                if ((singleObject.dailyAmount == "" || singleObject.dailyAmount == 0 || singleObject.dailyAmount == null) && (singleObject.dailyPercentage == "" || singleObject.dailyPercentage == 0 || singleObject.dailyPercentage == null)) {
+                    console.log("inside if- daily");
+                } else {
+                    if(singleObject.dailyAmount==undefined){
+                        singleObject.dailyAmount=null;
+                    }
+                    if(singleObject.dailyPercentage==undefined){
+                        singleObject.dailyPercentage=null;
+                    }
+                    dailyRuleObject.type = "In Last 24 hours";
+                    dailyRuleObject.amount = singleObject.dailyAmount;
+                    dailyRuleObject.percentage = singleObject.dailyPercentage;
+                    dailyRuleObject.mailerList = singleObject.dailyMailerList;
+                    // console.log("dailyRuleObject",dailyRuleObject);
+                    rules.push(dailyRuleObject);
+                }
+            
+
+            weeklyRuleObject = {};
+            if ((singleObject.weeklyAmount == "" || singleObject.weeklyAmount == 0 || singleObject.weeklyAmount == null) && (singleObject.weeklyPercentage == "" || singleObject.weeklyPercentage == 0 || singleObject.weeklyPercentage == null)) {
+                console.log("inside if- weekly");
+            } else {
+                if(singleObject.weeklyAmount==undefined){
+                    singleObject.weeklyAmount=null;
+                }
+                if(singleObject.weeklyPercentage==undefined){
+                    singleObject.weeklyPercentage=null;
+                }
+                weeklyRuleObject.type = "Weekly";
+                weeklyRuleObject.amount = singleObject.weeklyAmount;
+                weeklyRuleObject.percentage = singleObject.weeklyPercentage;
+                weeklyRuleObject.mailerList = singleObject.weeklyMailerList;
+                // console.log("weeklyRuleObject",weeklyRuleObject);
+                rules.push(weeklyRuleObject);
+            }
+
+            cycleWiseRuleObject = {};
+            if ((singleObject.cycleWiseAmount == "" || singleObject.cycleWiseAmount == 0 || singleObject.cycleWiseAmount == null) && (singleObject.cycleWisePercentage == "" || singleObject.cycleWisePercentage == 0 || singleObject.cycleWisePercentage == null)) {
+                console.log("inside if- cycleWise");
+            } else {
+                if(singleObject.cycleWiseAmount==undefined){
+                    singleObject.cycleWiseAmount=null;
+                }
+                if(singleObject.cycleWisePercentage==undefined){
+                    singleObject.cycleWisePercentage=null;
+                }
+                cycleWiseRuleObject.type = "Cycle Wise";
+                cycleWiseRuleObject.amount = singleObject.cycleWiseAmount;
+                cycleWiseRuleObject.percentage = singleObject.cycleWisePercentage;
+                cycleWiseRuleObject.mailerList = singleObject.cycleWiseMailerList;
+                // console.log("cycleWiseRuleObject",cycleWiseRuleObject);
+                rules.push(cycleWiseRuleObject);
+            }
+
+            monthlyRuleObject = {};
+            if ((singleObject.monthlyAmount == "" || singleObject.monthlyAmount == 0 || singleObject.monthlyAmount == null) && (singleObject.monthlyPercentage == "" || singleObject.monthlyPercentage == 0 || singleObject.monthlyPercentage == null)) {
+                console.log("inside if- monthly");
+            } else {
+                if(singleObject.monthlyAmount==undefined){
+                    singleObject.monthlyAmount=null;
+                }
+                if(singleObject.monthlyPercentage==undefined){
+                    singleObject.monthlyPercentage=null;
+                }
+                monthlyRuleObject.type = "Monthly";
+                monthlyRuleObject.amount = singleObject.monthlyAmount;
+                monthlyRuleObject.percentage = singleObject.monthlyPercentage;
+                monthlyRuleObject.mailerList = singleObject.monthlyMailerList;
+                // console.log("monthlyRuleObject",monthlyRuleObject);
+                rules.push(monthlyRuleObject);
+            }
+            singleObject.rules=rules;
+            var objectToSend={};
+            // objectToSend.category=singleObject;
+            objectToSend.category={
+                exposureMerchant:singleObject.exposureMerchant,
+                rules:singleObject.rules,
+                _id:singleObject._id,
+                name:singleObject.name,
+            };
+            console.log("objectToSend",objectToSend);
+            objectForIsPlay={
+                _id:objectToSend.category._id
+            }
+            console.log("objectToSend",objectToSend);
+            
+
+            NavigationService.playExposureMerchantCategory(objectToSend, function (data) {
+                console.log("*****", data);
+                if (data.data.status == true) {
+
+                    toastr.success(data.data.message, {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "timeOut": "3000",
+                        "extendedTimeOut": "1000",
+                        "tapToDismiss": false
+                    });
+
+                    NavigationService.apiCall("ExposureMerchantCat/playWithChangeStatus", objectForIsPlay, function (data) {
+                        console.log("inside playExposureMerchantCategory after response:", data);
+                        $state.reload();
+                    });
+
+                } else {
+                    toastr.error("Failed To Play Rule ! Try Again !!!", {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "timeOut": "3000",
+                        "extendedTimeOut": "1000",
+                        "tapToDismiss": false
+                    });
+                }
+
+            })
+            // console.log("singleObject after pushing rule", singleObject);
+
+        }
+        $scope.stopMerchantCategory = function (singleObject) {
+            console.log(singleObject);
+            // var objectToBeSend={};
+            var rules = [];
+            console.log("singleObject.oneHourAmount", singleObject.oneHourAmount);
+            oneHourRuleObject = {};
+            if ((singleObject.oneHourAmount == "" || singleObject.oneHourAmount == 0 || singleObject.oneHourAmount == null) && (singleObject.oneHourPercentage == "" || singleObject.oneHourPercentage == 0 || singleObject.oneHourPercentage == null)) {
+                console.log("inside if- oneHour");
+            } else {
+                if(singleObject.oneHourAmount==undefined){
+                    singleObject.oneHourAmount=null;
+                }
+                if(singleObject.oneHourPercentage==undefined){
+                    singleObject.oneHourPercentage=null;
+                }
+                oneHourRuleObject.type="In Last 1 hour";
+                oneHourRuleObject.amount = singleObject.oneHourAmount;
+                oneHourRuleObject.percentage = singleObject.oneHourPercentage;
+                oneHourRuleObject.mailerList = singleObject.oneHourMailerList;
+                // console.log("oneHourRuleObject",oneHourRuleObject);
+                rules.push(oneHourRuleObject);
+            }
+
+            threeHourRuleObject = {};
+            if ((singleObject.threeHourAmount == "" || singleObject.threeHourAmount == 0 || singleObject.threeHourAmount == null) && (singleObject.threeHourPercentage == "" || singleObject.threeHourPercentage == 0 || singleObject.threeHourPercentage == null)) {
+                console.log("inside if- threeHour");
+            } else {
+                if(singleObject.threeHourAmount==undefined){
+                    singleObject.threeHourAmount=null;
+                }
+                if(singleObject.threeHourPercentage==undefined){
+                    singleObject.threeHourPercentage=null;
+                }
+                threeHourRuleObject.type="In Last 3 hours";
+                threeHourRuleObject.amount = singleObject.threeHourAmount;
+                threeHourRuleObject.percentage = singleObject.threeHourPercentage;
+                threeHourRuleObject.mailerList = singleObject.threeHourMailerList;
+                // console.log("threeHourRuleObject",threeHourRuleObject);
+                rules.push(threeHourRuleObject);
+            }
+
+            sixHourRuleObject = {};
+            if ((singleObject.sixHourAmount == "" || singleObject.sixHourAmount == 0 || singleObject.sixHourAmount == null) && (singleObject.sixHourPercentage == "" || singleObject.sixHourPercentage == 0 || singleObject.sixHourPercentage == null)) {
+                console.log("inside if- sixHour");
+            } else {
+                if(singleObject.sixHourAmount==undefined){
+                    singleObject.sixHourAmount=null;
+                }
+                if(singleObject.sixHourPercentage==undefined){
+                    singleObject.sixHourPercentage=null;
+                }
+                sixHourRuleObject.type = "In Last 6 hours";
+                sixHourRuleObject.amount = singleObject.sixHourAmount;
+                sixHourRuleObject.percentage = singleObject.sixHourPercentage;
+                sixHourRuleObject.mailerList = singleObject.sixHourMailerList;
+                // console.log("sixHourRuleObject",sixHourRuleObject);
+                rules.push(sixHourRuleObject);
+            }
+
+            twelveHourRuleObject = {};
+            if ((singleObject.twelveHourAmount == "" || singleObject.twelveHourAmount == 0 || singleObject.twelveHourAmount == null) && (singleObject.twelveHourPercentage == "" || singleObject.twelveHourPercentage == 0 || singleObject.twelveHourPercentage == null)) {
+                console.log("inside if- twelveHour");
+            } else {
+                if(singleObject.twelveHourAmount==undefined){
+                    singleObject.twelveHourAmount=null;
+                }
+                if(singleObject.twelveHourPercentage==undefined){
+                    singleObject.twelveHourPercentage=null;
+                }
+                twelveHourRuleObject.type = "In Last 12 hours";
+                twelveHourRuleObject.amount = singleObject.twelveHourAmount;
+                twelveHourRuleObject.percentage = singleObject.twelveHourPercentage;
+                twelveHourRuleObject.mailerList = singleObject.twelveHourMailerList;
+                // console.log("twelveHourRuleObject",twelveHourRuleObject);
+                rules.push(twelveHourRuleObject);
+            }
+            
+            dailyRuleObject = {};
+                if ((singleObject.dailyAmount == "" || singleObject.dailyAmount == 0 || singleObject.dailyAmount == null) && (singleObject.dailyPercentage == "" || singleObject.dailyPercentage == 0 || singleObject.dailyPercentage == null)) {
+                    console.log("inside if- daily");
+                } else {
+                    if(singleObject.dailyAmount==undefined){
+                        singleObject.dailyAmount=null;
+                    }
+                    if(singleObject.dailyPercentage==undefined){
+                        singleObject.dailyPercentage=null;
+                    }
+                    dailyRuleObject.type = "In Last 24 hours";
+                    dailyRuleObject.amount = singleObject.dailyAmount;
+                    dailyRuleObject.percentage = singleObject.dailyPercentage;
+                    dailyRuleObject.mailerList = singleObject.dailyMailerList;
+                    // console.log("dailyRuleObject",dailyRuleObject);
+                    rules.push(dailyRuleObject);
+                }
+            
+
+            weeklyRuleObject = {};
+            if ((singleObject.weeklyAmount == "" || singleObject.weeklyAmount == 0 || singleObject.weeklyAmount == null) && (singleObject.weeklyPercentage == "" || singleObject.weeklyPercentage == 0 || singleObject.weeklyPercentage == null)) {
+                console.log("inside if- weekly");
+            } else {
+                if(singleObject.weeklyAmount==undefined){
+                    singleObject.weeklyAmount=null;
+                }
+                if(singleObject.weeklyPercentage==undefined){
+                    singleObject.weeklyPercentage=null;
+                }
+                weeklyRuleObject.type = "Weekly";
+                weeklyRuleObject.amount = singleObject.weeklyAmount;
+                weeklyRuleObject.percentage = singleObject.weeklyPercentage;
+                weeklyRuleObject.mailerList = singleObject.weeklyMailerList;
+                // console.log("weeklyRuleObject",weeklyRuleObject);
+                rules.push(weeklyRuleObject);
+            }
+
+            cycleWiseRuleObject = {};
+            if ((singleObject.cycleWiseAmount == "" || singleObject.cycleWiseAmount == 0 || singleObject.cycleWiseAmount == null) && (singleObject.cycleWisePercentage == "" || singleObject.cycleWisePercentage == 0 || singleObject.cycleWisePercentage == null)) {
+                console.log("inside if- cycleWise");
+            } else {
+                if(singleObject.cycleWiseAmount==undefined){
+                    singleObject.cycleWiseAmount=null;
+                }
+                if(singleObject.cycleWisePercentage==undefined){
+                    singleObject.cycleWisePercentage=null;
+                }
+                cycleWiseRuleObject.type = "Cycle Wise";
+                cycleWiseRuleObject.amount = singleObject.cycleWiseAmount;
+                cycleWiseRuleObject.percentage = singleObject.cycleWisePercentage;
+                cycleWiseRuleObject.mailerList = singleObject.cycleWiseMailerList;
+                // console.log("cycleWiseRuleObject",cycleWiseRuleObject);
+                rules.push(cycleWiseRuleObject);
+            }
+
+            monthlyRuleObject = {};
+            if ((singleObject.monthlyAmount == "" || singleObject.monthlyAmount == 0 || singleObject.monthlyAmount == null) && (singleObject.monthlyPercentage == "" || singleObject.monthlyPercentage == 0 || singleObject.monthlyPercentage == null)) {
+                console.log("inside if- monthly");
+            } else {
+                if(singleObject.monthlyAmount==undefined){
+                    singleObject.monthlyAmount=null;
+                }
+                if(singleObject.monthlyPercentage==undefined){
+                    singleObject.monthlyPercentage=null;
+                }
+                monthlyRuleObject.type = "Monthly";
+                monthlyRuleObject.amount = singleObject.monthlyAmount;
+                monthlyRuleObject.percentage = singleObject.monthlyPercentage;
+                monthlyRuleObject.mailerList = singleObject.monthlyMailerList;
+                // console.log("monthlyRuleObject",monthlyRuleObject);
+                rules.push(monthlyRuleObject);
+            }
+            singleObject.rules=rules;
+            var objectToSend={};
+            // objectToSend.category=singleObject;
+            objectToSend.category={
+                exposureMerchant:singleObject.exposureMerchant,
+                rules:singleObject.rules,
+                _id:singleObject._id,
+                name:singleObject.name,
+            };
+            console.log("objectToSend",objectToSend);
+            objectForIsPlay={
+                _id:objectToSend.category._id
+            }
+
+            
+            NavigationService.stopExposureMerchantCategory(objectToSend, function (data) {
+                console.log("*****", data);
+                if (data.data.status == true) {
+
+                    toastr.success(data.data.message, {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "timeOut": "3000",
+                        "extendedTimeOut": "1000",
+                        "tapToDismiss": false
+                    });
+
+                    NavigationService.apiCall("ExposureMerchantCat/stopWithChangeStatus", objectForIsPlay, function (data) {
+                        console.log("inside stopWithChangeStatus after response:", data);
+                        $state.reload();
+                    });
+
+                } else {
+                    toastr.error("Failed To Stop Rule ! Try Again !!!", {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "timeOut": "3000",
+                        "extendedTimeOut": "1000",
+                        "tapToDismiss": false
+                    });
+                }
+
+            })
+            // console.log("singleObject after pushing rule", singleObject);
+
+        }
+
+        $scope.getAllItemsOld=function(){
+
+            NavigationService.apiCall("ExposureMerchantCat/search", {}, function (data) {
+                console.log("inside ExposureMerchantCategory ctrl:", data.data);
+                $scope.results = data.data.results;
+                $scope.data = data.data;
+                $scope.totalItems = data.data.total;
+                $scope.maxRow = data.data.options.count;
+                console.log("inside contest ctrl*****:", data.data);
+            });
+
+        }
+
+        NavigationService.apiCall("MailerList/search", {}, function (data) {
+            console.log("inside ExposureMerchantCategory ctrl:", data.data);
+            $scope.mailerList = data.data.results;
+            $scope.data = data.data;
+            console.log("inside contest ctrl*****:", data.data);
+        });
+
+
+        NavigationService.apiCall("ExposureMerchant/searchWithoutPopulate", {}, function (data) {
+            console.log("inside ExposureMerchantCategory ctrl:", data.data);
+            $scope.exposureMerchants = data.data.results;
+            angular.forEach($scope.exposureMerchants,function(value,key){
+                value.id=value._id;
+            })
+            // $scope.config = {
+            //     options: $scope.exposureMerchants,
+            //     trackBy: '_id',
+            //     displayBy: [ 'name' ],
+            //     divider: '',
+            //     icon: 'glyphicon glyphicon-heart',
+            //     displayBadge: true,
+            //     height: '200px',
+            //     filter: true,
+            //     multiSelect: true
+            // };
+            $scope.data = data.data;
+            console.log("------inside contest ctrl*****:", data.data);
+        });
+  
+        //pagination start
+        var formdata = {};
+        // formdata.user = userId;
+        var i = 0;
+        if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
+            $scope.currentPage = $stateParams.page;
+        } else {
+            $scope.currentPage = 1;
+        }
+
+        $scope.search = {
+            keyword: ""
+        };
+        if ($stateParams.keyword) {
+            $scope.search.keyword = $stateParams.keyword;
+        }
+        $scope.changePage = function (page) {
+            var goTo = "merchantExposure";
+            $scope.currentPage = page;
+            if ($scope.search.keyword) {
+                goTo = "merchantExposure";
+            }
+            $state.go(goTo, {
+                page: page
+            });
+            $scope.getAllItems();
+        };
+        $scope.getAllItems = function (keywordChange, count) {
+            if (keywordChange != undefined && keywordChange != true) {
+                $scope.maxCount = keywordChange;
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("ExposureMerchantCat/search", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        if (ini == i) {
+                            $scope.results = data.data.results;
+                            angular.forEach($scope.results, function(value, key) {
+                                value.exposureMerchantNew=[];
+                                angular.forEach(value.exposureMerchant,function(value2,key2){
+                                    // var exposureMerchantObject={
+                                    //     _id:value2._id,
+                                    //     name:value2.name
+                                    // };
+                                value.exposureMerchantNew.push({"id":value2._id,
+                                    "name":value2.name,
+                                "_id":value2._id,
+                                "sqlId":value2.sqlId});
+                                value.exposureMerchant=value.exposureMerchantNew;
+                                // value.exposureMerchant
+                                })
+                              });
+                            console.log("final data in if", $scope.results);
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            } else {
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("ExposureMerchantCat/search", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        if (ini == i) {
+                            $scope.results = data.data.results;
+                            angular.forEach($scope.results, function(value, key) {
+                                value.exposureMerchantNew=[];
+                                angular.forEach(value.exposureMerchant,function(value2,key2){
+                                    // var exposureMerchantObject={
+                                    //     _id:value2._id,
+                                    //     name:value2.name
+                                    // };
+                                value.exposureMerchantNew.push({"id":value2._id,
+                                    "name":value2.name,
+                                "_id":value2._id,
+                                "sqlId":value2.sqlId});
+                                value.exposureMerchant=value.exposureMerchantNew;
+                                // value.exposureMerchant
+                                })
+                              });
+                            console.log("final data in else", $scope.results);
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            }
+            // console.log("..............",$scope.results);
+            
+
+        };
+        //pagination end
+
+        $scope.getAllItems();
+    })
+
     .controller('languageCtrl', function ($scope, TemplateService, $translate, $rootScope) {
 
         $scope.changeLanguage = function () {

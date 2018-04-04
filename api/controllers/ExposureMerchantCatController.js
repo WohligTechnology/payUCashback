@@ -1,13 +1,9 @@
 module.exports = _.cloneDeep(require("sails-wohlig-controller"));
-var controller = { 
-    searchWithoutPopulate: function (req, res) {
-        ExposureMerchant.searchWithoutPopulate(req.body, res.callback);
-    },
-
+var controller = {
     deleteWithChangeStatus: function (req, res) {
         if (req.body) {
             if (mongoose.Types.ObjectId.isValid(req.body._id)) {
-                ExposureMerchant.deleteWithChangeStatus(req.body, res.callback);
+                ExposureMerchantCat.deleteWithChangeStatus(req.body, res.callback);
             } else {
                 res.json({
                     value: false,
@@ -22,10 +18,11 @@ var controller = {
         }
 
     },
-    getSingleAll: function (req, res) {
+
+    playWithChangeStatus: function (req, res) {
         if (req.body) {
             if (mongoose.Types.ObjectId.isValid(req.body._id)) {
-                ExposureMerchant.getSingleWithPopulate(req.body, res.callback);
+                ExposureMerchantCat.playWithChangeStatus(req.body, res.callback);
             } else {
                 res.json({
                     value: false,
@@ -40,23 +37,25 @@ var controller = {
         }
 
     },
-    viewSingleExposureMerchantModal: function (req, res) {
-        if (req.body) {
-            if (mongoose.Types.ObjectId.isValid(req.body._id)) {
-                ExposureMerchant.viewSingleExposureMerchantModal(req.body, res.callback);
+    
+        stopWithChangeStatus: function (req, res) {
+            if (req.body) {
+                if (mongoose.Types.ObjectId.isValid(req.body._id)) {
+                    ExposureMerchantCat.stopWithChangeStatus(req.body, res.callback);
+                } else {
+                    res.json({
+                        value: false,
+                        data: "ObjectId Invalid"
+                    });
+                }
             } else {
                 res.json({
                     value: false,
-                    data: "ObjectId Invalid"
+                    data: "Invalid Request"
                 });
             }
-        } else {
-            res.json({
-                value: false,
-                data: "Invalid Request"
-            });
+    
         }
-
-    }
+    
 };
 module.exports = _.assign(module.exports, controller);

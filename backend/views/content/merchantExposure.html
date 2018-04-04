@@ -1,0 +1,198 @@
+<div class="heading-sec">
+        <div class="row">
+            <div class="col-md-12 column">
+                <div class="heading-profile">
+                    <h2>User Test Exposure</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <span style="float:right;width:200px;"> -->
+        <div class="row">
+            <div class="col-md-6"></div>
+            <!-- <div class="col-md-3"><input type="search" class="form-control" placeholder="Search..." ng-model="search.text"></div> -->
+            <div class="col-md-3"><label style="display:none;"><input type="text" class="form-control" ng-change="getAllItems(true) " placeholder="Search By Name...
+                " ng-model="search.keyword " /></label></div>
+            <div class="col-md-3"><button class="btn btn-primary" type="button" ng-click="addSingleObject()">Add New Category</button></div>
+        </div>
+    <!-- </span> -->
+         <div ng-repeat="item in results | filter:search.text  track by $index" style="margin-bottom:20px;">
+                <form name="$index">
+                    <div class="row seperateClass">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Category Name <span style="color:red">*</span></label>
+                                        <input type="text" ng-model="item.name" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Category Name <span style="color:red">*</span></label>
+                                    <!-- <div ng-dropdown-multiselect="" options="example6data" selected-model="example6model" extra-settings="example6settings"></div>
+                                    {{example6data}}<br>
+                                    {{example6model}} -->
+                                    <!-- <div ng-dropdown-multiselect="" options="exposureMerchants" selected-model="item.exposureMerchant" extra-settings="{}"></div>
+                                    <div>{{item.exposureMerchant | json}}</div> -->
+                                    <multiselect class="form-group input-xlarge" multiple="true"
+                                    ng-model="item.exposureMerchant"
+                                    options="item as item.name for item in exposureMerchants"
+                                    change="selected()" extra-settings="angularjsMultipleSelectsettings" checkboxes="true" required></multiselect>
+                                    <!-- <div class="well well-small">
+                                            {{item.exposureMerchant}}
+                                        </div> -->
+                                    <!-- <div style="margin-top: 25px;">
+                                        <dropdown-multiselect dropdown-config="config" model="selectedItems" required></dropdown-multiselect>
+                                    </div> -->
+                                    <!-- <div>
+                                        <dropdown-multiselect dropdown-config="config" model="item.exposureMerchant" required></dropdown-multiselect>
+                                    </div> -->
+                                </div>
+                                <div class="col-md-3" style="margin-top:24px;">
+                                    <div class="form-group">
+                                        <button ng-disabled='$index.$invalid' class="btn btn-success" type="button" ng-click="saveSingleObject(item)">Save</button>
+                                        <button style="display:none;" class="btn btn-info" type="button" ng-click="viewSingleObject(item)">View</button>
+                                        <button class="btn btn-danger" type="button"  confirmed-click="deleteMerchantCategory(item)" ng-confirm-click="Are You Sure?">Delete</button>
+                                        <button ng-if="item.isPlay==0" class="btn btn-primary" type="button" ng-click="playMerchantCategory(item)">Play</button>
+                                        <button ng-if="item.isPlay==1" class="btn btn-danger" type="button" ng-click="stopMerchantCategory(item)">Stop</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="row">
+    
+                                    <div style="margin-top: 25px;">
+                                            <dropdown-multiselect dropdown-config="config" model="selectedItems"></dropdown-multiselect>
+                                          </div>
+    
+                                <multiselect class="input-xlarge" multiple="true"
+                                ng-model="item.oneHourMailerList"
+                                options="item as item.name for item in mailerList"
+                                change="selected()" ></multiselect>
+                                <div class="well well-small">
+                                    {{selectedCar}}
+                                </div>
+    
+                            </div> -->
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <tr align="center">
+                                        <td>&nbsp;</td>
+                                        <td>1 Hour</td>
+                                        <td>3 Hour</td>
+                                        <td>6 Hour</td>
+                                        <td>12 Hour</td>
+                                        <td>Daily</td>
+                                        <td>Weekly</td>
+                                        <td>Cycle Wise</td>
+                                        <td>Monthly</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Amount</td>
+                                        <td>
+                                            <input type="number" ng-model="item.oneHourAmount" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" ng-model="item.threeHourAmount" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" ng-model="item.sixHourAmount" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" ng-model="item.twelveHourAmount" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" ng-model="item.dailyAmount" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" ng-model="item.weeklyAmount" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" ng-model="item.cycleWiseAmount" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" ng-model="item.monthlyAmount" class="form-control">
+                                        </td>
+                                    </tr>
+                        
+                                    <tr>
+                                        <td>Percentage</td>
+                                        <td>
+                                            <input type="number" ng-model="item.oneHourPercentage" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" ng-model="item.threeHourPercentage" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" ng-model="item.sixHourPercentage" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" ng-model="item.twelveHourPercentage" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" ng-model="item.dailyPercentage" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" ng-model="item.weeklyPercentage" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" ng-model="item.cycleWisePercentage" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" ng-model="item.monthlyPercentage" class="form-control">
+                                        </td>
+                                    </tr>
+                        
+                                    <tr>
+                                        <td>Mailer List</td>
+                                        <td>
+                                            <select class="form-control" ng-options="item as item.name for item in mailerList track by item._id" ng-model="item.oneHourMailerList">
+                                                <option value="">Select</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" ng-options="item as item.name for item in mailerList track by item._id" ng-model="item.threeHourMailerList">
+                                                <option value="">Select</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" ng-options="item as item.name for item in mailerList track by item._id" ng-model="item.sixHourMailerList">
+                                                <option value="">Select</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" ng-options="item as item.name for item in mailerList track by item._id" ng-model="item.twelveHourMailerList">
+                                                <option value="">Select</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" ng-options="item as item.name for item in mailerList track by item._id" ng-model="item.dailyMailerList">
+                                                <option value="">Select</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" ng-options="item as item.name for item in mailerList track by item._id" ng-model="item.weeklyMailerList">
+                                                <option value="">Select</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" ng-options="item as item.name for item in mailerList track by item._id" ng-model="item.cycleWiseMailerList">
+                                                <option value="">Select</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" ng-options="item as item.name for item in mailerList track by item._id" ng-model="item.monthlyMailerList">
+                                                <option value="">Select</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                </form>
+                <hr style="display: block;height: 3px;border: 0;border-top: 1px solid skyblue;margin: 1em 0;padding: 0;">
+         </div>
+    <br>
+    <div class="right-side" style="display:none;">
+        <ul ng-if="totalItems" ng-change="changePage(currentPage);" uib-pagination total-items="totalItems" items-per-page="maxRow " ng-model="currentPage " max-size="template.pageMax "
+          class="pagination-sm" boundary-links="true " force-ellipses="true ">
+        </ul>
+      </div>

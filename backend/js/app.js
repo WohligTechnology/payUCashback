@@ -18,7 +18,10 @@ var myApp = angular.module('myApp', [
     'toggle-switch',
     'cfp.hotkeys',
     'ui.sortable',
-    'ngclipboard'
+    'ngclipboard',
+    'dropdown-multiselect',
+    'ui.multiselect',
+    'angularjs-dropdown-multiselect'
 ]);
 
 myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
@@ -94,6 +97,12 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/userExposure",
             templateUrl: "views/template.html",
             controller: 'userExposureCtrl'
+        })
+
+        .state('merchantExposure', {
+            url: "/merchantExposure",
+            templateUrl: "views/template.html",
+            controller: 'merchantExposureCtrl'
         })
 
         .state('jagz', {

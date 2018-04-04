@@ -59,4 +59,9 @@ module.exports = [
 
     // Contorllers
     'backend/js/controllers/controller.js',
+
+    // multiselect
+    'backend/js/directives/multiselect.js',
+    'backend/js/directives/angular-dropdownMultiselect.js',
+    'backend/js/directives/angularjs-dropdown-multiselect.js'
 ];
