@@ -80,7 +80,7 @@ var model = {
     searchWithoutPopulate: function (data, callback) {
         // console.log("in custom");
         // var maxRow = Config.maxRow;
-        var maxRow = 10;
+        var maxRow = 100000000;
         var page = 1;
         if (data.page) {
             page = data.page;
