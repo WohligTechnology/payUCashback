@@ -55,6 +55,24 @@ var controller = {
                 });
             }
     
+        },
+        collectionCaste: function (req, res) {
+            // if (req.body) {
+            //     if (mongoose.Types.ObjectId.isValid(req.body._id)) {
+                    ExposureMerchantCat.collectionCaste(req.body, res.callback);
+            //     } else {
+            //         res.json({
+            //             value: false,
+            //             data: "ObjectId Invalid"
+            //         });
+            //     }
+            // } else {
+            //     res.json({
+            //         value: false,
+            //         data: "Invalid Request"
+            //     });
+            // }
+    
         }
     
 };
