@@ -227,11 +227,11 @@ myApp.factory('NavigationService', function ($http, $state) {
                         classis: "active",
                         sref: "#!/page/viewExposureMerchant//"
                     }, {
-                        name: "Merchant Exposure",
+                        name: "Merchant Exposure Categories",
                         classis: "active",
                         uiSref: "merchantExposure"
                     }, {
-                        name: "User Exposure",
+                        name: "User Exposure Categories",
                         classis: "active",
                         uiSref: "userExposure"
                     }
