@@ -227,13 +227,13 @@ myApp.factory('NavigationService', function ($http, $state) {
                         classis: "active",
                         sref: "#!/page/viewExposureMerchant//"
                     }, {
-                        name: "User Exposure",
-                        classis: "active",
-                        uiSref: "userExposure"
-                    }, {
                         name: "Merchant Exposure",
                         classis: "active",
                         uiSref: "merchantExposure"
+                    }, {
+                        name: "User Exposure",
+                        classis: "active",
+                        uiSref: "userExposure"
                     }
                     ];
                 } else if ($.jStorage.get("profile").accessLevel == "Cashback") {
