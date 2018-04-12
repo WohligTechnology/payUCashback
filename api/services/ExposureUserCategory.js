@@ -1,7 +1,6 @@
 var schema = new Schema({
     name: {
-        type: String,
-        unique: true
+        type: String
     },
     lowerBoundRiskScore: {
         type: Number

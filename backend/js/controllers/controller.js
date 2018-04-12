@@ -660,22 +660,31 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         }
 
-        $scope.playSelectedAllClickMarketing = function () {
+        $scope.playSelectedAllClickMarketing = function (singleMarketingRule) {
+            $scope.selectArrMarketing=[singleMarketingRule._id];
             console.log("allSelectedMarketingRules", $scope.selectArrMarketing);
-            if ($scope.selectArrMarketing.length == 0) {
-                console.log("empty array inside playSelectedAllClickMarketing if");
-                alert("No Marketing Rules to Play");
-            } else if ($scope.selectArrMarketing.length > 1) {
-                console.log("cannot play more than 1 rule!");
-                alert("Please select only 1 Rule at a time to Play!!!");
-            } else {
+            
                 $scope.playSelectedAllClickMarketingFolderNameModal = $uibModal.open({
                     animation: true,
                     templateUrl: 'views/modal/playAllMarketingRuleFolderNameModal.html',
                     size: 'md',
                     scope: $scope
                 });
-            }
+            // console.log("allSelectedMarketingRules", $scope.selectArrMarketing);
+            // if ($scope.selectArrMarketing.length == 0) {
+            //     console.log("empty array inside playSelectedAllClickMarketing if");
+            //     alert("No Marketing Rules to Play");
+            // } else if ($scope.selectArrMarketing.length > 1) {
+            //     console.log("cannot play more than 1 rule!");
+            //     alert("Please select only 1 Rule at a time to Play!!!");
+            // } else {
+            //     $scope.playSelectedAllClickMarketingFolderNameModal = $uibModal.open({
+            //         animation: true,
+            //         templateUrl: 'views/modal/playAllMarketingRuleFolderNameModal.html',
+            //         size: 'md',
+            //         scope: $scope
+            //     });
+            // }
 
         }
 
@@ -1292,6 +1301,45 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 size: 'md',
                 scope: $scope
             });
+        }
+
+        $scope.viewMarketingRuleGetCountResponseModal = function (singleMarketingRule) {
+            var objectToSend=singleMarketingRule;
+            $scope.responseObject={
+                name:"test",
+                count1:10000,
+                count2:20000
+            };
+            $scope.singleRuleModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
+                size: 'lg',
+                scope: $scope
+            });
+            // NavigationService.viewMarketingRuleGetCountResponseModal(objectToSend, function (data) {
+            //     console.log("verifyQuery", data);
+            //     var query = data.data.cashbackQuery;
+            //     $scope.queryToShow = query;
+            //     if (data.data.success == true) {
+            //         $scope.singleRuleModal = $uibModal.open({
+            //             animation: true,
+            //             templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
+            //             size: 'lg',
+            //             scope: $scope
+            //         });
+            //     } else {
+            //         $scope.queryToShow = "Something Went Wrong: Server is Failed to Generate Query."
+            //         $scope.singleRuleModal = $uibModal.open({
+            //             animation: true,
+            //             templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
+            //             size: 'lg',
+            //             scope: $scope
+            //         });
+
+            //     }
+
+            // })
+
         }
 
         // Exposure Merchant view button click start
@@ -3196,12 +3244,13 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         
         $scope.saveSingleObject = function (dataToBeSave) {
             console.log("Data inside save data", dataToBeSave);
+            console.log("Data lowerBoundRiskScore", dataToBeSave.lowerBoundRiskScore);
             if(dataToBeSave.createdAt){
                 delete dataToBeSave.createdAt;
             }
             if(!dataToBeSave.name || dataToBeSave.name==undefined || dataToBeSave.name==""){
                 alert("Category Name is Mandatory Field!!!");
-            }else if(!dataToBeSave.lowerBoundRiskScore || dataToBeSave.lowerBoundRiskScore==undefined || dataToBeSave.lowerBoundRiskScore==""){
+            }else if((!dataToBeSave.lowerBoundRiskScore || dataToBeSave.lowerBoundRiskScore==undefined || dataToBeSave.lowerBoundRiskScore=="") && dataToBeSave.lowerBoundRiskScore < 0){
                 alert("Lower Bound Risk Score is Mandatory Field");
             }else if(!dataToBeSave.upperBoundRiskScore || dataToBeSave.upperBoundRiskScore==undefined || dataToBeSave.upperBoundRiskScore==""){
                 alert("Upper Bound Risk Score is Mandatory Field");
@@ -3279,7 +3328,50 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             $scope.results.unshift({});
             // $scope.results.push({});
         }
+        $scope.copySingleObject = function (singleObjectToBeCopy) {
+            console.log("inside copySingleObject");
+            singleObjectToBeCopy.name="Copied-"+singleObjectToBeCopy.name;
+            delete singleObjectToBeCopy._id;
+            delete singleObjectToBeCopy.createdAt;
+            delete singleObjectToBeCopy.updatedAt;
+            singleObjectToBeCopy.isPlay=0;
 
+            NavigationService.apiCall("ExposureUserCategory/save", singleObjectToBeCopy, function (data) {
+                console.log("response of save", data);
+                if (data.value == true) {
+                    toastr.success(singleObjectToBeCopy.name +" Successfully!!!", {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "timeOut": "4000",
+                        "extendedTimeOut": "1000",
+                        "tapToDismiss": false
+                    });
+                } else {
+                    toastr.error("Failed To Update Category", {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "timeOut": "2000",
+                        "extendedTimeOut": "1000",
+                        "tapToDismiss": false
+                    });
+                }
+                $state.reload();
+            });
+            // $scope.results.unshift(singleObjectToBeCopy);
+            // console.log("results after push-",$scope.results);
+            // alert("Category Copied !!! Please See first Category in the List.")
+            // $scope.results.push({});
+        }
         $scope.deleteUserCategory=function(objectToDelete){
             console.log("inside deleteUserCategory",objectToDelete);
             NavigationService.apiCall("ExposureUserCategory/deleteWithChangeStatus", objectToDelete, function (data) {
@@ -3960,7 +4052,90 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         $scope.addSingleObject = function () {
             console.log("inside addSingleObject");
-            $scope.results.unshift({});
+            console.log("results before push-",$scope.results);
+            var currentDate=Date.now();
+            var objectToBeAdd={
+                name:currentDate
+            };
+            // $scope.results.unshift(objectToBeAdd);
+            // console.log("results after push-",$scope.results);
+            // $scope.results.push({});
+            NavigationService.apiCall("ExposureMerchantCat/save", objectToBeAdd, function (data) {
+                console.log("response of save", data);
+                if (data.value == true) {
+                    toastr.success("Added Successfully!!!", {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "timeOut": "4000",
+                        "extendedTimeOut": "1000",
+                        "tapToDismiss": false
+                    });
+                } else {
+                    toastr.error("Failed To Update Category", {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "timeOut": "2000",
+                        "extendedTimeOut": "1000",
+                        "tapToDismiss": false
+                    });
+                }
+                $state.reload();
+            });
+            
+        }
+
+        $scope.copySingleObject = function (singleObjectToBeCopy) {
+            console.log("inside copySingleObject");
+            singleObjectToBeCopy.name="Copied-"+singleObjectToBeCopy.name;
+            delete singleObjectToBeCopy._id;
+            delete singleObjectToBeCopy.createdAt;
+            delete singleObjectToBeCopy.updatedAt;
+            singleObjectToBeCopy.isPlay=0;
+
+            NavigationService.apiCall("ExposureMerchantCat/save", singleObjectToBeCopy, function (data) {
+                console.log("response of save", data);
+                if (data.value == true) {
+                    toastr.success(singleObjectToBeCopy.name +" Successfully!!!", {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "timeOut": "4000",
+                        "extendedTimeOut": "1000",
+                        "tapToDismiss": false
+                    });
+                } else {
+                    toastr.error("Failed To Update Category", {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "timeOut": "2000",
+                        "extendedTimeOut": "1000",
+                        "tapToDismiss": false
+                    });
+                }
+                $state.reload();
+            });
+            // $scope.results.unshift(singleObjectToBeCopy);
+            // console.log("results after push-",$scope.results);
+            // alert("Category Copied !!! Please See first Category in the List.")
             // $scope.results.push({});
         }
 

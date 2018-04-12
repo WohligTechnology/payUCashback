@@ -49,11 +49,12 @@
                                 </div>
                                 <div class="col-md-3" style="margin-top:24px;">
                                     <div class="form-group">
-                                        <button ng-disabled='$index.$invalid' class="btn btn-success" type="button" ng-click="saveSingleObject(item)">Save</button>
+                                        <button ng-disabled='$index.$invalid' class="btn btn-success" type="button" ng-click="saveSingleObject(item)" title="Save"><i class="fa fa-save"></i></button>
+                                        <button class="btn btn-success" type="button" ng-click="copySingleObject(item)" title="Copy"><i class="fa fa-copy"></i></button>
                                         <button style="display:none;" class="btn btn-info" type="button" ng-click="viewSingleObject(item)">View</button>
-                                        <button class="btn btn-danger" type="button"  confirmed-click="deleteMerchantCategory(item)" ng-confirm-click="Are You Sure?">Delete</button>
-                                        <button ng-if="item.isPlay==0" class="btn btn-primary" type="button" ng-click="playMerchantCategory(item)">Play</button>
-                                        <button ng-if="item.isPlay==1" class="btn btn-danger" type="button" ng-click="stopMerchantCategory(item)">Stop</button>
+                                        <button class="btn btn-danger" type="button"  confirmed-click="deleteMerchantCategory(item)" ng-confirm-click="Are You Sure?" title="Delete"><i class="fa fa-trash"></i></button>
+                                        <button ng-if="item.isPlay==0" class="btn btn-primary" type="button" ng-click="playMerchantCategory(item)" title="Play"><i class="fa fa-play"></i></button>
+                                        <button ng-if="item.isPlay==1" class="btn btn-danger" type="button" ng-click="stopMerchantCategory(item)" title="Stop"><i class="fa fa-stop"></i></button>
                                     </div>
                                 </div>
                             </div>

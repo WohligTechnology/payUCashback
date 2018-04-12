@@ -152,6 +152,21 @@
                                                 ng-click="viewQueryModal(item)">
                                                 <i class="fa" ng-class="json.json.queryButton.icon"></i>
                                             </a>
+
+                                            <!-- Marketing Rule Get Count button start -->
+                                            <a style="margin-left:5px;" ng-if="json.json.getMarketingRuleCountButton" title="{{json.json.getMarketingRuleCountButton.name}}" class="btn" ng-class="json.json.getMarketingRuleCountButton.buttonClass"
+                                            ng-click="viewMarketingRuleGetCountResponseModal(item)">
+                                            Get Count
+                                            <!-- <i class="fa" ng-class="json.json.getMarketingRuleCountButton.icon"></i> -->
+                                        </a>
+                                        <!-- Marketing Rule Get Count button end -->
+                                            <a style="margin-left:5px;" ng-if="json.json.playMarketingRule" title="{{json.json.playMarketingRule.name}}" class="btn" ng-class="json.json.playMarketingRule.buttonClass"
+                                                ng-click="playSelectedAllClickMarketing(item)">
+                                                Play Rule
+                                            </a>
+                                            <!-- <a class="btn btn-primary" ng-if="json.json.bottomButtonPlayAllMarketing" ng-show="hasRole({{json.json.bottomButtonPlayAllMarketing[0].roles}})"
+                                            ng-class="btn.class " ng-click="playSelectedAllClickMarketing()">{{json.json.bottomButtonPlayAllMarketing[0].name}}</a> -->
+                                        
                                         </td>
                                     </tr>
                                 </tbody>

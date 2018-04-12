@@ -2,7 +2,6 @@
     "title": "Marketing Rule",
     "description": "List of Marketing Rules",
     "pageType": "view",
-    "rowCheckBoxForMarketing":true,
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
     "colorExpiredMarketingRule": true,
@@ -33,6 +32,16 @@
         "name": "View Marketing Rule",
         "icon": "fa-search",
         "buttonClass": "btn-primary"
+    },
+    "getMarketingRuleCountButton":{
+        "name": "Get Result Count",
+        "icon": "fa-sticky-note",
+        "buttonClass": "btn-warning"
+    },
+    "playMarketingRule":{
+        "name": "Play Rule",
+        "icon": "fa-sticky-note",
+        "buttonClass": "btn-success"
     },
     "action": [{
         "name": "Edit Marketing Rule",
@@ -75,15 +84,6 @@
         "type": "page",
         "action": "createMarketingRule",
         "roles":["Super Admin","Marketing Creator","Performance","Marketing"]
-    }],
-    "bottomButtonMarketing": [{
-        "name": "Play Selected",
-        "icon": "plus",
-        "class": "btn-success",
-        "type": "page",
-        "action": "",
-        "functionName":"playSelectedClick()",
-        "roles":["Super Admin","Marketing Executor","Performance","Marketing"]
     }],
     "apiCall": {
         "url": "MarketingRule/search",

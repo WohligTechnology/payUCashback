@@ -1,7 +1,6 @@
 var schema = new Schema({
     name: {
-        type: String,
-        unique: true
+        type: String
     },
     exposureMerchant: [{
         type: Schema.Types.ObjectId,
