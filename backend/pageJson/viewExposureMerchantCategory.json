@@ -43,7 +43,7 @@
         "title": "Delete ExposureMerchantCategory",
         "content": "Are you sure you want to delete ExposureMerchantCategory?",
         "api": "ExposureMerchantCategory/deleteWithChangeStatus",
-        "roles":["Super Admin"],
+        "roles":["Super Admin","Merchant Exposure"],
         "fieldsToSend": {
             "name": "_id",
             "value": "_id"

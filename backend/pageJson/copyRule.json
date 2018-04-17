@@ -6,7 +6,7 @@
     "pageType": "edit",
     "createFromEdit":true,
     "urlFields": ["_id"],
-    "roles":["Super Admin","Creator","Cashback"],
+    "roles":["Super Admin","Cashback"],
     "fields": [{
         "name": "Campaign Details",
         "type": "heading",

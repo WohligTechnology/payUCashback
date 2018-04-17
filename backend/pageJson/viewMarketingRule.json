@@ -6,7 +6,7 @@
     "urlFields": ["_id"],
     "colorExpiredMarketingRule": true,
     "showCountMarketingOnView":true,
-    "roles":["Super Admin","Marketing Creator","Marketing Executor","Marketing Viewer","Performance","Marketing"],
+    "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -49,7 +49,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editMarketingRule",
-        "roles":["Super Admin","Marketing Creator","Performance","Marketing"],
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -59,7 +59,7 @@
         "buttonClass": "btn-danger",
         "type": "apiCallConfirm",
         "title": "Delete MarketingRule",
-        "roles":["Super Admin","Marketing"],
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
         "content": "Are you sure you want to delete MarketingRule?",
         "api": "MarketingRule/deleteWithChangeStatus",
         "fieldsToSend": {
@@ -72,7 +72,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "copyMarketingRule",  
-        "roles":["Super Admin","Marketing Creator","Performance","Marketing"], 
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"], 
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -83,7 +83,7 @@
         "class": "btn-success",
         "type": "page",
         "action": "createMarketingRule",
-        "roles":["Super Admin","Marketing Creator","Performance","Marketing"]
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"]
     }],
     "apiCall": {
         "url": "MarketingRule/search",

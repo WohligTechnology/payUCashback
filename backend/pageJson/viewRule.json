@@ -8,7 +8,7 @@
     "colorExpired": true,
     "showCountOnView":true,
     "filter1": "ruleFilter",
-    "roles":["Super Admin","Creator","Executor","Viewer","Cashback"],
+    "roles":["Super Admin","Cashback"],
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -51,7 +51,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editRule",
-        "roles":["Super Admin","Creator","Cashback"],
+        "roles":["Super Admin","Cashback"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -74,7 +74,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "copyRule",  
-        "roles":["Super Admin","Creator","Cashback"], 
+        "roles":["Super Admin","Cashback"], 
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -85,13 +85,13 @@
         "class": "btn-success",
         "type": "page",
         "action": "createRule",
-        "roles":["Super Admin","Creator","Cashback"]
+        "roles":["Super Admin","Cashback"]
     }],
     "topButtonChangeAll": {
         "name": "Change All X Days Values",
         "icon": "plus",
         "class": "btn-primary",
-        "roles":["Super Admin","Creator","Executor","Cashback"]
+        "roles":["Super Admin","Executor","Cashback"]
     },
     "bottomButton": [{
         "name": "Play Selected",
@@ -100,7 +100,7 @@
         "type": "page",
         "action": "",
         "functionName":"playSelectedClick()",
-        "roles":["Super Admin","Executor","Cashback"]
+        "roles":["Super Admin","Cashback"]
     }],
     "bottomButtonPlayAll": [{
         "name": "Play All Rules",
@@ -109,7 +109,7 @@
         "type": "page",
         "action": "",
         "functionName":"playSelectedAllClick()",
-        "roles":["Super Admin","Executor","Cashback"]
+        "roles":["Super Admin","Cashback"]
     }],
     "bottomButtonPlayAllActive": {
         "name": "Play All Active Rules",
@@ -118,7 +118,7 @@
         "type": "page",
         "action": "",
         "functionName":"playSelectedAllActiveClick()",
-        "roles":["Super Admin","Executor","Cashback"]
+        "roles":["Super Admin","Cashback"]
     },
     "apiCall": {
         "url": "Rule/search",

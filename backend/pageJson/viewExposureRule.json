@@ -39,7 +39,7 @@
         "buttonClass": "btn-danger",
         "type": "apiCallConfirm",
         "title": "Delete ExposureRule",
-        "roles":["Super Admin"],
+        "roles":["Super Admin","Merchant Exposure"],
         "content": "Are you sure you want to delete ExposureRule?",
         "api": "ExposureRule/deleteWithChangeStatus",
         "fieldsToSend": {
@@ -52,7 +52,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "copyExposureRule",  
-        "roles":["Super Admin","Creator"], 
+        "roles":["Super Admin","Merchant Exposure"], 
         "fieldsToSend": {
             "_id": "_id"
         }

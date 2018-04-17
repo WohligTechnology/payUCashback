@@ -37,7 +37,7 @@
         "title": "Delete MailerList",
         "content": "Are you sure you want to delete MailerList?",
         "api": "MailerList/deleteWithChangeStatus",
-        "roles":["Super Admin"],
+        "roles":["Super Admin","Merchant Exposure"],
         "fieldsToSend": {
             "name": "_id",
             "value": "_id"

@@ -6,7 +6,7 @@
     "pageType": "edit",
     "showFormatImagePerformance": true,
     "urlFields": ["_id"],
-    "roles":["Super Admin","Performance"],
+    "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
     "fields": [{
         "name": "Upload File (Currently Supporting Only CSV File Format)",
         "type": "excel",

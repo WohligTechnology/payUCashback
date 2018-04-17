@@ -4,7 +4,7 @@
     "pageType": "view",
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
-    "roles":["Super Admin","Marketing Creator","Marketing Executor","Marketing Viewer","Performance","Marketing"],
+    "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -21,7 +21,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editMarketingMerchant",
-        "roles":["Super Admin","Marketing Creator","Performance","Marketing"],
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -33,7 +33,7 @@
         "title": "Delete MarketingMerchant",
         "content": "Are you sure you want to delete MarketingMerchant?",
         "api": "MarketingMerchant/deleteWithChangeStatus",
-        "roles":["Super Admin","Marketing"],
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
         "fieldsToSend": {
             "name": "_id",
             "value": "_id"
@@ -44,7 +44,7 @@
         "icon": "plus",
         "class": "btn-success",
         "type": "page",
-        "roles":["Super Admin","Marketing Creator","Performance","Marketing"],
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
         "action": "createMarketingMerchant"
     }],
     "apiCall": {

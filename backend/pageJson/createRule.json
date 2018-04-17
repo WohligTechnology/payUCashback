@@ -5,7 +5,7 @@
     "desciption": "",
     "pageType": "create",
     "urlFields": ["Rule"],
-    "roles":["Super Admin","Creator","Cashback"],
+    "roles":["Super Admin","Cashback"],
     "fields": [{
         "name": "Campaign Details",
         "type": "heading",

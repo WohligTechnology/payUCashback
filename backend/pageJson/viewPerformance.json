@@ -6,7 +6,7 @@
     "rowCheckBoxForPerformance":true,
     "urlFields": ["_id"],
     "loader":false,
-    "roles":["Super Admin","Performance"],
+    "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
     "fields": [{
         "name": "Remark",
         "isSort": "",
@@ -34,7 +34,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editPerformance",
-        "roles":["Super Admin","Performance"],
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -46,7 +46,7 @@
         "title": "Delete Performance",
         "content": "Are you sure you want to delete Performance?",
         "api": "Performance/deleteWithChangeStatus",
-        "roles":["Super Admin"],
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
         "fieldsToSend": {
             "name": "_id",
             "value": "_id"
@@ -57,7 +57,7 @@
         "icon": "plus",
         "class": "btn-success",
         "type": "page",
-        "roles":["Super Admin","Performance"],
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
         "action": "createPerformance"
     }],
     "bottomButtonPerformance": [{
@@ -67,7 +67,7 @@
         "type": "page",
         "action": "",
         "functionName":"playPerformanceSelectedClick()",
-        "roles":["Super Admin","Performance"]
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"]
     }],
     "apiCall": {
         "url": "Performance/search",

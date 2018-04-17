@@ -4,7 +4,7 @@
     "pageType": "view",
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
-    "roles":["Super Admin","Creator","Executor","Viewer","Cashback"],
+    "roles":["Super Admin","Cashback"],
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -25,7 +25,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editMerchant",
-        "roles":["Super Admin","Creator","Cashback"],
+        "roles":["Super Admin","Cashback"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -48,7 +48,7 @@
         "icon": "plus",
         "class": "btn-success",
         "type": "page",
-        "roles":["Super Admin","Creator","Cashback"],
+        "roles":["Super Admin","Cashback"],
         "action": "createMerchant"
     }],
     "apiCall": {

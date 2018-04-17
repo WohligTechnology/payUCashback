@@ -57,7 +57,7 @@
         "dropDownField": "",
         "dropDownType": "single",
         "onView": true,
-        "dropDown": ["Super Admin","Cashback","Performance","Marketing"]
+        "dropDown": ["Super Admin","Cashback","Performance","Targeted Marketing"]
     }],
     "action": [{
         "name": "submit",

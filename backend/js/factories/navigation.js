@@ -191,7 +191,7 @@ myApp.factory('NavigationService', function ($http, $state) {
         getnav: function () {
             if ($.jStorage.get("profile")) {
                 var defaultNav = false;
-                console.log("$.jStorage.get('profile').accessLevel", $.jStorage.get("profile").accessLevel);
+                console.log("$.jStorage.get('profile').accessLevelllllllll", $.jStorage.get("profile").accessLevel);
                 if ($.jStorage.get("profile").accessLevel == "Super Admin") {
                     console.log("inside super admin navigation block");
                     var navigation = [{
@@ -276,7 +276,7 @@ myApp.factory('NavigationService', function ($http, $state) {
                         classis: "active",
                         sref: "#!/page/viewMarketingRule//"
                     }];
-                } else if ($.jStorage.get("profile").accessLevel == "Performance") {
+                } else if ($.jStorage.get("profile").accessLevel == "Performance" || $.jStorage.get("profile").accessLevel == "Marketing Performance") {
                     var navigation = [{
                         name: "Performance",
                         classis: "active",

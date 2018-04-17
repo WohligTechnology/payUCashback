@@ -33,7 +33,7 @@
         "buttonClass": "btn-danger",
         "type": "apiCallConfirm",
         "title": "Delete ExposureMerchant",
-        "roles":["Super Admin"],
+        "roles":["Super Admin","Merchant Exposure"],
         "content": "Are you sure you want to delete ExposureMerchant?",
         "api": "ExposureMerchant/deleteWithChangeStatus",
         "fieldsToSend": {
@@ -46,7 +46,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "copyExposureMerchant",  
-        "roles":["Super Admin","Creator"], 
+        "roles":["Super Admin","Merchant Exposure"], 
         "fieldsToSend": {
             "_id": "_id"
         }
