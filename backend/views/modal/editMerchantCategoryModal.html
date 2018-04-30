@@ -1,0 +1,45 @@
+<form name="merchantCategoryForm" ng-submit="editMerchantCategoryOnSave(objectToBeEdit);">
+        <div class="modal-header blue-bg  ">
+            <div class="pull-right">
+                <a class="btn btn-clear" ng-click="$dismiss()">
+                    <i class="ln-cross"></i>
+                </a>
+            </div>
+            <h5 class="modal-title">Edit {{objectToBeEdit.name}}</h5>
+        </div>
+        <div style="margin: 20px;">
+    
+            <div class="form-group">
+                <label>Name :</label>
+                {{objectToBeEdit.name}}
+                <!-- <input type="text" name="name" placeholder="Enter Name" ng-model="formData.name" class="form-control" required>
+                <div class="error-msg" ng-show="merchantCategoryForm.name.$invalid && merchantCategoryForm.name.$touched">Folder Name is required</div> -->
+            </div>
+            <div class="form-group">
+                <label>Access Key<span style="color:red">*</span> :</label>
+                <input type="text" name="accessKey" placeholder="Enter Access Key" ng-model="objectToBeEdit.accessKey" class="form-control" required>
+                <div class="error-msg" ng-show="merchantCategoryForm.name.$invalid && merchantCategoryForm.name.$touched">Folder Name is required</div>
+            </div>
+            <div class="form-group">
+                <label>Risk Category<span style="color:red">*</span> :</label>
+                <input type="number" name="riskCategory" placeholder="Enter Risk Category" ng-model="objectToBeEdit.riskCategory" class="form-control" required>
+                <div class="error-msg" ng-show="merchantCategoryForm.name.$invalid && merchantCategoryForm.name.$touched">Folder Name is required</div>
+            </div>
+            <div class="form-group">
+                <label>Reason :</label>
+                <input type="text" name="reason" placeholder="Enter Reason" ng-model="objectToBeEdit.reason" class="form-control">
+                <div class="error-msg" ng-show="merchantCategoryForm.name.$invalid && merchantCategoryForm.name.$touched">Folder Name is required</div>
+            </div>
+            <div class="form-group">
+                <label>User<span style="color:red">*</span> :</label>
+                <input type="text" name="user" placeholder="Enter User" ng-model="objectToBeEdit.user" class="form-control" required>
+                <div class="error-msg" ng-show="merchantCategoryForm.name.$invalid && merchantCategoryForm.name.$touched">Folder Name is required</div>
+            </div>
+            <div class="digital-submit text-center">
+                <button class="btn btn-primary btn-save" type="submit" ng-disabled="merchantCategoryForm.$invalid" ng-click="submitUser1(formData)"
+                    class=" btn btn-default ">Submit</button>
+                <button class="btn btn-danger btn-cancel" ng-click="$dismiss()">Cancel</button>
+            </div>
+        </div>
+    </form>
+    

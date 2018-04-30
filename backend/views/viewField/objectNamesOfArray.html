@@ -1,5 +1,8 @@
 <!-- <div class="text-center1" style="height: auto;width: 80px;">{{value[type.tableRef].name}}</div> -->
 <div style="height: auto;
-width: 185px;"><span ng-repeat="obj in value[type.tableRef]">{{obj.name}} {{$last ? '' : ($index==value[type.tableRef].length-2) ? ' and ' : ', '}}</span>
+width: 185px;" ng-if="value[type.tableRef].length > 0"><span ng-repeat="obj in value[type.tableRef]">{{obj.name}} {{$last ? '' : ($index==value[type.tableRef].length-2) ? ' and ' : ', '}}</span>
+</div>
+<div style="height: auto;
+width: 185px;" ng-if="value[type.tableRef].length==0">No Mode Selected
 </div>
 <!-- {{value[type.tableRef]}} -->

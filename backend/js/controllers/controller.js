@@ -661,15 +661,16 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         }
 
         $scope.playSelectedAllClickMarketing = function (singleMarketingRule) {
-            $scope.selectArrMarketing=[singleMarketingRule._id];
+            $scope.selectArrMarketing = [singleMarketingRule._id];
             console.log("allSelectedMarketingRules", $scope.selectArrMarketing);
-            
-                $scope.playSelectedAllClickMarketingFolderNameModal = $uibModal.open({
-                    animation: true,
-                    templateUrl: 'views/modal/playAllMarketingRuleFolderNameModal.html',
-                    size: 'md',
-                    scope: $scope
-                });
+
+            $scope.playSelectedAllClickMarketingFolderNameModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/playAllMarketingRuleFolderNameModal.html',
+                size: 'md',
+                scope: $scope
+            });
+
             // console.log("allSelectedMarketingRules", $scope.selectArrMarketing);
             // if ($scope.selectArrMarketing.length == 0) {
             //     console.log("empty array inside playSelectedAllClickMarketing if");
@@ -688,6 +689,91 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         }
 
+        $scope.playCollectionEngine = function (singleCollectionEngine) {
+            var objectToSend={};
+            delete singleCollectionEngine.createdBy;
+            delete singleCollectionEngine.lastUpdatedBy;
+            if(singleCollectionEngine.previousRepaymentMode){
+                var previousRepaymentModeArray=[];
+                angular.forEach(singleCollectionEngine.previousRepaymentMode, function(value, key) {
+                    previousRepaymentModeArray.push(value.name);
+                  });
+            }
+            if(singleCollectionEngine.outstandingAmountOperator){
+                if(singleCollectionEngine.outstandingAmountOperator.name=="Select Operator" || singleCollectionEngine.outstandingAmountOperator.name==undefined){
+                    singleCollectionEngine.outstandingAmountOperator=null;
+                }else{
+                    singleCollectionEngine.outstandingAmountOperator=singleCollectionEngine.outstandingAmountOperator.name;
+                }
+                }
+            if(singleCollectionEngine.previousRepaymentAmountOperator){
+                if(singleCollectionEngine.previousRepaymentAmountOperator.name=="Select Operator" || singleCollectionEngine.previousRepaymentAmountOperator==undefined){
+                    singleCollectionEngine.previousRepaymentAmountOperator=null;
+                }else{
+                singleCollectionEngine.previousRepaymentAmountOperator=singleCollectionEngine.previousRepaymentAmountOperator.name;
+                }
+            }
+            if(singleCollectionEngine.previousRepaymentDpdOperator){
+                if(singleCollectionEngine.previousRepaymentDpdOperator.name=="Select Operator" || singleCollectionEngine.previousRepaymentDpdOperator.name==undefined){
+                    singleCollectionEngine.previousRepaymentDpdOperator=null;
+                }else{
+                singleCollectionEngine.previousRepaymentDpdOperator=singleCollectionEngine.previousRepaymentDpdOperator.name;
+                }
+            }
+            if(singleCollectionEngine.dueSinceOperator){
+                if(singleCollectionEngine.dueSinceOperator.name=="Select Operator" || singleCollectionEngine.dueSinceOperator.name==undefined){
+                    singleCollectionEngine.dueSinceOperator=null;
+                }else{
+                singleCollectionEngine.dueSinceOperator=singleCollectionEngine.dueSinceOperator.name;
+                }
+            }
+            if(singleCollectionEngine.prnDueAmountOperator){
+                if(singleCollectionEngine.prnDueAmountOperator.name=="Select Operator" || singleCollectionEngine.prnDueAmountOperator.name==undefined){
+                    singleCollectionEngine.prnDueAmountOperator=null;
+                }else{
+                singleCollectionEngine.prnDueAmountOperator=singleCollectionEngine.prnDueAmountOperator.name;
+                }
+            }
+            
+            singleCollectionEngine.previousRepaymentModeArray=previousRepaymentModeArray;
+            objectToSend.collectionRule = singleCollectionEngine;
+            console.log("allSelectedCollectionEngines", objectToSend);
+
+                NavigationService.playCollectionEngine(objectToSend, function (data) {
+                    console.log("*****", data);
+                    var count = data.data.cashbackCount;
+                    if (data.data.success == true) {
+                        toastr.success("Collection Engine Rule Played Successfully. ", {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "4000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    } else {
+                        toastr.error("Failed To Play Collection Engine Rule", {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "2000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    }
+                    $state.reload();
+
+                })
+            
+        }
         $scope.playSelectedClickExposureMerchantCategory = function () {
             console.log("allSelectedMarketingRules", $scope.selectArrMerchantExposureCategory);
             if ($scope.selectArrMerchantExposureCategory.length == 0) {
@@ -859,6 +945,60 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
                 })
             }
+        }
+
+
+
+        $scope.playCollectionEngineClickAfterFolderName = function (formData) {
+            $scope.playSelectedAllClickMarketingFolderNameModal.close();
+            // console.log("formData in playAllClickAfterFolderName",formData);
+            if ($.jStorage.get("profile")) {
+                var loggedInUserId = $.jStorage.get("profile")._id;
+            } else {
+                loggedInUserId = null;
+            }
+            var folder = formData.name;
+            var objectToSend = {
+                userId: loggedInUserId,
+                folderName: folder
+            };
+
+                objectToSend.collectionRule = $scope.collectionEngineObject;
+                console.log("selected id inside playSelectedClick else", objectToSend);
+
+                // NavigationService.playSelectedColle(objectToSend, function (data) {
+                //     console.log("*****", data);
+                //     var count = data.data.cashbackCount;
+                //     if (data.data.success == true) {
+                //         toastr.success("Rules Played Successfully. Total Cashback Count is - " + count, {
+                //             "closeButton": true,
+                //             "debug": false,
+                //             "newestOnTop": false,
+                //             "progressBar": true,
+                //             "positionClass": "toast-top-center",
+                //             "preventDuplicates": false,
+                //             "onclick": null,
+                //             "timeOut": "4000",
+                //             "extendedTimeOut": "1000",
+                //             "tapToDismiss": false
+                //         });
+                //     } else {
+                //         toastr.error("Failed To Play Rules", {
+                //             "closeButton": true,
+                //             "debug": false,
+                //             "newestOnTop": false,
+                //             "progressBar": true,
+                //             "positionClass": "toast-top-center",
+                //             "preventDuplicates": false,
+                //             "onclick": null,
+                //             "timeOut": "2000",
+                //             "extendedTimeOut": "1000",
+                //             "tapToDismiss": false
+                //         });
+                //     }
+                //     $state.reload();
+
+                // })
         }
         // $scope.playAllMarketingClickAfterFolderName = function (formData) {
         //     $scope.playSelectedAllClickMarketingFolderNameModal.close();
@@ -1303,12 +1443,75 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             });
         }
 
+        $scope.viewSingleCollectionEngineModal = function (singleCollectionEngine1) {
+            var singleCollectionEngineForModalData=singleCollectionEngine1;
+            // console.log("viewSingleCollectionEngineModal", singleCollectionEngineForModalData);
+            // var objectToSend={};
+            // delete singleCollectionEngineForModalData.createdBy;
+            // delete singleCollectionEngineForModalData.lastUpdatedBy;
+            // if(singleCollectionEngineForModalData.previousRepaymentMode){
+            //     var previousRepaymentModeArray=[];
+            //     angular.forEach(singleCollectionEngineForModalData.previousRepaymentMode, function(value, key) {
+            //         previousRepaymentModeArray.push(value.name);
+            //       });
+            // }
+            // if(singleCollectionEngineForModalData.outstandingAmountOperator){
+            //     if(singleCollectionEngineForModalData.outstandingAmountOperator.name=="Select Operator" || singleCollectionEngineForModalData.outstandingAmountOperator.name==undefined){
+            //         singleCollectionEngineForModalData.outstandingAmountOperator=null;
+            //     }else{
+            //         singleCollectionEngineForModalData.outstandingAmountOperator=singleCollectionEngineForModalData.outstandingAmountOperator.name;
+            //     }
+            //     }
+            // if(singleCollectionEngineForModalData.previousRepaymentAmountOperator){
+            //     if(singleCollectionEngineForModalData.previousRepaymentAmountOperator.name=="Select Operator" || singleCollectionEngineForModalData.previousRepaymentAmountOperator==undefined){
+            //         singleCollectionEngineForModalData.previousRepaymentAmountOperator=null;
+            //     }else{
+            //     singleCollectionEngineForModalData.previousRepaymentAmountOperator=singleCollectionEngineForModalData.previousRepaymentAmountOperator.name;
+            //     }
+            // }
+            // if(singleCollectionEngineForModalData.previousRepaymentDpdOperator){
+            //     if(singleCollectionEngineForModalData.previousRepaymentDpdOperator.name=="Select Operator" || singleCollectionEngineForModalData.previousRepaymentDpdOperator.name==undefined){
+            //         singleCollectionEngineForModalData.previousRepaymentDpdOperator=null;
+            //     }else{
+            //     singleCollectionEngineForModalData.previousRepaymentDpdOperator=singleCollectionEngineForModalData.previousRepaymentDpdOperator.name;
+            //     }
+            // }
+            // if(singleCollectionEngineForModalData.dueSinceOperator){
+            //     if(singleCollectionEngineForModalData.dueSinceOperator.name=="Select Operator" || singleCollectionEngineForModalData.dueSinceOperator.name==undefined){
+            //         singleCollectionEngineForModalData.dueSinceOperator=null;
+            //     }else{
+            //     singleCollectionEngineForModalData.dueSinceOperator=singleCollectionEngineForModalData.dueSinceOperator.name;
+            //     }
+            // }
+            // if(singleCollectionEngineForModalData.prnDueAmountOperator){
+            //     if(singleCollectionEngineForModalData.prnDueAmountOperator.name=="Select Operator" || singleCollectionEngineForModalData.prnDueAmountOperator.name==undefined){
+            //         singleCollectionEngineForModalData.prnDueAmountOperator=null;
+            //     }else{
+            //     singleCollectionEngineForModalData.prnDueAmountOperator=singleCollectionEngineForModalData.prnDueAmountOperator.name;
+            //     }
+            // }
+            
+            // singleCollectionEngineForModalData.previousRepaymentModeArray=previousRepaymentModeArray;
+            // var objectToViewOnSingleCollection = singleCollectionEngineForModalData;
+            // console.log("objectToSend which we need to show on singleview", objectToViewOnSingleCollection);
+
+
+
+            $scope.singleCollectionEngineForModal = singleCollectionEngineForModalData;
+            $scope.singleCollectionEngine = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/SingleCollectionEngineModal.html',
+                size: 'md',
+                scope: $scope
+            });
+        }
+
         $scope.viewMarketingRuleGetCountResponseModal = function (singleMarketingRule) {
-            var objectToSend=singleMarketingRule;
-            $scope.responseObject={
-                name:"test",
-                count1:10000,
-                count2:20000
+            var objectToSend = singleMarketingRule;
+            $scope.responseObject = {
+                name: "test",
+                count1: 10000,
+                count2: 20000
             };
             $scope.singleRuleModal = $uibModal.open({
                 animation: true,
@@ -3192,6 +3395,24 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
 
+        var roles = ["Super Admin", "User Exposure"];
+
+        if ($.jStorage.get("profile")) {
+            var accessLevel = $.jStorage.get("profile").accessLevel;
+            if (roles.includes(accessLevel)) {
+                console.log("you have access for User Exposure");
+                // return true;
+            } else {
+                toastr.error("You do not have Access For Merchant Exposure.");
+                console.log("you dont have access");
+                $state.go("dashboard");
+                // return false;
+            }
+        } else {
+            console.log("login first");
+            // $state.go("login");
+        }
+
         // multiple select test code
 
         // $scope.name = 'World';
@@ -3199,99 +3420,99 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         // $scope.selectedCar = [{id:1, name: 'Audi'}];
 
 
-    //     var options = [ {
-    //         'Id': 1,
-    //         'Name': 'Batman',
-    //         'Costume': 'Black'
-    //     }, {
-    //         'Id': 2,
-    //         'Name': 'Superman',
-    //         'Costume': 'Red & Blue'
-    //     }, {
-    //         'Id': 3,
-    //         'Name': 'Hulk',
-    //         'Costume': 'Green'
-    //     }, {
-    //         'Id': 4,
-    //         'Name': 'Flash',
-    //         'Costume': 'Red'
-    //     }, {
-    //         'Id': 5,
-    //         'Name': 'Dare-Devil',
-    //         'Costume': 'Maroon'
-    //     }, {
-    //         'Id': 6,
-    //         'Name': 'Wonder-woman',
-    //         'Costume': 'Red'
-    //     }];
-    
-    // $scope.config = {
-    //     options: options,
-    //     trackBy: 'Id',
-    //     displayBy: [ 'Name', 'Costume' ],
-    //     divider: ':',
-    //     icon: 'glyphicon glyphicon-heart',
-    //     displayBadge: true,
-    //     height: '200px',
-    //     filter: true,
-    //     multiSelect: true
-    // };
+        //     var options = [ {
+        //         'Id': 1,
+        //         'Name': 'Batman',
+        //         'Costume': 'Black'
+        //     }, {
+        //         'Id': 2,
+        //         'Name': 'Superman',
+        //         'Costume': 'Red & Blue'
+        //     }, {
+        //         'Id': 3,
+        //         'Name': 'Hulk',
+        //         'Costume': 'Green'
+        //     }, {
+        //         'Id': 4,
+        //         'Name': 'Flash',
+        //         'Costume': 'Red'
+        //     }, {
+        //         'Id': 5,
+        //         'Name': 'Dare-Devil',
+        //         'Costume': 'Maroon'
+        //     }, {
+        //         'Id': 6,
+        //         'Name': 'Wonder-woman',
+        //         'Costume': 'Red'
+        //     }];
+
+        // $scope.config = {
+        //     options: options,
+        //     trackBy: 'Id',
+        //     displayBy: [ 'Name', 'Costume' ],
+        //     divider: ':',
+        //     icon: 'glyphicon glyphicon-heart',
+        //     displayBadge: true,
+        //     height: '200px',
+        //     filter: true,
+        //     multiSelect: true
+        // };
 
         // multiple select test code ends here
 
 
-        $scope.userTypes=["NEW", "NON-REPAID", "REPAID"];
-        
+        $scope.userTypes = ["NEW", "NON-REPAID", "REPAID"];
+
         $scope.saveSingleObject = function (dataToBeSave) {
             console.log("Data inside save data", dataToBeSave);
             console.log("Data lowerBoundRiskScore", dataToBeSave.lowerBoundRiskScore);
-            if(dataToBeSave.createdAt){
+            if (dataToBeSave.createdAt) {
                 delete dataToBeSave.createdAt;
             }
-            if(!dataToBeSave.name || dataToBeSave.name==undefined || dataToBeSave.name==""){
+            if (!dataToBeSave.name || dataToBeSave.name == undefined || dataToBeSave.name == "") {
                 alert("Category Name is Mandatory Field!!!");
-            }else if((!dataToBeSave.lowerBoundRiskScore || dataToBeSave.lowerBoundRiskScore==undefined || dataToBeSave.lowerBoundRiskScore=="") && dataToBeSave.lowerBoundRiskScore < 0){
+            } else if ((!dataToBeSave.lowerBoundRiskScore || dataToBeSave.lowerBoundRiskScore == undefined || dataToBeSave.lowerBoundRiskScore == "") && dataToBeSave.lowerBoundRiskScore < 0) {
                 alert("Lower Bound Risk Score is Mandatory Field");
-            }else if(!dataToBeSave.upperBoundRiskScore || dataToBeSave.upperBoundRiskScore==undefined || dataToBeSave.upperBoundRiskScore==""){
+            } else if (!dataToBeSave.upperBoundRiskScore || dataToBeSave.upperBoundRiskScore == undefined || dataToBeSave.upperBoundRiskScore == "") {
                 alert("Upper Bound Risk Score is Mandatory Field");
-            }else if(!dataToBeSave.userType || dataToBeSave.userType==undefined || dataToBeSave.userType==""){
+            } else if (!dataToBeSave.userType || dataToBeSave.userType == undefined || dataToBeSave.userType == "") {
                 alert("User Type is Mandatory Field, Please Select Type Of User!!!");
-            }else if(((dataToBeSave.oneHourAmount >= 0 && dataToBeSave.oneHourAmount != null) || (dataToBeSave.oneHourPercentage >= 0 && dataToBeSave.oneHourPercentage != null)) && (dataToBeSave.oneHourMailerList==null || dataToBeSave.oneHourMailerList=="" || dataToBeSave.oneHourMailerList==undefined)){
-                    alert("Please Select Mailer List For 'In Last 1 hour'  Rule of Category "+dataToBeSave.name);
-            // }else if((dataToBeSave.threeHourAmount >= 0 || dataToBeSave.threeHourPercentage >= 0 || dataToBeSave.threeHourAmount != null || dataToBeSave.threeHourPercentage != null) && (dataToBeSave.threeHourMailerList==null || dataToBeSave.threeHourMailerList=="" || dataToBeSave.threeHourMailerList==undefined)){
-            }else if(((dataToBeSave.threeHourAmount >= 0 && dataToBeSave.threeHourAmount != null) || (dataToBeSave.threeHourPercentage >= 0 && dataToBeSave.threeHourPercentage != null)) && (dataToBeSave.threeHourMailerList==null || dataToBeSave.threeHourMailerList=="" || dataToBeSave.threeHourMailerList==undefined)){
-                alert("Please Select Mailer List For 'In Last 3 hour'  Rule of Category "+dataToBeSave.name);
+            } else if (((dataToBeSave.oneHourAmount >= 0 && dataToBeSave.oneHourAmount != null) || (dataToBeSave.oneHourPercentage >= 0 && dataToBeSave.oneHourPercentage != null)) && (dataToBeSave.oneHourMailerList == null || dataToBeSave.oneHourMailerList == "" || dataToBeSave.oneHourMailerList == undefined)) {
+                alert("Please Select Mailer List For 'In Last 1 hour'  Rule of Category " + dataToBeSave.name);
+                // }else if((dataToBeSave.threeHourAmount >= 0 || dataToBeSave.threeHourPercentage >= 0 || dataToBeSave.threeHourAmount != null || dataToBeSave.threeHourPercentage != null) && (dataToBeSave.threeHourMailerList==null || dataToBeSave.threeHourMailerList=="" || dataToBeSave.threeHourMailerList==undefined)){
+            } else if (((dataToBeSave.threeHourAmount >= 0 && dataToBeSave.threeHourAmount != null) || (dataToBeSave.threeHourPercentage >= 0 && dataToBeSave.threeHourPercentage != null)) && (dataToBeSave.threeHourMailerList == null || dataToBeSave.threeHourMailerList == "" || dataToBeSave.threeHourMailerList == undefined)) {
+                alert("Please Select Mailer List For 'In Last 3 hour'  Rule of Category " + dataToBeSave.name);
                 // }
-            // }else if((dataToBeSave.sixHourAmount >= 0 || dataToBeSave.sixHourPercentage >= 0) && (dataToBeSave.sixHourMailerList==null || dataToBeSave.sixHourMailerList=="" || dataToBeSave.sixHourMailerList==undefined)){
-            }else if(((dataToBeSave.sixHourAmount >= 0 && dataToBeSave.sixHourAmount != null) || (dataToBeSave.sixHourPercentage >= 0 && dataToBeSave.sixHourPercentage != null)) && (dataToBeSave.sixHourMailerList==null || dataToBeSave.sixHourMailerList=="" || dataToBeSave.sixHourMailerList==undefined)){
-                alert("Please Select Mailer List For 'In Last 6 hour'  Rule of Category "+dataToBeSave.name);
+                // }else if((dataToBeSave.sixHourAmount >= 0 || dataToBeSave.sixHourPercentage >= 0) && (dataToBeSave.sixHourMailerList==null || dataToBeSave.sixHourMailerList=="" || dataToBeSave.sixHourMailerList==undefined)){
+            } else if (((dataToBeSave.sixHourAmount >= 0 && dataToBeSave.sixHourAmount != null) || (dataToBeSave.sixHourPercentage >= 0 && dataToBeSave.sixHourPercentage != null)) && (dataToBeSave.sixHourMailerList == null || dataToBeSave.sixHourMailerList == "" || dataToBeSave.sixHourMailerList == undefined)) {
+                alert("Please Select Mailer List For 'In Last 6 hour'  Rule of Category " + dataToBeSave.name);
                 // }
-            // }else if((dataToBeSave.twelveHourAmount >= 0 || dataToBeSave.twelveHourPercentage >= 0) && (dataToBeSave.twelveHourMailerList==null || dataToBeSave.twelveHourMailerList=="" || dataToBeSave.twelveHourMailerList==undefined)){
-            }else if(((dataToBeSave.twelveHourAmount >= 0 && dataToBeSave.twelveHourAmount != null) || (dataToBeSave.twelveHourPercentage >= 0 && dataToBeSave.twelveHourPercentage != null)) && (dataToBeSave.twelveHourMailerList==null || dataToBeSave.twelveHourMailerList=="" || dataToBeSave.twelveHourMailerList==undefined)){
-                alert("Please Select Mailer List For 'In Last 12 hour'  Rule of Category "+dataToBeSave.name);
+                // }else if((dataToBeSave.twelveHourAmount >= 0 || dataToBeSave.twelveHourPercentage >= 0) && (dataToBeSave.twelveHourMailerList==null || dataToBeSave.twelveHourMailerList=="" || dataToBeSave.twelveHourMailerList==undefined)){
+            } else if (((dataToBeSave.twelveHourAmount >= 0 && dataToBeSave.twelveHourAmount != null) || (dataToBeSave.twelveHourPercentage >= 0 && dataToBeSave.twelveHourPercentage != null)) && (dataToBeSave.twelveHourMailerList == null || dataToBeSave.twelveHourMailerList == "" || dataToBeSave.twelveHourMailerList == undefined)) {
+                alert("Please Select Mailer List For 'In Last 12 hour'  Rule of Category " + dataToBeSave.name);
                 // }
-            // }else if((dataToBeSave.dailyAmount >= 0 || dataToBeSave.dailyPercentage >= 0) && (dataToBeSave.dailyMailerList==null || dataToBeSave.dailyMailerList=="" || dataToBeSave.dailyMailerList==undefined)){
-            }else if(((dataToBeSave.dailyAmount >= 0 && dataToBeSave.dailyAmount != null) || (dataToBeSave.dailyPercentage >= 0 && dataToBeSave.dailyPercentage != null)) && (dataToBeSave.dailyMailerList==null || dataToBeSave.dailyMailerList=="" || dataToBeSave.dailyMailerList==undefined)){
-                alert("Please Select Mailer List For 'In Last 24 hour'  Rule of Category "+dataToBeSave.name);
+                // }else if((dataToBeSave.dailyAmount >= 0 || dataToBeSave.dailyPercentage >= 0) && (dataToBeSave.dailyMailerList==null || dataToBeSave.dailyMailerList=="" || dataToBeSave.dailyMailerList==undefined)){
+            } else if (((dataToBeSave.dailyAmount >= 0 && dataToBeSave.dailyAmount != null) || (dataToBeSave.dailyPercentage >= 0 && dataToBeSave.dailyPercentage != null)) && (dataToBeSave.dailyMailerList == null || dataToBeSave.dailyMailerList == "" || dataToBeSave.dailyMailerList == undefined)) {
+                alert("Please Select Mailer List For 'In Last 24 hour'  Rule of Category " + dataToBeSave.name);
                 // }
-            // }else if((dataToBeSave.weeklyAmount >= 0 || dataToBeSave.weeklyPercentage >= 0) && (dataToBeSave.weeklyMailerList==null || dataToBeSave.weeklyMailerList=="" || dataToBeSave.weeklyMailerList==undefined)){
-            }else if(((dataToBeSave.weeklyAmount >= 0 && dataToBeSave.weeklyAmount != null) || (dataToBeSave.weeklyPercentage >= 0 && dataToBeSave.weeklyPercentage != null)) && (dataToBeSave.weeklyMailerList==null || dataToBeSave.weeklyMailerList=="" || dataToBeSave.weeklyMailerList==undefined)){
-                alert("Please Select Mailer List For 'In Last week'  Rule of Category "+dataToBeSave.name);
+                // }else if((dataToBeSave.weeklyAmount >= 0 || dataToBeSave.weeklyPercentage >= 0) && (dataToBeSave.weeklyMailerList==null || dataToBeSave.weeklyMailerList=="" || dataToBeSave.weeklyMailerList==undefined)){
+            } else if (((dataToBeSave.weeklyAmount >= 0 && dataToBeSave.weeklyAmount != null) || (dataToBeSave.weeklyPercentage >= 0 && dataToBeSave.weeklyPercentage != null)) && (dataToBeSave.weeklyMailerList == null || dataToBeSave.weeklyMailerList == "" || dataToBeSave.weeklyMailerList == undefined)) {
+                alert("Please Select Mailer List For 'In Last week'  Rule of Category " + dataToBeSave.name);
                 // }
-            // }else if((dataToBeSave.cycleWiseAmount >= 0 || dataToBeSave.cycleWisePercentage >= 0) && (dataToBeSave.cycleWiseMailerList==null || dataToBeSave.cycleWiseMailerList=="" || dataToBeSave.cycleWiseMailerList==undefined)){
-            }else if(((dataToBeSave.cycleWiseAmount >= 0 && dataToBeSave.cycleWiseAmount != null) || (dataToBeSave.cycleWisePercentage >= 0 && dataToBeSave.cycleWisePercentage != null)) && (dataToBeSave.cycleWiseMailerList==null || dataToBeSave.cycleWiseMailerList=="" || dataToBeSave.cycleWiseMailerList==undefined)){
-                alert("Please Select Mailer List For 'In Last 15 Days'  Rule of Category "+dataToBeSave.name);
+                // }else if((dataToBeSave.cycleWiseAmount >= 0 || dataToBeSave.cycleWisePercentage >= 0) && (dataToBeSave.cycleWiseMailerList==null || dataToBeSave.cycleWiseMailerList=="" || dataToBeSave.cycleWiseMailerList==undefined)){
+            } else if (((dataToBeSave.cycleWiseAmount >= 0 && dataToBeSave.cycleWiseAmount != null) || (dataToBeSave.cycleWisePercentage >= 0 && dataToBeSave.cycleWisePercentage != null)) && (dataToBeSave.cycleWiseMailerList == null || dataToBeSave.cycleWiseMailerList == "" || dataToBeSave.cycleWiseMailerList == undefined)) {
+                alert("Please Select Mailer List For 'In Last 15 Days'  Rule of Category " + dataToBeSave.name);
                 // }
-            // }else if((dataToBeSave.monthlyAmount >= 0 || dataToBeSave.monthlyPercentage >= 0) && (dataToBeSave.monthlyMailerList==null || dataToBeSave.monthlyMailerList=="" || dataToBeSave.monthlyMailerList==undefined)){
-            }else if(((dataToBeSave.monthlyAmount >= 0 && dataToBeSave.monthlyAmount != null) || (dataToBeSave.monthlyPercentage >= 0 && dataToBeSave.monthlyPercentage != null)) && (dataToBeSave.monthlyMailerList==null || dataToBeSave.monthlyMailerList=="" || dataToBeSave.monthlyMailerList==undefined)){
-                alert("Please Select Mailer List For 'In Last Month'  Rule of Category "+dataToBeSave.name);
+                // }else if((dataToBeSave.monthlyAmount >= 0 || dataToBeSave.monthlyPercentage >= 0) && (dataToBeSave.monthlyMailerList==null || dataToBeSave.monthlyMailerList=="" || dataToBeSave.monthlyMailerList==undefined)){
+            } else if (((dataToBeSave.monthlyAmount >= 0 && dataToBeSave.monthlyAmount != null) || (dataToBeSave.monthlyPercentage >= 0 && dataToBeSave.monthlyPercentage != null)) && (dataToBeSave.monthlyMailerList == null || dataToBeSave.monthlyMailerList == "" || dataToBeSave.monthlyMailerList == undefined)) {
+                alert("Please Select Mailer List For 'In Last Month'  Rule of Category " + dataToBeSave.name);
                 // }
-            }else{
+            } else {
 
                 NavigationService.apiCall("ExposureUserCategory/save", dataToBeSave, function (data) {
                     console.log("response of save", data);
                     if (data.value == true) {
-                        toastr.success(dataToBeSave.name +" Edited Successfully!!!", {
+                        toastr.success(dataToBeSave.name + " Edited Successfully!!!", {
                             "closeButton": true,
                             "debug": false,
                             "newestOnTop": false,
@@ -3320,7 +3541,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     $state.reload();
                 });
             }
-            
+
         }
 
         $scope.addSingleObject = function () {
@@ -3330,16 +3551,16 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         }
         $scope.copySingleObject = function (singleObjectToBeCopy) {
             console.log("inside copySingleObject");
-            singleObjectToBeCopy.name="Copied-"+singleObjectToBeCopy.name;
+            singleObjectToBeCopy.name = "Copied-" + singleObjectToBeCopy.name;
             delete singleObjectToBeCopy._id;
             delete singleObjectToBeCopy.createdAt;
             delete singleObjectToBeCopy.updatedAt;
-            singleObjectToBeCopy.isPlay=0;
+            singleObjectToBeCopy.isPlay = 0;
 
             NavigationService.apiCall("ExposureUserCategory/save", singleObjectToBeCopy, function (data) {
                 console.log("response of save", data);
                 if (data.value == true) {
-                    toastr.success(singleObjectToBeCopy.name +" Successfully!!!", {
+                    toastr.success(singleObjectToBeCopy.name + " Successfully!!!", {
                         "closeButton": true,
                         "debug": false,
                         "newestOnTop": false,
@@ -3372,24 +3593,24 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             // alert("Category Copied !!! Please See first Category in the List.")
             // $scope.results.push({});
         }
-        $scope.deleteUserCategory=function(objectToDelete){
-            console.log("inside deleteUserCategory",objectToDelete);
+        $scope.deleteUserCategory = function (objectToDelete) {
+            console.log("inside deleteUserCategory", objectToDelete);
             NavigationService.apiCall("ExposureUserCategory/deleteWithChangeStatus", objectToDelete, function (data) {
                 console.log("inside deleteUserCategory after response:", data);
                 $state.reload();
-                
+
             });
         }
 
-        $scope.viewSingleObject=function(objectToShow){
-            console.log("inside viewSingleObject->objectToShow",objectToShow);
+        $scope.viewSingleObject = function (objectToShow) {
+            console.log("inside viewSingleObject->objectToShow", objectToShow);
 
-                $scope.playSelectedFolderNameModal = $uibModal.open({
-                    animation: true,
-                    templateUrl: 'views/modal/viewSingleUserExposureCategory.html',
-                    size: 'md',
-                    scope: $scope
-                });
+            $scope.playSelectedFolderNameModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/viewSingleUserExposureCategory.html',
+                size: 'md',
+                scope: $scope
+            });
 
         }
 
@@ -3402,13 +3623,13 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.oneHourAmount == "" || singleObject.oneHourAmount == 0 || singleObject.oneHourAmount == null) && (singleObject.oneHourPercentage == "" || singleObject.oneHourPercentage == 0 || singleObject.oneHourPercentage == null)) {
                 console.log("inside if- oneHour");
             } else {
-                if(singleObject.oneHourAmount==undefined){
-                    singleObject.oneHourAmount=null;
+                if (singleObject.oneHourAmount == undefined) {
+                    singleObject.oneHourAmount = null;
                 }
-                if(singleObject.oneHourPercentage==undefined){
-                    singleObject.oneHourPercentage=null;
+                if (singleObject.oneHourPercentage == undefined) {
+                    singleObject.oneHourPercentage = null;
                 }
-                oneHourRuleObject.type="In Last 1 hour";
+                oneHourRuleObject.type = "In Last 1 hour";
                 oneHourRuleObject.amount = singleObject.oneHourAmount;
                 oneHourRuleObject.percentage = singleObject.oneHourPercentage;
                 oneHourRuleObject.mailerList = singleObject.oneHourMailerList;
@@ -3420,13 +3641,13 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.threeHourAmount == "" || singleObject.threeHourAmount == 0 || singleObject.threeHourAmount == null) && (singleObject.threeHourPercentage == "" || singleObject.threeHourPercentage == 0 || singleObject.threeHourPercentage == null)) {
                 console.log("inside if- threeHour");
             } else {
-                if(singleObject.threeHourAmount==undefined){
-                    singleObject.threeHourAmount=null;
+                if (singleObject.threeHourAmount == undefined) {
+                    singleObject.threeHourAmount = null;
                 }
-                if(singleObject.threeHourPercentage==undefined){
-                    singleObject.threeHourPercentage=null;
+                if (singleObject.threeHourPercentage == undefined) {
+                    singleObject.threeHourPercentage = null;
                 }
-                threeHourRuleObject.type="In Last 3 hours";
+                threeHourRuleObject.type = "In Last 3 hours";
                 threeHourRuleObject.amount = singleObject.threeHourAmount;
                 threeHourRuleObject.percentage = singleObject.threeHourPercentage;
                 threeHourRuleObject.mailerList = singleObject.threeHourMailerList;
@@ -3438,11 +3659,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.sixHourAmount == "" || singleObject.sixHourAmount == 0 || singleObject.sixHourAmount == null) && (singleObject.sixHourPercentage == "" || singleObject.sixHourPercentage == 0 || singleObject.sixHourPercentage == null)) {
                 console.log("inside if- sixHour");
             } else {
-                if(singleObject.sixHourAmount==undefined){
-                    singleObject.sixHourAmount=null;
+                if (singleObject.sixHourAmount == undefined) {
+                    singleObject.sixHourAmount = null;
                 }
-                if(singleObject.sixHourPercentage==undefined){
-                    singleObject.sixHourPercentage=null;
+                if (singleObject.sixHourPercentage == undefined) {
+                    singleObject.sixHourPercentage = null;
                 }
                 sixHourRuleObject.type = "In Last 6 hours";
                 sixHourRuleObject.amount = singleObject.sixHourAmount;
@@ -3456,11 +3677,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.twelveHourAmount == "" || singleObject.twelveHourAmount == 0 || singleObject.twelveHourAmount == null) && (singleObject.twelveHourPercentage == "" || singleObject.twelveHourPercentage == 0 || singleObject.twelveHourPercentage == null)) {
                 console.log("inside if- twelveHour");
             } else {
-                if(singleObject.twelveHourAmount==undefined){
-                    singleObject.twelveHourAmount=null;
+                if (singleObject.twelveHourAmount == undefined) {
+                    singleObject.twelveHourAmount = null;
                 }
-                if(singleObject.twelveHourPercentage==undefined){
-                    singleObject.twelveHourPercentage=null;
+                if (singleObject.twelveHourPercentage == undefined) {
+                    singleObject.twelveHourPercentage = null;
                 }
                 twelveHourRuleObject.type = "In Last 12 hours";
                 twelveHourRuleObject.amount = singleObject.twelveHourAmount;
@@ -3469,35 +3690,35 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 // console.log("twelveHourRuleObject",twelveHourRuleObject);
                 rules.push(twelveHourRuleObject);
             }
-            
+
             dailyRuleObject = {};
-                if ((singleObject.dailyAmount == "" || singleObject.dailyAmount == 0 || singleObject.dailyAmount == null) && (singleObject.dailyPercentage == "" || singleObject.dailyPercentage == 0 || singleObject.dailyPercentage == null)) {
-                    console.log("inside if- daily");
-                } else {
-                    if(singleObject.dailyAmount==undefined){
-                        singleObject.dailyAmount=null;
-                    }
-                    if(singleObject.dailyPercentage==undefined){
-                        singleObject.dailyPercentage=null;
-                    }
-                    dailyRuleObject.type = "In Last 24 hours";
-                    dailyRuleObject.amount = singleObject.dailyAmount;
-                    dailyRuleObject.percentage = singleObject.dailyPercentage;
-                    dailyRuleObject.mailerList = singleObject.dailyMailerList;
-                    // console.log("dailyRuleObject",dailyRuleObject);
-                    rules.push(dailyRuleObject);
+            if ((singleObject.dailyAmount == "" || singleObject.dailyAmount == 0 || singleObject.dailyAmount == null) && (singleObject.dailyPercentage == "" || singleObject.dailyPercentage == 0 || singleObject.dailyPercentage == null)) {
+                console.log("inside if- daily");
+            } else {
+                if (singleObject.dailyAmount == undefined) {
+                    singleObject.dailyAmount = null;
                 }
-            
+                if (singleObject.dailyPercentage == undefined) {
+                    singleObject.dailyPercentage = null;
+                }
+                dailyRuleObject.type = "In Last 24 hours";
+                dailyRuleObject.amount = singleObject.dailyAmount;
+                dailyRuleObject.percentage = singleObject.dailyPercentage;
+                dailyRuleObject.mailerList = singleObject.dailyMailerList;
+                // console.log("dailyRuleObject",dailyRuleObject);
+                rules.push(dailyRuleObject);
+            }
+
 
             weeklyRuleObject = {};
             if ((singleObject.weeklyAmount == "" || singleObject.weeklyAmount == 0 || singleObject.weeklyAmount == null) && (singleObject.weeklyPercentage == "" || singleObject.weeklyPercentage == 0 || singleObject.weeklyPercentage == null)) {
                 console.log("inside if- weekly");
             } else {
-                if(singleObject.weeklyAmount==undefined){
-                    singleObject.weeklyAmount=null;
+                if (singleObject.weeklyAmount == undefined) {
+                    singleObject.weeklyAmount = null;
                 }
-                if(singleObject.weeklyPercentage==undefined){
-                    singleObject.weeklyPercentage=null;
+                if (singleObject.weeklyPercentage == undefined) {
+                    singleObject.weeklyPercentage = null;
                 }
                 weeklyRuleObject.type = "Weekly";
                 weeklyRuleObject.amount = singleObject.weeklyAmount;
@@ -3511,11 +3732,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.cycleWiseAmount == "" || singleObject.cycleWiseAmount == 0 || singleObject.cycleWiseAmount == null) && (singleObject.cycleWisePercentage == "" || singleObject.cycleWisePercentage == 0 || singleObject.cycleWisePercentage == null)) {
                 console.log("inside if- cycleWise");
             } else {
-                if(singleObject.cycleWiseAmount==undefined){
-                    singleObject.cycleWiseAmount=null;
+                if (singleObject.cycleWiseAmount == undefined) {
+                    singleObject.cycleWiseAmount = null;
                 }
-                if(singleObject.cycleWisePercentage==undefined){
-                    singleObject.cycleWisePercentage=null;
+                if (singleObject.cycleWisePercentage == undefined) {
+                    singleObject.cycleWisePercentage = null;
                 }
                 cycleWiseRuleObject.type = "Cycle Wise";
                 cycleWiseRuleObject.amount = singleObject.cycleWiseAmount;
@@ -3529,11 +3750,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.monthlyAmount == "" || singleObject.monthlyAmount == 0 || singleObject.monthlyAmount == null) && (singleObject.monthlyPercentage == "" || singleObject.monthlyPercentage == 0 || singleObject.monthlyPercentage == null)) {
                 console.log("inside if- monthly");
             } else {
-                if(singleObject.monthlyAmount==undefined){
-                    singleObject.monthlyAmount=null;
+                if (singleObject.monthlyAmount == undefined) {
+                    singleObject.monthlyAmount = null;
                 }
-                if(singleObject.monthlyPercentage==undefined){
-                    singleObject.monthlyPercentage=null;
+                if (singleObject.monthlyPercentage == undefined) {
+                    singleObject.monthlyPercentage = null;
                 }
                 monthlyRuleObject.type = "Monthly";
                 monthlyRuleObject.amount = singleObject.monthlyAmount;
@@ -3542,23 +3763,23 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 // console.log("monthlyRuleObject",monthlyRuleObject);
                 rules.push(monthlyRuleObject);
             }
-            singleObject.rules=rules;
-            var objectToSend={};
+            singleObject.rules = rules;
+            var objectToSend = {};
             // objectToSend.category=singleObject;
-            objectToSend.category={
-                lowerBoundRiskScore:singleObject.lowerBoundRiskScore,
-                upperBoundRiskScore:singleObject.upperBoundRiskScore,
-                userType:singleObject.userType,
-                rules:singleObject.rules,
-                _id:singleObject._id,
-                name:singleObject.name,
+            objectToSend.category = {
+                lowerBoundRiskScore: singleObject.lowerBoundRiskScore,
+                upperBoundRiskScore: singleObject.upperBoundRiskScore,
+                userType: singleObject.userType,
+                rules: singleObject.rules,
+                _id: singleObject._id,
+                name: singleObject.name,
             };
-            console.log("objectToSend",objectToSend);
-            objectForIsPlay={
-                _id:objectToSend.category._id
+            console.log("objectToSend", objectToSend);
+            objectForIsPlay = {
+                _id: objectToSend.category._id
             }
 
-            
+
 
             NavigationService.playExposureUserCategory(objectToSend, function (data) {
                 console.log("*****", data);
@@ -3610,13 +3831,13 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.oneHourAmount == "" || singleObject.oneHourAmount == 0 || singleObject.oneHourAmount == null) && (singleObject.oneHourPercentage == "" || singleObject.oneHourPercentage == 0 || singleObject.oneHourPercentage == null)) {
                 console.log("inside if- oneHour");
             } else {
-                if(singleObject.oneHourAmount==undefined){
-                    singleObject.oneHourAmount=null;
+                if (singleObject.oneHourAmount == undefined) {
+                    singleObject.oneHourAmount = null;
                 }
-                if(singleObject.oneHourPercentage==undefined){
-                    singleObject.oneHourPercentage=null;
+                if (singleObject.oneHourPercentage == undefined) {
+                    singleObject.oneHourPercentage = null;
                 }
-                oneHourRuleObject.type="In Last 1 hour";
+                oneHourRuleObject.type = "In Last 1 hour";
                 oneHourRuleObject.amount = singleObject.oneHourAmount;
                 oneHourRuleObject.percentage = singleObject.oneHourPercentage;
                 oneHourRuleObject.mailerList = singleObject.oneHourMailerList;
@@ -3628,13 +3849,13 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.threeHourAmount == "" || singleObject.threeHourAmount == 0 || singleObject.threeHourAmount == null) && (singleObject.threeHourPercentage == "" || singleObject.threeHourPercentage == 0 || singleObject.threeHourPercentage == null)) {
                 console.log("inside if- threeHour");
             } else {
-                if(singleObject.threeHourAmount==undefined){
-                    singleObject.threeHourAmount=null;
+                if (singleObject.threeHourAmount == undefined) {
+                    singleObject.threeHourAmount = null;
                 }
-                if(singleObject.threeHourPercentage==undefined){
-                    singleObject.threeHourPercentage=null;
+                if (singleObject.threeHourPercentage == undefined) {
+                    singleObject.threeHourPercentage = null;
                 }
-                threeHourRuleObject.type="In Last 3 hours";
+                threeHourRuleObject.type = "In Last 3 hours";
                 threeHourRuleObject.amount = singleObject.threeHourAmount;
                 threeHourRuleObject.percentage = singleObject.threeHourPercentage;
                 threeHourRuleObject.mailerList = singleObject.threeHourMailerList;
@@ -3646,11 +3867,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.sixHourAmount == "" || singleObject.sixHourAmount == 0 || singleObject.sixHourAmount == null) && (singleObject.sixHourPercentage == "" || singleObject.sixHourPercentage == 0 || singleObject.sixHourPercentage == null)) {
                 console.log("inside if- sixHour");
             } else {
-                if(singleObject.sixHourAmount==undefined){
-                    singleObject.sixHourAmount=null;
+                if (singleObject.sixHourAmount == undefined) {
+                    singleObject.sixHourAmount = null;
                 }
-                if(singleObject.sixHourPercentage==undefined){
-                    singleObject.sixHourPercentage=null;
+                if (singleObject.sixHourPercentage == undefined) {
+                    singleObject.sixHourPercentage = null;
                 }
                 sixHourRuleObject.type = "In Last 6 hours";
                 sixHourRuleObject.amount = singleObject.sixHourAmount;
@@ -3664,11 +3885,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.twelveHourAmount == "" || singleObject.twelveHourAmount == 0 || singleObject.twelveHourAmount == null) && (singleObject.twelveHourPercentage == "" || singleObject.twelveHourPercentage == 0 || singleObject.twelveHourPercentage == null)) {
                 console.log("inside if- twelveHour");
             } else {
-                if(singleObject.twelveHourAmount==undefined){
-                    singleObject.twelveHourAmount=null;
+                if (singleObject.twelveHourAmount == undefined) {
+                    singleObject.twelveHourAmount = null;
                 }
-                if(singleObject.twelveHourPercentage==undefined){
-                    singleObject.twelveHourPercentage=null;
+                if (singleObject.twelveHourPercentage == undefined) {
+                    singleObject.twelveHourPercentage = null;
                 }
                 twelveHourRuleObject.type = "In Last 12 hours";
                 twelveHourRuleObject.amount = singleObject.twelveHourAmount;
@@ -3677,35 +3898,35 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 // console.log("twelveHourRuleObject",twelveHourRuleObject);
                 rules.push(twelveHourRuleObject);
             }
-            
+
             dailyRuleObject = {};
-                if ((singleObject.dailyAmount == "" || singleObject.dailyAmount == 0 || singleObject.dailyAmount == null) && (singleObject.dailyPercentage == "" || singleObject.dailyPercentage == 0 || singleObject.dailyPercentage == null)) {
-                    console.log("inside if- daily");
-                } else {
-                    if(singleObject.dailyAmount==undefined){
-                        singleObject.dailyAmount=null;
-                    }
-                    if(singleObject.dailyPercentage==undefined){
-                        singleObject.dailyPercentage=null;
-                    }
-                    dailyRuleObject.type = "In Last 24 hours";
-                    dailyRuleObject.amount = singleObject.dailyAmount;
-                    dailyRuleObject.percentage = singleObject.dailyPercentage;
-                    dailyRuleObject.mailerList = singleObject.dailyMailerList;
-                    // console.log("dailyRuleObject",dailyRuleObject);
-                    rules.push(dailyRuleObject);
+            if ((singleObject.dailyAmount == "" || singleObject.dailyAmount == 0 || singleObject.dailyAmount == null) && (singleObject.dailyPercentage == "" || singleObject.dailyPercentage == 0 || singleObject.dailyPercentage == null)) {
+                console.log("inside if- daily");
+            } else {
+                if (singleObject.dailyAmount == undefined) {
+                    singleObject.dailyAmount = null;
                 }
-            
+                if (singleObject.dailyPercentage == undefined) {
+                    singleObject.dailyPercentage = null;
+                }
+                dailyRuleObject.type = "In Last 24 hours";
+                dailyRuleObject.amount = singleObject.dailyAmount;
+                dailyRuleObject.percentage = singleObject.dailyPercentage;
+                dailyRuleObject.mailerList = singleObject.dailyMailerList;
+                // console.log("dailyRuleObject",dailyRuleObject);
+                rules.push(dailyRuleObject);
+            }
+
 
             weeklyRuleObject = {};
             if ((singleObject.weeklyAmount == "" || singleObject.weeklyAmount == 0 || singleObject.weeklyAmount == null) && (singleObject.weeklyPercentage == "" || singleObject.weeklyPercentage == 0 || singleObject.weeklyPercentage == null)) {
                 console.log("inside if- weekly");
             } else {
-                if(singleObject.weeklyAmount==undefined){
-                    singleObject.weeklyAmount=null;
+                if (singleObject.weeklyAmount == undefined) {
+                    singleObject.weeklyAmount = null;
                 }
-                if(singleObject.weeklyPercentage==undefined){
-                    singleObject.weeklyPercentage=null;
+                if (singleObject.weeklyPercentage == undefined) {
+                    singleObject.weeklyPercentage = null;
                 }
                 weeklyRuleObject.type = "Weekly";
                 weeklyRuleObject.amount = singleObject.weeklyAmount;
@@ -3719,11 +3940,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.cycleWiseAmount == "" || singleObject.cycleWiseAmount == 0 || singleObject.cycleWiseAmount == null) && (singleObject.cycleWisePercentage == "" || singleObject.cycleWisePercentage == 0 || singleObject.cycleWisePercentage == null)) {
                 console.log("inside if- cycleWise");
             } else {
-                if(singleObject.cycleWiseAmount==undefined){
-                    singleObject.cycleWiseAmount=null;
+                if (singleObject.cycleWiseAmount == undefined) {
+                    singleObject.cycleWiseAmount = null;
                 }
-                if(singleObject.cycleWisePercentage==undefined){
-                    singleObject.cycleWisePercentage=null;
+                if (singleObject.cycleWisePercentage == undefined) {
+                    singleObject.cycleWisePercentage = null;
                 }
                 cycleWiseRuleObject.type = "Cycle Wise";
                 cycleWiseRuleObject.amount = singleObject.cycleWiseAmount;
@@ -3737,11 +3958,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.monthlyAmount == "" || singleObject.monthlyAmount == 0 || singleObject.monthlyAmount == null) && (singleObject.monthlyPercentage == "" || singleObject.monthlyPercentage == 0 || singleObject.monthlyPercentage == null)) {
                 console.log("inside if- monthly");
             } else {
-                if(singleObject.monthlyAmount==undefined){
-                    singleObject.monthlyAmount=null;
+                if (singleObject.monthlyAmount == undefined) {
+                    singleObject.monthlyAmount = null;
                 }
-                if(singleObject.monthlyPercentage==undefined){
-                    singleObject.monthlyPercentage=null;
+                if (singleObject.monthlyPercentage == undefined) {
+                    singleObject.monthlyPercentage = null;
                 }
                 monthlyRuleObject.type = "Monthly";
                 monthlyRuleObject.amount = singleObject.monthlyAmount;
@@ -3750,23 +3971,23 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 // console.log("monthlyRuleObject",monthlyRuleObject);
                 rules.push(monthlyRuleObject);
             }
-            singleObject.rules=rules;
-            var objectToSend={};
+            singleObject.rules = rules;
+            var objectToSend = {};
             // objectToSend.category=singleObject;
-            objectToSend.category={
-                lowerBoundRiskScore:singleObject.lowerBoundRiskScore,
-                upperBoundRiskScore:singleObject.upperBoundRiskScore,
-                userType:singleObject.userType,
-                rules:singleObject.rules,
-                _id:singleObject._id,
-                name:singleObject.name,
+            objectToSend.category = {
+                lowerBoundRiskScore: singleObject.lowerBoundRiskScore,
+                upperBoundRiskScore: singleObject.upperBoundRiskScore,
+                userType: singleObject.userType,
+                rules: singleObject.rules,
+                _id: singleObject._id,
+                name: singleObject.name,
             };
-            console.log("objectToSend",objectToSend);
-            objectForIsPlay={
-                _id:objectToSend.category._id
+            console.log("objectToSend", objectToSend);
+            objectForIsPlay = {
+                _id: objectToSend.category._id
             }
 
-            
+
             NavigationService.stopExposureUserCategory(objectToSend, function (data) {
                 console.log("*****", data);
                 if (data.data.status == true) {
@@ -3809,7 +4030,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         }
 
-        $scope.getAllItemsOld=function(){
+        $scope.getAllItemsOld = function () {
 
             NavigationService.apiCall("ExposureUserCategory/search", {}, function (data) {
                 console.log("inside ExposureUserCategory ctrl:", data.data);
@@ -3885,7 +4106,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     function (data, ini) {
                         if (ini == i) {
                             $scope.results = data.data.results;
-                           
+
                             console.log("final data in else", $scope.results);
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
@@ -3905,6 +4126,24 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.menutitle = NavigationService.makeactive("merchantExposure");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        var roles = ["Super Admin", "Merchant Exposure"];
+
+        if ($.jStorage.get("profile")) {
+            var accessLevel = $.jStorage.get("profile").accessLevel;
+            if (roles.includes(accessLevel)) {
+                console.log("you have access for merchant Exposure");
+                // return true;
+            } else {
+                toastr.error("You do not have Access For Merchant Exposure.");
+                console.log("you dont have access");
+                $state.go("dashboard");
+                // return false;
+            }
+        } else {
+            console.log("login first");
+            // $state.go("login");
+        }
+
 
         // multiple select test code
 
@@ -3913,7 +4152,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         // $scope.selectedCar = [{id:1, name: 'Audi'}];
 
 
-        var options = [ {
+        var options = [{
             'Id': 1,
             'Name': 'Batman',
             'Costume': 'Black'
@@ -3938,87 +4177,117 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             'Name': 'Wonder-woman',
             'Costume': 'Red'
         }];
-    $scope.selectedItems=[{
-        'Id': 1,
-        'Name': 'Batman',
-        'Costume': 'Black'
-    }, {
-        'Id': 2,
-        'Name': 'Superman',
-        'Costume': 'Red & Blue'
-    }]
-    $scope.config1 = {
-        options: options,
-        trackBy: 'Id',
-        displayBy: [ 'Name' ],
-        divider: '',
-        icon: 'glyphicon glyphicon-heart',
-        displayBadge: true,
-        height: '200px',
-        filter: true,
-        multiSelect: true
-    };
+        $scope.selectedItems = [{
+            'Id': 1,
+            'Name': 'Batman',
+            'Costume': 'Black'
+        }, {
+            'Id': 2,
+            'Name': 'Superman',
+            'Costume': 'Red & Blue'
+        }]
+        $scope.config1 = {
+            options: options,
+            trackBy: 'Id',
+            displayBy: ['Name'],
+            divider: '',
+            icon: 'glyphicon glyphicon-heart',
+            displayBadge: true,
+            height: '200px',
+            filter: true,
+            multiSelect: true
+        };
 
-    $scope.example6data = [ { "id": "1", "name": "David" }, { "id": "2", "name": "Jhon" }, { "id": "3", "name": "Danny" } ]; 
-    $scope.example6model = [{ "id": "1", "name": "David" }, { "id": "2", "name": "Jhon" }]; 
-    $scope.example6settings = {};
-    $scope.angularjsMultipleSelectsettings = {
-        scrollableHeight: '200px',
-        scrollable: true,
-        enableSearch: true
-    };
+        $scope.example6data = [{
+            "id": "1",
+            "name": "David"
+        }, {
+            "id": "2",
+            "name": "Jhon"
+        }, {
+            "id": "3",
+            "name": "Danny"
+        }];
+        $scope.example6model = [{
+            "id": "1",
+            "name": "David"
+        }, {
+            "id": "2",
+            "name": "Jhon"
+        }];
+        $scope.example6settings = {};
+        $scope.angularjsMultipleSelectsettings = {
+            scrollableHeight: '200px',
+            scrollable: true,
+            enableSearch: true
+        };
 
         // multiple select test code ends here
 
 
         // $scope.userTypes=["NEW", "NON-REPAID", "REPAID"];
-        
-    $scope.cars = [{id:1, name: 'Audi'}, {id:2, name: 'BMW'}, {id:1, name: 'Honda'}];
-    $scope.selectedCar = [{id:1, name: 'Audi'}, {id:2, name: 'BMW'}];
+
+        $scope.cars = [{
+            id: 1,
+            name: 'Audi'
+        }, {
+            id: 2,
+            name: 'BMW'
+        }, {
+            id: 1,
+            name: 'Honda'
+        }];
+        $scope.selectedCar = [{
+            id: 1,
+            name: 'Audi'
+        }, {
+            id: 2,
+            name: 'BMW'
+        }];
 
         $scope.saveSingleObject = function (dataToBeSave) {
             console.log("Data inside save data", dataToBeSave);
-            if(dataToBeSave.createdAt){
+            if (dataToBeSave.createdAt) {
                 delete dataToBeSave.createdAt;
             }
-            if(!dataToBeSave.name || dataToBeSave.name==undefined || dataToBeSave.name==""){
+            if (!dataToBeSave.name || dataToBeSave.name == undefined || dataToBeSave.name == "") {
                 alert("Category Name is Mandatory Field!!!");
-            }else if(((dataToBeSave.oneHourAmount >= 0 && dataToBeSave.oneHourAmount != null) || (dataToBeSave.oneHourPercentage >= 0 && dataToBeSave.oneHourPercentage != null)) && (dataToBeSave.oneHourMailerList==null || dataToBeSave.oneHourMailerList=="" || dataToBeSave.oneHourMailerList==undefined)){
-                    alert("Please Select Mailer List For 'In Last 1 hour'  Rule of Category "+dataToBeSave.name);
-            // }else if((dataToBeSave.threeHourAmount >= 0 || dataToBeSave.threeHourPercentage >= 0 || dataToBeSave.threeHourAmount != null || dataToBeSave.threeHourPercentage != null) && (dataToBeSave.threeHourMailerList==null || dataToBeSave.threeHourMailerList=="" || dataToBeSave.threeHourMailerList==undefined)){
-            }else if(((dataToBeSave.threeHourAmount >= 0 && dataToBeSave.threeHourAmount != null) || (dataToBeSave.threeHourPercentage >= 0 && dataToBeSave.threeHourPercentage != null)) && (dataToBeSave.threeHourMailerList==null || dataToBeSave.threeHourMailerList=="" || dataToBeSave.threeHourMailerList==undefined)){
-                alert("Please Select Mailer List For 'In Last 3 hour'  Rule of Category "+dataToBeSave.name);
+            } else if (((dataToBeSave.oneHourAmount >= 0 && dataToBeSave.oneHourAmount != null) || (dataToBeSave.oneHourPercentage >= 0 && dataToBeSave.oneHourPercentage != null)) && (dataToBeSave.oneHourMailerList == null || dataToBeSave.oneHourMailerList == "" || dataToBeSave.oneHourMailerList == undefined)) {
+                alert("Please Select Mailer List For 'In Last 1 hour'  Rule of Category " + dataToBeSave.name);
+                // }else if((dataToBeSave.threeHourAmount >= 0 || dataToBeSave.threeHourPercentage >= 0 || dataToBeSave.threeHourAmount != null || dataToBeSave.threeHourPercentage != null) && (dataToBeSave.threeHourMailerList==null || dataToBeSave.threeHourMailerList=="" || dataToBeSave.threeHourMailerList==undefined)){
+            } else if (((dataToBeSave.threeHourAmount >= 0 && dataToBeSave.threeHourAmount != null) || (dataToBeSave.threeHourPercentage >= 0 && dataToBeSave.threeHourPercentage != null)) && (dataToBeSave.threeHourMailerList == null || dataToBeSave.threeHourMailerList == "" || dataToBeSave.threeHourMailerList == undefined)) {
+                alert("Please Select Mailer List For 'In Last 3 hour'  Rule of Category " + dataToBeSave.name);
                 // }
-            // }else if((dataToBeSave.sixHourAmount >= 0 || dataToBeSave.sixHourPercentage >= 0) && (dataToBeSave.sixHourMailerList==null || dataToBeSave.sixHourMailerList=="" || dataToBeSave.sixHourMailerList==undefined)){
-            }else if(((dataToBeSave.sixHourAmount >= 0 && dataToBeSave.sixHourAmount != null) || (dataToBeSave.sixHourPercentage >= 0 && dataToBeSave.sixHourPercentage != null)) && (dataToBeSave.sixHourMailerList==null || dataToBeSave.sixHourMailerList=="" || dataToBeSave.sixHourMailerList==undefined)){
-                alert("Please Select Mailer List For 'In Last 6 hour'  Rule of Category "+dataToBeSave.name);
+                // }else if((dataToBeSave.sixHourAmount >= 0 || dataToBeSave.sixHourPercentage >= 0) && (dataToBeSave.sixHourMailerList==null || dataToBeSave.sixHourMailerList=="" || dataToBeSave.sixHourMailerList==undefined)){
+            } else if (((dataToBeSave.sixHourAmount >= 0 && dataToBeSave.sixHourAmount != null) || (dataToBeSave.sixHourPercentage >= 0 && dataToBeSave.sixHourPercentage != null)) && (dataToBeSave.sixHourMailerList == null || dataToBeSave.sixHourMailerList == "" || dataToBeSave.sixHourMailerList == undefined)) {
+                alert("Please Select Mailer List For 'In Last 6 hour'  Rule of Category " + dataToBeSave.name);
                 // }
-            // }else if((dataToBeSave.twelveHourAmount >= 0 || dataToBeSave.twelveHourPercentage >= 0) && (dataToBeSave.twelveHourMailerList==null || dataToBeSave.twelveHourMailerList=="" || dataToBeSave.twelveHourMailerList==undefined)){
-            }else if(((dataToBeSave.twelveHourAmount >= 0 && dataToBeSave.twelveHourAmount != null) || (dataToBeSave.twelveHourPercentage >= 0 && dataToBeSave.twelveHourPercentage != null)) && (dataToBeSave.twelveHourMailerList==null || dataToBeSave.twelveHourMailerList=="" || dataToBeSave.twelveHourMailerList==undefined)){
-                alert("Please Select Mailer List For 'In Last 12 hour'  Rule of Category "+dataToBeSave.name);
+                // }else if((dataToBeSave.twelveHourAmount >= 0 || dataToBeSave.twelveHourPercentage >= 0) && (dataToBeSave.twelveHourMailerList==null || dataToBeSave.twelveHourMailerList=="" || dataToBeSave.twelveHourMailerList==undefined)){
+            } else if (((dataToBeSave.twelveHourAmount >= 0 && dataToBeSave.twelveHourAmount != null) || (dataToBeSave.twelveHourPercentage >= 0 && dataToBeSave.twelveHourPercentage != null)) && (dataToBeSave.twelveHourMailerList == null || dataToBeSave.twelveHourMailerList == "" || dataToBeSave.twelveHourMailerList == undefined)) {
+                alert("Please Select Mailer List For 'In Last 12 hour'  Rule of Category " + dataToBeSave.name);
                 // }
-            // }else if((dataToBeSave.dailyAmount >= 0 || dataToBeSave.dailyPercentage >= 0) && (dataToBeSave.dailyMailerList==null || dataToBeSave.dailyMailerList=="" || dataToBeSave.dailyMailerList==undefined)){
-            }else if(((dataToBeSave.dailyAmount >= 0 && dataToBeSave.dailyAmount != null) || (dataToBeSave.dailyPercentage >= 0 && dataToBeSave.dailyPercentage != null)) && (dataToBeSave.dailyMailerList==null || dataToBeSave.dailyMailerList=="" || dataToBeSave.dailyMailerList==undefined)){
-                alert("Please Select Mailer List For 'In Last 24 hour'  Rule of Category "+dataToBeSave.name);
+                // }else if((dataToBeSave.dailyAmount >= 0 || dataToBeSave.dailyPercentage >= 0) && (dataToBeSave.dailyMailerList==null || dataToBeSave.dailyMailerList=="" || dataToBeSave.dailyMailerList==undefined)){
+            } else if (((dataToBeSave.dailyAmount >= 0 && dataToBeSave.dailyAmount != null) || (dataToBeSave.dailyPercentage >= 0 && dataToBeSave.dailyPercentage != null)) && (dataToBeSave.dailyMailerList == null || dataToBeSave.dailyMailerList == "" || dataToBeSave.dailyMailerList == undefined)) {
+                alert("Please Select Mailer List For 'In Last 24 hour'  Rule of Category " + dataToBeSave.name);
                 // }
-            // }else if((dataToBeSave.weeklyAmount >= 0 || dataToBeSave.weeklyPercentage >= 0) && (dataToBeSave.weeklyMailerList==null || dataToBeSave.weeklyMailerList=="" || dataToBeSave.weeklyMailerList==undefined)){
-            }else if(((dataToBeSave.weeklyAmount >= 0 && dataToBeSave.weeklyAmount != null) || (dataToBeSave.weeklyPercentage >= 0 && dataToBeSave.weeklyPercentage != null)) && (dataToBeSave.weeklyMailerList==null || dataToBeSave.weeklyMailerList=="" || dataToBeSave.weeklyMailerList==undefined)){
-                alert("Please Select Mailer List For 'In Last week'  Rule of Category "+dataToBeSave.name);
+                // }else if((dataToBeSave.weeklyAmount >= 0 || dataToBeSave.weeklyPercentage >= 0) && (dataToBeSave.weeklyMailerList==null || dataToBeSave.weeklyMailerList=="" || dataToBeSave.weeklyMailerList==undefined)){
+            } else if (((dataToBeSave.weeklyAmount >= 0 && dataToBeSave.weeklyAmount != null) || (dataToBeSave.weeklyPercentage >= 0 && dataToBeSave.weeklyPercentage != null)) && (dataToBeSave.weeklyMailerList == null || dataToBeSave.weeklyMailerList == "" || dataToBeSave.weeklyMailerList == undefined)) {
+                alert("Please Select Mailer List For 'In Last week'  Rule of Category " + dataToBeSave.name);
                 // }
-            // }else if((dataToBeSave.cycleWiseAmount >= 0 || dataToBeSave.cycleWisePercentage >= 0) && (dataToBeSave.cycleWiseMailerList==null || dataToBeSave.cycleWiseMailerList=="" || dataToBeSave.cycleWiseMailerList==undefined)){
-            }else if(((dataToBeSave.cycleWiseAmount >= 0 && dataToBeSave.cycleWiseAmount != null) || (dataToBeSave.cycleWisePercentage >= 0 && dataToBeSave.cycleWisePercentage != null)) && (dataToBeSave.cycleWiseMailerList==null || dataToBeSave.cycleWiseMailerList=="" || dataToBeSave.cycleWiseMailerList==undefined)){
-                alert("Please Select Mailer List For 'In Last 15 Days'  Rule of Category "+dataToBeSave.name);
+                // }else if((dataToBeSave.cycleWiseAmount >= 0 || dataToBeSave.cycleWisePercentage >= 0) && (dataToBeSave.cycleWiseMailerList==null || dataToBeSave.cycleWiseMailerList=="" || dataToBeSave.cycleWiseMailerList==undefined)){
+            } else if (((dataToBeSave.cycleWiseAmount >= 0 && dataToBeSave.cycleWiseAmount != null) || (dataToBeSave.cycleWisePercentage >= 0 && dataToBeSave.cycleWisePercentage != null)) && (dataToBeSave.cycleWiseMailerList == null || dataToBeSave.cycleWiseMailerList == "" || dataToBeSave.cycleWiseMailerList == undefined)) {
+                alert("Please Select Mailer List For 'In Last 15 Days'  Rule of Category " + dataToBeSave.name);
                 // }
-            // }else if((dataToBeSave.monthlyAmount >= 0 || dataToBeSave.monthlyPercentage >= 0) && (dataToBeSave.monthlyMailerList==null || dataToBeSave.monthlyMailerList=="" || dataToBeSave.monthlyMailerList==undefined)){
-            }else if(((dataToBeSave.monthlyAmount >= 0 && dataToBeSave.monthlyAmount != null) || (dataToBeSave.monthlyPercentage >= 0 && dataToBeSave.monthlyPercentage != null)) && (dataToBeSave.monthlyMailerList==null || dataToBeSave.monthlyMailerList=="" || dataToBeSave.monthlyMailerList==undefined)){
-                alert("Please Select Mailer List For 'In Last Month'  Rule of Category "+dataToBeSave.name);
+                // }else if((dataToBeSave.monthlyAmount >= 0 || dataToBeSave.monthlyPercentage >= 0) && (dataToBeSave.monthlyMailerList==null || dataToBeSave.monthlyMailerList=="" || dataToBeSave.monthlyMailerList==undefined)){
+            } else if (((dataToBeSave.monthlyAmount >= 0 && dataToBeSave.monthlyAmount != null) || (dataToBeSave.monthlyPercentage >= 0 && dataToBeSave.monthlyPercentage != null)) && (dataToBeSave.monthlyMailerList == null || dataToBeSave.monthlyMailerList == "" || dataToBeSave.monthlyMailerList == undefined)) {
+                alert("Please Select Mailer List For 'In Last Month'  Rule of Category " + dataToBeSave.name);
                 // }
-            }else{
+            } else {
 
                 NavigationService.apiCall("ExposureMerchantCat/save", dataToBeSave, function (data) {
                     console.log("response of save", data);
                     if (data.value == true) {
-                        toastr.success(dataToBeSave.name +" Edited Successfully!!!", {
+                        toastr.success(dataToBeSave.name + " Edited Successfully!!!", {
                             "closeButton": true,
                             "debug": false,
                             "newestOnTop": false,
@@ -4047,15 +4316,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     $state.reload();
                 });
             }
-            
+
         }
 
         $scope.addSingleObject = function () {
             console.log("inside addSingleObject");
-            console.log("results before push-",$scope.results);
-            var currentDate=Date.now();
-            var objectToBeAdd={
-                name:currentDate
+            console.log("results before push-", $scope.results);
+            var currentDate = Date.now();
+            var objectToBeAdd = {
+                name: currentDate
             };
             // $scope.results.unshift(objectToBeAdd);
             // console.log("results after push-",$scope.results);
@@ -4091,21 +4360,21 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 }
                 $state.reload();
             });
-            
+
         }
 
         $scope.copySingleObject = function (singleObjectToBeCopy) {
             console.log("inside copySingleObject");
-            singleObjectToBeCopy.name="Copied-"+singleObjectToBeCopy.name;
+            singleObjectToBeCopy.name = "Copied-" + singleObjectToBeCopy.name;
             delete singleObjectToBeCopy._id;
             delete singleObjectToBeCopy.createdAt;
             delete singleObjectToBeCopy.updatedAt;
-            singleObjectToBeCopy.isPlay=0;
+            singleObjectToBeCopy.isPlay = 0;
 
             NavigationService.apiCall("ExposureMerchantCat/save", singleObjectToBeCopy, function (data) {
                 console.log("response of save", data);
                 if (data.value == true) {
-                    toastr.success(singleObjectToBeCopy.name +" Successfully!!!", {
+                    toastr.success(singleObjectToBeCopy.name + " Successfully!!!", {
                         "closeButton": true,
                         "debug": false,
                         "newestOnTop": false,
@@ -4139,24 +4408,24 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             // $scope.results.push({});
         }
 
-        $scope.deleteMerchantCategory=function(objectToDelete){
-            console.log("inside deleteMerchantCategory",objectToDelete);
+        $scope.deleteMerchantCategory = function (objectToDelete) {
+            console.log("inside deleteMerchantCategory", objectToDelete);
             NavigationService.apiCall("ExposureMerchantCat/deleteWithChangeStatus", objectToDelete, function (data) {
                 console.log("inside deleteMerchantCategory after response:", data);
                 $state.reload();
-                
+
             });
         }
 
-        $scope.viewSingleObject=function(objectToShow){
-            console.log("inside viewSingleObject->objectToShow",objectToShow);
+        $scope.viewSingleObject = function (objectToShow) {
+            console.log("inside viewSingleObject->objectToShow", objectToShow);
 
-                $scope.playSelectedFolderNameModal = $uibModal.open({
-                    animation: true,
-                    templateUrl: 'views/modal/viewSingleMerchantExposureCategory.html',
-                    size: 'md',
-                    scope: $scope
-                });
+            $scope.playSelectedFolderNameModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/viewSingleMerchantExposureCategory.html',
+                size: 'md',
+                scope: $scope
+            });
 
         }
 
@@ -4169,13 +4438,13 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.oneHourAmount == "" || singleObject.oneHourAmount == 0 || singleObject.oneHourAmount == null) && (singleObject.oneHourPercentage == "" || singleObject.oneHourPercentage == 0 || singleObject.oneHourPercentage == null)) {
                 console.log("inside if- oneHour");
             } else {
-                if(singleObject.oneHourAmount==undefined){
-                    singleObject.oneHourAmount=null;
+                if (singleObject.oneHourAmount == undefined) {
+                    singleObject.oneHourAmount = null;
                 }
-                if(singleObject.oneHourPercentage==undefined){
-                    singleObject.oneHourPercentage=null;
+                if (singleObject.oneHourPercentage == undefined) {
+                    singleObject.oneHourPercentage = null;
                 }
-                oneHourRuleObject.type="In Last 1 hour";
+                oneHourRuleObject.type = "In Last 1 hour";
                 oneHourRuleObject.amount = singleObject.oneHourAmount;
                 oneHourRuleObject.percentage = singleObject.oneHourPercentage;
                 oneHourRuleObject.mailerList = singleObject.oneHourMailerList;
@@ -4187,13 +4456,13 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.threeHourAmount == "" || singleObject.threeHourAmount == 0 || singleObject.threeHourAmount == null) && (singleObject.threeHourPercentage == "" || singleObject.threeHourPercentage == 0 || singleObject.threeHourPercentage == null)) {
                 console.log("inside if- threeHour");
             } else {
-                if(singleObject.threeHourAmount==undefined){
-                    singleObject.threeHourAmount=null;
+                if (singleObject.threeHourAmount == undefined) {
+                    singleObject.threeHourAmount = null;
                 }
-                if(singleObject.threeHourPercentage==undefined){
-                    singleObject.threeHourPercentage=null;
+                if (singleObject.threeHourPercentage == undefined) {
+                    singleObject.threeHourPercentage = null;
                 }
-                threeHourRuleObject.type="In Last 3 hours";
+                threeHourRuleObject.type = "In Last 3 hours";
                 threeHourRuleObject.amount = singleObject.threeHourAmount;
                 threeHourRuleObject.percentage = singleObject.threeHourPercentage;
                 threeHourRuleObject.mailerList = singleObject.threeHourMailerList;
@@ -4205,11 +4474,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.sixHourAmount == "" || singleObject.sixHourAmount == 0 || singleObject.sixHourAmount == null) && (singleObject.sixHourPercentage == "" || singleObject.sixHourPercentage == 0 || singleObject.sixHourPercentage == null)) {
                 console.log("inside if- sixHour");
             } else {
-                if(singleObject.sixHourAmount==undefined){
-                    singleObject.sixHourAmount=null;
+                if (singleObject.sixHourAmount == undefined) {
+                    singleObject.sixHourAmount = null;
                 }
-                if(singleObject.sixHourPercentage==undefined){
-                    singleObject.sixHourPercentage=null;
+                if (singleObject.sixHourPercentage == undefined) {
+                    singleObject.sixHourPercentage = null;
                 }
                 sixHourRuleObject.type = "In Last 6 hours";
                 sixHourRuleObject.amount = singleObject.sixHourAmount;
@@ -4223,11 +4492,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.twelveHourAmount == "" || singleObject.twelveHourAmount == 0 || singleObject.twelveHourAmount == null) && (singleObject.twelveHourPercentage == "" || singleObject.twelveHourPercentage == 0 || singleObject.twelveHourPercentage == null)) {
                 console.log("inside if- twelveHour");
             } else {
-                if(singleObject.twelveHourAmount==undefined){
-                    singleObject.twelveHourAmount=null;
+                if (singleObject.twelveHourAmount == undefined) {
+                    singleObject.twelveHourAmount = null;
                 }
-                if(singleObject.twelveHourPercentage==undefined){
-                    singleObject.twelveHourPercentage=null;
+                if (singleObject.twelveHourPercentage == undefined) {
+                    singleObject.twelveHourPercentage = null;
                 }
                 twelveHourRuleObject.type = "In Last 12 hours";
                 twelveHourRuleObject.amount = singleObject.twelveHourAmount;
@@ -4236,35 +4505,35 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 // console.log("twelveHourRuleObject",twelveHourRuleObject);
                 rules.push(twelveHourRuleObject);
             }
-            
+
             dailyRuleObject = {};
-                if ((singleObject.dailyAmount == "" || singleObject.dailyAmount == 0 || singleObject.dailyAmount == null) && (singleObject.dailyPercentage == "" || singleObject.dailyPercentage == 0 || singleObject.dailyPercentage == null)) {
-                    console.log("inside if- daily");
-                } else {
-                    if(singleObject.dailyAmount==undefined){
-                        singleObject.dailyAmount=null;
-                    }
-                    if(singleObject.dailyPercentage==undefined){
-                        singleObject.dailyPercentage=null;
-                    }
-                    dailyRuleObject.type = "In Last 24 hours";
-                    dailyRuleObject.amount = singleObject.dailyAmount;
-                    dailyRuleObject.percentage = singleObject.dailyPercentage;
-                    dailyRuleObject.mailerList = singleObject.dailyMailerList;
-                    // console.log("dailyRuleObject",dailyRuleObject);
-                    rules.push(dailyRuleObject);
+            if ((singleObject.dailyAmount == "" || singleObject.dailyAmount == 0 || singleObject.dailyAmount == null) && (singleObject.dailyPercentage == "" || singleObject.dailyPercentage == 0 || singleObject.dailyPercentage == null)) {
+                console.log("inside if- daily");
+            } else {
+                if (singleObject.dailyAmount == undefined) {
+                    singleObject.dailyAmount = null;
                 }
-            
+                if (singleObject.dailyPercentage == undefined) {
+                    singleObject.dailyPercentage = null;
+                }
+                dailyRuleObject.type = "In Last 24 hours";
+                dailyRuleObject.amount = singleObject.dailyAmount;
+                dailyRuleObject.percentage = singleObject.dailyPercentage;
+                dailyRuleObject.mailerList = singleObject.dailyMailerList;
+                // console.log("dailyRuleObject",dailyRuleObject);
+                rules.push(dailyRuleObject);
+            }
+
 
             weeklyRuleObject = {};
             if ((singleObject.weeklyAmount == "" || singleObject.weeklyAmount == 0 || singleObject.weeklyAmount == null) && (singleObject.weeklyPercentage == "" || singleObject.weeklyPercentage == 0 || singleObject.weeklyPercentage == null)) {
                 console.log("inside if- weekly");
             } else {
-                if(singleObject.weeklyAmount==undefined){
-                    singleObject.weeklyAmount=null;
+                if (singleObject.weeklyAmount == undefined) {
+                    singleObject.weeklyAmount = null;
                 }
-                if(singleObject.weeklyPercentage==undefined){
-                    singleObject.weeklyPercentage=null;
+                if (singleObject.weeklyPercentage == undefined) {
+                    singleObject.weeklyPercentage = null;
                 }
                 weeklyRuleObject.type = "Weekly";
                 weeklyRuleObject.amount = singleObject.weeklyAmount;
@@ -4278,11 +4547,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.cycleWiseAmount == "" || singleObject.cycleWiseAmount == 0 || singleObject.cycleWiseAmount == null) && (singleObject.cycleWisePercentage == "" || singleObject.cycleWisePercentage == 0 || singleObject.cycleWisePercentage == null)) {
                 console.log("inside if- cycleWise");
             } else {
-                if(singleObject.cycleWiseAmount==undefined){
-                    singleObject.cycleWiseAmount=null;
+                if (singleObject.cycleWiseAmount == undefined) {
+                    singleObject.cycleWiseAmount = null;
                 }
-                if(singleObject.cycleWisePercentage==undefined){
-                    singleObject.cycleWisePercentage=null;
+                if (singleObject.cycleWisePercentage == undefined) {
+                    singleObject.cycleWisePercentage = null;
                 }
                 cycleWiseRuleObject.type = "Cycle Wise";
                 cycleWiseRuleObject.amount = singleObject.cycleWiseAmount;
@@ -4296,11 +4565,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.monthlyAmount == "" || singleObject.monthlyAmount == 0 || singleObject.monthlyAmount == null) && (singleObject.monthlyPercentage == "" || singleObject.monthlyPercentage == 0 || singleObject.monthlyPercentage == null)) {
                 console.log("inside if- monthly");
             } else {
-                if(singleObject.monthlyAmount==undefined){
-                    singleObject.monthlyAmount=null;
+                if (singleObject.monthlyAmount == undefined) {
+                    singleObject.monthlyAmount = null;
                 }
-                if(singleObject.monthlyPercentage==undefined){
-                    singleObject.monthlyPercentage=null;
+                if (singleObject.monthlyPercentage == undefined) {
+                    singleObject.monthlyPercentage = null;
                 }
                 monthlyRuleObject.type = "Monthly";
                 monthlyRuleObject.amount = singleObject.monthlyAmount;
@@ -4309,21 +4578,21 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 // console.log("monthlyRuleObject",monthlyRuleObject);
                 rules.push(monthlyRuleObject);
             }
-            singleObject.rules=rules;
-            var objectToSend={};
+            singleObject.rules = rules;
+            var objectToSend = {};
             // objectToSend.category=singleObject;
-            objectToSend.category={
-                exposureMerchant:singleObject.exposureMerchant,
-                rules:singleObject.rules,
-                _id:singleObject._id,
-                name:singleObject.name,
+            objectToSend.category = {
+                exposureMerchant: singleObject.exposureMerchant,
+                rules: singleObject.rules,
+                _id: singleObject._id,
+                name: singleObject.name,
             };
-            console.log("objectToSend",objectToSend);
-            objectForIsPlay={
-                _id:objectToSend.category._id
+            console.log("objectToSend", objectToSend);
+            objectForIsPlay = {
+                _id: objectToSend.category._id
             }
-            console.log("objectToSend",objectToSend);
-            
+            console.log("objectToSend", objectToSend);
+
 
             NavigationService.playExposureMerchantCategory(objectToSend, function (data) {
                 console.log("*****", data);
@@ -4375,13 +4644,13 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.oneHourAmount == "" || singleObject.oneHourAmount == 0 || singleObject.oneHourAmount == null) && (singleObject.oneHourPercentage == "" || singleObject.oneHourPercentage == 0 || singleObject.oneHourPercentage == null)) {
                 console.log("inside if- oneHour");
             } else {
-                if(singleObject.oneHourAmount==undefined){
-                    singleObject.oneHourAmount=null;
+                if (singleObject.oneHourAmount == undefined) {
+                    singleObject.oneHourAmount = null;
                 }
-                if(singleObject.oneHourPercentage==undefined){
-                    singleObject.oneHourPercentage=null;
+                if (singleObject.oneHourPercentage == undefined) {
+                    singleObject.oneHourPercentage = null;
                 }
-                oneHourRuleObject.type="In Last 1 hour";
+                oneHourRuleObject.type = "In Last 1 hour";
                 oneHourRuleObject.amount = singleObject.oneHourAmount;
                 oneHourRuleObject.percentage = singleObject.oneHourPercentage;
                 oneHourRuleObject.mailerList = singleObject.oneHourMailerList;
@@ -4393,13 +4662,13 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.threeHourAmount == "" || singleObject.threeHourAmount == 0 || singleObject.threeHourAmount == null) && (singleObject.threeHourPercentage == "" || singleObject.threeHourPercentage == 0 || singleObject.threeHourPercentage == null)) {
                 console.log("inside if- threeHour");
             } else {
-                if(singleObject.threeHourAmount==undefined){
-                    singleObject.threeHourAmount=null;
+                if (singleObject.threeHourAmount == undefined) {
+                    singleObject.threeHourAmount = null;
                 }
-                if(singleObject.threeHourPercentage==undefined){
-                    singleObject.threeHourPercentage=null;
+                if (singleObject.threeHourPercentage == undefined) {
+                    singleObject.threeHourPercentage = null;
                 }
-                threeHourRuleObject.type="In Last 3 hours";
+                threeHourRuleObject.type = "In Last 3 hours";
                 threeHourRuleObject.amount = singleObject.threeHourAmount;
                 threeHourRuleObject.percentage = singleObject.threeHourPercentage;
                 threeHourRuleObject.mailerList = singleObject.threeHourMailerList;
@@ -4411,11 +4680,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.sixHourAmount == "" || singleObject.sixHourAmount == 0 || singleObject.sixHourAmount == null) && (singleObject.sixHourPercentage == "" || singleObject.sixHourPercentage == 0 || singleObject.sixHourPercentage == null)) {
                 console.log("inside if- sixHour");
             } else {
-                if(singleObject.sixHourAmount==undefined){
-                    singleObject.sixHourAmount=null;
+                if (singleObject.sixHourAmount == undefined) {
+                    singleObject.sixHourAmount = null;
                 }
-                if(singleObject.sixHourPercentage==undefined){
-                    singleObject.sixHourPercentage=null;
+                if (singleObject.sixHourPercentage == undefined) {
+                    singleObject.sixHourPercentage = null;
                 }
                 sixHourRuleObject.type = "In Last 6 hours";
                 sixHourRuleObject.amount = singleObject.sixHourAmount;
@@ -4429,11 +4698,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.twelveHourAmount == "" || singleObject.twelveHourAmount == 0 || singleObject.twelveHourAmount == null) && (singleObject.twelveHourPercentage == "" || singleObject.twelveHourPercentage == 0 || singleObject.twelveHourPercentage == null)) {
                 console.log("inside if- twelveHour");
             } else {
-                if(singleObject.twelveHourAmount==undefined){
-                    singleObject.twelveHourAmount=null;
+                if (singleObject.twelveHourAmount == undefined) {
+                    singleObject.twelveHourAmount = null;
                 }
-                if(singleObject.twelveHourPercentage==undefined){
-                    singleObject.twelveHourPercentage=null;
+                if (singleObject.twelveHourPercentage == undefined) {
+                    singleObject.twelveHourPercentage = null;
                 }
                 twelveHourRuleObject.type = "In Last 12 hours";
                 twelveHourRuleObject.amount = singleObject.twelveHourAmount;
@@ -4442,35 +4711,35 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 // console.log("twelveHourRuleObject",twelveHourRuleObject);
                 rules.push(twelveHourRuleObject);
             }
-            
+
             dailyRuleObject = {};
-                if ((singleObject.dailyAmount == "" || singleObject.dailyAmount == 0 || singleObject.dailyAmount == null) && (singleObject.dailyPercentage == "" || singleObject.dailyPercentage == 0 || singleObject.dailyPercentage == null)) {
-                    console.log("inside if- daily");
-                } else {
-                    if(singleObject.dailyAmount==undefined){
-                        singleObject.dailyAmount=null;
-                    }
-                    if(singleObject.dailyPercentage==undefined){
-                        singleObject.dailyPercentage=null;
-                    }
-                    dailyRuleObject.type = "In Last 24 hours";
-                    dailyRuleObject.amount = singleObject.dailyAmount;
-                    dailyRuleObject.percentage = singleObject.dailyPercentage;
-                    dailyRuleObject.mailerList = singleObject.dailyMailerList;
-                    // console.log("dailyRuleObject",dailyRuleObject);
-                    rules.push(dailyRuleObject);
+            if ((singleObject.dailyAmount == "" || singleObject.dailyAmount == 0 || singleObject.dailyAmount == null) && (singleObject.dailyPercentage == "" || singleObject.dailyPercentage == 0 || singleObject.dailyPercentage == null)) {
+                console.log("inside if- daily");
+            } else {
+                if (singleObject.dailyAmount == undefined) {
+                    singleObject.dailyAmount = null;
                 }
-            
+                if (singleObject.dailyPercentage == undefined) {
+                    singleObject.dailyPercentage = null;
+                }
+                dailyRuleObject.type = "In Last 24 hours";
+                dailyRuleObject.amount = singleObject.dailyAmount;
+                dailyRuleObject.percentage = singleObject.dailyPercentage;
+                dailyRuleObject.mailerList = singleObject.dailyMailerList;
+                // console.log("dailyRuleObject",dailyRuleObject);
+                rules.push(dailyRuleObject);
+            }
+
 
             weeklyRuleObject = {};
             if ((singleObject.weeklyAmount == "" || singleObject.weeklyAmount == 0 || singleObject.weeklyAmount == null) && (singleObject.weeklyPercentage == "" || singleObject.weeklyPercentage == 0 || singleObject.weeklyPercentage == null)) {
                 console.log("inside if- weekly");
             } else {
-                if(singleObject.weeklyAmount==undefined){
-                    singleObject.weeklyAmount=null;
+                if (singleObject.weeklyAmount == undefined) {
+                    singleObject.weeklyAmount = null;
                 }
-                if(singleObject.weeklyPercentage==undefined){
-                    singleObject.weeklyPercentage=null;
+                if (singleObject.weeklyPercentage == undefined) {
+                    singleObject.weeklyPercentage = null;
                 }
                 weeklyRuleObject.type = "Weekly";
                 weeklyRuleObject.amount = singleObject.weeklyAmount;
@@ -4484,11 +4753,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.cycleWiseAmount == "" || singleObject.cycleWiseAmount == 0 || singleObject.cycleWiseAmount == null) && (singleObject.cycleWisePercentage == "" || singleObject.cycleWisePercentage == 0 || singleObject.cycleWisePercentage == null)) {
                 console.log("inside if- cycleWise");
             } else {
-                if(singleObject.cycleWiseAmount==undefined){
-                    singleObject.cycleWiseAmount=null;
+                if (singleObject.cycleWiseAmount == undefined) {
+                    singleObject.cycleWiseAmount = null;
                 }
-                if(singleObject.cycleWisePercentage==undefined){
-                    singleObject.cycleWisePercentage=null;
+                if (singleObject.cycleWisePercentage == undefined) {
+                    singleObject.cycleWisePercentage = null;
                 }
                 cycleWiseRuleObject.type = "Cycle Wise";
                 cycleWiseRuleObject.amount = singleObject.cycleWiseAmount;
@@ -4502,11 +4771,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             if ((singleObject.monthlyAmount == "" || singleObject.monthlyAmount == 0 || singleObject.monthlyAmount == null) && (singleObject.monthlyPercentage == "" || singleObject.monthlyPercentage == 0 || singleObject.monthlyPercentage == null)) {
                 console.log("inside if- monthly");
             } else {
-                if(singleObject.monthlyAmount==undefined){
-                    singleObject.monthlyAmount=null;
+                if (singleObject.monthlyAmount == undefined) {
+                    singleObject.monthlyAmount = null;
                 }
-                if(singleObject.monthlyPercentage==undefined){
-                    singleObject.monthlyPercentage=null;
+                if (singleObject.monthlyPercentage == undefined) {
+                    singleObject.monthlyPercentage = null;
                 }
                 monthlyRuleObject.type = "Monthly";
                 monthlyRuleObject.amount = singleObject.monthlyAmount;
@@ -4515,21 +4784,21 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 // console.log("monthlyRuleObject",monthlyRuleObject);
                 rules.push(monthlyRuleObject);
             }
-            singleObject.rules=rules;
-            var objectToSend={};
+            singleObject.rules = rules;
+            var objectToSend = {};
             // objectToSend.category=singleObject;
-            objectToSend.category={
-                exposureMerchant:singleObject.exposureMerchant,
-                rules:singleObject.rules,
-                _id:singleObject._id,
-                name:singleObject.name,
+            objectToSend.category = {
+                exposureMerchant: singleObject.exposureMerchant,
+                rules: singleObject.rules,
+                _id: singleObject._id,
+                name: singleObject.name,
             };
-            console.log("objectToSend",objectToSend);
-            objectForIsPlay={
-                _id:objectToSend.category._id
+            console.log("objectToSend", objectToSend);
+            objectForIsPlay = {
+                _id: objectToSend.category._id
             }
 
-            
+
             NavigationService.stopExposureMerchantCategory(objectToSend, function (data) {
                 console.log("*****", data);
                 if (data.data.status == true) {
@@ -4572,7 +4841,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         }
 
-        $scope.getAllItemsOld=function(){
+        $scope.getAllItemsOld = function () {
 
             NavigationService.apiCall("ExposureMerchantCat/search", {}, function (data) {
                 console.log("inside ExposureMerchantCategory ctrl:", data.data);
@@ -4596,8 +4865,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         NavigationService.apiCall("ExposureMerchant/searchWithoutPopulate", {}, function (data) {
             console.log("inside ExposureMerchantCategory ctrl:", data.data);
             $scope.exposureMerchants = data.data.results;
-            angular.forEach($scope.exposureMerchants,function(value,key){
-                value.id=value._id;
+            angular.forEach($scope.exposureMerchants, function (value, key) {
+                value.id = value._id;
             })
             // $scope.config = {
             //     options: $scope.exposureMerchants,
@@ -4613,7 +4882,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             $scope.data = data.data;
             console.log("------inside contest ctrl*****:", data.data);
         });
-  
+
         //pagination start
         var formdata = {};
         // formdata.user = userId;
@@ -4654,21 +4923,23 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     function (data, ini) {
                         if (ini == i) {
                             $scope.results = data.data.results;
-                            angular.forEach($scope.results, function(value, key) {
-                                value.exposureMerchantNew=[];
-                                angular.forEach(value.exposureMerchant,function(value2,key2){
+                            angular.forEach($scope.results, function (value, key) {
+                                value.exposureMerchantNew = [];
+                                angular.forEach(value.exposureMerchant, function (value2, key2) {
                                     // var exposureMerchantObject={
                                     //     _id:value2._id,
                                     //     name:value2.name
                                     // };
-                                value.exposureMerchantNew.push({"id":value2._id,
-                                    "name":value2.name,
-                                "_id":value2._id,
-                                "sqlId":value2.sqlId});
-                                value.exposureMerchant=value.exposureMerchantNew;
-                                // value.exposureMerchant
+                                    value.exposureMerchantNew.push({
+                                        "id": value2._id,
+                                        "name": value2.name,
+                                        "_id": value2._id,
+                                        "sqlId": value2.sqlId
+                                    });
+                                    value.exposureMerchant = value.exposureMerchantNew;
+                                    // value.exposureMerchant
                                 })
-                              });
+                            });
                             console.log("final data in if", $scope.results);
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
@@ -4685,21 +4956,23 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     function (data, ini) {
                         if (ini == i) {
                             $scope.results = data.data.results;
-                            angular.forEach($scope.results, function(value, key) {
-                                value.exposureMerchantNew=[];
-                                angular.forEach(value.exposureMerchant,function(value2,key2){
+                            angular.forEach($scope.results, function (value, key) {
+                                value.exposureMerchantNew = [];
+                                angular.forEach(value.exposureMerchant, function (value2, key2) {
                                     // var exposureMerchantObject={
                                     //     _id:value2._id,
                                     //     name:value2.name
                                     // };
-                                value.exposureMerchantNew.push({"id":value2._id,
-                                    "name":value2.name,
-                                "_id":value2._id,
-                                "sqlId":value2.sqlId});
-                                value.exposureMerchant=value.exposureMerchantNew;
-                                // value.exposureMerchant
+                                    value.exposureMerchantNew.push({
+                                        "id": value2._id,
+                                        "name": value2.name,
+                                        "_id": value2._id,
+                                        "sqlId": value2.sqlId
+                                    });
+                                    value.exposureMerchant = value.exposureMerchantNew;
+                                    // value.exposureMerchant
                                 })
-                              });
+                            });
                             console.log("final data in else", $scope.results);
                             $scope.totalItems = data.data.total;
                             $scope.maxRow = data.data.options.count;
@@ -4707,13 +4980,620 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     });
             }
             // console.log("..............",$scope.results);
-            
+
 
         };
         //pagination end
 
         $scope.getAllItems();
     })
+
+    .controller('viewEmailDomainCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr, $uibModal) {
+
+        $scope.template = TemplateService.changecontent("viewEmailDomain");
+        $scope.menutitle = NavigationService.makeactive("viewEmailDomain");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+        $scope.whitelistArray = [{
+            id: 1,
+            name: "Whitelist"
+        }, {
+            id: 2,
+            name: "Blacklist"
+        }];
+        // $scope.getAllItems();
+        $scope.allData = [{
+            id: 1,
+            domain: "avinash.com",
+            whitelist: 1
+        }, {
+            id: 2,
+            domain: "yogesh.com",
+            whitelist: 1
+        }, {
+            id: 3,
+            domain: "royston.com",
+            whitelist: 1
+        }, {
+            id: 4,
+            domain: "deepak.com",
+            whitelist: 2
+        }];
+
+        $scope.saveEmailDomain = function (singleEmailDomainObject) {
+            console.log("Single Email Domain Save Button Click", singleEmailDomainObject);
+        }
+        //pagination start
+        var formdata = {};
+        // formdata.user = userId;
+        var i = 0;
+        if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
+            $scope.currentPage = $stateParams.page;
+        } else {
+            $scope.currentPage = 1;
+        }
+
+        $scope.search = {
+            keyword: ""
+        };
+        if ($stateParams.keyword) {
+            $scope.search.keyword = $stateParams.keyword;
+        }
+        $scope.changePage = function (page) {
+            var goTo = "merchantExposure";
+            $scope.currentPage = page;
+            if ($scope.search.keyword) {
+                goTo = "merchantExposure";
+            }
+            $state.go(goTo, {
+                page: page
+            });
+            $scope.getAllItems();
+        };
+        $scope.getAllItems = function (keywordChange, count) {
+            if (keywordChange != undefined && keywordChange != true) {
+                $scope.maxCount = keywordChange;
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("ExposureMerchantCat/search", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        if (ini == i) {
+                            $scope.results = data.data.results;
+                            angular.forEach($scope.results, function (value, key) {
+                                value.exposureMerchantNew = [];
+                                angular.forEach(value.exposureMerchant, function (value2, key2) {
+                                    // var exposureMerchantObject={
+                                    //     _id:value2._id,
+                                    //     name:value2.name
+                                    // };
+                                    value.exposureMerchantNew.push({
+                                        "id": value2._id,
+                                        "name": value2.name,
+                                        "_id": value2._id,
+                                        "sqlId": value2.sqlId
+                                    });
+                                    value.exposureMerchant = value.exposureMerchantNew;
+                                    // value.exposureMerchant
+                                })
+                            });
+                            console.log("final data in if", $scope.results);
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            } else {
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("ExposureMerchantCat/search", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        if (ini == i) {
+                            $scope.results = data.data.results;
+                            angular.forEach($scope.results, function (value, key) {
+                                value.exposureMerchantNew = [];
+                                angular.forEach(value.exposureMerchant, function (value2, key2) {
+                                    // var exposureMerchantObject={
+                                    //     _id:value2._id,
+                                    //     name:value2.name
+                                    // };
+                                    value.exposureMerchantNew.push({
+                                        "id": value2._id,
+                                        "name": value2.name,
+                                        "_id": value2._id,
+                                        "sqlId": value2.sqlId
+                                    });
+                                    value.exposureMerchant = value.exposureMerchantNew;
+                                    // value.exposureMerchant
+                                })
+                            });
+                            console.log("final data in else", $scope.results);
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            }
+            // console.log("..............",$scope.results);
+
+
+        };
+        //pagination end
+
+    })
+
+    .controller('viewMerchantCategoryCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr, $uibModal) {
+
+        $scope.template = TemplateService.changecontent("viewMerchantCategory");
+        $scope.menutitle = NavigationService.makeactive("viewMerchantCategory");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+        $scope.item = {
+            id: 1,
+            domain: "avinash.com",
+            whitelist: 2
+        };
+
+        $scope.allData = [{
+            name: "Zomato Media Private Limited",
+            accessKey: "R18L6RRZB8V5HGGWGH6N",
+            riskCategory: 2
+        }, {
+            name: "PayUmoney",
+            accessKey: "NSYF9D29AMBP8UTGLLWD",
+            riskCategory: 3
+        }, {
+            name: "D Vois Communications Pvt Ltd",
+            accessKey: "EEEEZS6TV60O8C29VS8M",
+            riskCategory: 3
+        }, {
+            name: "Stay Away",
+            accessKey: "BEL9NBMUTS9BS509SU52",
+            riskCategory: 4
+        }];
+
+        $scope.editMerchantCategory = function (objectToBeEditOld) {
+            console.log("object To Be Edit", objectToBeEditOld);
+            $scope.objectToBeEdit = objectToBeEditOld;
+            $scope.editMerchantCategoryModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/editMerchantCategoryModal.html',
+                size: 'md',
+                scope: $scope
+            });
+        }
+
+        $scope.editMerchantCategoryOnSave = function (data) {
+            console.log("Data", data);
+        }
+
+        $scope.createMerchantCategory = function () {
+            console.log("object To Be create");
+            $scope.objectToBeCreate = {};
+            $scope.createMerchantCategoryModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/createMerchantCategoryModal.html',
+                size: 'md',
+                scope: $scope
+            });
+        }
+
+        $scope.createMerchantCategoryOnSave = function (data) {
+            console.log("createMerchantCategoryOnSave", data);
+        }
+
+        $scope.disableMerchantCategory = function (objectToBeDisable) {
+            console.log("object To Be Disable", objectToBeDisable);
+            $scope.objectToBeDisable = objectToBeDisable;
+            $scope.disableMerchantCategoryModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/disableMerchantCategoryModal.html',
+                size: 'md',
+                scope: $scope
+            });
+        }
+
+        $scope.disableMerchantCategoryOnSubmit = function (data) {
+            console.log("disableMerchantCategoryOnSubmit", data);
+        }
+
+    })
+
+
+    .controller('editMerchantCategoryCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr, $uibModal) {
+        
+                $scope.template = TemplateService.changecontent("editMerchantCategory");
+                $scope.menutitle = NavigationService.makeactive("editMerchantCategory");
+                TemplateService.title = $scope.menutitle;
+                $scope.navigation = NavigationService.getnav();
+        
+                console.log("stateParams", $stateParams.id);
+                //here wee need to call get single api
+        
+                $scope.whitelistArray = [{
+                    id: 1,
+                    name: "Whitelist"
+                }, {
+                    id: 2,
+                    name: "Blacklist"
+                }];
+                $scope.item = {
+                    id: 1,
+                    domain: "avinash.com",
+                    whitelist: 2
+                };
+                //end of get single api call 
+                $scope.editEmailDomain = function (objectToBeEdit) {
+                    console.log("object To Be Edit", objectToBeEdit);
+                }
+            })
+        
+
+
+    .controller('viewRiskCategoryCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr, $uibModal) {
+
+        $scope.template = TemplateService.changecontent("viewRiskCategory");
+        $scope.menutitle = NavigationService.makeactive("viewRiskCategory");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+        $scope.item = {
+            id: 1,
+            domain: "avinash.com",
+            whitelist: 2
+        };
+
+        $scope.allData = [{
+            riskCategory: 1,
+            RiskBands: {
+                timeframe:120,
+                declineRules:[{
+                    type:"declineRules type 1",
+                    threshold:100
+                },{
+                    type:"declineRules type 2",
+                    threshold:200
+                },{
+                    type:"declineRules type 3",
+                    threshold:300
+                }],
+                challengeRules:[{
+                    type:"challengeRules type 1",
+                    threshold:100
+                },{
+                    type:"challengeRules type 2",
+                    threshold:200
+                },{
+                    type:"challengeRules type 3",
+                    threshold:300
+                }]
+            }
+        },
+        {
+            riskCategory: 2,
+            RiskBands: {
+                timeframe:180,
+                declineRules:[{
+                    type:"declineRules type 3",
+                    threshold:400
+                },{
+                    type:"declineRules type 4",
+                    threshold:500
+                },{
+                    type:"declineRules type 5",
+                    threshold:600
+                }],
+                challengeRules:[{
+                    type:"challengeRules type 3",
+                    threshold:400
+                },{
+                    type:"challengeRules type 4",
+                    threshold:500
+                },{
+                    type:"challengeRules type 5",
+                    threshold:600
+                }]
+            }
+        }];
+
+        $scope.editRiskCategory = function (objectToBeEdit) {
+            console.log("object To Be Edit", objectToBeEdit);
+            $scope.objectToBeEdit = objectToBeEdit;
+            $scope.editRiskCategoryModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/editRiskCategoryModal.html',
+                size: 'md',
+                scope: $scope
+            });
+        }
+
+        $scope.editRiskCategoryOnSave = function (data) {
+            console.log("Data", data);
+        }
+
+        $scope.createRiskCategory = function () {
+            console.log("object To Be create");
+            $scope.objectToBeCreate = {};
+            $scope.createRiskCategoryModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/createRiskCategoryModal.html',
+                size: 'md',
+                scope: $scope
+            });
+        }
+
+        $scope.createRiskCategoryOnSave = function (data) {
+            console.log("createRiskCategoryOnSave", data);
+        }
+
+        $scope.disableRiskCategory = function (objectToBeDisable) {
+            console.log("object To Be Disable", objectToBeDisable);
+            $scope.objectToBeDisable = objectToBeDisable;
+            $scope.disableRiskCategoryModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/disableRiskCategoryModal.html',
+                size: 'md',
+                scope: $scope
+            });
+        }
+
+        $scope.disableRiskCategoryOnSubmit = function (data) {
+            console.log("disableRiskCategoryOnSubmit", data);
+        }
+
+
+
+    })
+
+
+    .controller('editEmailDomainCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr, $uibModal) {
+
+        $scope.template = TemplateService.changecontent("editEmailDomain");
+        $scope.menutitle = NavigationService.makeactive("editEmailDomain");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+        console.log("stateParams", $stateParams.id);
+        //here wee need to call get single api
+
+        $scope.whitelistArray = [{
+            id: 1,
+            name: "Whitelist"
+        }, {
+            id: 2,
+            name: "Blacklist"
+        }];
+        $scope.item = {
+            id: 1,
+            domain: "avinash.com",
+            whitelist: 2
+        };
+        //end of get single api call 
+        $scope.editEmailDomain = function (objectToBeEdit) {
+            console.log("object To Be Edit", objectToBeEdit);
+        }
+    })
+
+
+    .controller('createEmailDomainCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr, $uibModal) {
+
+        $scope.template = TemplateService.changecontent("createEmailDomain");
+        $scope.menutitle = NavigationService.makeactive("createEmailDomain");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+        $scope.whitelistArray = [{
+            id: 1,
+            name: "Whitelist"
+        }, {
+            id: 2,
+            name: "Blacklist"
+        }];
+        //end of get single api call 
+        $scope.createEmailDomain = function (objectToBeCreate) {
+            console.log("object To Be Create", objectToBeCreate);
+        }
+    })
+
+
+
+
+    .controller('viewUserWhitelistCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr, $uibModal) {
+
+        $scope.template = TemplateService.changecontent("viewUserWhitelist");
+        $scope.menutitle = NavigationService.makeactive("viewUserWhitelist");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+        $scope.whitelistArray = [{
+            id: 1,
+            name: "Whitelist"
+        }, {
+            id: 2,
+            name: "Blacklist"
+        }];
+        // $scope.getAllItems();
+        $scope.allData = [{
+            id: 1,
+            domain: "avinash.com",
+            whitelist: 1
+        }, {
+            id: 2,
+            domain: "yogesh.com",
+            whitelist: 1
+        }, {
+            id: 3,
+            domain: "royston.com",
+            whitelist: 1
+        }, {
+            id: 4,
+            domain: "deepak.com",
+            whitelist: 2
+        }];
+
+        //pagination start
+        var formdata = {};
+        // formdata.user = userId;
+        var i = 0;
+        if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
+            $scope.currentPage = $stateParams.page;
+        } else {
+            $scope.currentPage = 1;
+        }
+
+        $scope.search = {
+            keyword: ""
+        };
+        if ($stateParams.keyword) {
+            $scope.search.keyword = $stateParams.keyword;
+        }
+        $scope.changePage = function (page) {
+            var goTo = "merchantExposure";
+            $scope.currentPage = page;
+            if ($scope.search.keyword) {
+                goTo = "merchantExposure";
+            }
+            $state.go(goTo, {
+                page: page
+            });
+            $scope.getAllItems();
+        };
+        $scope.getAllItems = function (keywordChange, count) {
+            if (keywordChange != undefined && keywordChange != true) {
+                $scope.maxCount = keywordChange;
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("ExposureMerchantCat/search", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        if (ini == i) {
+                            $scope.results = data.data.results;
+                            angular.forEach($scope.results, function (value, key) {
+                                value.exposureMerchantNew = [];
+                                angular.forEach(value.exposureMerchant, function (value2, key2) {
+                                    // var exposureMerchantObject={
+                                    //     _id:value2._id,
+                                    //     name:value2.name
+                                    // };
+                                    value.exposureMerchantNew.push({
+                                        "id": value2._id,
+                                        "name": value2.name,
+                                        "_id": value2._id,
+                                        "sqlId": value2.sqlId
+                                    });
+                                    value.exposureMerchant = value.exposureMerchantNew;
+                                    // value.exposureMerchant
+                                })
+                            });
+                            console.log("final data in if", $scope.results);
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            } else {
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("ExposureMerchantCat/search", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        if (ini == i) {
+                            $scope.results = data.data.results;
+                            angular.forEach($scope.results, function (value, key) {
+                                value.exposureMerchantNew = [];
+                                angular.forEach(value.exposureMerchant, function (value2, key2) {
+                                    // var exposureMerchantObject={
+                                    //     _id:value2._id,
+                                    //     name:value2.name
+                                    // };
+                                    value.exposureMerchantNew.push({
+                                        "id": value2._id,
+                                        "name": value2.name,
+                                        "_id": value2._id,
+                                        "sqlId": value2.sqlId
+                                    });
+                                    value.exposureMerchant = value.exposureMerchantNew;
+                                    // value.exposureMerchant
+                                })
+                            });
+                            console.log("final data in else", $scope.results);
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            }
+            // console.log("..............",$scope.results);
+
+
+        };
+        //pagination end
+
+    })
+
+    .controller('editUserWhitelistCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr, $uibModal) {
+
+        $scope.template = TemplateService.changecontent("editUserWhitelist");
+        $scope.menutitle = NavigationService.makeactive("editUserWhitelist");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+        console.log("stateParams", $stateParams.id);
+        //here wee need to call get single api
+
+        $scope.whitelistArray = [{
+            id: 1,
+            name: "Whitelist"
+        }, {
+            id: 2,
+            name: "Blacklist"
+        }];
+        $scope.item = {
+            id: 1,
+            domain: "avinash.com",
+            whitelist: 2
+        };
+        //end of get single api call 
+        $scope.editUserWhitelist = function (objectToBeEdit) {
+            console.log("object To Be Edit", objectToBeEdit);
+        }
+    })
+
+
+    .controller('createUserWhitelistCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr, $uibModal) {
+
+        $scope.template = TemplateService.changecontent("createUserWhitelist");
+        $scope.menutitle = NavigationService.makeactive("createUserWhitelist");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+        $scope.whitelistArray = [{
+            id: 1,
+            name: "Whitelist"
+        }, {
+            id: 2,
+            name: "Blacklist"
+        }];
+        //end of get single api call 
+        $scope.createUserWhitelist = function (objectToBeCreate) {
+            console.log("object To Be Create", objectToBeCreate);
+        }
+    })
+
+
+
+
 
     .controller('languageCtrl', function ($scope, TemplateService, $translate, $rootScope) {
 

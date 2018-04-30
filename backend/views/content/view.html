@@ -114,6 +114,13 @@
                                                 <i class="fa" ng-class="json.json.viewMarketingRuleButton.icon"></i>
                                             </a>
                                             <!-- Marketing Rule View button end -->
+                                            <!-- Collection Engine View button start -->
+                                            <a style="margin-left:5px;" ng-if="json.json.viewCollectionEngineButton" title="{{json.json.viewCollectionEngineButton.name}}" class="btn" ng-class="json.json.viewCollectionEngineButton.buttonClass"
+                                            ng-click="viewSingleCollectionEngineModal(item)">
+                                            <i class="fa" ng-class="json.json.viewCollectionEngineButton.icon"></i>
+                                        </a>
+                                        <!-- Collection Engine View button end -->
+                                            
                                             <!-- Exposure merchant View button start -->
                                             <a style="margin-left:5px;" ng-if="json.json.viewExposureMerchantButton" title="{{json.json.viewExposureMerchantButton.name}}" class="btn" ng-class="json.json.viewExposureMerchantButton.buttonClass"
                                             ng-click="viewSingleExposureMerchantModal(item)">
@@ -164,6 +171,11 @@
                                                 ng-click="playSelectedAllClickMarketing(item)">
                                                 Play Rule
                                             </a>
+
+                                            <a style="margin-left:5px;" ng-if="json.json.playCollectionEngine" title="{{json.json.playCollectionEngine.name}}" class="btn" ng-class="json.json.playCollectionEngine.buttonClass"
+                                            ng-click="playCollectionEngine(item)">
+                                            Play Rule
+                                        </a>
                                             <!-- <a class="btn btn-primary" ng-if="json.json.bottomButtonPlayAllMarketing" ng-show="hasRole({{json.json.bottomButtonPlayAllMarketing[0].roles}})"
                                             ng-class="btn.class " ng-click="playSelectedAllClickMarketing()">{{json.json.bottomButtonPlayAllMarketing[0].name}}</a> -->
                                         

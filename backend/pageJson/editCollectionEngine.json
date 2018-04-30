@@ -1,0 +1,270 @@
+{
+    "title": "Edit Marketing Rule",
+    "name": "CollectionEngine",
+    "jsonPage": "viewCollectionEngine",
+    "desciption": "",
+    "pageType": "edit",
+    "urlFields": ["_id"],
+    "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
+    "fields": [{
+        "name": "Collection Details",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Name Of Collection",
+        "type": "text",
+        "tableRef": "name",
+        "placeholder": "Enter Campaign Name",
+        "id": "name",
+        "validation": ["required", "trim"],
+        "url": ""
+    }, {
+        "name": "Other",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Outstanding Amount",
+        "type": "numberwithnegative",
+        "tableRef": "outstandingAmount",
+        "placeholder": "Enter Outstanding Amount",
+        "id": "outstandingAmount",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Outstanding Amount Operator",
+        "type": "tags",
+        "tableRef": "outstandingAmountOperator",
+        "placeholder": "Select Operator",
+        "id": "outstandingAmountOperator",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "CollectionOperator/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["", "", ""],
+        "required":false
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Outstanding End Amount ",
+        "type": "numberwithnegativehide",
+        "tableRef": "outstandingEndAmount",
+        "placeholder": "Enter Outstanding End Amount",
+        "id": "outstandingEndAmount",
+        "validation": ["required", "trim"],
+        "url": "",
+        "hideMethod":"hideOutstandingEndAmountValue"
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Previous Repayment Amount",
+        "type": "numberwithnegative",
+        "tableRef": "previousRepaymentAmount",
+        "placeholder": "Previous Repayment Amount",
+        "id": "previousRepaymentAmount",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Previous Repayment Amount Operator",
+        "type": "tags",
+        "tableRef": "previousRepaymentAmountOperator",
+        "placeholder": "Select Operator",
+        "id": "previousRepaymentAmountOperator",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "CollectionOperator/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["", "", ""]
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Previous Repayment End Amount ",
+        "type": "numberwithnegativehide",
+        "tableRef": "previousRepaymentEndAmount",
+        "placeholder": "Previous Repayment End Amount",
+        "id": "previousRepaymentEndAmount",
+        "validation": ["", "trim"],
+        "url": "",
+        "hideMethod":"hidepreviousRepaymentEndAmountValue"
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Previous Repayment Dpd",
+        "type": "numberwithnegative",
+        "tableRef": "previousRepaymentDpd",
+        "placeholder": "Previous Repayment Dpd",
+        "id": "previousRepaymentDpd",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Previous Repayment DPD Operator",
+        "type": "tags",
+        "tableRef": "previousRepaymentDpdOperator",
+        "placeholder": "Select Operator",
+        "id": "previousRepaymentDpdOperator",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "CollectionOperator/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["", "", ""]
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Previous Repayment End Dpd ",
+        "type": "numberwithnegativehide",
+        "tableRef": "previousRepaymentEndDpd",
+        "placeholder": "Previous Repayment End Dpd",
+        "id": "previousRepaymentEndDpd",
+        "validation": ["required", "trim"],
+        "url": "",
+        "hideMethod":"hidepreviousRepaymentEndDpdValue"
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Due Since",
+        "type": "date",
+        "tableRef": "dueSince",
+        "placeholder": "Enter Due Since",
+        "id": "dueSince",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Due Since Operator",
+        "type": "tags",
+        "tableRef": "dueSinceOperator",
+        "placeholder": "Select Operator",
+        "id": "dueSinceOperator",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "CollectionOperator/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["", "", ""]
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Due Since End",
+        "type": "date",
+        "tableRef": "dueSinceEnd",
+        "placeholder": "Enter Due Since",
+        "id": "dueSinceEnd",
+        "validation": ["required", "trim"],
+        "url": "",
+        "hideMethod1":"hideDueSinceEndValue"
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "PRN Due Amount",
+        "type": "numberwithnegative",
+        "tableRef": "prnDueAmount",
+        "placeholder": "PRN Due Amount",
+        "id": "prnDueAmount",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "PRN Due Amount Operator",
+        "type": "tags",
+        "tableRef": "prnDueAmountOperator",
+        "placeholder": "Select Operator",
+        "id": "prnDueAmountOperator",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "CollectionOperator/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["", "", ""]
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "PRN Due End Amount ",
+        "type": "numberwithnegativehide",
+        "tableRef": "prnDueEndAmount",
+        "placeholder": "PRN Due End Amount",
+        "id": "prnDueEndAmount",
+        "validation": ["required", "trim"],
+        "url": "",
+        "hideMethod":"hidePrnDueEndAmountValue"
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Previous Repayment Mode ( Multiple Select )",
+        "type": "tags",
+        "tableRef": "previousRepaymentMode",
+        "placeholder": "Select Previous Repayment Mode",
+        "id": "previousRepaymentMode",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "PreviousRepaymentMode/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
+    }, {
+        "name": "SI Info",
+        "type": "tags",
+        "tableRef": "siInfo",
+        "placeholder": "Enter List Option",
+        "id": "siInfo",
+        "validation": ["", "trim", ""],
+        "url": "",
+        "dropDownField": "",
+        "dropDownType": "single",
+        "onView": true,
+        "dropDown": ["Yes","No"]
+    }],
+    "action": [{
+        "name": "submit",
+        "action": "submitCollectionEngine",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewCollectionEngine"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewCollectionEngine"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "CollectionEngine/save",
+        "params": "_id"
+    },
+    "preApi": {
+        "url": "CollectionEngine/getOne",
+        "params": "_id"
+    }
+
+}

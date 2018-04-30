@@ -576,6 +576,96 @@ myApp.directive('detailField', function ($http, $filter, JsonService) {
                 }
             }
 
+            $scope.condition.hideOutstandingEndAmountValue = function() {
+                // console.log("$scope.formData in hideStertTransactionValue",$scope.formData["transactionOperator"].name);
+                if($scope.formData["outstandingAmountOperator"]){
+
+                    if($scope.formData["outstandingAmountOperator"].name=='Between'){
+                        // console.log("if");
+                        // $scope.formData["numberOfTransactionStart"]="";
+                        return false;
+                    } else {
+                        // console.log("else");
+                        $scope.formData["outstandingEndAmount"]="";
+                        return true;
+                    }
+                }else{
+                    return true;
+                }
+            }
+
+            $scope.condition.hidepreviousRepaymentEndAmountValue = function() {
+                // console.log("$scope.formData in hideStertTransactionValue",$scope.formData["transactionOperator"].name);
+                if($scope.formData["previousRepaymentAmountOperator"]){
+
+                    if($scope.formData["previousRepaymentAmountOperator"].name=='Between'){
+                        // console.log("if");
+                        // $scope.formData["numberOfTransactionStart"]="";
+                        return false;
+                    } else {
+                        // console.log("else");
+                        $scope.formData["previousRepaymentEndAmount"]="";
+                        return true;
+                    }
+                }else{
+                    return true;
+                }
+            }
+
+            $scope.condition.hidepreviousRepaymentEndDpdValue = function() {
+                // console.log("$scope.formData in hideStertTransactionValue",$scope.formData["transactionOperator"].name);
+                if($scope.formData["previousRepaymentDpdOperator"]){
+
+                    if($scope.formData["previousRepaymentDpdOperator"].name=='Between'){
+                        // console.log("if");
+                        // $scope.formData["numberOfTransactionStart"]="";
+                        return false;
+                    } else {
+                        // console.log("else");
+                        $scope.formData["previousRepaymentEndDpd"]="";
+                        return true;
+                    }
+                }else{
+                    return true;
+                }
+            }
+
+            $scope.condition.hideDueSinceEndValue = function() {
+                // console.log("$scope.formData in hideStertTransactionValue",$scope.formData["transactionOperator"].name);
+                if($scope.formData["dueSinceOperator"]){
+
+                    if($scope.formData["dueSinceOperator"].name=='Between'){
+                        // console.log("if");
+                        // $scope.formData["numberOfTransactionStart"]="";
+                        return false;
+                    } else {
+                        // console.log("else");
+                        $scope.formData["dueSinceEnd"]="";
+                        return true;
+                    }
+                }else{
+                    return true;
+                }
+            }
+
+            $scope.condition.hidePrnDueEndAmountValue = function() {
+                // console.log("$scope.formData in hideStertTransactionValue",$scope.formData["transactionOperator"].name);
+                if($scope.formData["prnDueAmountOperator"]){
+
+                    if($scope.formData["prnDueAmountOperator"].name=='Between'){
+                        // console.log("if");
+                        // $scope.formData["numberOfTransactionStart"]="";
+                        return false;
+                    } else {
+                        // console.log("else");
+                        $scope.formData["prnDueEndAmount"]="";
+                        return true;
+                    }
+                }else{
+                    return true;
+                }
+            }
+
             $scope.condition.hideFirstTransactionDate = function() {
                 if($scope.formData["firstDate"] > $scope.formData["lastDate"]){
                     $scope.formData["firstDate"]=null; 

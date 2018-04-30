@@ -1,0 +1,153 @@
+<form name="modalForm" ng-submit="$dismiss()" class="min-hit">
+    
+        <div class="modal-header blue-bg  ">
+            <div class="pull-right">
+                <a class="btn btn-clear" ng-click="$dismiss()">
+                    <i class="ln-cross"></i>
+                </a>
+            </div>
+            <h5 class="modal-title">
+                <b>{{singleCollectionEngineForModal.name}}</b>
+            </h5>
+    
+        </div>
+        <div class="modal-body">
+            
+            <div class="singleRuleHeadings">Targeted Collection Details: </div>
+            <div class="row" ng-if="singleCollectionEngineForModal.name">
+                <div class="col-md-12">
+                    Collection Name: {{singleCollectionEngineForModal.name}}
+                </div>
+            </div>
+
+            <div class="row" ng-if="singleCollectionEngineForModal.siInfo">
+                <div class="col-md-12">
+                    SI Info: {{singleCollectionEngineForModal.siInfo}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleCollectionEngineForModal.previousRepaymentMode.length">
+                <div class="col-md-12">
+                    Previous Repayment Mode :
+                    <span ng-repeat="inc in singleCollectionEngineForModal.previousRepaymentMode">{{inc.name}} {{$last ? '' : ($index==singleCollectionEngineForModal.previousRepaymentMode.length-2) ? ' and ' : ', '}}</span>
+                </div>
+            </div>
+            <div class="row" ng-if="!singleCollectionEngineForModal.previousRepaymentMode.length">
+                <div class="col-md-12">
+                    Previous Repayment Mode: No Previous Repayment Mode Selected
+                    <span ng-repeat="inc in singleCollectionEngineForModal.previousRepaymentMode">{{inc.name}} {{$last ? '' : ($index==singleCollectionEngineForModal.previousRepaymentMode.length-2) ? ' and ' : ', '}}</span>
+                </div>
+            </div>
+
+            <br>
+            <div class="row" ng-if="singleCollectionEngineForModal.outstandingAmount && singleCollectionEngineForModal.outstandingAmountOperator != null  && singleCollectionEngineForModal.outstandingAmountOperator.name != 'Select Operator' ">
+                <div class="col-md-12">
+                    Outstanding Amount: {{singleCollectionEngineForModal.outstandingAmount}}
+                </div>
+            </div>
+    
+            <div class="row" ng-if="singleCollectionEngineForModal.outstandingAmount && singleCollectionEngineForModal.outstandingAmountOperator.name == 'Between' ">
+                <div class="col-md-12">
+                    Outstanding Amount End: {{singleCollectionEngineForModal.outstandingEndAmount}}
+                </div>
+            </div>
+    
+            <div class="row" ng-if="singleCollectionEngineForModal.outstandingAmount && singleCollectionEngineForModal.outstandingAmountOperator != null && singleCollectionEngineForModal.outstandingAmountOperator.name != 'Select Operator' ">
+                <div class="col-md-12">
+                    Outstanding Amount Operator: {{singleCollectionEngineForModal.outstandingAmountOperator.name}}
+                </div>
+            </div>
+    
+            <div class="row" ng-if="singleCollectionEngineForModal.previousRepaymentAmount && singleCollectionEngineForModal.previousRepaymentAmountOperator != null && singleCollectionEngineForModal.previousRepaymentAmountOperator.name != 'Select Operator' ">
+                <div class="col-md-12">
+                    Previous Repayment Amount: {{singleCollectionEngineForModal.previousRepaymentAmount}}
+                </div>
+            </div>
+    
+            <div class="row" ng-if="singleCollectionEngineForModal.previousRepaymentAmount && singleCollectionEngineForModal.previousRepaymentAmountOperator.name == 'Between' ">
+                <div class="col-md-12">
+                    Previous Repayment Amount End: {{singleCollectionEngineForModal.previousRepaymentEndAmount}}
+                </div>
+            </div>
+    
+            <div class="row" ng-if="singleCollectionEngineForModal.previousRepaymentAmount && singleCollectionEngineForModal.previousRepaymentAmountOperator != null && singleCollectionEngineForModal.previousRepaymentAmountOperator.name != 'Select Operator' ">
+                <div class="col-md-12">
+                    Previous Repayment Amount Operator: {{singleCollectionEngineForModal.previousRepaymentAmountOperator.name}}
+                </div>
+            </div>
+    
+    
+            <div class="row" ng-if="singleCollectionEngineForModal.previousRepaymentDpd && singleCollectionEngineForModal.previousRepaymentDpdOperator != null && singleCollectionEngineForModal.previousRepaymentDpdOperator.name != 'Select Operator' ">
+                <div class="col-md-12">
+                    Previous Repayment DPD: {{singleCollectionEngineForModal.previousRepaymentDpd}}
+                </div>
+            </div>
+    
+            <div class="row" ng-if="singleCollectionEngineForModal.previousRepaymentDpd && singleCollectionEngineForModal.previousRepaymentDpdOperator.name == 'Between' ">
+                <div class="col-md-12">
+                    Previous Repayment DPD End: {{singleCollectionEngineForModal.previousRepaymentEndDpd}}
+                </div>
+            </div>
+    
+            <div class="row" ng-if="singleCollectionEngineForModal.previousRepaymentDpd && singleCollectionEngineForModal.previousRepaymentDpdOperator != null && singleCollectionEngineForModal.previousRepaymentDpdOperator.name != 'Select Operator' ">
+                <div class="col-md-12">
+                    Previous Repayment DPD Operator: {{singleCollectionEngineForModal.previousRepaymentDpdOperator.name}}
+                </div>
+            </div>
+    
+
+            <div class="row" ng-if="singleCollectionEngineForModal.dueSince && singleCollectionEngineForModal.dueSinceOperator != null && singleCollectionEngineForModal.dueSinceOperator.name != 'Select Operator' ">
+                <div class="col-md-12">
+                    Due Since: {{singleCollectionEngineForModal.dueSince}}
+                </div>
+            </div>
+    
+            <div class="row" ng-if="singleCollectionEngineForModal.dueSince && singleCollectionEngineForModal.dueSinceOperator.name == 'Between' ">
+                <div class="col-md-12">
+                    Due Since End: {{singleCollectionEngineForModal.dueSinceEnd}}
+                </div>
+            </div>
+    
+            <div class="row" ng-if="singleCollectionEngineForModal.dueSince && singleCollectionEngineForModal.dueSinceOperator != null && singleCollectionEngineForModal.dueSinceOperator.name != 'Select Operator' ">
+                <div class="col-md-12">
+                    Due Since Operator: {{singleCollectionEngineForModal.dueSinceOperator.name}}
+                </div>
+            </div>
+    
+    
+            <div class="row" ng-if="singleCollectionEngineForModal.prnDueAmount && singleCollectionEngineForModal.prnDueAmountOperator != null && singleCollectionEngineForModal.prnDueAmountOperator.name != 'Select Operator' ">
+                <div class="col-md-12">
+                    PRN Due Amount: {{singleCollectionEngineForModal.prnDueAmount}}
+                </div>
+            </div>
+    
+            <div class="row" ng-if="singleCollectionEngineForModal.prnDueAmount && singleCollectionEngineForModal.prnDueAmountOperator.name == 'Between' ">
+                <div class="col-md-12">
+                    PRN Due Amount End: {{singleCollectionEngineForModal.prnDueEndAmount}}
+                </div>
+            </div>
+    
+            <div class="row" ng-if="singleCollectionEngineForModal.prnDueAmount && singleCollectionEngineForModal.prnDueAmountOperator != null && singleCollectionEngineForModal.prnDueAmountOperator.name != 'Select Operator' ">
+                <div class="col-md-12">
+                    PRN Due Amount Operator: {{singleCollectionEngineForModal.prnDueAmountOperator.name}}
+                </div>
+            </div>
+    
+
+<div  style="display:none;">
+            <div class="singleRuleHeadings">Created By and Last Updated By</div>
+            <div class="row" ng-if="singleCollectionEngineForModal.createdBy">
+                <div class="col-md-12">
+                    Created By - {{singleCollectionEngineForModal.createdBy.name}}
+                </div>
+            </div>
+            <div class="row" ng-if="singleCollectionEngineForModal.createdBy">
+                <div class="col-md-12">
+                    Last Updated By - {{singleCollectionEngineForModal.lastUpdatedBy.name}}
+                </div>
+            </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary btn-save" type="submit" ng-disabled="modalForm.$invalid" ng-click="$dismiss()">Cancel</button>
+            </div>
+        </div>
+    </form>

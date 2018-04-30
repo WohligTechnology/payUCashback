@@ -651,5 +651,21 @@ myApp.factory('NavigationService', function ($http, $state) {
             });
         },
 
+        playCollectionEngine: function (singleCollectionEngineObject, callback) {
+            console.log("inside navigationservice playCollectionEngine", singleCollectionEngineObject);
+            // url: 'http://10.160.80.135:8080/exposure/playRule',
+            $http({
+                url: serverUrl + 'CollectionEngine/playRule',
+                method: 'POST',
+                data: singleCollectionEngineObject,
+                withCredentials: false
+            }).then(function (data) {
+                console.log("######", data);
+                // data = data.data;
+                callback(data);
+
+            });
+        },
+
     };
 });

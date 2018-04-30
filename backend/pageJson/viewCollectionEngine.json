@@ -1,0 +1,82 @@
+{
+    "title": "Collection Engine",
+    "description": "List of Collection Engines",
+    "pageType": "view",
+    "sendIdWithCreate": true,
+    "urlFields": ["_id"],
+    "colorExpiredCollectionEngine": true,
+    "showCountMarketingOnView":true,
+    "roles":["Super Admin"],
+    "fields": [{
+        "name": "Name",
+        "isSort": "",
+        "tableRef": "name"
+    },{
+        "name":"Previous Repayment Mode",
+        "isSort":"",
+        "tableRef":"previousRepaymentMode",
+        "type":"objectNamesOfArray"
+    }
+    ],
+    "viewCollectionEngineButton":{
+        "name": "View Collection Engine",
+        "icon": "fa-search",
+        "buttonClass": "btn-primary"
+    },
+    "getCollectionEngineCountButton":{
+        "name": "Get Result Count",
+        "icon": "fa-sticky-note",
+        "buttonClass": "btn-warning"
+    },
+    "playCollectionEngine":{
+        "name": "Play Rule",
+        "icon": "fa-sticky-note",
+        "buttonClass": "btn-success"
+    },
+    "action": [{
+        "name": "Edit Collection Engine",
+        "icon": "fa-pencil",
+        "buttonClass": "btn-primary",
+        "type": "page",
+        "action": "editCollectionEngine",
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
+        "fieldsToSend": {
+            "_id": "_id"
+        }
+    }, {
+        "name": "Delete Collection Engine",
+        "icon": "fa-trash",
+        "buttonClass": "btn-danger",
+        "type": "apiCallConfirm",
+        "title": "Delete CollectionEngine",
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
+        "content": "Are you sure you want to delete CollectionEngine?",
+        "api": "CollectionEngine/deleteWithChangeStatus",
+        "fieldsToSend": {
+            "name": "_id",
+            "value": "_id"
+        }
+    },{
+        "name": "Copy Collection Engine",
+        "icon": "fa-copy",
+        "buttonClass": "btn-primary",
+        "type": "page",
+        "action": "copyCollectionEngine",  
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"], 
+        "fieldsToSend": {
+            "_id": "_id"
+        }
+    }],
+    "button": [{
+        "name": "Add Collection Engine",
+        "icon": "plus",
+        "class": "btn-success",
+        "type": "page",
+        "action": "createCollectionEngine",
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"]
+    }],
+    "apiCall": {
+        "url": "CollectionEngine/search",
+        "params": "_id"
+    }
+}
