@@ -655,7 +655,7 @@ myApp.factory('NavigationService', function ($http, $state) {
             console.log("inside navigationservice playCollectionEngine", singleCollectionEngineObject);
             // url: 'http://10.160.80.135:8080/exposure/playRule',
             $http({
-                url: serverUrl + 'CollectionEngine/playRule',
+                url: serverUrl + 'collectionengine',
                 method: 'POST',
                 data: singleCollectionEngineObject,
                 withCredentials: false
