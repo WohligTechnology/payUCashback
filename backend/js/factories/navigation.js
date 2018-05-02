@@ -211,6 +211,10 @@ myApp.factory('NavigationService', function ($http, $state) {
                         classis: "active",
                         sref: "#!/page/viewMarketingRule//"
                     },{
+                        name: "Targeted Collection",
+                        classis: "active",
+                        sref: "#!/page/viewCollectionEngine//"
+                    },{
                         name: "Marketing Performance",
                         classis: "active",
                         sref: "#!/page/viewPerformance//"
