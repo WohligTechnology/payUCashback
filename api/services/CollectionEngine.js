@@ -49,8 +49,7 @@ var schema = new Schema({
     },
     siInfo:{
         type: String,
-        default: "Yes",
-        enum: ['Yes', 'No']
+        enum: ['None', 'Yes', 'No']
     },
     prnDueAmount:{
         type:Number

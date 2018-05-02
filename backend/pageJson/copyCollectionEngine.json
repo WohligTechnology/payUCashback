@@ -238,7 +238,7 @@
         "dropDownField": "",
         "dropDownType": "single",
         "onView": true,
-        "dropDown": ["Yes","No"]
+        "dropDown": ["None","Yes","No"]
     }],
     "action": [{
         "name": "submit",

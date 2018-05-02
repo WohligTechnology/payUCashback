@@ -693,6 +693,12 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             var objectToSend={};
             delete singleCollectionEngine.createdBy;
             delete singleCollectionEngine.lastUpdatedBy;
+
+            if(singleCollectionEngine.siInfo){
+                if(singleCollectionEngine.siInfo=="None"){
+                    delete singleCollectionEngine.siInfo;
+                }
+            }
             if(singleCollectionEngine.previousRepaymentMode){
                 var previousRepaymentModeArray=[];
                 angular.forEach(singleCollectionEngine.previousRepaymentMode, function(value, key) {
