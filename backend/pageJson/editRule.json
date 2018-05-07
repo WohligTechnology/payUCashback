@@ -140,18 +140,6 @@
         "type": "heading",
         "onlyHeading":true
     }, {
-        "name": "Is First Transaction",
-        "type": "tags",
-        "tableRef": "isFirstTransaction",
-        "placeholder": "Enter Is This a First Transaction",
-        "id": "isFirstTransaction",
-        "validation": ["", "trim", ""],
-        "url": "",
-        "dropDownField": "",
-        "dropDownType": "single",
-        "onView": true,
-        "dropDown": ["true", "false"]
-    }, {
         "name": "Per User Transactions Ever",
         "type": "text",
         "tableRef": "perUser",

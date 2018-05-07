@@ -4,6 +4,7 @@
     "pageType": "view",
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
+    "loader":false,
     "colorExpiredCollectionEngine": true,
     "showCountMarketingOnView":true,
     "roles":["Super Admin"],
@@ -75,6 +76,11 @@
         "action": "createCollectionEngine",
         "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"]
     }],
+    "queryButtonCollectionEngine1":{
+        "name": "View Query",
+        "icon": "fa-file",
+        "buttonClass": "btn-primary"
+    },
     "apiCall": {
         "url": "CollectionEngine/search",
         "params": "_id"

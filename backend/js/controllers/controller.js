@@ -744,10 +744,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             singleCollectionEngine.previousRepaymentModeArray=previousRepaymentModeArray;
             objectToSend.collectionRule = singleCollectionEngine;
             console.log("allSelectedCollectionEngines", objectToSend);
+            $scope.json.json.loader = true;
 
                 NavigationService.playCollectionEngine(objectToSend, function (data) {
                     console.log("*****", data);
-                    var count = data.data.cashbackCount;
+                    if (data) {
+                        $scope.json.json.loader = false;
+                    } else {
+                        $scope.json.json.loader = false;
+                    }
                     if (data.data.success == true) {
                         toastr.success("Collection Engine Rule Played Successfully. ", {
                             "closeButton": true,
@@ -1655,6 +1660,88 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             NavigationService.viewQueryModal(objectToSend, function (data) {
                 console.log("verifyQuery", data);
                 var query = data.data.cashbackQuery;
+                $scope.queryToShow = query;
+                if (data.data.success == true) {
+                    $scope.singleRuleModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/queryModal.html',
+                        size: 'lg',
+                        scope: $scope
+                    });
+                } else {
+                    $scope.queryToShow = "Something Went Wrong: Server is Failed to Generate Query."
+                    $scope.singleRuleModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/queryModal.html',
+                        size: 'lg',
+                        scope: $scope
+                    });
+
+                }
+
+            })
+
+        }
+
+        $scope.viewQueryCollectionEngineModal = function (singleCollectionEngine) {
+            var objectToSend={};
+            delete singleCollectionEngine.createdBy;
+            delete singleCollectionEngine.lastUpdatedBy;
+
+            if(singleCollectionEngine.siInfo){
+                if(singleCollectionEngine.siInfo=="None"){
+                    delete singleCollectionEngine.siInfo;
+                }
+            }
+            if(singleCollectionEngine.previousRepaymentMode){
+                var previousRepaymentModeArray=[];
+                angular.forEach(singleCollectionEngine.previousRepaymentMode, function(value, key) {
+                    previousRepaymentModeArray.push(value.name);
+                  });
+            }
+            if(singleCollectionEngine.outstandingAmountOperator){
+                if(singleCollectionEngine.outstandingAmountOperator.name=="Select Operator" || singleCollectionEngine.outstandingAmountOperator.name==undefined){
+                    singleCollectionEngine.outstandingAmountOperator=null;
+                }else{
+                    singleCollectionEngine.outstandingAmountOperator=singleCollectionEngine.outstandingAmountOperator.name;
+                }
+                }
+            if(singleCollectionEngine.previousRepaymentAmountOperator){
+                if(singleCollectionEngine.previousRepaymentAmountOperator.name=="Select Operator" || singleCollectionEngine.previousRepaymentAmountOperator==undefined){
+                    singleCollectionEngine.previousRepaymentAmountOperator=null;
+                }else{
+                singleCollectionEngine.previousRepaymentAmountOperator=singleCollectionEngine.previousRepaymentAmountOperator.name;
+                }
+            }
+            if(singleCollectionEngine.previousRepaymentDpdOperator){
+                if(singleCollectionEngine.previousRepaymentDpdOperator.name=="Select Operator" || singleCollectionEngine.previousRepaymentDpdOperator.name==undefined){
+                    singleCollectionEngine.previousRepaymentDpdOperator=null;
+                }else{
+                singleCollectionEngine.previousRepaymentDpdOperator=singleCollectionEngine.previousRepaymentDpdOperator.name;
+                }
+            }
+            if(singleCollectionEngine.dueSinceOperator){
+                if(singleCollectionEngine.dueSinceOperator.name=="Select Operator" || singleCollectionEngine.dueSinceOperator.name==undefined){
+                    singleCollectionEngine.dueSinceOperator=null;
+                }else{
+                singleCollectionEngine.dueSinceOperator=singleCollectionEngine.dueSinceOperator.name;
+                }
+            }
+            if(singleCollectionEngine.prnDueAmountOperator){
+                if(singleCollectionEngine.prnDueAmountOperator.name=="Select Operator" || singleCollectionEngine.prnDueAmountOperator.name==undefined){
+                    singleCollectionEngine.prnDueAmountOperator=null;
+                }else{
+                singleCollectionEngine.prnDueAmountOperator=singleCollectionEngine.prnDueAmountOperator.name;
+                }
+            }
+            
+            singleCollectionEngine.previousRepaymentModeArray=previousRepaymentModeArray;
+            objectToSend.collectionRule = singleCollectionEngine;
+            console.log("allSelectedCollectionEngines", objectToSend);
+
+            NavigationService.viewQueryCollectionEngineModal(objectToSend, function (data) {
+                console.log("verifyQuery", data);
+                var query = data.data.collectionQuery;
                 $scope.queryToShow = query;
                 if (data.data.success == true) {
                     $scope.singleRuleModal = $uibModal.open({

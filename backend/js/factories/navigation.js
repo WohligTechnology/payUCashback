@@ -619,6 +619,18 @@ myApp.factory('NavigationService', function ($http, $state) {
                 callback(data);
             });
         },
+        viewQueryCollectionEngineModal: function (ruleObject, callback) {
+            console.log("inside navigationservice viewQueryModal", ruleObject);
+            $http({
+                url: serverUrl + 'collectionenginequery',
+                method: 'POST',
+                data: ruleObject,
+                withCredentials: false
+            }).then(function (data) {
+                console.log("######", data);
+                callback(data);
+            });
+        },
         viewMarketingRuleGetCountResponseModal: function (ruleObject, callback) {
             console.log("inside navigationservice viewMarketingRuleGetCountResponseModal", ruleObject);
             $http({

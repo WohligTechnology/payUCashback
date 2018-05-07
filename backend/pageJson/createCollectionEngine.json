@@ -23,7 +23,45 @@
         "type": "heading",
         "onlyHeading":true
     }, {
-        "name": "Outstanding Amount",
+        "name": "PRN Due Amount",
+        "type": "numberwithnegative",
+        "tableRef": "prnDueAmount",
+        "placeholder": "PRN Due Amount",
+        "id": "prnDueAmount",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "PRN Due Amount Operator",
+        "type": "tags",
+        "tableRef": "prnDueAmountOperator",
+        "placeholder": "Select Operator",
+        "id": "prnDueAmountOperator",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "CollectionOperator/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["", "", ""]
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "PRN Due End Amount ",
+        "type": "numberwithnegativehide",
+        "tableRef": "prnDueEndAmount",
+        "placeholder": "PRN Due End Amount",
+        "id": "prnDueEndAmount",
+        "validation": ["required", "trim"],
+        "url": "",
+        "hideMethod":"hidePrnDueEndAmountValue"
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Outstanding Amount (Including Late Fee)",
         "type": "numberwithnegative",
         "tableRef": "outstandingAmount",
         "placeholder": "Enter Outstanding Amount",
@@ -171,44 +209,6 @@
         "validation": ["required", "trim"],
         "url": "",
         "hideMethod1":"hideDueSinceEndValue"
-    }, {
-        "name": "",
-        "type": "heading",
-        "onlyHeading":true
-    }, {
-        "name": "PRN Due Amount",
-        "type": "numberwithnegative",
-        "tableRef": "prnDueAmount",
-        "placeholder": "PRN Due Amount",
-        "id": "prnDueAmount",
-        "validation": ["", "trim"],
-        "url": ""
-    }, {
-        "name": "PRN Due Amount Operator",
-        "type": "tags",
-        "tableRef": "prnDueAmountOperator",
-        "placeholder": "Select Operator",
-        "id": "prnDueAmountOperator",
-        "searchApi": "searchCall",
-        "fieldType": "",
-        "url": "CollectionOperator/search",
-        "dropDownField": "name",
-        "view": true,
-        "dropDownType": "single",
-        "validation": ["", "", ""]
-    }, {
-        "name": "",
-        "type": "heading",
-        "onlyHeading":true
-    }, {
-        "name": "PRN Due End Amount ",
-        "type": "numberwithnegativehide",
-        "tableRef": "prnDueEndAmount",
-        "placeholder": "PRN Due End Amount",
-        "id": "prnDueEndAmount",
-        "validation": ["required", "trim"],
-        "url": "",
-        "hideMethod":"hidePrnDueEndAmountValue"
     }, {
         "name": "",
         "type": "heading",

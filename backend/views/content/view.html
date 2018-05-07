@@ -160,6 +160,11 @@
                                                 <i class="fa" ng-class="json.json.queryButton.icon"></i>
                                             </a>
 
+                                            <a style="margin-left:5px;" ng-if="json.json.queryButtonCollectionEngine" title="{{json.json.queryButtonCollectionEngine.name}}" class="btn" ng-class="json.json.queryButtonCollectionEngine.buttonClass"
+                                            ng-click="viewQueryCollectionEngineModal(item)">
+                                            <i class="fa" ng-class="json.json.queryButtonCollectionEngine.icon"></i>
+                                        </a>
+
                                             <!-- Marketing Rule Get Count button start -->
                                             <a style="margin-left:5px;" ng-if="json.json.getMarketingRuleCountButton" title="{{json.json.getMarketingRuleCountButton.name}}" class="btn" ng-class="json.json.getMarketingRuleCountButton.buttonClass"
                                             ng-click="viewMarketingRuleGetCountResponseModal(item)">
