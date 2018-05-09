@@ -1,17 +1,27 @@
 <div class="top-bar">
     <div class="logo">
-        <a ui-sref="dashboard" title="Admin"><img src="img/logo.png" alt="Absolute" height="40"></a>
-        <div class="menu-options"><span class="menu-action"><i></i></span></div>
+        <a ui-sref="dashboard" title="Admin">
+            <img src="img/logo.png" alt="Absolute" height="40">
+        </a>
+        <div class="menu-options">
+            <span class="menu-action">
+                <i></i>
+            </span>
+        </div>
     </div>
     <div class="quick-links">
-        <ul ng-show="hasRole(['Super Admin'])" >
+        <ul ng-show="hasRole(['Super Admin'])">
             <li>
-                <a title="Users" class="show-stats" style="background-color:blue;"  href="#!/page/viewUser//" tooltip-placement="left" uib-tooltip=""><i class="fa fa-user"></i></a>
+                <a title="Users" class="show-stats" href="#!/page/viewUser//" tooltip-placement="left" uib-tooltip="">
+                    <i class="fa fa-user"></i>
+                </a>
             </li>
         </ul>
         <ul style="margin-left:10px;">
             <li>
-                <a title="Logout" class="show-stats red-skin"  ng-click="logout()" tooltip-placement="left" uib-tooltip=""><i class="fa fa-power-off"></i></a>
+                <a title="Logout" class="show-stats red-skin" ng-click="logout()" tooltip-placement="left" uib-tooltip="">
+                    <i class="fa fa-power-off"></i>
+                </a>
             </li>
         </ul>
     </div>
