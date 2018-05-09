@@ -1,11 +1,12 @@
  $blue: #1fc8ec;
  $orange: #f29c2c;
- $red: #ea5249;
+ $red: #f9243f;
+ $pink:#ed3561;
  $green: #35c565;
  $yellow: #f4dc11;
  $google: #4285F4;
  $border-color: #e5e5e5;
- $brand-primary: $blue;
+ $brand-primary: $pink;
  $brand-info: $yellow;
  $brand-warning: $orange;
  $brand-danger: $red;
@@ -1247,7 +1248,7 @@
 
  //login
  .page-login {
-     background: url('../img/login-bg.jpg');
+     background: #ed3561;
      background-size: cover;
      min-height: 100vh;
      h3.title {
@@ -1265,8 +1266,8 @@
 
  .btn-primary {
      color: #fff;
-     background-color: #1487bd;
-     border-color: #1487bd;
+     background-color: #ee4b60;
+     border-color: #ee4b60;
      padding: 8px 20px;
  }
 
