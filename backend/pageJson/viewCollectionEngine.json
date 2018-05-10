@@ -7,7 +7,7 @@
     "loader":false,
     "colorExpiredCollectionEngine": true,
     "showCountMarketingOnView":true,
-    "roles":["Super Admin"],
+    "roles":["Super Admin","Collection"],
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -40,7 +40,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editCollectionEngine",
-        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
+        "roles":["Super Admin","Collection","Targeted Marketing","Marketing Performance","Performance"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -50,7 +50,7 @@
         "buttonClass": "btn-danger",
         "type": "apiCallConfirm",
         "title": "Delete CollectionEngine",
-        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
+        "roles":["Super Admin","Collection","Targeted Marketing","Marketing Performance","Performance"],
         "content": "Are you sure you want to delete CollectionEngine?",
         "api": "CollectionEngine/deleteWithChangeStatus",
         "fieldsToSend": {
@@ -63,7 +63,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "copyCollectionEngine",  
-        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"], 
+        "roles":["Super Admin","Collection","Targeted Marketing","Marketing Performance","Performance"], 
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -74,7 +74,7 @@
         "class": "btn-success",
         "type": "page",
         "action": "createCollectionEngine",
-        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"]
+        "roles":["Super Admin","Collection","Targeted Marketing","Marketing Performance","Performance"]
     }],
     "queryButtonCollectionEngine":{
         "name": "View Query",

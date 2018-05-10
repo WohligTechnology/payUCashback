@@ -240,6 +240,20 @@ myApp.factory('NavigationService', function ($http, $state) {
                         uiSref: "userExposure"
                     }
                     ];
+                } else if ($.jStorage.get("profile").accessLevel == "Collection") {
+                    var navigation = [{
+                        name: "Targeted Collection",
+                        classis: "active",
+                        sref: "#!/page/viewCollectionEngine//"
+                    },{
+                        name: "Marketing Performance",
+                        classis: "active",
+                        sref: "#!/page/viewPerformance//"
+                    },{		
+                        name: "Repay Performance",		
+                        classis: "active",		
+                        sref: "#!/page/viewPerformanceRepay//"		
+                    }];
                 } else if ($.jStorage.get("profile").accessLevel == "Cashback") {
                     var navigation = [{
                         name: "Cashback Merchant",
@@ -259,16 +273,6 @@ myApp.factory('NavigationService', function ($http, $state) {
                         name: "Marketing Rule",
                         classis: "active",
                         sref: "#!/page/viewMarketingRule//"
-                    }];
-                } else if ($.jStorage.get("profile").accessLevel == "Viewer") {
-                    var navigation = [{
-                        name: "Cashback Merchant",
-                        classis: "active",
-                        sref: "#!/page/viewMerchant//"
-                    }, {
-                        name: "Rule",
-                        classis: "active",
-                        sref: "#!/page/viewRule//"
                     }];
                 } else if ($.jStorage.get("profile").accessLevel == "Marketing Creator" || $.jStorage.get("profile").accessLevel == "Marketing Executor" || $.jStorage.get("profile").accessLevel == "Marketing Viewer") {
                     var navigation = [{

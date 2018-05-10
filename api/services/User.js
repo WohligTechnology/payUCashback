@@ -24,7 +24,7 @@ var schema = new Schema({
     accessLevel: {
         type: String,
         default: "User",
-        enum: ['Super Admin','Cashback','Targeted Marketing','Merchant Exposure','Performance']
+        enum: ['Super Admin','Cashback','Targeted Marketing','Merchant Exposure','Performance','Collection']
     },
     createdBy: {
         type: Schema.Types.ObjectId,

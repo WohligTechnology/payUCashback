@@ -6,7 +6,7 @@
     "pageType": "edit",
     "createFromEdit":true,
     "urlFields": ["_id"],
-    "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance","Performance","Targeted Collection"],
+    "roles":["Super Admin","Collection","Targeted Marketing","Marketing Performance","Performance","Performance","Targeted Collection"],
     "fields": [{
         "name": "Collection Details",
         "type": "heading",
