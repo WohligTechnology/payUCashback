@@ -76,7 +76,7 @@
         "action": "createCollectionEngine",
         "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"]
     }],
-    "queryButtonCollectionEngine1":{
+    "queryButtonCollectionEngine":{
         "name": "View Query",
         "icon": "fa-file",
         "buttonClass": "btn-primary"
