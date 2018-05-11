@@ -67,6 +67,7 @@ myApp.directive('uploadImage', function ($http, $filter, $timeout) {
         },
         link: function ($scope, element, attrs) {
             console.log($scope.model);
+            console.log("$scope.type",$scope.type);
             $scope.showImage = function () {};
             $scope.check = true;
             if (!$scope.type) {
@@ -88,22 +89,51 @@ myApp.directive('uploadImage', function ($http, $filter, $timeout) {
             // }
 
             $scope.$watch("image", function (newVal, oldVal) {
-                console.log(newVal, oldVal);
-                isArr = _.isArray(newVal);
-                if (!isArr && newVal && newVal.file) {
-                    $scope.uploadNow(newVal);
-                } else if (isArr && newVal.length > 0 && newVal[0].file) {
+                // console.log("+++++++++++",newVal.file);
+                if($scope.type=="excel"){
+                    // if (newVal.file.type=="text/csv") {
+                        if (_.endsWith(newVal.file.name, ".csv")) {
+                        // console.log("------------if",newVal, oldVal);
+                        isArr = _.isArray(newVal);
+                        if (!isArr && newVal && newVal.file) {
+                            $scope.uploadNow(newVal);
+                        } else if (isArr && newVal.length > 0 && newVal[0].file) {
+    
+                            $timeout(function () {
+                                console.log(oldVal, newVal);
+                                console.log(newVal.length);
+                                _.each(newVal, function (newV, key) {
+                                    if (newV && newV.file) {
+                                        $scope.uploadNow(newV);
+                                    }
+                                });
+                            }, 100);
+    
+                        }
+                    }else{
+                        console.log("in if");
+                        alert("Please select CSV File Format");
+                        $scope.uploadStatus = "Please upload CSV File Only";
+                    }
+                }else{
 
-                    $timeout(function () {
-                        console.log(oldVal, newVal);
-                        console.log(newVal.length);
-                        _.each(newVal, function (newV, key) {
-                            if (newV && newV.file) {
-                                $scope.uploadNow(newV);
-                            }
-                        });
-                    }, 100);
+                    console.log("------------else",newVal, oldVal);
+                    isArr = _.isArray(newVal);
+                    if (!isArr && newVal && newVal.file) {
+                        $scope.uploadNow(newVal);
+                    } else if (isArr && newVal.length > 0 && newVal[0].file) {
 
+                        $timeout(function () {
+                            console.log(oldVal, newVal);
+                            console.log(newVal.length);
+                            _.each(newVal, function (newV, key) {
+                                if (newV && newV.file) {
+                                    $scope.uploadNow(newV);
+                                }
+                            });
+                        }, 100);
+
+                    }
                 }
             });
 
@@ -130,7 +160,7 @@ myApp.directive('uploadImage', function ($http, $filter, $timeout) {
             };
             $scope.uploadNow = function (image) {
                 $scope.uploadStatus = "uploading";
-
+                console.log("image variable",image.file);
                 var Template = this;
                 image.hide = true;
                 var formData = new FormData();
@@ -155,13 +185,35 @@ myApp.directive('uploadImage', function ($http, $filter, $timeout) {
                             $scope.model.push(data.data[0]);
                         }
                     } else {
+                        // if (_.endsWith(data.data[0], ".pdf")) {
+                        //     console.log("in if");
+                        //     $scope.type = "pdf";
+                        //     $scope.model = "";
+                        //     // alert("Please select CSV File Format");
+                        //     // $scope.uploadStatus = "Please upload CSV File Only";
+                        // } else if(_.endsWith(data.data[0], ".csv")){
+                        //     console.log("in elseif");
+                        //     $scope.model = data.data[0];
+                        //     $scope.uploadStatus = "uploaded";
+                        // } else {
+                        //     console.log("in else");
+                        //     $scope.type = "image";
+                        //     $scope.model = "";
+                        //     alert("Please select CSV File Format");
+                        //     $scope.uploadStatus = "Please upload CSV File Only";
+                        // }
                         if (_.endsWith(data.data[0], ".pdf")) {
                             $scope.type = "pdf";
-                        } else {
+                        } 
+                        else if(_.endsWith(data.data[0], ".csv")) {
+                            $scope.type = "excel";
+                        } 
+                        else {
                             $scope.type = "image";
                         }
                         $scope.model = data.data[0];
-                        console.log($scope.model, 'model means blob');
+                        // $scope.model = data.data[0];
+                        console.log($scope.model, 'model means blob &','upload status',$scope.uploadStatus);
 
                     }
                     $timeout(function () {
