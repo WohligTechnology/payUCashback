@@ -1,5 +1,39 @@
 module.exports = _.cloneDeep(require("sails-wohlig-controller"));
 var controller = {
+
+    save: function (req, res) {
+        // var validFromDate=new Date(req.body.validFrom);
+        // var momentFrom = moment(validFromDate, 'ddd MMM D YYYY HH:mm:ss ZZ');
+        // console.log("momentFrom",momentFrom);
+        // momentFrom.set({h: 05, m: 31, s: 00});
+        // console.log("momentFrom-format",momentFrom.format());
+        // req.body.validFrom=momentFrom.format();
+
+        // var validToDate=new Date(req.body.validTo);
+        // var momentTo = moment(validToDate, 'ddd MMM D YYYY HH:mm:ss ZZ');
+        // console.log("momentTo",momentTo);
+        // momentTo.set({h: 05, m: 31, s: 00});
+        // // console.log("momentTo-format",momentTo.format());
+        // req.body.validTo=momentTo.format();
+
+        if(req.body.validFrom){
+            var validFromDate=new Date(req.body.validFrom);
+            var momentFrom = moment(validFromDate, 'ddd MMM D YYYY HH:mm:ss ZZ');
+            console.log("momentFrom",momentFrom);
+            momentFrom.set({h: 06, m: 00, s: 00});
+            console.log("momentFrom-format",momentFrom.format());
+            req.body.validFrom=momentFrom.format();
+        }
+        if(req.body.validTo){
+            var validToDate=new Date(req.body.validTo);
+            var momentTo = moment(validToDate, 'ddd MMM D YYYY HH:mm:ss ZZ');
+            console.log("momentTo",momentTo);
+            momentTo.set({h: 06, m: 00, s: 00});
+            // console.log("momentTo-format",momentTo.format());
+            req.body.validTo=momentTo.format();
+        }
+        Rule.saveData(req.body, res.callback);
+    },
     deleteWithChangeStatus: function (req, res) {
         if (req.body) {
             if (mongoose.Types.ObjectId.isValid(req.body._id)) {
