@@ -68,7 +68,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/country-list/{page:.*}/{keyword:.*}",
             templateUrl: "views/template.html",
             controller: 'CountryCtrl',
-            cache:false
+            cache:false,
             params: {
                 page: "1",
                 keyword: ""
