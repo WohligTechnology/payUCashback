@@ -33,36 +33,42 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/dashboard",
             templateUrl: "views/template.html",
             controller: 'DashboardCtrl',
+            cache:false
         })
 
         .state('login', {
             url: "/login",
             templateUrl: "views/login.html",
-            controller: 'LoginCtrl'
+            controller: 'LoginCtrl',
+            cache:false
         })
 
         .state('page', {
             url: "/page/:id/{page:.*}/{keyword:.*}",
             templateUrl: "views/template.html",
-            controller: 'PageJsonCtrl'
+            controller: 'PageJsonCtrl',
+            cache:false
         })
 
         .state('copyRule', {
             url: "/copyRule/:id",
             templateUrl: "views/template.html",
-            controller: 'copyRuleCtrl'
+            controller: 'copyRuleCtrl',
+            cache:false
         })
 
         .state('loginapp', {
             url: "/login/:id",
             templateUrl: "views/login.html",
-            controller: 'LoginCtrl'
+            controller: 'LoginCtrl',
+            cache:false
         })
 
         .state('country-list', {
             url: "/country-list/{page:.*}/{keyword:.*}",
             templateUrl: "views/template.html",
             controller: 'CountryCtrl',
+            cache:false
             params: {
                 page: "1",
                 keyword: ""
@@ -72,43 +78,50 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
         .state('createcountry', {
             url: "/country-create",
             templateUrl: "views/template.html",
-            controller: 'CreateCountryCtrl'
+            controller: 'CreateCountryCtrl',
+            cache:false
         })
 
         .state('editcountry', {
             url: "/country-edit/:id",
             templateUrl: "views/template.html",
-            controller: 'EditCountryCtrl'
+            controller: 'EditCountryCtrl',
+            cache:false
         })
 
         .state('schema-creator', {
             url: "/schema-creator",
             templateUrl: "views/template.html",
-            controller: 'SchemaCreatorCtrl'
+            controller: 'SchemaCreatorCtrl',
+            cache:false
         })
 
         .state('excel-upload', {
             url: "/excel-upload/:model",
             templateUrl: "views/template.html",
-            controller: 'ExcelUploadCtrl'
+            controller: 'ExcelUploadCtrl',
+            cache:false
         })
 
         .state('userExposure', {
             url: "/userExposure",
             templateUrl: "views/template.html",
-            controller: 'userExposureCtrl'
+            controller: 'userExposureCtrl',
+            cache:false
         })
 
         .state('merchantExposure', {
             url: "/merchantExposure",
             templateUrl: "views/template.html",
-            controller: 'merchantExposureCtrl'
+            controller: 'merchantExposureCtrl',
+            cache:false
         })
 
         .state('jagz', {
             url: "/jagz",
             templateUrl: "views/jagz.html",
-            controller: 'JagzCtrl'
+            controller: 'JagzCtrl',
+            cache:false
         });
 
     $urlRouterProvider.otherwise("/dashboard");
