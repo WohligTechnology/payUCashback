@@ -807,41 +807,61 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         }
 
-        $scope.playSelectedAllClickPerformance = function () {
+        $scope.playSelectedAllClickPerformance = function (singlePerformanceRule) {
+            $scope.selectArrPerformance = [singlePerformanceRule._id];
             console.log("allSelectedPerformanceRules", $scope.selectArrPerformance);
-            if ($scope.selectArrPerformance.length == 0) {
-                console.log("empty array inside playSelectedAllClickPerformance if");
-                alert("No Marketing Rules to Play");
-            } else if ($scope.selectArrPerformance.length > 1) {
-                console.log("cannot play more than 1 rule!");
-                alert("Please select only 1 Rule at a time to Play!!!");
-            } else {
-                $scope.playSelectedAllClickPerformanceFolderNameModal = $uibModal.open({
-                    animation: true,
-                    templateUrl: 'views/modal/playPerformanceFolderNameModal.html',
-                    size: 'md',
-                    scope: $scope
-                });
-            }
+
+            $scope.playSelectedAllClickPerformanceFolderNameModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/playPerformanceFolderNameModal.html',
+                size: 'md',
+                scope: $scope
+            });
+
+            // console.log("allSelectedPerformanceRules", $scope.selectArrPerformance);
+            // if ($scope.selectArrPerformance.length == 0) {
+            //     console.log("empty array inside playSelectedAllClickPerformance if");
+            //     alert("No Marketing Rules to Play");
+            // } else if ($scope.selectArrPerformance.length > 1) {
+            //     console.log("cannot play more than 1 rule!");
+            //     alert("Please select only 1 Rule at a time to Play!!!");
+            // } else {
+            //     $scope.playSelectedAllClickPerformanceFolderNameModal = $uibModal.open({
+            //         animation: true,
+            //         templateUrl: 'views/modal/playPerformanceFolderNameModal.html',
+            //         size: 'md',
+            //         scope: $scope
+            //     });
+            // }
 
         }
 
-        $scope.playSelectedAllClickPerformanceRepay = function () {
-            console.log("allSelectedPerformanceRules", $scope.selectArrPerformanceRepay);
-            if ($scope.selectArrPerformanceRepay.length == 0) {
-                console.log("empty array inside playSelectedAllClickPerformanceRepay if");
-                alert("No Marketing Rules to Play");
-            } else if ($scope.selectArrPerformanceRepay.length > 1) {
-                console.log("cannot play more than 1 rule!");
-                alert("Please select only 1 Rule at a time to Play!!!");
-            } else {
-                $scope.playSelectedAllClickPerformanceRepayFolderNameModal = $uibModal.open({
-                    animation: true,
-                    templateUrl: 'views/modal/playPerformanceRepayFolderNameModal.html',
-                    size: 'md',
-                    scope: $scope
-                });
-            }
+        $scope.playSelectedAllClickPerformanceRepay = function (singlePerformanceRepayRule) {
+            $scope.selectArrPerformanceRepay = [singlePerformanceRepayRule._id];
+            console.log("allSelectedPerformanceRepayRules", $scope.selectArrPerformanceRepay);
+
+            $scope.playSelectedAllClickPerformanceRepayFolderNameModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/playPerformanceRepayFolderNameModal.html',
+                size: 'md',
+                scope: $scope
+            });
+
+            // console.log("allSelectedPerformanceRules", $scope.selectArrPerformanceRepay);
+            // if ($scope.selectArrPerformanceRepay.length == 0) {
+            //     console.log("empty array inside playSelectedAllClickPerformanceRepay if");
+            //     alert("No Marketing Rules to Play");
+            // } else if ($scope.selectArrPerformanceRepay.length > 1) {
+            //     console.log("cannot play more than 1 rule!");
+            //     alert("Please select only 1 Rule at a time to Play!!!");
+            // } else {
+            //     $scope.playSelectedAllClickPerformanceRepayFolderNameModal = $uibModal.open({
+            //         animation: true,
+            //         templateUrl: 'views/modal/playPerformanceRepayFolderNameModal.html',
+            //         size: 'md',
+            //         scope: $scope
+            //     });
+            // }
 
         }
 
@@ -1518,41 +1538,44 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         }
 
         $scope.viewMarketingRuleGetCountResponseModal = function (singleMarketingRule) {
-            var objectToSend = singleMarketingRule;
-            $scope.responseObject = {
-                name: "test",
-                count1: 10000,
-                count2: 20000
-            };
-            $scope.singleRuleModal = $uibModal.open({
-                animation: true,
-                templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
-                size: 'lg',
-                scope: $scope
-            });
-            // NavigationService.viewMarketingRuleGetCountResponseModal(objectToSend, function (data) {
-            //     console.log("verifyQuery", data);
-            //     var query = data.data.cashbackQuery;
-            //     $scope.queryToShow = query;
-            //     if (data.data.success == true) {
-            //         $scope.singleRuleModal = $uibModal.open({
-            //             animation: true,
-            //             templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
-            //             size: 'lg',
-            //             scope: $scope
-            //         });
-            //     } else {
-            //         $scope.queryToShow = "Something Went Wrong: Server is Failed to Generate Query."
-            //         $scope.singleRuleModal = $uibModal.open({
-            //             animation: true,
-            //             templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
-            //             size: 'lg',
-            //             scope: $scope
-            //         });
+            // var objectToSend = singleMarketingRule;
+            objectToSend = [singleMarketingRule._id];
+            // console.log("allSelectedMarketingRules", $scope.selectArrMarketing);
+            // $scope.responseObject = {
+            //     name: "test",
+            //     count1: 10000,
+            //     count2: 20000
+            // };
+            // $scope.singleRuleModal = $uibModal.open({
+            //     animation: true,
+            //     templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
+            //     size: 'lg',
+            //     scope: $scope
+            // });
+            console.log("object to send",objectToSend)
+            NavigationService.viewMarketingRuleGetCountResponseModal(objectToSend, function (data) {
+                console.log("verifyQuery", data);
+                var count = data.data.count;
+                $scope.countToShow = count;
+                if (data.data.success == true) {
+                    $scope.singleRuleModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
+                        size: 'lg',
+                        scope: $scope
+                    });
+                } else {
+                    $scope.queryToShow = "Something Went Wrong: Server is Failed to Generate Query."
+                    $scope.singleRuleModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
+                        size: 'lg',
+                        scope: $scope
+                    });
 
-            //     }
+                }
 
-            // })
+            })
 
         }
 

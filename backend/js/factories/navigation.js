@@ -638,7 +638,7 @@ myApp.factory('NavigationService', function ($http, $state) {
         viewMarketingRuleGetCountResponseModal: function (ruleObject, callback) {
             console.log("inside navigationservice viewMarketingRuleGetCountResponseModal", ruleObject);
             $http({
-                url: serverUrl + 'scheduler/getCount',
+                url: serverUrl + 'scheduler/getMarketingRuleCount',
                 method: 'POST',
                 data: ruleObject,
                 withCredentials: false

@@ -3,7 +3,6 @@
     "description": "List of Performances",
     "pageType": "view",
     "sendIdWithCreate": true,
-    "rowCheckBoxForPerformance":true,
     "urlFields": ["_id"],
     "loader":false,
     "roles":["Super Admin","Collection","Targeted Marketing","Marketing Performance","Performance"],
@@ -28,6 +27,11 @@
         "tableRef": "endDate",
         "type":"formattedDate"
     }],
+    "playPerformanceRule":{
+        "name": "Play Rule",
+        "icon": "fa-sticky-note",
+        "buttonClass": "btn-success"
+    },
     "action": [{
         "name": "edit",
         "icon": "fa-pencil",
@@ -59,15 +63,6 @@
         "type": "page",
         "roles":["Super Admin","Collection","Targeted Marketing","Marketing Performance","Performance"],
         "action": "createPerformance"
-    }],
-    "bottomButtonPerformance": [{
-        "name": "Play Selected",
-        "icon": "plus",
-        "class": "btn-primary",
-        "type": "page",
-        "action": "",
-        "functionName":"playPerformanceSelectedClick()",
-        "roles":["Super Admin","Collection","Targeted Marketing","Marketing Performance","Performance"]
     }],
     "apiCall": {
         "url": "Performance/search",

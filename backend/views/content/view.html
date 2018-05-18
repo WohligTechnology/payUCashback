@@ -177,6 +177,16 @@
                                                 Play Rule
                                             </a>
 
+                                            <a style="margin-left:5px;" ng-if="json.json.playPerformanceRule" title="{{json.json.playPerformanceRule.name}}" class="btn" ng-class="json.json.playPerformanceRule.buttonClass"
+                                            ng-click="playSelectedAllClickPerformance(item)">
+                                            Play Rule
+                                            </a>
+
+                                            <a style="margin-left:5px;" ng-if="json.json.playPerformanceRepayRule" title="{{json.json.playPerformanceRepayRule.name}}" class="btn" ng-class="json.json.playPerformanceRepayRule.buttonClass"
+                                            ng-click="playSelectedAllClickPerformanceRepay(item)">
+                                            Play Rule
+                                            </a>
+
                                             <a style="margin-left:5px;" ng-if="json.json.playCollectionEngine" title="{{json.json.playCollectionEngine.name}}" class="btn" ng-class="json.json.playCollectionEngine.buttonClass"
                                             ng-click="playCollectionEngine(item)">
                                             Play Rule
