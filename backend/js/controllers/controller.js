@@ -1687,7 +1687,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             objectToReturn.transactionMerchantSqlId=item.transactionMerchant.merchantSqlId;
             var eligibilityStatusArray=[];
             var eligibilityStatus=item.eligibilityStatus;
-            eligibilityStatus.forEach((value, index) => {
+            eligibilityStatus.forEach(function(value, index) {
                 eligibilityStatusArray.push(value.name);
                 // if(index==0){
                 //     eligibilityStatusString=value.name+",";
