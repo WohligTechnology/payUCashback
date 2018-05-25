@@ -1,0 +1,23 @@
+<form name="folderForm" ng-submit="playMarketingCampaignClickAfterFolderName(formData);">
+    <div class="modal-header blue-bg  ">
+        <div class="pull-right">
+            <a class="btn btn-clear" ng-click="$dismiss()">
+                <i class="ln-cross"></i>
+            </a>
+        </div>
+        <h5 class="modal-title">Folder Name For Saving Files Selected Marketing Campaign</h5>
+    </div>
+    <div style="margin: 20px;">
+
+        <div class="form-group">
+            <label>Enter Folder Name :</label>
+            <input type="text" name="name" placeholder="Enter Name" ng-model="formData.name" class="form-control" required>
+            <div class="error-msg" ng-show="folderForm.name.$invalid && folderForm.name.$touched">Folder Name is required</div>
+        </div>
+        <div class="digital-submit text-center">
+            <button class="btn btn-primary btn-save" type="submit" ng-disabled="folderForm.$invalid" ng-click="submitUser1(formData)"
+                class=" btn btn-default ">Submit</button>
+            <button class="btn btn-danger btn-cancel" ng-click="$dismiss()">Cancel</button>
+        </div>
+    </div>
+</form>

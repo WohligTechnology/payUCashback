@@ -689,6 +689,92 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         }
 
+//playMarketingCampaign
+        $scope.playSelectedMarketingCampaign = function (singleMarketingCampaign) {
+            $scope.selectedMarketingCampaignObjectId = [singleMarketingCampaign._id];
+            $scope.selectedMarketingCampaignObject=singleMarketingCampaign;
+            console.log("selectedMarketingCampaignObject", $scope.selectedMarketingCampaignObject);
+
+            $scope.playSelectedMarketingCampaignFolderNameModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/playSelectedMarketingCampaignFolderNameModal.html',
+                size: 'md',
+                scope: $scope
+            });
+        }
+
+        $scope.playMarketingCampaignClickAfterFolderName = function (formData) {
+            $scope.playSelectedMarketingCampaignFolderNameModal.close();
+            // // console.log("formData in playAllClickAfterFolderName",formData);
+            // if ($.jStorage.get("profile")) {
+            //     var loggedInUserId = $.jStorage.get("profile")._id;
+            // } else {
+            //     loggedInUserId = null;
+            // }
+            // var folder = formData.name;
+            // var objectToSend = {
+            //     userId: loggedInUserId,
+            //     folderName: folder
+            // };
+
+            //     objectToSend.rule = $scope.selectedMarketingCampaignObject;
+            //     console.log("selected id inside playSelectedClick else", objectToSend);
+            var selectedMarketingCampaignObject=$scope.selectedMarketingCampaignObject;
+            var retuenData=$scope.prepareMarketingCampaignObjectForSending(selectedMarketingCampaignObject);
+            console.log("retuenData",retuenData);
+            console.log("selectedMarketingCampaignObject",selectedMarketingCampaignObject);
+            // var objectToSend = singleMarketingRule;
+            // var marketingCampainObject=selectedMarketingCampaignObject;
+            if ($.jStorage.get("profile")) {
+                var loggedInUserId = $.jStorage.get("profile")._id;
+            } else {
+                loggedInUserId = null;
+            }
+            var folder = formData.name;
+            // var objectToSend ={};
+            // var objectToSend = {
+            //     userId: loggedInUserId,
+            //     folderName: folder
+            // };
+            retuenData.userId=loggedInUserId;
+            retuenData.folderName=folder
+            var objectToSend = retuenData;
+            console.log("objectToSend",objectToSend);
+
+                NavigationService.playSelectedMarketingCampaign(objectToSend, function (data) {
+                    console.log("*****", data);
+                    if (data.data.success == true) {
+                        toastr.success("Rules Played Successfully. Total Cashback Count is - " + count, {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "4000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    } else {
+                        toastr.error("Failed To Play Rules", {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "timeOut": "2000",
+                            "extendedTimeOut": "1000",
+                            "tapToDismiss": false
+                        });
+                    }
+                    $state.reload();
+
+                })
+        }
+
         $scope.playCollectionEngine = function (singleCollectionEngine) {
             var objectToSend={};
             delete singleCollectionEngine.createdBy;
@@ -1473,7 +1559,18 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 scope: $scope
             });
         }
+        
 
+        $scope.viewSingleMarketingCampaignModal = function (singleMarketingCampaign) {
+            console.log("viewSingleMarketingCampaignModal", singleMarketingCampaign);
+            $scope.singleMarketingCampaignForModal = singleMarketingCampaign;
+            $scope.singleMarketingCampaign = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/SingleMarketingCampaignModal.html',
+                size: 'md',
+                scope: $scope
+            });
+        }
         $scope.viewSingleCollectionEngineModal = function (singleCollectionEngine1) {
             var singleCollectionEngineForModalData=singleCollectionEngine1;
             // console.log("viewSingleCollectionEngineModal", singleCollectionEngineForModalData);
@@ -1578,6 +1675,119 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             })
 
         }
+
+        $scope.prepareMarketingCampaignObjectForSending=function(item){
+            // item.abc="demo";
+
+
+            var objectToReturn=item;
+            objectToReturn.eligibilityMerchantName=item.eligibilityMerchant.name;
+            objectToReturn.eligibilityMerchantSqlId=item.eligibilityMerchant.merchantSqlId;
+            objectToReturn.transactionMerchantName=item.transactionMerchant.name;
+            objectToReturn.transactionMerchantSqlId=item.transactionMerchant.merchantSqlId;
+            var eligibilityStatusArray=[];
+            var eligibilityStatus=item.eligibilityStatus;
+            eligibilityStatus.forEach((value, index) => {
+                eligibilityStatusArray.push(value.name);
+                // if(index==0){
+                //     eligibilityStatusString=value.name+",";
+                // }else if (index == eligibilityStatus.length - 1) {
+                //     eligibilityStatusString=eligibilityStatusString+ '"'+value.name+'"';
+                // }else{
+                //     eligibilityStatusString=eligibilityStatusString+ '"'+value.name+'"' + ',';
+                // }
+            })
+            var eligibilityStatusString=eligibilityStatusArray.toString();
+            objectToReturn.eligibilityStatusString=eligibilityStatusString;
+            objectToReturn.eligibilityStatusArray=eligibilityStatusArray;
+
+
+
+            var newObjectToReturn={};
+            newObjectToReturn.eligibilityFlag=objectToReturn.eligibilityFlag;
+            newObjectToReturn.eligibilityStatus=objectToReturn.eligibilityStatusString;
+            newObjectToReturn.eligibilityStatusArray=objectToReturn.eligibilityStatusArray;
+            newObjectToReturn.transactionalFlag=objectToReturn.transactionFlag;
+            newObjectToReturn.transactionalStatus=objectToReturn.transactionStatus;
+            newObjectToReturn.txn_merchant=objectToReturn.transactionMerchantSqlId;
+            newObjectToReturn.el_merchant=objectToReturn.eligibilityMerchantSqlId;
+            newObjectToReturn.txn_startDate=objectToReturn.transactionStartDate;
+            newObjectToReturn.txn_endDate=objectToReturn.transactionEndDate;
+            newObjectToReturn.el_startDate=objectToReturn.eligibilityStartDate;
+            newObjectToReturn.el_endDate=objectToReturn.eligibilityEndDate;
+            newObjectToReturn.downloadOption=objectToReturn.downloadOption;
+            return newObjectToReturn;
+        }
+
+        $scope.viewMarketingCampaignGetCountResponseModal = function (selectedMarketingCampaignObject) {
+            var retuenData=$scope.prepareMarketingCampaignObjectForSending(selectedMarketingCampaignObject);
+            console.log("retuenData",retuenData);
+            console.log("selectedMarketingCampaignObject",selectedMarketingCampaignObject);
+            // var objectToSend = singleMarketingRule;
+            // var marketingCampainObject=selectedMarketingCampaignObject;
+            if ($.jStorage.get("profile")) {
+                var loggedInUserId = $.jStorage.get("profile")._id;
+            } else {
+                loggedInUserId = null;
+            }
+            var folder = "";
+            // var folder = formData.name;
+            // var objectToSend ={};
+            // var objectToSend = {
+            //     userId: loggedInUserId,
+            //     folderName: folder
+            // };
+            retuenData.userId=loggedInUserId;
+            retuenData.folderName=folder
+            var objectToSend = retuenData;
+            console.log("objectToSend",objectToSend);
+            // var objectReceived=marketingCampainObject;
+
+            // // var selectedMarketingCampaignObjectChanged=
+            // objectToSend.rule = selectedMarketingCampaignObjectChanged;
+
+            // objectToSend = [singleMarketingRule._id];
+            // console.log("allSelectedMarketingRules", $scope.selectArrMarketing);
+            // $scope.responseObject = {
+            //     name: "test",
+            //     count1: 10000,
+            //     count2: 20000
+            // };
+            // $scope.singleRuleModal = $uibModal.open({
+            //     animation: true,
+            //     templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
+            //     size: 'lg',
+            //     scope: $scope
+            // });
+            // console.log("object to send",objectToSend)
+
+
+            NavigationService.viewMarketingRuleGetCountResponseModal(objectToSend, function (data) {
+                console.log("verifyQuery", data);
+                var count = data.data.count;
+                $scope.countToShow = count;
+                if (data.data.success == true) {
+                    $scope.singleRuleModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
+                        size: 'lg',
+                        scope: $scope
+                    });
+                } else {
+                    $scope.queryToShow = "Something Went Wrong: Server is Failed to Generate Query."
+                    $scope.singleRuleModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
+                        size: 'lg',
+                        scope: $scope
+                    });
+
+                }
+
+            })
+
+        }
+
 
         // Exposure Merchant view button click start
         $scope.viewSingleExposureMerchantModal = function (exposureMerchant) {
@@ -5709,6 +5919,182 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
 
 
+    
+    .controller('viewMarketingCampaignCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr, $uibModal) {
+
+        $scope.template = TemplateService.changecontent("viewMarketingCampaign");
+        $scope.menutitle = NavigationService.makeactive("viewMarketingCampaign");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+
+        $scope.item = {
+            id: 1,
+            domain: "avinash.com",
+            whitelist: 2
+        };
+
+        $scope.allData = [{
+            name: "Zomato Media Private Limited",
+            accessKey: "R18L6RRZB8V5HGGWGH6N",
+            riskCategory: 2
+        }, {
+            name: "PayUmoney",
+            accessKey: "NSYF9D29AMBP8UTGLLWD",
+            riskCategory: 3
+        }, {
+            name: "D Vois Communications Pvt Ltd",
+            accessKey: "EEEEZS6TV60O8C29VS8M",
+            riskCategory: 3
+        }, {
+            name: "Stay Away",
+            accessKey: "BEL9NBMUTS9BS509SU52",
+            riskCategory: 4
+        }];
+
+        $scope.editMerchantCategory = function (objectToBeEditOld) {
+            console.log("object To Be Edit", objectToBeEditOld);
+            $scope.objectToBeEdit = objectToBeEditOld;
+            $scope.editMerchantCategoryModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/editMerchantCategoryModal.html',
+                size: 'md',
+                scope: $scope
+            });
+        }
+
+        $scope.editMerchantCategoryOnSave = function (data) {
+            console.log("Data", data);
+        }
+
+        $scope.createMerchantCategory = function () {
+            console.log("object To Be create");
+            $scope.objectToBeCreate = {};
+            $scope.createMerchantCategoryModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/createMerchantCategoryModal.html',
+                size: 'md',
+                scope: $scope
+            });
+        }
+
+        $scope.createMerchantCategoryOnSave = function (data) {
+            console.log("createMerchantCategoryOnSave", data);
+        }
+
+        $scope.disableMerchantCategory = function (objectToBeDisable) {
+            console.log("object To Be Disable", objectToBeDisable);
+            $scope.objectToBeDisable = objectToBeDisable;
+            $scope.disableMerchantCategoryModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/disableMerchantCategoryModal.html',
+                size: 'md',
+                scope: $scope
+            });
+        }
+
+        $scope.disableMerchantCategoryOnSubmit = function (data) {
+            console.log("disableMerchantCategoryOnSubmit", data);
+        }
+
+
+        NavigationService.apiCall("Merchant/search", {}, function (data) {
+            console.log("inside Merchant api:", data.data);
+            $scope.merchant = data.data.results;
+            $scope.merchantData = data.data;
+        });
+
+        //pagination start
+        var formdata = {};
+        // formdata.user = userId;
+        var i = 0;
+        if ($stateParams.page && !isNaN(parseInt($stateParams.page))) {
+            $scope.currentPage = $stateParams.page;
+        } else {
+            $scope.currentPage = 1;
+        }
+
+        $scope.search = {
+            keyword: ""
+        };
+        if ($stateParams.keyword) {
+            $scope.search.keyword = $stateParams.keyword;
+        }
+        $scope.changePage = function (page) {
+            var goTo = "userExposure";
+            $scope.currentPage = page;
+            if ($scope.search.keyword) {
+                goTo = "userExposure";
+            }
+            $state.go(goTo, {
+                page: page
+            });
+            $scope.getAllItems();
+        };
+        $scope.getAllItems = function (keywordChange, count) {
+            if (keywordChange != undefined && keywordChange != true) {
+                $scope.maxCount = keywordChange;
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("ExposureUserCategory/search", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        if (ini == i) {
+                            $scope.results = data.data.results;
+                            console.log("$scope.productData***", $scope.results);
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            } else {
+                $scope.totalItems = undefined;
+                if (keywordChange) {}
+                NavigationService.searchCall("MarketingCampaign/search", {
+                        page: $scope.currentPage,
+                        keyword: $scope.search.keyword,
+                        count: $scope.maxCount
+                    }, ++i,
+                    function (data, ini) {
+                        if (ini == i) {
+                            $scope.results = data.data.results;
+
+                            console.log("final data in else", $scope.results);
+                            $scope.totalItems = data.data.total;
+                            $scope.maxRow = data.data.options.count;
+                        }
+                    });
+            }
+
+        };
+        //pagination end
+        $scope.getAllItems();
+    })
+
+    .controller('editMarketingCampaignCtrl', function ($scope, TemplateService, NavigationService, $timeout, $stateParams, $state, toastr, $uibModal) {
+        
+                $scope.template = TemplateService.changecontent("editMarketingCampaign");
+                $scope.menutitle = NavigationService.makeactive("editMarketingCampaign");
+                TemplateService.title = $scope.menutitle;
+                $scope.navigation = NavigationService.getnav();
+        
+                console.log("stateParams", $stateParams.id);
+                //here wee need to call get single api
+        
+                $scope.merchant = [{
+                    id: 1,
+                    name: "Whitelist"
+                }, {
+                    id: 2,
+                    name: "Blacklist"
+                }];
+                //end of get single api call 
+                $scope.editMarketingCampaign = function (objectToBeEdit) {
+                    console.log("object To Be Edit", objectToBeEdit);
+                }
+            })
+        
 
 
     .controller('languageCtrl', function ($scope, TemplateService, $translate, $rootScope) {

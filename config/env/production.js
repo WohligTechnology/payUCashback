@@ -29,7 +29,7 @@ module.exports = {
   // realHost: "http://172.31.0.109:8082",
   // realHost: "http://172.31.2.124:8082",
   realHost: "http://ds-services-1247084187.ap-south-1.elb.amazonaws.com",
-  emails: ["chintan@wohlig.com", "jagruti@wohlig.com", "tushar@wohlig.com", "chirag@wohlig.com", "harsh@wohlig.com","sayali.ghule@wohlig.com","rohan@wohlig.com","sohan@wohlig.com"]
+  emails: ["avinash.ghare@payu.in"]
 
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *

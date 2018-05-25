@@ -1,0 +1,187 @@
+{
+    "title": "Edit Marketing Campaign",
+    "name": "MarketingCampaign",
+    "jsonPage": "viewMarketingCampaign",
+    "desciption": "",
+    "pageType": "edit",
+    "urlFields": ["_id"],
+    "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
+    "fields": [{
+        "name": "Campaign Details",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Name",
+        "type": "text",
+        "tableRef": "name",
+        "placeholder": "Enter Campaign Name",
+        "id": "name",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Download Option",
+        "type": "tags",
+        "tableRef": "downloadOption",
+        "placeholder": "Enter List Option",
+        "id": "downloadOption",
+        "validation": ["required", "trim", ""],
+        "url": "",
+        "dropDownField": "",
+        "dropDownType": "single",
+        "onView": true,
+        "dropDown": ["Email","Mobile","Both"]
+    }, {
+        "name": "Eligibility Criteria",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Eligibility Flag",
+        "type": "tags",
+        "tableRef": "eligibilityFlag",
+        "placeholder": "Enter Eligibility Flag",
+        "id": "eligibilityFlag",
+        "validation": ["required", "trim", ""],
+        "url": "",
+        "dropDownField": "",
+        "dropDownType": "single",
+        "onView": true,
+        "dropDown": ["true","false"]
+    }, {
+        "name": "Eligibility Merchant",
+        "type": "tags",
+        "tableRef": "eligibilityMerchant",
+        "placeholder": "Select Merchant",
+        "id": "eligibilityMerchant",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Merchant/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["required", "", ""]
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Eligibility Start Date",
+        "type": "date",
+        "tableRef": "eligibilityStartDate",
+        "placeholder": "Enter Eligibility Start Date Date",
+        "id": "eligibilityStartDate",
+        "validation": ["required", "trim"],
+        "url": "",
+        "hideMethod1":"EligibilityDateValidation"
+    }, {
+        "name": "Eligibility End Date",
+        "type": "date",
+        "tableRef": "eligibilityEndDate",
+        "placeholder": "Enter Eligibility End Date Date",
+        "id": "eligibilityEndDate",
+        "validation": ["required", "trim"],
+        "url": ""
+    }, {
+        "name": "Eligibility Status (Multiple Select)",
+        "type": "tags",
+        "tableRef": "eligibilityStatus",
+        "placeholder": "Select Status",
+        "id": "eligibilityStatus",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "EligibilityStatus/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["required", "", ""]
+    }, {
+        "name": "Transaction Criteria",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Transaction Flag",
+        "type": "tags",
+        "tableRef": "transactionFlag",
+        "placeholder": "Enter Transaction Flag",
+        "id": "transactionFlag",
+        "validation": ["required", "trim", ""],
+        "url": "",
+        "dropDownField": "",
+        "dropDownType": "single",
+        "onView": true,
+        "dropDown": ["none","true","false"]
+    }, {
+        "name": "Transaction Merchant",
+        "type": "tags",
+        "tableRef": "transactionMerchant",
+        "placeholder": "Select Merchant",
+        "id": "transactionMerchant",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Merchant/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["required", "", ""]
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Transaction Start Date",
+        "type": "date",
+        "tableRef": "transactionStartDate",
+        "placeholder": "Enter Transaction Start Date Date",
+        "id": "transactionStartDate",
+        "validation": ["required", "trim"],
+        "url": "",
+        "hideMethod1":"TransactionDateValidation"
+    }, {
+        "name": "Transaction End Date",
+        "type": "date",
+        "tableRef": "transactionEndDate",
+        "placeholder": "Enter Transaction End Date Date",
+        "id": "transactionEndDate",
+        "validation": ["required", "trim"],
+        "url": ""
+    }, {
+        "name": "Transaction Status",
+        "type": "tags",
+        "tableRef": "transactionStatus",
+        "placeholder": "Select Transaction Status",
+        "id": "transactionStatus",
+        "validation": ["required", "trim", ""],
+        "url": "",
+        "dropDownField": "",
+        "dropDownType": "single",
+        "onView": true,
+        "dropDown": ["SALE/REFUND", "REPAY"]
+    }],
+    "action": [{
+        "name": "submit",
+        "action": "submitMarketingCampaign",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewMarketingCampaign"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewMarketingCampaign"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "MarketingCampaign/save",
+        "params": "_id"
+    },
+    "preApi": {
+        "url": "MarketingCampaign/getOne",
+        "params": "_id"
+    }
+
+}

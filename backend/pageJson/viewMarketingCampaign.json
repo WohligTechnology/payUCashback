@@ -1,0 +1,87 @@
+{
+    "title": "Marketing Campaign",
+    "description": "List of Marketing Campaigns",
+    "pageType": "view",
+    "sendIdWithCreate": true,
+    "urlFields": ["_id"],
+    "colorExpiredMarketingCampaign": true,
+    "showCountMarketingOnView":true,
+    "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
+    "fields": [{
+        "name": "Name",
+        "isSort": "",
+        "tableRef": "name"
+    },{
+        "name": "Eligibility Merchant",
+        "isSort": "",
+        "tableRef": "eligibilityMerchant",
+        "type":"objectName"
+    },{
+        "name": "Transaction Merchant",
+        "isSort": "",
+        "tableRef": "transactionMerchant",
+        "type":"objectName"
+    }
+    ],
+    "viewMarketingCampaignButton":{
+        "name": "View Marketing Campaign",
+        "icon": "fa-search",
+        "buttonClass": "btn-primary"
+    },
+    "getMarketingCampaignCountButton1":{
+        "name": "Get Result Count",
+        "icon": "fa-sticky-note",
+        "buttonClass": "btn-warning"
+    },
+    "playMarketingCampaign":{
+        "name": "Play Rule",
+        "icon": "fa-sticky-note",
+        "buttonClass": "btn-success"
+    },
+    "action": [{
+        "name": "Edit Marketing Campaign",
+        "icon": "fa-pencil",
+        "buttonClass": "btn-primary",
+        "type": "page",
+        "action": "editMarketingCampaign1",
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
+        "fieldsToSend": {
+            "_id": "_id"
+        }
+    }, {
+        "name": "Delete Marketing Campaign",
+        "icon": "fa-trash",
+        "buttonClass": "btn-danger",
+        "type": "apiCallConfirm",
+        "title": "Delete MarketingCampaign",
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
+        "content": "Are you sure you want to delete MarketingCampaign?",
+        "api": "MarketingCampaign/deleteWithChangeStatus",
+        "fieldsToSend": {
+            "name": "_id",
+            "value": "_id"
+        }
+    },{
+        "name": "Copy Marketing Campaign",
+        "icon": "fa-copy",
+        "buttonClass": "btn-primary",
+        "type": "page",
+        "action": "copyMarketingCampaign1",  
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"], 
+        "fieldsToSend": {
+            "_id": "_id"
+        }
+    }],
+    "button": [{
+        "name": "Add Marketing Campaign",
+        "icon": "plus",
+        "class": "btn-success",
+        "type": "page",
+        "action": "createMarketingCampaign",
+        "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"]
+    }],
+    "apiCall": {
+        "url": "MarketingCampaign/search",
+        "params": "_id"
+    }
+}

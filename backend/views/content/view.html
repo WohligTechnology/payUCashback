@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-4 column">
                 <div class="heading-profile1">
-                    <h2 ng-bind="json.json.title"></h2>
+                    <h3 ng-bind="json.json.title"></h3>
                 </div>
             </div>
         </div>
@@ -114,6 +114,13 @@
                                                 <i class="fa" ng-class="json.json.viewMarketingRuleButton.icon"></i>
                                             </a>
                                             <!-- Marketing Rule View button end -->
+                                            
+                                            <!-- Marketing Campaign View button start -->
+                                            <a style="margin-left:5px;" ng-if="json.json.viewMarketingCampaignButton" title="{{json.json.viewMarketingCampaignButton.name}}" class="btn" ng-class="json.json.viewMarketingCampaignButton.buttonClass"
+                                                ng-click="viewSingleMarketingCampaignModal(item)">
+                                                <i class="fa" ng-class="json.json.viewMarketingCampaignButton.icon"></i>
+                                            </a>
+                                            <!-- Marketing Campaign View button end -->
                                             <!-- Collection Engine View button start -->
                                             <a style="margin-left:5px;" ng-if="json.json.viewCollectionEngineButton" title="{{json.json.viewCollectionEngineButton.name}}" class="btn" ng-class="json.json.viewCollectionEngineButton.buttonClass"
                                             ng-click="viewSingleCollectionEngineModal(item)">
@@ -172,11 +179,25 @@
                                             <!-- <i class="fa" ng-class="json.json.getMarketingRuleCountButton.icon"></i> -->
                                         </a>
                                         <!-- Marketing Rule Get Count button end -->
+                                        
+
+                                        <!-- Marketing Campaign Get Count button start -->
+                                        <a style="margin-left:5px;" ng-if="json.json.getMarketingCampaignCountButton" title="{{json.json.getMarketingCampaignCountButton.name}}" class="btn" ng-class="json.json.getMarketingCampaignCountButton.buttonClass"
+                                        ng-click="viewMarketingCampaignGetCountResponseModal(item)">
+                                        Get Count
+                                        <!-- <i class="fa" ng-class="json.json.getMarketingCampaignCountButton.icon"></i> -->
+                                    </a>
+                                    <!-- Marketing Rule Get Count button end -->
+
                                             <a style="margin-left:5px;" ng-if="json.json.playMarketingRule" title="{{json.json.playMarketingRule.name}}" class="btn" ng-class="json.json.playMarketingRule.buttonClass"
                                                 ng-click="playSelectedAllClickMarketing(item)">
                                                 Play Rule
                                             </a>
-
+                                            
+                                            <a style="margin-left:5px;" ng-if="json.json.playMarketingCampaign" title="{{json.json.playMarketingCampaign.name}}" class="btn" ng-class="json.json.playMarketingCampaign.buttonClass"
+                                            ng-click="playSelectedMarketingCampaign(item)">
+                                            Play Rule
+                                        </a>
                                             <a style="margin-left:5px;" ng-if="json.json.playPerformanceRule" title="{{json.json.playPerformanceRule.name}}" class="btn" ng-class="json.json.playPerformanceRule.buttonClass"
                                             ng-click="playSelectedAllClickPerformance(item)">
                                             Play Rule

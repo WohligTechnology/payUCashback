@@ -507,6 +507,21 @@ myApp.factory('NavigationService', function ($http, $state) {
             });
         },
 
+        playSelectedMarketingCampaign: function (ruleObject, callback) {
+            console.log("inside navigationservice playSelectedMarketingCampaign", ruleObject);
+            $http({
+                url: serverUrl + 'generatecampaign',
+                method: 'POST',
+                data: ruleObject,
+                withCredentials: false
+            }).then(function (data) {
+                console.log("######", data);
+                // data = data.data;
+                callback(data);
+
+            });
+        },
+
         playSelectedPerformanceRule: function (ruleArr, callback) {
             //console.log("inside navigationservice playSelectedPerformanceRule",ruleArr);
             $http({

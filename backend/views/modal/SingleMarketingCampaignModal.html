@@ -1,0 +1,97 @@
+<form name="modalForm" ng-submit="$dismiss()" class="min-hit">
+    
+        <div class="modal-header blue-bg  ">
+            <div class="pull-right">
+                <a class="btn btn-clear" ng-click="$dismiss()">
+                    <i class="ln-cross"></i>
+                </a>
+            </div>
+            <h5 class="modal-title">
+                <b>{{singleMarketingCampaignForModal.name}}</b></h5>
+    
+        </div>
+        <div class="modal-body">
+            
+            <div class="singleRuleHeadings">Campaign Details</div>
+            <div class="row" ng-if="singleMarketingCampaignForModal.name">
+                <div class="col-md-12">
+                    Campaign Name- {{singleMarketingCampaignForModal.name}}
+                </div>
+            </div>
+    
+            <div class="row" ng-if="singleMarketingCampaignForModal.downloadOption">
+                <div class="col-md-12">
+                    Download Option - {{singleMarketingCampaignForModal.downloadOption}}
+                </div>
+            </div>
+    
+            <div class="singleRuleHeadings">Eligibility Details</div>
+
+            <div class="row" ng-if="singleMarketingCampaignForModal.eligibilityFlag">
+                <div class="col-md-12">
+                    Eligibility Flag - {{singleMarketingCampaignForModal.eligibilityFlag}}
+                    </div>
+            </div>
+
+            <div class="row" ng-if="singleMarketingCampaignForModal.eligibilityMerchant">
+                <div class="col-md-12">
+                    Eligibility Flag - {{singleMarketingCampaignForModal.eligibilityMerchant.name}}
+                    </div>
+            </div>
+
+            <div class="row" ng-if="singleMarketingCampaignForModal.eligibilityStartDate">
+                <div class="col-md-12">
+                    Eligibility Start Date - {{singleMarketingCampaignForModal.eligibilityStartDate | date : "dd/MM/y"}}
+                    </div>
+            </div>
+
+            <div class="row" ng-if="singleMarketingCampaignForModal.eligibilityEndDate">
+                <div class="col-md-12">
+                    Eligibility End Date - {{singleMarketingCampaignForModal.eligibilityEndDate | date : "dd/MM/y"}}
+                    </div>
+            </div>
+
+            <div class="row" ng-if="singleMarketingCampaignForModal.eligibilityStatus">
+                <div class="col-md-12">
+                    Eligibility Status -
+                    <span ng-repeat="aM in singleMarketingCampaignForModal.eligibilityStatus">{{aM.name}} {{$last ? '' : ($index==singleMarketingCampaignForModal.eligibilityStatus.length-2) ? ' and ' : ', '}}</span>
+                </div>
+            </div>
+
+            <div class="singleRuleHeadings">Transaction Details</div>
+            
+                        <div class="row" ng-if="singleMarketingCampaignForModal.transactionFlag">
+                            <div class="col-md-12">
+                                Transaction Flag - {{singleMarketingCampaignForModal.transactionFlag}}
+                                </div>
+                        </div>
+            
+                        <div class="row" ng-if="singleMarketingCampaignForModal.transactionMerchant">
+                            <div class="col-md-12">
+                                Transaction Flag - {{singleMarketingCampaignForModal.transactionMerchant.name}}
+                                </div>
+                        </div>
+            
+                        <div class="row" ng-if="singleMarketingCampaignForModal.transactionStartDate">
+                            <div class="col-md-12">
+                                Transaction Start Date - {{singleMarketingCampaignForModal.transactionStartDate | date : "dd/MM/y"}}
+                                </div>
+                        </div>
+            
+                        <div class="row" ng-if="singleMarketingCampaignForModal.transactionEndDate">
+                            <div class="col-md-12">
+                                Transaction End Date - {{singleMarketingCampaignForModal.transactionEndDate | date : "dd/MM/y"}}
+                                </div>
+                        </div>
+            
+                        <div class="row" ng-if="singleMarketingCampaignForModal.transactionStatus">
+                            <div class="col-md-12">
+                                Transaction Status - {{singleMarketingCampaignForModal.transactionStatus}}
+                                </div>
+                        </div>
+            
+            <div class="text-center">
+                <button class="btn btn-primary btn-save" type="submit" ng-disabled="modalForm.$invalid" ng-click="$dismiss()">Cancel</button>
+            </div>
+        </div>
+    </form>

@@ -753,7 +753,7 @@ myApp.directive('detailField', function ($http, $filter, JsonService) {
                     $scope.formData["startDate"]=null; 
                     // console.log("in else",$scope.formData["firstDate"]," & ",$scope.formData["lastDate"]);
                     
-                    alert("End Date Should Be Greater Than First Date 11");
+                    alert("End Date Should Be Greater Than First Date");
                 }else if(finalEndDate > finalStartDate){
                     console.log("in else if");
                     // console.log($scope.formData["startTime"]);
@@ -786,6 +786,28 @@ myApp.directive('detailField', function ($http, $filter, JsonService) {
                     alert("End Date Should Be Greater Than First Date");
                 }else{
                     console.log("in else",$scope.formData["validFrom"]," & ",$scope.formData["validTo"]);
+                }
+            }
+          
+            $scope.condition.EligibilityDateValidation = function() {
+                if($scope.formData["eligibilityStartDate"] > $scope.formData["eligibilityEndDate"]){
+                    $scope.formData["eligibilityStartDate"]=null; 
+                    // console.log("in else",$scope.formData["firstDate"]," & ",$scope.formData["lastDate"]);
+                    
+                    alert("Eligibility End Date Should Be Greater Than Eligibility Start Date");
+                }else{
+                    console.log("in else",$scope.formData["eligibilityStartDate"]," & ",$scope.formData["eligibilityEndDate"]);
+                }
+            }
+
+            $scope.condition.TransactionDateValidation = function() {
+                if($scope.formData["transactionStartDate"] > $scope.formData["transactionEndDate"]){
+                    $scope.formData["transactionStartDate"]=null; 
+                    // console.log("in else",$scope.formData["firstDate"]," & ",$scope.formData["lastDate"]);
+                    
+                    alert("Transaction End Date Should Be Greater Than Transaction Start Date");
+                }else{
+                    console.log("in else",$scope.formData["transactionStartDate"]," & ",$scope.formData["transactionEndDate"]);
                 }
             }
 
