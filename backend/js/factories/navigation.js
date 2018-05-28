@@ -222,6 +222,10 @@ myApp.factory('NavigationService', function ($http, $state) {
                         name: "Repay Performance",		
                         classis: "active",		
                         sref: "#!/page/viewPerformanceRepay//"		
+                    },{		
+                        name: "Marketing Campaign",		
+                        classis: "active",		
+                        sref: "#!/page/viewMarketingCampaign//"		
                     },{
                         name: "Mailer List",
                         classis: "active",
