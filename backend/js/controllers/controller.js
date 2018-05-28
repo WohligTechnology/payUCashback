@@ -743,8 +743,9 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
                 NavigationService.playSelectedMarketingCampaign(objectToSend, function (data) {
                     console.log("*****", data);
+                    var count=data.data.CampaignCount;
                     if (data.data.success == true) {
-                        toastr.success("Rules Played Successfully. Total Cashback Count is - " + count, {
+                        toastr.success("Rules Played Successfully. Total Campaign Count is - " + count, {
                             "closeButton": true,
                             "debug": false,
                             "newestOnTop": false,
