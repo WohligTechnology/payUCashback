@@ -1762,7 +1762,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             // console.log("object to send",objectToSend)
 
 
-            NavigationService.viewMarketingRuleGetCountResponseModal(objectToSend, function (data) {
+            NavigationService.viewMarketingCampaignGetCountResponseModal(objectToSend, function (data) {
                 console.log("verifyQuery", data);
                 var count = data.data.count;
                 $scope.countToShow = count;

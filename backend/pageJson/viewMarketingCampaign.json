@@ -43,7 +43,7 @@
         "icon": "fa-pencil",
         "buttonClass": "btn-primary",
         "type": "page",
-        "action": "editMarketingCampaign1",
+        "action": "editMarketingCampaign",
         "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
         "fieldsToSend": {
             "_id": "_id"
@@ -66,7 +66,7 @@
         "icon": "fa-copy",
         "buttonClass": "btn-primary",
         "type": "page",
-        "action": "copyMarketingCampaign1",  
+        "action": "copyMarketingCampaign",  
         "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"], 
         "fieldsToSend": {
             "_id": "_id"

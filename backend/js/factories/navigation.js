@@ -662,6 +662,20 @@ myApp.factory('NavigationService', function ($http, $state) {
                 callback(data);
             });
         },
+
+        viewMarketingCampaignGetCountResponseModal: function (ruleObject, callback) {
+            console.log("inside navigationservice viewMarketingCampaignGetCountResponseModal", ruleObject);
+            $http({
+                url: serverUrl + 'marketingcampaigncount',
+                method: 'POST',
+                data: ruleObject,
+                withCredentials: false
+            }).then(function (data) {
+                console.log("######", data);
+                callback(data);
+            });
+        },
+
         viewMarketingQueryModal: function (ruleObject, callback) {
             console.log("inside navigationservice viewMarketingQueryModal", ruleObject);
             $http({

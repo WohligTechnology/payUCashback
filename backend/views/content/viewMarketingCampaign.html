@@ -1,0 +1,85 @@
+<div class="heading-sec">
+    <div class="row">
+        <div class="col-md-4 column">
+            <div class="heading-profile1">
+                <h3>Marketing Campaign</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class=" panel-content ">
+    <div class="row ">
+    <div class="col-md-12 ">
+        <div class="widget ">
+            <div class="table-area ">
+                <div class="widget-title ">
+                    <div  ng-if="json.json.loader==true" style="display: block;position: fixed;z-index: 9999;width: 250px;margin-left: -125px;left: 50%;top: 50%; height: 100px;padding: 10px;background-color: #49caf2;border-radius: 4px;" loading-indicator class="waiting-box">
+                        <span>Please Wait...
+                            <img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif" />
+                        </span>
+                    </div>
+                    <div class="pull-right">
+                            <button class="btn btn-primary" type="button" ng-click="createMarketingCampaign()">Add New Merchant</button>
+                    </div>
+                    <div class="pull-right ">
+                        <form class="search-form mr-form " ng-hide="json.json.removeSearch">
+                                <!-- <input type="search" class="form-control" placeholder="Search..." ng-model="search.text"> -->
+                                <input type="text " ng-change="getAllItems(true) " placeholder="Search Here...
+                                " ng-model="search.keyword " />
+                        </form>
+                    </div>
+                    
+                    
+                </div>
+
+                <div class="table-responsive ">
+                        <table datatable="" dt-options="dtOptions" class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th>Name</th>
+                                    <!-- <th>Access Key</th>
+                                    <th>Risk Category</th> -->
+                                    <th>Actions</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr ng-repeat="singleData in results track by $index">
+                                    <form name="$index">
+                                      <!-- <td>{{singleData.id}}</td> -->
+                                      <td>
+                                          {{singleData.name}}
+                                        <!-- <input type="text" ng-model="singleData.domain" class="form-control" required> -->
+                                      </td>
+                                      <!-- <td>
+                                              {{singleData.accessKey}}
+                                      </td>
+                                      <td>
+                                              {{singleData.riskCategory}}
+                                      </td> -->
+                                      <!-- <td>{{singleData.whitelist}}</td> -->
+                                      <td>
+                                        <!--<button type="button" ng-click="getInvoice()" class="btn green btn-outline btn-xs">View</button>&nbsp;&nbsp;&nbsp;-->
+                                        <button type="button" class="btn btn-primary" ui-sref="editMarketingCampaign ({id:singleData._id})">Edit</button>
+                                        <!-- <button type="button" class="btn btn-primary" ng-click="editMerchantCategory(singleData)">Edit</button> -->
+                                        <!-- <button type="button" class="btn btn-success" ng-click="enableMerchantCategory(singleData)">Enable</button> -->
+                                        <button type="button" class="btn btn-danger" confirmed-click="deleteMarketingCampaign(singleData)" ng-confirm-click="Are You Sure?">Delete</button>
+                                      </td>
+                                    </form>
+                                  </tr>
+                            
+                                </tbody>
+                            
+                                <!--//for dfm end-->
+                              </table>
+                              <div class="right-side">
+                                    <ul ng-if="totalItems " ng-change="changePage(currentPage); " uib-pagination total-items="totalItems
+                                                                " items-per-page="maxRow " ng-model="currentPage " max-size="template.pageMax " class="pagination-sm
+                                                                " boundary-links="true " force-ellipses="true ">
+                                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+</div>
