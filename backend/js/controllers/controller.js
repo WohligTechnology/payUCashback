@@ -705,6 +705,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         $scope.playMarketingCampaignClickAfterFolderName = function (formData) {
             $scope.playSelectedMarketingCampaignFolderNameModal.close();
+            $scope.json.json.loader = true;
             // // console.log("formData in playAllClickAfterFolderName",formData);
             // if ($.jStorage.get("profile")) {
             //     var loggedInUserId = $.jStorage.get("profile")._id;
@@ -743,6 +744,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
                 NavigationService.playSelectedMarketingCampaign(objectToSend, function (data) {
                     console.log("*****", data);
+                    $scope.json.json.loader = false;
                     var count=data.data.CampaignCount;
                     if (data.data.success == true) {
                         toastr.success("Rules Played Successfully. Total Campaign Count is - " + count, {
@@ -753,7 +755,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                             "positionClass": "toast-top-center",
                             "preventDuplicates": false,
                             "onclick": null,
-                            "timeOut": "4000",
+                            "timeOut": "8000",
                             "extendedTimeOut": "1000",
                             "tapToDismiss": false
                         });
@@ -766,7 +768,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                             "positionClass": "toast-top-center",
                             "preventDuplicates": false,
                             "onclick": null,
-                            "timeOut": "2000",
+                            "timeOut": "4000",
                             "extendedTimeOut": "1000",
                             "tapToDismiss": false
                         });
