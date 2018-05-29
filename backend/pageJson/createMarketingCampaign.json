@@ -154,7 +154,7 @@
         "dropDownField": "",
         "dropDownType": "single",
         "onView": true,
-        "dropDown": ["SALE/REFUND", "REPAY"]
+        "dropDown": ["SALE,REFUND", "REPAY"]
     }],
     "action": [{
         "name": "submit",

@@ -44,8 +44,7 @@ var schema = new Schema({
     },
     transactionStatus: {
         type: String,
-        default: "SALE/REFUND",
-        enum: ['SALE/REFUND', 'REPAY']
+        enum: ['SALE,REFUND', 'REPAY']
     },
     isDeleted: {
         type: Number,
