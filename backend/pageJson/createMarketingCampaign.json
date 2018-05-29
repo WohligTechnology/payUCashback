@@ -35,31 +35,6 @@
         "type": "heading",
         "onlyHeading":true
     }, {
-        "name": "Eligibility Flag",
-        "type": "tags",
-        "tableRef": "eligibilityFlag",
-        "placeholder": "Enter Eligibility Flag",
-        "id": "eligibilityFlag",
-        "validation": ["required", "trim", ""],
-        "url": "",
-        "dropDownField": "",
-        "dropDownType": "single",
-        "onView": true,
-        "dropDown": ["true","false"]
-    }, {
-        "name": "Eligibility Merchant",
-        "type": "tags",
-        "tableRef": "eligibilityMerchant",
-        "placeholder": "Select Merchant",
-        "id": "eligibilityMerchant",
-        "searchApi": "searchCall",
-        "fieldType": "",
-        "url": "Merchant/search",
-        "dropDownField": "name",
-        "view": true,
-        "dropDownType": "single",
-        "validation": ["required", "", ""]
-    }, {
         "name": "",
         "type": "heading",
         "onlyHeading":true
@@ -80,6 +55,19 @@
         "id": "eligibilityEndDate",
         "validation": ["required", "trim"],
         "url": ""
+    }, {
+        "name": "Eligibility Merchants ( Multiple Select )",
+        "type": "tags",
+        "tableRef": "eligibilityMerchant",
+        "placeholder": "Select Eligibility Merchants",
+        "id": "eligibilityMerchant",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Merchant/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
     }, {
         "name": "Eligibility Status (Multiple Select)",
         "type": "tags",
@@ -110,18 +98,18 @@
         "onView": true,
         "dropDown": ["none","true","false"]
     }, {
-        "name": "Transaction Merchant",
+        "name": "Transaction Merchants ( Multiple Select )",
         "type": "tags",
         "tableRef": "transactionMerchant",
-        "placeholder": "Select Merchant",
+        "placeholder": "Select Transaction Merchants",
         "id": "transactionMerchant",
         "searchApi": "searchCall",
         "fieldType": "",
         "url": "Merchant/search",
         "dropDownField": "name",
         "view": true,
-        "dropDownType": "single",
-        "validation": ["required", "", ""]
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
     }, {
         "name": "",
         "type": "heading",
@@ -144,17 +132,30 @@
         "validation": ["required", "trim"],
         "url": ""
     }, {
-        "name": "Transaction Status",
+        "name": "Transaction Type",
         "type": "tags",
-        "tableRef": "transactionStatus",
-        "placeholder": "Select Transaction Status",
-        "id": "transactionStatus",
+        "tableRef": "transactionType",
+        "placeholder": "Select Transaction Type",
+        "id": "transactionType",
         "validation": ["required", "trim", ""],
         "url": "",
         "dropDownField": "",
         "dropDownType": "single",
         "onView": true,
-        "dropDown": ["SALE,REFUND", "REPAY"]
+        "dropDown": ["SALE", "REPAY"]
+    }, {
+        "name": "Transaction Statuses ( Multiple Select )",
+        "type": "tags",
+        "tableRef": "transactionStatus",
+        "placeholder": "Select Transaction Statuses",
+        "id": "transactionStatus",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Status/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
     }],
     "action": [{
         "name": "submit",

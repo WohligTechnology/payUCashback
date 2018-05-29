@@ -8,21 +8,16 @@ var schema = new Schema({
         default: "Both",
         enum: ['Email', 'Mobile', "Both"]
     },
-    eligibilityFlag: {
-        type: String,
-        default: "false",
-        enum: ['true', 'false']
-    },
     eligibilityStartDate: {
         type: Date
     },
     eligibilityEndDate: {
         type: Date
     },
-    eligibilityMerchant: {
+    eligibilityMerchant: [{
         type: Schema.Types.ObjectId,
         ref: 'Merchant'
-    },
+    }],
     eligibilityStatus: [{
         type: Schema.Types.ObjectId,
         ref: 'EligibilityStatus'
@@ -38,14 +33,18 @@ var schema = new Schema({
     transactionEndDate: {
         type: Date
     },
-    transactionMerchant: {
+    transactionMerchant: [{
         type: Schema.Types.ObjectId,
         ref: 'Merchant'
-    },
-    transactionStatus: {
+    }],
+    transactionType: {
         type: String,
-        enum: ['SALE,REFUND', 'REPAY']
+        enum: ['SALE', 'REPAY']
     },
+    transactionStatus: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Status'
+    }],
     isDeleted: {
         type: Number,
         default: 0
@@ -71,6 +70,9 @@ schema.plugin(deepPopulate, {
         'createdBy': {
             select: 'name _id email'
         },
+        'transactionStatus': {
+            select: 'name _id'
+        },
         'lastUpdatedBy': {
             select: 'name _id email'
         },
@@ -83,7 +85,7 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('MarketingCampaign', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'eligibilityMerchant transactionMerchant eligibilityStatus createdBy lastUpdatedBy','eligibilityMerchant transactionMerchant eligibilityStatus createdBy lastUpdatedBy'));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'eligibilityMerchant transactionMerchant eligibilityStatus transactionStatus createdBy lastUpdatedBy','eligibilityMerchant transactionMerchant eligibilityStatus transactionStatus createdBy lastUpdatedBy'));
 var model = {
 
     search: function (data, callback) {
@@ -113,7 +115,7 @@ var model = {
             }).sort({
                 createdAt: -1
             })
-            .populate('eligibilityMerchant transactionMerchant eligibilityStatus createdBy lastUpdatedBy')
+            .populate('eligibilityMerchant transactionMerchant eligibilityStatus transactionStatus createdBy lastUpdatedBy')
             .order(options)
             .keyword(options)
             .page(options,

@@ -1688,8 +1688,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             objectToReturn.eligibilityMerchantSqlId=item.eligibilityMerchant.merchantSqlId;
             objectToReturn.transactionMerchantName=item.transactionMerchant.name;
             objectToReturn.transactionMerchantSqlId=item.transactionMerchant.merchantSqlId;
+
             var eligibilityStatusArray=[];
+
             var eligibilityStatus=item.eligibilityStatus;
+
             eligibilityStatus.forEach(function(value, index) {
                 eligibilityStatusArray.push(value.name);
                 // if(index==0){
@@ -1705,20 +1708,57 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             objectToReturn.eligibilityStatusArray=eligibilityStatusArray;
 
 
+            var eligibilityMerchantArray=[];
+            
+            var eligibilityMerchant=item.eligibilityMerchant;
+                        
+            eligibilityMerchant.forEach(function(value, index) {
+            eligibilityMerchantArray.push(value.merchantSqlId);
+            })
+            var eligibilityMerchantString=eligibilityMerchantArray.toString();
+            objectToReturn.eligibilityMerchantString=eligibilityMerchantString;
+            objectToReturn.eligibilityMerchantArray=eligibilityMerchantArray;
+            
+
+            var transactionMerchantArray=[];
+            
+            var transactionMerchant=item.transactionMerchant;
+                        
+            transactionMerchant.forEach(function(value, index) {
+            transactionMerchantArray.push(value.merchantSqlId);
+            })
+            var transactionMerchantString=transactionMerchantArray.toString();
+            objectToReturn.transactionMerchantString=transactionMerchantString;
+            objectToReturn.transactionMerchantArray=transactionMerchantArray;
+            
+
+            var transactionStatusArray=[];
+            
+            var transactionStatus=item.transactionStatus;
+                        
+            transactionStatus.forEach(function(value, index) {
+            transactionStatusArray.push(value.name);
+            })
+            var transactionStatusString=transactionStatusArray.toString();
+            objectToReturn.transactionStatusString=transactionStatusString;
+            objectToReturn.transactionStatusArray=transactionStatusArray;
+            
+
+
 
             var newObjectToReturn={};
-            newObjectToReturn.eligibilityFlag=objectToReturn.eligibilityFlag;
             newObjectToReturn.eligibilityStatus=objectToReturn.eligibilityStatusString;
             newObjectToReturn.eligibilityStatusArray=objectToReturn.eligibilityStatusArray;
             newObjectToReturn.transactionalFlag=objectToReturn.transactionFlag;
-            newObjectToReturn.transactionalStatus=objectToReturn.transactionStatus;
-            newObjectToReturn.txn_merchant=objectToReturn.transactionMerchantSqlId;
-            newObjectToReturn.el_merchant=objectToReturn.eligibilityMerchantSqlId;
+            newObjectToReturn.transactionType=objectToReturn.transactionType;
+            newObjectToReturn.txn_merchant=objectToReturn.transactionMerchantString;
+            newObjectToReturn.el_merchant=objectToReturn.eligibilityMerchantString;
             newObjectToReturn.txn_startDate=objectToReturn.transactionStartDate;
             newObjectToReturn.txn_endDate=objectToReturn.transactionEndDate;
             newObjectToReturn.el_startDate=objectToReturn.eligibilityStartDate;
             newObjectToReturn.el_endDate=objectToReturn.eligibilityEndDate;
             newObjectToReturn.downloadOption=objectToReturn.downloadOption;
+            newObjectToReturn.txn_statuses=objectToReturn.transactionStatusString;
             return newObjectToReturn;
         }
 
@@ -1765,29 +1805,29 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             // console.log("object to send",objectToSend)
 
 
-            NavigationService.viewMarketingCampaignGetCountResponseModal(objectToSend, function (data) {
-                console.log("verifyQuery", data);
-                var count = data.data.count;
-                $scope.countToShow = count;
-                if (data.data.success == true) {
-                    $scope.singleRuleModal = $uibModal.open({
-                        animation: true,
-                        templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
-                        size: 'lg',
-                        scope: $scope
-                    });
-                } else {
-                    $scope.queryToShow = "Something Went Wrong: Server is Failed to Generate Query."
-                    $scope.singleRuleModal = $uibModal.open({
-                        animation: true,
-                        templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
-                        size: 'lg',
-                        scope: $scope
-                    });
+            // NavigationService.viewMarketingCampaignGetCountResponseModal(objectToSend, function (data) {
+            //     console.log("verifyQuery", data);
+            //     var count = data.data.count;
+            //     $scope.countToShow = count;
+            //     if (data.data.success == true) {
+            //         $scope.singleRuleModal = $uibModal.open({
+            //             animation: true,
+            //             templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
+            //             size: 'lg',
+            //             scope: $scope
+            //         });
+            //     } else {
+            //         $scope.queryToShow = "Something Went Wrong: Server is Failed to Generate Query."
+            //         $scope.singleRuleModal = $uibModal.open({
+            //             animation: true,
+            //             templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
+            //             size: 'lg',
+            //             scope: $scope
+            //         });
 
-                }
+            //     }
 
-            })
+            // })
 
         }
 
@@ -2390,7 +2430,25 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             $scope.data.relativeTransactionDate = "";
             $scope.data.relativeTransactionEndDate = "";
         }
-
+        if ($scope.json.json.pageType == 'create' && $scope.json.json.name == 'MarketingCampaign' ) {
+            console.log("right");
+            $scope.data.transactionStatus = [{
+                _id: "5a2e38f14c61b12642887f0e",
+                name: "SUCCESS"
+            }, {
+                _id: "5a2e38d14c61b12642887f0a",
+                name: "DISPUTE_RESOLVED"
+            }, {
+                _id: "5a2e38a54c61b12642887f06",
+                name: "AWAITED_ON_CUSTOMER"
+            }, {
+                _id: "5a2e38da4c61b12642887f0b",
+                name: "DOCUMENTS_AWAITED"
+            }, {
+                _id: "5a2e38c94c61b12642887f09",
+                name: "DISPUTE_INITIATED"
+            }];
+        }
         //  START FOR EDIT
         if ($scope.json.json.preApi) {
             var obj = {};
