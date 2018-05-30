@@ -1037,7 +1037,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 NavigationService.playSelectedMarketingRule(objectToSend, function (data) {
                     console.log("*****", data);
                     $scope.json.json.loader = false;
-                    var count = data.data.cashbackCount;
+                    var count = data.data.marketingCount;
                     if (data.data.success == true) {
                         toastr.success("Rules Played Successfully. Total Cashback Count is - " + count, {
                             "closeButton": true,
@@ -1662,7 +1662,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
             NavigationService.viewMarketingRuleGetCountResponseModal(objectToSend, function (data) {
                 console.log("viewMarketingRuleGetCountResponseModal", data);
-                var count = data.data.campaignCount;
+                var count = data.data.marketingCount;
                 $scope.countToShow = count;
 
                 $scope.json.json.loader = false;
