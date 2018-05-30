@@ -526,6 +526,19 @@ myApp.factory('NavigationService', function ($http, $state) {
             });
         },
 
+        viewMarketingCampaignGetCountResponseModal: function (ruleObject, callback) {
+            console.log("inside navigationservice viewMarketingCampaignGetCountResponseModal", ruleObject);
+            $http({
+                url: serverUrl + 'generatecampaign',
+                method: 'POST',
+                data: ruleObject,
+                withCredentials: false
+            }).then(function (data) {
+                console.log("######", data);
+                callback(data);
+            });
+        },
+
         playSelectedPerformanceRule: function (ruleArr, callback) {
             //console.log("inside navigationservice playSelectedPerformanceRule",ruleArr);
             $http({
@@ -658,19 +671,6 @@ myApp.factory('NavigationService', function ($http, $state) {
             console.log("inside navigationservice viewMarketingRuleGetCountResponseModal", ruleObject);
             $http({
                 url: serverUrl + 'scheduler/getMarketingRuleCount',
-                method: 'POST',
-                data: ruleObject,
-                withCredentials: false
-            }).then(function (data) {
-                console.log("######", data);
-                callback(data);
-            });
-        },
-
-        viewMarketingCampaignGetCountResponseModal: function (ruleObject, callback) {
-            console.log("inside navigationservice viewMarketingCampaignGetCountResponseModal", ruleObject);
-            $http({
-                url: serverUrl + 'marketingcampaigncount',
                 method: 'POST',
                 data: ruleObject,
                 withCredentials: false

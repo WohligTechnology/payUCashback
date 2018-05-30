@@ -721,8 +721,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             //     objectToSend.rule = $scope.selectedMarketingCampaignObject;
             //     console.log("selected id inside playSelectedClick else", objectToSend);
             var selectedMarketingCampaignObject=$scope.selectedMarketingCampaignObject;
-            var retuenData=$scope.prepareMarketingCampaignObjectForSending(selectedMarketingCampaignObject);
-            console.log("retuenData",retuenData);
+            var returnData=$scope.prepareMarketingCampaignObjectForSending(selectedMarketingCampaignObject);
+            console.log("returnData",returnData);
             console.log("selectedMarketingCampaignObject",selectedMarketingCampaignObject);
             // var objectToSend = singleMarketingRule;
             // var marketingCampainObject=selectedMarketingCampaignObject;
@@ -737,9 +737,10 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             //     userId: loggedInUserId,
             //     folderName: folder
             // };
-            retuenData.userId=loggedInUserId;
-            retuenData.folderName=folder
-            var objectToSend = retuenData;
+            returnData.userId=loggedInUserId;
+            returnData.folderName=folder;
+            returnData.countFlag=false;
+            var objectToSend = returnData;
             console.log("objectToSend",objectToSend);
 
                 NavigationService.playSelectedMarketingCampaign(objectToSend, function (data) {
@@ -1763,8 +1764,9 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         }
 
         $scope.viewMarketingCampaignGetCountResponseModal = function (selectedMarketingCampaignObject) {
-            var retuenData=$scope.prepareMarketingCampaignObjectForSending(selectedMarketingCampaignObject);
-            console.log("retuenData",retuenData);
+            var returnData=$scope.prepareMarketingCampaignObjectForSending(selectedMarketingCampaignObject);
+            console.log("returnData",returnData);
+            $scope.json.json.loader = true;
             console.log("selectedMarketingCampaignObject",selectedMarketingCampaignObject);
             // var objectToSend = singleMarketingRule;
             // var marketingCampainObject=selectedMarketingCampaignObject;
@@ -1774,60 +1776,39 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 loggedInUserId = null;
             }
             var folder = "";
-            // var folder = formData.name;
-            // var objectToSend ={};
-            // var objectToSend = {
-            //     userId: loggedInUserId,
-            //     folderName: folder
-            // };
-            retuenData.userId=loggedInUserId;
-            retuenData.folderName=folder
-            var objectToSend = retuenData;
+            returnData.userId=loggedInUserId;
+            returnData.folderName=folder;
+            returnData.countFlag=true;
+            var objectToSend = returnData;
             console.log("objectToSend",objectToSend);
-            // var objectReceived=marketingCampainObject;
+            
 
-            // // var selectedMarketingCampaignObjectChanged=
-            // objectToSend.rule = selectedMarketingCampaignObjectChanged;
+            NavigationService.viewMarketingCampaignGetCountResponseModal(objectToSend, function (data) {
+                console.log("verifyQuery", data);
+                var count = data.data.CampaignCount;
+                $scope.countToShow = count;
 
-            // objectToSend = [singleMarketingRule._id];
-            // console.log("allSelectedMarketingRules", $scope.selectArrMarketing);
-            // $scope.responseObject = {
-            //     name: "test",
-            //     count1: 10000,
-            //     count2: 20000
-            // };
-            // $scope.singleRuleModal = $uibModal.open({
-            //     animation: true,
-            //     templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
-            //     size: 'lg',
-            //     scope: $scope
-            // });
-            // console.log("object to send",objectToSend)
+                $scope.json.json.loader = false;
+                // var count=data.data.CampaignCount;
+                if (data.data.success == true) {
+                    $scope.marketingCampaignCountModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/viewMarketingCampaignGetCountResponseModal.html',
+                        size: 'md',
+                        scope: $scope
+                    });
+                } else {
+                    $scope.countToShow = "Something Went Wrong: Server is Failed to Generate Campaign Count."
+                    $scope.marketingCampaignCountModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/viewMarketingCampaignGetCountResponseModal.html',
+                        size: 'md',
+                        scope: $scope
+                    });
 
+                }
 
-            // NavigationService.viewMarketingCampaignGetCountResponseModal(objectToSend, function (data) {
-            //     console.log("verifyQuery", data);
-            //     var count = data.data.count;
-            //     $scope.countToShow = count;
-            //     if (data.data.success == true) {
-            //         $scope.singleRuleModal = $uibModal.open({
-            //             animation: true,
-            //             templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
-            //             size: 'lg',
-            //             scope: $scope
-            //         });
-            //     } else {
-            //         $scope.queryToShow = "Something Went Wrong: Server is Failed to Generate Query."
-            //         $scope.singleRuleModal = $uibModal.open({
-            //             animation: true,
-            //             templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
-            //             size: 'lg',
-            //             scope: $scope
-            //         });
-
-            //     }
-
-            // })
+            })
 
         }
 

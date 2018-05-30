@@ -29,7 +29,7 @@
         "icon": "fa-search",
         "buttonClass": "btn-primary"
     },
-    "getMarketingCampaignCountButton1":{
+    "getMarketingCampaignCountButton":{
         "name": "Get Result Count",
         "icon": "fa-sticky-note",
         "buttonClass": "btn-warning"

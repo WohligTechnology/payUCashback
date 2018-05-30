@@ -121,7 +121,7 @@
         "tableRef": "transactionStartDate",
         "placeholder": "Enter Transaction Start Date Date",
         "id": "transactionStartDate",
-        "validation": ["required", "trim"],
+        "validation": ["", "trim"],
         "url": "",
         "hideMethod1":"TransactionDateValidation"
     }, {
@@ -130,7 +130,7 @@
         "tableRef": "transactionEndDate",
         "placeholder": "Enter Transaction End Date Date",
         "id": "transactionEndDate",
-        "validation": ["required", "trim"],
+        "validation": ["", "trim"],
         "url": ""
     }, {
         "name": "Transaction Type",
@@ -138,7 +138,7 @@
         "tableRef": "transactionType",
         "placeholder": "Select Transaction Type",
         "id": "transactionType",
-        "validation": ["required", "trim", ""],
+        "validation": ["", "trim", ""],
         "url": "",
         "dropDownField": "",
         "dropDownType": "single",
