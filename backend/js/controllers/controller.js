@@ -1014,6 +1014,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.playAllMarketingClickAfterFolderName = function (formData) {
             $scope.playSelectedAllClickMarketingFolderNameModal.close();
             // console.log("formData in playAllClickAfterFolderName",formData);
+            $scope.json.json.loader = true;
             if ($.jStorage.get("profile")) {
                 var loggedInUserId = $.jStorage.get("profile")._id;
             } else {
@@ -1022,7 +1023,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             var folder = formData.name;
             var objectToSend = {
                 userId: loggedInUserId,
-                folderName: folder
+                folderName: folder,
+                countFlag:false
             };
 
             if ($scope.selectArrMarketing.length == 0) {
@@ -1034,6 +1036,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
                 NavigationService.playSelectedMarketingRule(objectToSend, function (data) {
                     console.log("*****", data);
+                    $scope.json.json.loader = false;
                     var count = data.data.cashbackCount;
                     if (data.data.success == true) {
                         toastr.success("Rules Played Successfully. Total Cashback Count is - " + count, {
@@ -1640,43 +1643,72 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         $scope.viewMarketingRuleGetCountResponseModal = function (singleMarketingRule) {
             // var objectToSend = singleMarketingRule;
-            objectToSend = [singleMarketingRule._id];
-            // console.log("allSelectedMarketingRules", $scope.selectArrMarketing);
-            // $scope.responseObject = {
-            //     name: "test",
-            //     count1: 10000,
-            //     count2: 20000
-            // };
-            // $scope.singleRuleModal = $uibModal.open({
-            //     animation: true,
-            //     templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
-            //     size: 'lg',
-            //     scope: $scope
-            // });
-            console.log("object to send",objectToSend)
+            // objectToSend = [singleMarketingRule._id];
+
+            $scope.json.json.loader = true;
+            if ($.jStorage.get("profile")) {
+                var loggedInUserId = $.jStorage.get("profile")._id;
+            } else {
+                loggedInUserId = null;
+            }
+            var folder = "";
+            var objectToSend = {
+                userId: loggedInUserId,
+                folderName: folder,
+                countFlag:true
+            };
+            objectToSend.ruleIds = [singleMarketingRule._id];
+            console.log("object to send *********",objectToSend);
+
             NavigationService.viewMarketingRuleGetCountResponseModal(objectToSend, function (data) {
-                console.log("verifyQuery", data);
-                var count = data.data.count;
+                console.log("viewMarketingRuleGetCountResponseModal", data);
+                var count = data.data.CampaignCount;
                 $scope.countToShow = count;
+
+                $scope.json.json.loader = false;
+                // var count=data.data.CampaignCount;
                 if (data.data.success == true) {
-                    $scope.singleRuleModal = $uibModal.open({
+                    $scope.marketingRuleCountModal = $uibModal.open({
                         animation: true,
                         templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
-                        size: 'lg',
+                        size: 'md',
                         scope: $scope
                     });
                 } else {
-                    $scope.queryToShow = "Something Went Wrong: Server is Failed to Generate Query."
-                    $scope.singleRuleModal = $uibModal.open({
+                    $scope.countToShow = "Something Went Wrong: Server is Failed to Generate Rule Count."
+                    $scope.marketingRuleCountModal = $uibModal.open({
                         animation: true,
                         templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
-                        size: 'lg',
+                        size: 'md',
                         scope: $scope
                     });
 
                 }
 
             })
+            // NavigationService.viewMarketingRuleGetCountResponseModal(objectToSend, function (data) {
+            //     console.log("verifyQuery", data);
+            //     var count = data.data.count;
+            //     $scope.countToShow = count;
+            //     if (data.data.success == true) {
+            //         $scope.singleRuleModal = $uibModal.open({
+            //             animation: true,
+            //             templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
+            //             size: 'lg',
+            //             scope: $scope
+            //         });
+            //     } else {
+            //         $scope.queryToShow = "Something Went Wrong: Server is Failed to Generate Query."
+            //         $scope.singleRuleModal = $uibModal.open({
+            //             animation: true,
+            //             templateUrl: 'views/modal/viewMarketingRuleGetCountResponseModal.html',
+            //             size: 'lg',
+            //             scope: $scope
+            //         });
+
+            //     }
+
+            // })
 
         }
 

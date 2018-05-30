@@ -4,6 +4,7 @@
     "pageType": "view",
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
+    "loader":false,
     "colorExpiredMarketingRule": true,
     "showCountMarketingOnView":true,
     "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
