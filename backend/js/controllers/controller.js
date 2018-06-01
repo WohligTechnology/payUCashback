@@ -1776,9 +1776,17 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             objectToReturn.transactionStatusString=transactionStatusString;
             objectToReturn.transactionStatusArray=transactionStatusArray;
             
+            var transactionStartDateMongodb=objectToReturn.transactionStartDate;
+            var transactionEndDateMongodb=objectToReturn.transactionEndDate;
+            var eligibilityStartDateMongodb=objectToReturn.eligibilityStartDate;
+            var eligibilityEndDateMongodb=objectToReturn.eligibilityEndDate;
 
-
-
+            // var onlyTransactionStartDateMongodb=moment(transactionStartDateMongodb).utc().format('MM/DD/YYYY');
+            var onlyTransactionStartDate=moment(transactionStartDateMongodb).utc().format('YYYY-MM-DD');
+            var onlyTransactionEndDate=moment(transactionEndDateMongodb).utc().format('YYYY-MM-DD');
+            var onlyEligibilityStartDate=moment(eligibilityStartDateMongodb).utc().format('YYYY-MM-DD');
+            var onlyEligibilityEndDate=moment(eligibilityEndDateMongodb).utc().format('YYYY-MM-DD');
+            // console.log("Old Date-",transactionStartDateMongodb," newDate-",onlyTransactionStartDateMongodb);
             var newObjectToReturn={};
             newObjectToReturn.eligibilityStatus=objectToReturn.eligibilityStatusString;
             newObjectToReturn.eligibilityStatusArray=objectToReturn.eligibilityStatusArray;
@@ -1786,10 +1794,10 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             newObjectToReturn.transactionType=objectToReturn.transactionType;
             newObjectToReturn.txn_merchant=objectToReturn.transactionMerchantString;
             newObjectToReturn.el_merchant=objectToReturn.eligibilityMerchantString;
-            newObjectToReturn.txn_startDate=objectToReturn.transactionStartDate;
-            newObjectToReturn.txn_endDate=objectToReturn.transactionEndDate;
-            newObjectToReturn.el_startDate=objectToReturn.eligibilityStartDate;
-            newObjectToReturn.el_endDate=objectToReturn.eligibilityEndDate;
+            newObjectToReturn.txn_startDate=onlyTransactionStartDate;
+            newObjectToReturn.txn_endDate=onlyTransactionEndDate;
+            newObjectToReturn.el_startDate=onlyEligibilityStartDate;
+            newObjectToReturn.el_endDate=onlyEligibilityEndDate;
             newObjectToReturn.downloadOption=objectToReturn.downloadOption;
             newObjectToReturn.txn_statuses=objectToReturn.transactionStatusString;
             return newObjectToReturn;
@@ -1800,8 +1808,6 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             console.log("returnData",returnData);
             $scope.json.json.loader = true;
             console.log("selectedMarketingCampaignObject",selectedMarketingCampaignObject);
-            // var objectToSend = singleMarketingRule;
-            // var marketingCampainObject=selectedMarketingCampaignObject;
             if ($.jStorage.get("profile")) {
                 var loggedInUserId = $.jStorage.get("profile")._id;
             } else {
@@ -1815,32 +1821,32 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             console.log("objectToSend",objectToSend);
             
 
-            NavigationService.viewMarketingCampaignGetCountResponseModal(objectToSend, function (data) {
-                console.log("verifyQuery", data);
-                var count = data.data.CampaignCount;
-                $scope.countToShow = count;
+            // NavigationService.viewMarketingCampaignGetCountResponseModal(objectToSend, function (data) {
+            //     console.log("verifyQuery", data);
+            //     var count = data.data.CampaignCount;
+            //     $scope.countToShow = count;
 
-                $scope.json.json.loader = false;
-                // var count=data.data.CampaignCount;
-                if (data.data.success == true) {
-                    $scope.marketingCampaignCountModal = $uibModal.open({
-                        animation: true,
-                        templateUrl: 'views/modal/viewMarketingCampaignGetCountResponseModal.html',
-                        size: 'md',
-                        scope: $scope
-                    });
-                } else {
-                    $scope.countToShow = "Something Went Wrong: Server is Failed to Generate Campaign Count."
-                    $scope.marketingCampaignCountModal = $uibModal.open({
-                        animation: true,
-                        templateUrl: 'views/modal/viewMarketingCampaignGetCountResponseModal.html',
-                        size: 'md',
-                        scope: $scope
-                    });
+            //     $scope.json.json.loader = false;
+            //     // var count=data.data.CampaignCount;
+            //     if (data.data.success == true) {
+            //         $scope.marketingCampaignCountModal = $uibModal.open({
+            //             animation: true,
+            //             templateUrl: 'views/modal/viewMarketingCampaignGetCountResponseModal.html',
+            //             size: 'md',
+            //             scope: $scope
+            //         });
+            //     } else {
+            //         $scope.countToShow = "Something Went Wrong: Server is Failed to Generate Campaign Count."
+            //         $scope.marketingCampaignCountModal = $uibModal.open({
+            //             animation: true,
+            //             templateUrl: 'views/modal/viewMarketingCampaignGetCountResponseModal.html',
+            //             size: 'md',
+            //             scope: $scope
+            //         });
 
-                }
+            //     }
 
-            })
+            // })
 
         }
 
@@ -2200,7 +2206,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                             console.log("right");
                             _.forEach($scope.items, function (value) {
 
-
+                                console.log("validFrom-",value.validFrom,"validTo",value.validTo);
                                 var today = new Date();
                                 var dd = today.getDate();
                                 var mm = today.getMonth() + 1; //January is 0!
@@ -2213,15 +2219,21 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                                 // formattedAngularDate = dd + '/' + mm + '/' + yyyy; //dd/mm/yyyy
 
                                 var mongoDate = value.validTo;
+                                // var avi=moment.gmt(mongoDate).format('LLL');
+                                // console.log("avi",avi);
                                 var mongoDateToDate = new Date(mongoDate);
                                 var dd1 = mongoDateToDate.getUTCDate();
                                 var mm1 = mongoDateToDate.getUTCMonth() + 1;
                                 var yyyy1 = mongoDateToDate.getUTCFullYear();
                                 formattedmongoDbDate = dd1 + '/' + mm1 + '/' + yyyy1;
-
+                                console.log("formattedmongoDbDate",formattedmongoDbDate);
                                 var arrEndDate = formattedmongoDbDate.split("/");
+                                console.log("arrEndDate",arrEndDate);
                                 var date2 = new Date(arrEndDate[2], arrEndDate[1], arrEndDate[0]);
-
+                                // var date2=moment([yyyy1, mm1, dd1]).format('YYYY-MM-DD');
+                                // var d111=new Date(date2.setMinutes(date2.getMinutes()+date2.getTimezoneOffset()));
+                                // // console.log(date.toString());
+                                console.log("date2",date2);
 
                                 var mongoDateFrom = value.validFrom;
                                 var mongoDateToDateFrom = new Date(mongoDateFrom);
@@ -2235,20 +2247,21 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                                 // formattedmongoDbDate = dd1 + '/' + mm1 + '/' + yyyy1;
 
                                 // console.log("Both 1) Angular-", date1, " 2) Mongo-", date2);
-
+                                console.log("Today-", date1, " ValidTo-", date2,"ValidFrom",date3);
+// date1- today date, date2- validTo , date3- validFrom
                                 if (date1 > date2) {
                                     value.color = "red";
                                     value.active = true;
                                     $scope.allInactiveRulesCount = $scope.allInactiveRulesCount + 1;
                                     $scope.allSelectedRules.push(value._id);
-                                    // console.log("name-",value.name," color-",value.color);
+                                    console.log("name-",value.name," color-",value.color);
                                 } else if (date1 <= date2 && date1 >= date3) {
                                     value.color = "green";
                                     $scope.allActiveRulesCount = $scope.allActiveRulesCount + 1;
                                     value.active = true;
                                     $scope.allSelectedRules.push(value._id);
                                     $scope.allSelectedActiveRules.push(value._id);
-                                    // console.log("name-",value.name," color-",value.color);
+                                    console.log("name-",value.name," color-",value.color);
                                 } else {
                                     value.color = "yellow";
                                     $scope.allProcessingRulesCount = $scope.allProcessingRulesCount + 1;
