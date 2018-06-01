@@ -1821,32 +1821,32 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             console.log("objectToSend",objectToSend);
             
 
-            // NavigationService.viewMarketingCampaignGetCountResponseModal(objectToSend, function (data) {
-            //     console.log("verifyQuery", data);
-            //     var count = data.data.CampaignCount;
-            //     $scope.countToShow = count;
+            NavigationService.viewMarketingCampaignGetCountResponseModal(objectToSend, function (data) {
+                console.log("verifyQuery", data);
+                var count = data.data.CampaignCount;
+                $scope.countToShow = count;
 
-            //     $scope.json.json.loader = false;
-            //     // var count=data.data.CampaignCount;
-            //     if (data.data.success == true) {
-            //         $scope.marketingCampaignCountModal = $uibModal.open({
-            //             animation: true,
-            //             templateUrl: 'views/modal/viewMarketingCampaignGetCountResponseModal.html',
-            //             size: 'md',
-            //             scope: $scope
-            //         });
-            //     } else {
-            //         $scope.countToShow = "Something Went Wrong: Server is Failed to Generate Campaign Count."
-            //         $scope.marketingCampaignCountModal = $uibModal.open({
-            //             animation: true,
-            //             templateUrl: 'views/modal/viewMarketingCampaignGetCountResponseModal.html',
-            //             size: 'md',
-            //             scope: $scope
-            //         });
+                $scope.json.json.loader = false;
+                // var count=data.data.CampaignCount;
+                if (data.data.success == true) {
+                    $scope.marketingCampaignCountModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/viewMarketingCampaignGetCountResponseModal.html',
+                        size: 'md',
+                        scope: $scope
+                    });
+                } else {
+                    $scope.countToShow = "Something Went Wrong: Server is Failed to Generate Campaign Count."
+                    $scope.marketingCampaignCountModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/viewMarketingCampaignGetCountResponseModal.html',
+                        size: 'md',
+                        scope: $scope
+                    });
 
-            //     }
+                }
 
-            // })
+            })
 
         }
 
