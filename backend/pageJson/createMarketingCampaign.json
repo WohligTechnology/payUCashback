@@ -109,7 +109,8 @@
         "dropDownField": "name",
         "view": true,
         "dropDownType": "multiple",
-        "validation": ["", "", "trim"]
+        "validation": ["", "", "trim"],
+        "hideMethod":"hideMultiple"
     }, {
         "name": "",
         "type": "heading",
@@ -120,29 +121,32 @@
         "tableRef": "transactionStartDate",
         "placeholder": "Enter Transaction Start Date Date",
         "id": "transactionStartDate",
-        "validation": ["", "trim"],
+        "validation": ["required", "trim"],
         "url": "",
-        "hideMethod1":"TransactionDateValidation"
+        "hideMethod1":"TransactionDateValidation",
+        "hideMethod":"hideMultiple"
     }, {
         "name": "Transaction End Date",
         "type": "date",
         "tableRef": "transactionEndDate",
         "placeholder": "Enter Transaction End Date Date",
         "id": "transactionEndDate",
-        "validation": ["", "trim"],
-        "url": ""
+        "validation": ["required", "trim"],
+        "url": "",
+        "hideMethod":"hideMultiple"
     }, {
         "name": "Transaction Type",
         "type": "tags",
         "tableRef": "transactionType",
         "placeholder": "Select Transaction Type",
         "id": "transactionType",
-        "validation": ["", "trim", ""],
+        "validation": ["required", "trim", ""],
         "url": "",
         "dropDownField": "",
         "dropDownType": "single",
         "onView": true,
-        "dropDown": ["SALE", "REPAY"]
+        "dropDown": ["SALE", "REPAY"],
+        "hideMethod":"hideMultiple"
     }, {
         "name": "Transaction Statuses ( Multiple Select )",
         "type": "tags",
@@ -155,7 +159,8 @@
         "dropDownField": "name",
         "view": true,
         "dropDownType": "multiple",
-        "validation": ["", "", "trim"]
+        "validation": ["required", "", "trim"],
+        "hideMethod":"hideMultiple"
     }],
     "action": [{
         "name": "submit",

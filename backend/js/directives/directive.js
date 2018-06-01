@@ -810,7 +810,12 @@ myApp.directive('detailField', function ($http, $filter, JsonService) {
                     console.log("in else",$scope.formData["transactionStartDate"]," & ",$scope.formData["transactionEndDate"]);
                 }
             }
-
+            $scope.condition.hideMultiple=function(){
+                console.log("Avinash",$scope.formData["transactionFlag"]);
+                if($scope.formData["transactionFlag"]=="none"){
+                    return true;
+                }
+            }
             $scope.condition.hideProcessingStartDate = function() {
                 if($scope.formData["processingStartDate"] > $scope.formData["processingEndDate"]){
                     $scope.formData["processingStartDate"]=null; 
