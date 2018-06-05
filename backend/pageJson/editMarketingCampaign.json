@@ -5,7 +5,7 @@
     "desciption": "",
     "pageType": "edit",
     "urlFields": ["_id"],
-    "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance"],
+    "roles":["Super Admin","Targeted Marketing","Marketing Performance","Performance","Cashback & Marketing Campaign"],
     "fields": [{
         "name": "Campaign Details",
         "type": "heading",

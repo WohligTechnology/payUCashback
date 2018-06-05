@@ -20,7 +20,7 @@ var controller = {
             var validFromDate=new Date(req.body.validFrom);
             var momentFrom = moment(validFromDate, 'ddd MMM D YYYY HH:mm:ss ZZ');
             console.log("momentFrom",momentFrom);
-            momentFrom.set({h: 06, m: 00, s: 00});
+            momentFrom.set({h: 12, m: 00, s: 00});
             console.log("momentFrom-format",momentFrom.format());
             req.body.validFrom=momentFrom.format();
         }
@@ -28,7 +28,7 @@ var controller = {
             var validToDate=new Date(req.body.validTo);
             var momentTo = moment(validToDate, 'ddd MMM D YYYY HH:mm:ss ZZ');
             console.log("momentTo",momentTo);
-            momentTo.set({h: 06, m: 00, s: 00});
+            momentTo.set({h: 12, m: 00, s: 00});
             // console.log("momentTo-format",momentTo.format());
             req.body.validTo=momentTo.format();
         }

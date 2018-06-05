@@ -5,7 +5,7 @@
     "desciption": "",
     "pageType": "edit",
     "urlFields": ["_id"],
-    "roles":["Super Admin","Cashback"],
+    "roles":["Super Admin","Cashback","Cashback & Marketing Campaign"],
     "fields": [{
         "name": "Name :",
         "type": "text",

@@ -8,7 +8,7 @@
     "colorExpired": true,
     "showCountOnView":true,
     "filter1": "ruleFilter",
-    "roles":["Super Admin","Cashback"],
+    "roles":["Super Admin","Cashback","Cashback & Marketing Campaign"],
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -51,7 +51,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editRule",
-        "roles":["Super Admin","Cashback"],
+        "roles":["Super Admin","Cashback","Cashback & Marketing Campaign"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -61,7 +61,7 @@
         "buttonClass": "btn-danger",
         "type": "apiCallConfirm",
         "title": "Delete Rule",
-        "roles":["Super Admin","Cashback"],
+        "roles":["Super Admin","Cashback","Cashback & Marketing Campaign"],
         "content": "Are you sure you want to delete Rule?",
         "api": "Rule/deleteWithChangeStatus",
         "fieldsToSend": {
@@ -74,7 +74,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "copyRule",  
-        "roles":["Super Admin","Cashback"], 
+        "roles":["Super Admin","Cashback","Cashback & Marketing Campaign"], 
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -85,7 +85,7 @@
         "class": "btn-success",
         "type": "page",
         "action": "createRule",
-        "roles":["Super Admin","Cashback"]
+        "roles":["Super Admin","Cashback","Cashback & Marketing Campaign"]
     }],
     "topButtonChangeAll": {
         "name": "Change All X Days Values",
@@ -100,7 +100,7 @@
         "type": "page",
         "action": "",
         "functionName":"playSelectedClick()",
-        "roles":["Super Admin","Cashback"]
+        "roles":["Super Admin","Cashback","Cashback & Marketing Campaign"]
     }],
     "bottomButtonPlayAll": [{
         "name": "Play All Rules",
@@ -109,7 +109,7 @@
         "type": "page",
         "action": "",
         "functionName":"playSelectedAllClick()",
-        "roles":["Super Admin","Cashback"]
+        "roles":["Super Admin","Cashback","Cashback & Marketing Campaign"]
     }],
     "bottomButtonPlayAllActive": {
         "name": "Play All Active Rules",
@@ -118,7 +118,7 @@
         "type": "page",
         "action": "",
         "functionName":"playSelectedAllActiveClick()",
-        "roles":["Super Admin","Cashback"]
+        "roles":["Super Admin","Cashback","Cashback & Marketing Campaign"]
     },
     "apiCall": {
         "url": "Rule/search",
