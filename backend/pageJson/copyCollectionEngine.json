@@ -239,6 +239,36 @@
         "dropDownType": "single",
         "onView": true,
         "dropDown": ["None","Yes","No"]
+    }, {
+        "name": "Criteria",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Favourable Time Of Day ( Multiple Select )",
+        "type": "tags",
+        "tableRef": "favourableTimeOfDay",
+        "placeholder": "Favourable Time Of Day",
+        "id": "favourableTimeOfDay",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "FavourableTimeOfDay/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
+    }, {
+        "name": "Favourable Day Of Week ( Multiple Select )",
+        "type": "tags",
+        "tableRef": "favourableDayOfWeek",
+        "placeholder": "Favourable Time Of Day",
+        "id": "favourableDayOfWeek",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "FavourableDayOfWeek/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
     }],
     "action": [{
         "name": "submit",

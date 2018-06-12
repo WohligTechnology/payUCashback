@@ -132,6 +132,19 @@
                 </div>
             </div>
     
+            <div class="row" ng-if="singleCollectionEngineForModal.favourableDayOfWeek.length">
+                <div class="col-md-12">
+                    Previous Repayment Mode :
+                    <span ng-repeat="inc in singleCollectionEngineForModal.favourableDayOfWeek">{{inc.name}} {{$last ? '' : ($index==singleCollectionEngineForModal.favourableDayOfWeek.length-2) ? ' and ' : ', '}}</span>
+                </div>
+            </div>
+
+            <div class="row" ng-if="singleCollectionEngineForModal.favourableTimeOfDay.length">
+                <div class="col-md-12">
+                    Previous Repayment Mode :
+                    <span ng-repeat="inc in singleCollectionEngineForModal.favourableTimeOfDay">{{inc.name}} {{$last ? '' : ($index==singleCollectionEngineForModal.favourableTimeOfDay.length-2) ? ' and ' : ', '}}</span>
+                </div>
+            </div>
 
 <div  style="display:none;">
             <div class="singleRuleHeadings">Created By and Last Updated By</div>

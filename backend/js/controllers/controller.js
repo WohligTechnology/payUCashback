@@ -780,60 +780,8 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         }
 
         $scope.playCollectionEngine = function (singleCollectionEngine) {
-            var objectToSend={};
-            delete singleCollectionEngine.createdBy;
-            delete singleCollectionEngine.lastUpdatedBy;
-
-            if(singleCollectionEngine.siInfo){
-                if(singleCollectionEngine.siInfo=="None"){
-                    delete singleCollectionEngine.siInfo;
-                }
-            }
-            if(singleCollectionEngine.previousRepaymentMode){
-                var previousRepaymentModeArray=[];
-                angular.forEach(singleCollectionEngine.previousRepaymentMode, function(value, key) {
-                    previousRepaymentModeArray.push(value.name);
-                  });
-            }
-            if(singleCollectionEngine.outstandingAmountOperator){
-                if(singleCollectionEngine.outstandingAmountOperator.name=="Select Operator" || singleCollectionEngine.outstandingAmountOperator.name==undefined){
-                    singleCollectionEngine.outstandingAmountOperator=null;
-                }else{
-                    singleCollectionEngine.outstandingAmountOperator=singleCollectionEngine.outstandingAmountOperator.name;
-                }
-                }
-            if(singleCollectionEngine.previousRepaymentAmountOperator){
-                if(singleCollectionEngine.previousRepaymentAmountOperator.name=="Select Operator" || singleCollectionEngine.previousRepaymentAmountOperator==undefined){
-                    singleCollectionEngine.previousRepaymentAmountOperator=null;
-                }else{
-                singleCollectionEngine.previousRepaymentAmountOperator=singleCollectionEngine.previousRepaymentAmountOperator.name;
-                }
-            }
-            if(singleCollectionEngine.previousRepaymentDpdOperator){
-                if(singleCollectionEngine.previousRepaymentDpdOperator.name=="Select Operator" || singleCollectionEngine.previousRepaymentDpdOperator.name==undefined){
-                    singleCollectionEngine.previousRepaymentDpdOperator=null;
-                }else{
-                singleCollectionEngine.previousRepaymentDpdOperator=singleCollectionEngine.previousRepaymentDpdOperator.name;
-                }
-            }
-            if(singleCollectionEngine.dueSinceOperator){
-                if(singleCollectionEngine.dueSinceOperator.name=="Select Operator" || singleCollectionEngine.dueSinceOperator.name==undefined){
-                    singleCollectionEngine.dueSinceOperator=null;
-                }else{
-                singleCollectionEngine.dueSinceOperator=singleCollectionEngine.dueSinceOperator.name;
-                }
-            }
-            if(singleCollectionEngine.prnDueAmountOperator){
-                if(singleCollectionEngine.prnDueAmountOperator.name=="Select Operator" || singleCollectionEngine.prnDueAmountOperator.name==undefined){
-                    singleCollectionEngine.prnDueAmountOperator=null;
-                }else{
-                singleCollectionEngine.prnDueAmountOperator=singleCollectionEngine.prnDueAmountOperator.name;
-                }
-            }
             
-            singleCollectionEngine.previousRepaymentModeArray=previousRepaymentModeArray;
-            objectToSend.collectionRule = singleCollectionEngine;
-            console.log("allSelectedCollectionEngines", objectToSend);
+            var objectToSend=$scope.createCollectionEngineObjectForApi(singleCollectionEngine);
             $scope.json.json.loader = true;
 
                 NavigationService.playCollectionEngine(objectToSend, function (data) {
@@ -875,6 +823,57 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 })
             
         }
+
+        
+        $scope.viewCollectionEngineGetCountResponseModal = function (selectedCollectionEngineObject) {
+            var returnData=$scope.createCollectionEngineObjectForApi(selectedCollectionEngineObject);
+            // var returnData=$scope.prepareCollectionEngineObjectForSending(selectedCollectionEngineObject);
+            console.log("returnData",returnData);
+            $scope.json.json.loader = true;
+            console.log("selectedCollectionEngineObject",selectedCollectionEngineObject);
+            if ($.jStorage.get("profile")) {
+                var loggedInUserId = $.jStorage.get("profile")._id;
+            } else {
+                loggedInUserId = null;
+            }
+            var folder = "";
+            returnData.userId=loggedInUserId;
+            returnData.folderName=folder;
+            returnData.countFlag=true;
+            var objectToSend = returnData;
+            console.log("objectToSend",objectToSend);
+            
+
+            NavigationService.playCollectionEngine(objectToSend, function (data) {
+                console.log("verifyQuery", data);
+                var count = data.data.CampaignCount;
+                $scope.countToShow = count;
+
+                $scope.json.json.loader = false;
+                // var count=data.data.CampaignCount;
+                if (data.data.success == true) {
+                    $scope.CollectionEngineCountModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/viewCollectionEngineGetCountResponseModal.html',
+                        size: 'md',
+                        scope: $scope
+                    });
+                } else {
+                    $scope.countToShow = "Something Went Wrong: Server is Failed to Generate Campaign Count."
+                    $scope.CollectionEngineCountModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/viewCollectionEngineGetCountResponseModal.html',
+                        size: 'md',
+                        scope: $scope
+                    });
+
+                }
+
+            })
+
+        }
+
+        
         $scope.playSelectedClickExposureMerchantCategory = function () {
             console.log("allSelectedMarketingRules", $scope.selectArrMerchantExposureCategory);
             if ($scope.selectArrMerchantExposureCategory.length == 0) {
@@ -1979,9 +1978,52 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         }
 
         $scope.viewQueryCollectionEngineModal = function (singleCollectionEngine) {
+            
+            var objectToSend=$scope.createCollectionEngineObjectForApi(singleCollectionEngine);
+            console.log("objectToSend after return",objectToSend);
+            NavigationService.viewQueryCollectionEngineModal(objectToSend, function (data) {
+                console.log("verifyQuery", data);
+                var query = data.data.collectionQuery;
+                $scope.queryToShow = query;
+                if (data.data.success == true) {
+                    $scope.singleRuleModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/queryModal.html',
+                        size: 'lg',
+                        scope: $scope
+                    });
+                } else {
+                    $scope.queryToShow = "Something Went Wrong: Server is Failed to Generate Query."
+                    $scope.singleRuleModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/modal/queryModal.html',
+                        size: 'lg',
+                        scope: $scope
+                    });
+
+                }
+
+            })
+
+        }
+        $scope.createCollectionEngineObjectForApi=function(singleCollectionEngine){
             var objectToSend={};
             delete singleCollectionEngine.createdBy;
             delete singleCollectionEngine.lastUpdatedBy;
+
+            if(singleCollectionEngine.favourableTimeOfDay){
+                var favourableTimeOfDayArray=[];
+                angular.forEach(singleCollectionEngine.favourableTimeOfDay, function(value, key) {
+                    favourableTimeOfDayArray.push(value.value);
+                  });
+            }
+
+            if(singleCollectionEngine.favourableDayOfWeek){
+                var favourableDayOfWeekArray=[];
+                angular.forEach(singleCollectionEngine.favourableDayOfWeek, function(value, key) {
+                    favourableDayOfWeekArray.push(value.name);
+                  });
+            }
 
             if(singleCollectionEngine.siInfo){
                 if(singleCollectionEngine.siInfo=="None"){
@@ -2031,35 +2073,12 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             }
             
             singleCollectionEngine.previousRepaymentModeArray=previousRepaymentModeArray;
+            singleCollectionEngine.favourableTimeOfDayArray=favourableTimeOfDayArray;
+            singleCollectionEngine.favourableDayOfWeekArray=favourableDayOfWeekArray;
             objectToSend.collectionRule = singleCollectionEngine;
             console.log("allSelectedCollectionEngines", objectToSend);
-
-            NavigationService.viewQueryCollectionEngineModal(objectToSend, function (data) {
-                console.log("verifyQuery", data);
-                var query = data.data.collectionQuery;
-                $scope.queryToShow = query;
-                if (data.data.success == true) {
-                    $scope.singleRuleModal = $uibModal.open({
-                        animation: true,
-                        templateUrl: 'views/modal/queryModal.html',
-                        size: 'lg',
-                        scope: $scope
-                    });
-                } else {
-                    $scope.queryToShow = "Something Went Wrong: Server is Failed to Generate Query."
-                    $scope.singleRuleModal = $uibModal.open({
-                        animation: true,
-                        templateUrl: 'views/modal/queryModal.html',
-                        size: 'lg',
-                        scope: $scope
-                    });
-
-                }
-
-            })
-
+            return objectToSend;
         }
-
         $scope.viewMarketingRuleQueryModal = function (singleRule) {
             $scope.copied = "Copy Query";
             // console.log("viewSingleRuleModal",singleRule);

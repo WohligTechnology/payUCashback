@@ -181,6 +181,14 @@
                                         <!-- Marketing Rule Get Count button end -->
                                         
 
+                                            <!-- Marketing Rule Get Count button start -->
+                                            <a style="margin-left:5px;" ng-if="json.json.getCollectionEngineCountButton" title="{{json.json.getCollectionEngineCountButton.name}}" class="btn" ng-class="json.json.getCollectionEngineCountButton.buttonClass"
+                                            ng-click="viewCollectionEngineGetCountResponseModal(item)">
+                                            Get Count
+                                            <!-- <i class="fa" ng-class="json.json.getCollectionEngineCountButton.icon"></i> -->
+                                        </a>
+                                        <!-- Marketing Rule Get Count button end -->
+                                        
                                         <!-- Marketing Campaign Get Count button start -->
                                         <a style="margin-left:5px;" ng-if="json.json.getMarketingCampaignCountButton" title="{{json.json.getMarketingCampaignCountButton.name}}" class="btn" ng-class="json.json.getMarketingCampaignCountButton.buttonClass"
                                         ng-click="viewMarketingCampaignGetCountResponseModal(item)">

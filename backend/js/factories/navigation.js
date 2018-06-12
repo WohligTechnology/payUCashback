@@ -264,6 +264,20 @@ myApp.factory('NavigationService', function ($http, $state) {
                         classis: "active",
                         sref: "#!/page/viewRule//"
                     }];
+                } else if ($.jStorage.get("profile").accessLevel == "Cashback & Marketing Campaign") {
+                    var navigation = [{
+                        name: "Cashback Merchant",
+                        classis: "active",
+                        sref: "#!/page/viewMerchant//"
+                    }, {
+                        name: "Rule",
+                        classis: "active",
+                        sref: "#!/page/viewRule//"
+                    }, {
+                        name: "Marketing Campaign",
+                        classis: "active",
+                        sref: "#!/page/viewMarketingCampaign//"
+                    }];
                 } else if ($.jStorage.get("profile").accessLevel == "Targeted Marketing") {
                     var navigation = [{
                         name: "Marketing Merchant",
