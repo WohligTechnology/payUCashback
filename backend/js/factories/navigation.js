@@ -210,6 +210,10 @@ myApp.factory('NavigationService', function ($http, $state) {
                         name: "Marketing Rules",
                         classis: "active",
                         sref: "#!/page/viewMarketingRule//"
+                    }, {
+                        name: "Marketing Campaign",
+                        classis: "active",
+                        sref: "#!/page/viewMarketingCampaign//"
                     },{
                         name: "Targeted Collection",
                         classis: "active",
