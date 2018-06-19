@@ -83,11 +83,18 @@
                                 Transaction End Date - {{singleMarketingCampaignForModal.transactionEndDate | date : "dd/MM/y"}}
                                 </div>
                         </div>
-            
-                        <div class="row" ng-if="singleMarketingCampaignForModal.transactionStatus">
+                        <!-- {{singleMarketingCampaignForModal.transactionStatus}} -->
+                        <!-- <div class="row" ng-if="singleMarketingCampaignForModal.transactionStatus">
                             <div class="col-md-12">
                                 Transaction Status - {{singleMarketingCampaignForModal.transactionStatus}}
                                 </div>
+                        </div> -->
+            
+                        <div class="row" ng-if="singleMarketingCampaignForModal.transactionStatus">
+                            <div class="col-md-12">
+                                Transaction Status -
+                                <span ng-repeat="aM in singleMarketingCampaignForModal.transactionStatus">{{aM.name}} {{$last ? '' : ($index==singleMarketingCampaignForModal.transactionStatus.length-2) ? ' and ' : ', '}}</span>
+                            </div>
                         </div>
             
             <div class="text-center">
