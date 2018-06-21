@@ -7,7 +7,7 @@
     "urlFields": ["_id"],
     "colorExpiredExposureRule": false,
     "showCountMarketingOnView":false,
-    "roles":["Super Admin","Merchant Exposure"],
+    "roles":["Super Admin","Exposure"],
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -29,7 +29,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editExposureRule",
-        "roles":["Super Admin","Merchant Exposure"],
+        "roles":["Super Admin","Exposure"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -39,7 +39,7 @@
         "buttonClass": "btn-danger",
         "type": "apiCallConfirm",
         "title": "Delete ExposureRule",
-        "roles":["Super Admin","Merchant Exposure"],
+        "roles":["Super Admin","Exposure"],
         "content": "Are you sure you want to delete ExposureRule?",
         "api": "ExposureRule/deleteWithChangeStatus",
         "fieldsToSend": {
@@ -52,7 +52,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "copyExposureRule",  
-        "roles":["Super Admin","Merchant Exposure"], 
+        "roles":["Super Admin","Exposure"], 
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -63,7 +63,7 @@
         "class": "btn-success",
         "type": "page",
         "action": "createExposureRule",
-        "roles":["Super Admin","Merchant Exposure"]
+        "roles":["Super Admin","Exposure"]
     }],
     "apiCall": {
         "url": "ExposureRule/search",

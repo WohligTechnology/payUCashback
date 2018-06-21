@@ -7,7 +7,7 @@
     "urlFields": ["_id"],
     "colorExpiredExposureMerchant": false,
     "showCountMarketingOnView":false,
-    "roles":["Super Admin","Merchant Exposure"],
+    "roles":["Super Admin","Exposure"],
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -23,7 +23,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editExposureMerchant",
-        "roles":["Super Admin","Merchant Exposure"],
+        "roles":["Super Admin","Exposure"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -33,7 +33,7 @@
         "buttonClass": "btn-danger",
         "type": "apiCallConfirm",
         "title": "Delete ExposureMerchant",
-        "roles":["Super Admin","Merchant Exposure"],
+        "roles":["Super Admin","Exposure"],
         "content": "Are you sure you want to delete ExposureMerchant?",
         "api": "ExposureMerchant/deleteWithChangeStatus",
         "fieldsToSend": {
@@ -46,7 +46,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "copyExposureMerchant",  
-        "roles":["Super Admin","Merchant Exposure"], 
+        "roles":["Super Admin","Exposure"], 
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -62,7 +62,7 @@
         "class": "btn-success",
         "type": "page",
         "action": "createExposureMerchant",
-        "roles":["Super Admin","Merchant Exposure"]
+        "roles":["Super Admin","Exposure"]
     }],
     "apiCall": {
         "url": "ExposureMerchant/search",

@@ -5,7 +5,7 @@
     "desciption": "",
     "pageType": "create",
     "urlFields": ["ExposureMerchantCategory"],
-    "roles":["Super Admin","Merchant Exposure"],
+    "roles":["Super Admin","Exposure"],
     "fields": [{
         "name": "Category Details",
         "type": "heading",

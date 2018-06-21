@@ -320,19 +320,23 @@ myApp.factory('NavigationService', function ($http, $state) {
                         classis: "active",		
                         sref: "#!/page/viewMarketingRule//"		
                     }];
-                } else if ($.jStorage.get("profile").accessLevel == "Merchant Exposure") {
+                } else if ($.jStorage.get("profile").accessLevel == "Exposure") {
                     var navigation = [{
                         name: "Mailer List",
                         classis: "active",
                         sref: "#!/page/viewMailerList//"
                     }, {
-                        name: "Merchant Exposure Rules",
+                        name: "Exposure Merchant",
                         classis: "active",
-                        sref: "#!/page/viewExposureRule//"
+                        sref: "#!/page/viewExposureMerchant//"
                     }, {
-                        name: "Merchant Categories",
+                        name: "Merchant Exposure Categories",
                         classis: "active",
-                        sref: "#!/page/viewExposureMerchantCategory//"
+                        uiSref: "merchantExposure"
+                    }, {
+                        name: "User Exposure Categories",
+                        classis: "active",
+                        uiSref: "userExposure"
                     }];
                 }
             } else {

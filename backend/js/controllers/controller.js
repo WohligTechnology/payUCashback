@@ -3827,7 +3827,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
 
-        var roles = ["Super Admin", "User Exposure"];
+        var roles = ["Super Admin", "Exposure"];
 
         if ($.jStorage.get("profile")) {
             var accessLevel = $.jStorage.get("profile").accessLevel;
@@ -3983,12 +3983,14 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         }
         $scope.copySingleObject = function (singleObjectToBeCopy) {
             console.log("inside copySingleObject");
-            singleObjectToBeCopy.name = "Copied-" + singleObjectToBeCopy.name;
+            var d = new Date();
+            var n = d.getTime();
+            singleObjectToBeCopy.name = "Copied-" + singleObjectToBeCopy.name +" "+ n;
             delete singleObjectToBeCopy._id;
             delete singleObjectToBeCopy.createdAt;
             delete singleObjectToBeCopy.updatedAt;
             singleObjectToBeCopy.isPlay = 0;
-
+            // console.log("singleObjectToBeCopy",singleObjectToBeCopy);
             NavigationService.apiCall("ExposureUserCategory/save", singleObjectToBeCopy, function (data) {
                 console.log("response of save", data);
                 if (data.value == true) {
@@ -4558,8 +4560,28 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
         $scope.menutitle = NavigationService.makeactive("merchantExposure");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        var roles = ["Super Admin", "Merchant Exposure"];
+        var roles = ["Super Admin", "Exposure"];
 
+        // $scope.hasRole = function (roles) {
+        //     // console.log("roles",roles);
+        //     if (roles) {
+        //         if ($.jStorage.get("profile")) {
+        //             var accessLevel = $.jStorage.get("profile").accessLevel;
+        //             if (roles.includes(accessLevel)) {
+        //                 console.log("you have access **************");
+        //                 return true;
+        //             } else {
+        //                 console.log("you have no access **************");
+        //                 return false;
+        //             }
+        //         }
+
+        //     } else {
+        //         console.log("not checked");
+        //         return true;
+        //     }
+        // }
+        // $scope.hasRole(roles);
         if ($.jStorage.get("profile")) {
             var accessLevel = $.jStorage.get("profile").accessLevel;
             if (roles.includes(accessLevel)) {
@@ -4797,12 +4819,15 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
         $scope.copySingleObject = function (singleObjectToBeCopy) {
             console.log("inside copySingleObject");
-            singleObjectToBeCopy.name = "Copied-" + singleObjectToBeCopy.name;
+            // singleObjectToBeCopy.name = "Copied-" + singleObjectToBeCopy.name;
             delete singleObjectToBeCopy._id;
             delete singleObjectToBeCopy.createdAt;
             delete singleObjectToBeCopy.updatedAt;
             singleObjectToBeCopy.isPlay = 0;
-
+            var d = new Date();
+            var n = d.getTime();
+            singleObjectToBeCopy.name = "Copied-" + singleObjectToBeCopy.name +" "+ n;
+            console.log("singleObjectToBeCopy",singleObjectToBeCopy);
             NavigationService.apiCall("ExposureMerchantCat/save", singleObjectToBeCopy, function (data) {
                 console.log("response of save", data);
                 if (data.value == true) {

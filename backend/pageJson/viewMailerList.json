@@ -4,7 +4,7 @@
     "pageType": "view",
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
-    "roles":["Super Admin","Merchant Exposure"],
+    "roles":["Super Admin","Exposure"],
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -25,7 +25,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editMailerList",
-        "roles":["Super Admin","Merchant Exposure"],
+        "roles":["Super Admin","Exposure"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -37,7 +37,7 @@
         "title": "Delete MailerList",
         "content": "Are you sure you want to delete MailerList?",
         "api": "MailerList/deleteWithChangeStatus",
-        "roles":["Super Admin","Merchant Exposure"],
+        "roles":["Super Admin","Exposure"],
         "fieldsToSend": {
             "name": "_id",
             "value": "_id"
@@ -48,7 +48,7 @@
         "icon": "plus",
         "class": "btn-success",
         "type": "page",
-        "roles":["Super Admin","Merchant Exposure"],
+        "roles":["Super Admin","Exposure"],
         "action": "createMailerList"
     }],
     "apiCall": {

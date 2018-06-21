@@ -6,7 +6,7 @@
     "pageType": "edit",
     "createFromEdit":true,
     "urlFields": ["_id"],
-    "roles":["Super Admin","Merchant Exposure"],
+    "roles":["Super Admin","Exposure"],
     "fields": [{
         "name": "Merchant Details",
         "type": "heading",

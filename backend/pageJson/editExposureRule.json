@@ -5,7 +5,7 @@
     "desciption": "",
     "pageType": "edit",
     "urlFields": ["_id"],
-    "roles":["Super Admin","Merchant Exposure"],
+    "roles":["Super Admin","Exposure"],
     "fields": [{
         "name": "Basic Details",
         "type": "heading",

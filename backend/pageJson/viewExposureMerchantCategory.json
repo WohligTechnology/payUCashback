@@ -7,7 +7,7 @@
     "rowCheckBoxForMerchantExposureCategory":true,
     "tableHeaderOnce":true,
     "urlFields": ["_id"],
-    "roles":["Super Admin","Merchant Exposure"],
+    "roles":["Super Admin","Exposure"],
     "fields": [{
         "name": "Name",
         "isSort": "",
@@ -31,7 +31,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "editExposureMerchantCategory",
-        "roles":["Super Admin","Merchant Exposure"],
+        "roles":["Super Admin","Exposure"],
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -43,7 +43,7 @@
         "title": "Delete ExposureMerchantCategory",
         "content": "Are you sure you want to delete ExposureMerchantCategory?",
         "api": "ExposureMerchantCategory/deleteWithChangeStatus",
-        "roles":["Super Admin","Merchant Exposure"],
+        "roles":["Super Admin","Exposure"],
         "fieldsToSend": {
             "name": "_id",
             "value": "_id"
@@ -54,7 +54,7 @@
         "buttonClass": "btn-primary",
         "type": "page",
         "action": "copyExposureMerchantCategory",  
-        "roles":["Super Admin","Merchant Exposure"], 
+        "roles":["Super Admin","Exposure"], 
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -69,7 +69,7 @@
         "icon": "plus",
         "class": "btn-success",
         "type": "page",
-        "roles":["Super Admin","Merchant Exposure"],
+        "roles":["Super Admin","Exposure"],
         "action": "createExposureMerchantCategory"
     }],
     "bottomButtonExposureMerchantCategory": [{
