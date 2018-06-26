@@ -783,6 +783,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             
             var objectToSend=$scope.createCollectionEngineObjectForApi(singleCollectionEngine);
             $scope.json.json.loader = true;
+            objectToSend.isCountEnabled=false;
 
                 NavigationService.playCollectionEngine(objectToSend, function (data) {
                     console.log("*****", data);
@@ -839,7 +840,7 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             var folder = "";
             returnData.userId=loggedInUserId;
             returnData.folderName=folder;
-            returnData.countFlag=true;
+            returnData.isCountEnabled=true;
             var objectToSend = returnData;
             console.log("objectToSend",objectToSend);
             
