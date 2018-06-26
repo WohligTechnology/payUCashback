@@ -2031,6 +2031,14 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     delete singleCollectionEngine.siInfo;
                 }
             }
+
+            if(singleCollectionEngine.preferredRepaymentChannel){
+                if(singleCollectionEngine.preferredRepaymentChannel.name!="None"){
+                    singleCollectionEngine.preferred_repayment_channel=singleCollectionEngine.preferredRepaymentChannel.name;
+                }else{
+                    singleCollectionEngine.preferred_repayment_channel="";
+                }
+            }
             if(singleCollectionEngine.previousRepaymentMode){
                 var previousRepaymentModeArray=[];
                 angular.forEach(singleCollectionEngine.previousRepaymentMode, function(value, key) {
