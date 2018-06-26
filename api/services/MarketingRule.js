@@ -89,6 +89,36 @@ var schema = new Schema({
     amount: {
         type: Number
     },
+    affluenceScore:{
+        type:Number
+    },
+    affluenceScoreOperator: {
+        type: Schema.Types.ObjectId,
+        ref: 'CollectionOperator'
+    },
+    affluenceScoreEnd:{
+        type:Number
+    },
+    engagementScore:{
+        type:Number
+    },
+    engagementScoreOperator: {
+        type: Schema.Types.ObjectId,
+        ref: 'CollectionOperator'
+    },
+    engagementScoreEnd:{
+        type:Number
+    },
+    digitalRiskScore:{
+        type:Number
+    },
+    digitalRiskScoreOperator: {
+        type: Schema.Types.ObjectId,
+        ref: 'CollectionOperator'
+    },
+    digitalRiskScoreEnd:{
+        type:Number
+    },
     isDeleted:{
         type:Number,
         default: 0
@@ -141,6 +171,15 @@ schema.plugin(deepPopulate, {
                 'amountOperator':{
                     select:'_id name'
                 },
+                'affluenceScoreOperator':{
+                    select:''
+                },
+                'engagementScoreOperator':{
+                    select:''
+                },
+                'digitalRiskScoreOperator':{
+                    select:''
+                },
                 'firstTransactionDateOperator':{
                     select:'_id name'
                 },
@@ -159,7 +198,7 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('MarketingRule', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator createdBy lastUpdatedBy','merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator createdBy lastUpdatedBy'));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator affluenceScoreOperator engagementScoreOperator digitalRiskScoreOperator createdBy lastUpdatedBy','merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator affluenceScoreOperator engagementScoreOperator digitalRiskScoreOperator createdBy lastUpdatedBy'));
 var model = {
 
     search: function (data, callback) {
@@ -189,7 +228,7 @@ var model = {
             }).sort({
                 createdAt: -1
             })
-            .populate('merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator createdBy lastUpdatedBy')
+            .populate('merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator affluenceScoreOperator engagementScoreOperator digitalRiskScoreOperator createdBy lastUpdatedBy')
             .order(options)
             .keyword(options)
             .page(options,

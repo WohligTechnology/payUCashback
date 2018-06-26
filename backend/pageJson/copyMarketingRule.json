@@ -256,6 +256,124 @@
         "dropDownType": "single",
         "onView": true,
         "dropDown": [30,180]
+    }, {
+        "name": "Scores",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Affluence Score",
+        "type": "numberwithnegative",
+        "tableRef": "affluenceScore",
+        "placeholder": "Affluence Score",
+        "id": "affluenceScore",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Affluence Score Operator",
+        "type": "tags",
+        "tableRef": "affluenceScoreOperator",
+        "placeholder": "Select Operator",
+        "id": "affluenceScoreOperator",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "CollectionOperator/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["", "", ""]
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Affluence Score End ",
+        "type": "numberwithnegativehide",
+        "tableRef": "affluenceScoreEnd",
+        "placeholder": "Affluence Score End",
+        "id": "affluenceScoreEnd",
+        "validation": ["required", "trim"],
+        "url": "",
+        "hideMethod":"hideAffluenceScoreEnd"
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Engagement Score",
+        "type": "numberwithnegative",
+        "tableRef": "engagementScore",
+        "placeholder": "Engagement Score",
+        "id": "engagementScore",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Engagement Score Operator",
+        "type": "tags",
+        "tableRef": "engagementScoreOperator",
+        "placeholder": "Select Operator",
+        "id": "engagementScoreOperator",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "CollectionOperator/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["", "", ""]
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Engagement Score End ",
+        "type": "numberwithnegativehide",
+        "tableRef": "engagementScoreEnd",
+        "placeholder": "Engagement Score End",
+        "id": "engagementScoreEnd",
+        "validation": ["required", "trim"],
+        "url": "",
+        "hideMethod":"hideEngagementScoreEnd"
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Digital Risk Score",
+        "type": "numberwithnegative",
+        "tableRef": "digitalRiskScore",
+        "placeholder": "Digital Risk Score",
+        "id": "digitalRiskScore",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Digital Risk Score Operator",
+        "type": "tags",
+        "tableRef": "digitalRiskScoreOperator",
+        "placeholder": "Select Operator",
+        "id": "digitalRiskScoreOperator",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "CollectionOperator/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["", "", ""]
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Digital Risk Score End ",
+        "type": "numberwithnegativehide",
+        "tableRef": "digitalRiskScoreEnd",
+        "placeholder": "Digital Risk Score End",
+        "id": "digitalRiskScoreEnd",
+        "validation": ["required", "trim"],
+        "url": "",
+        "hideMethod":"hideDigitalRiskScoreEnd"
+    }, {
+        "name": "",
+        "type": "heading",
+        "onlyHeading":true
     }],
     "action": [{
         "name": "submit",

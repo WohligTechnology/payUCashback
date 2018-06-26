@@ -718,6 +718,60 @@ myApp.directive('detailField', function ($http, $filter, JsonService) {
                 }
             }
 
+            $scope.condition.hideAffluenceScoreEnd = function() {
+                // console.log("$scope.formData in hideStertTransactionValue",$scope.formData["transactionOperator"].name);
+                if($scope.formData["affluenceScoreOperator"]){
+
+                    if($scope.formData["affluenceScoreOperator"].name=='Between'){
+                        // console.log("if");
+                        // $scope.formData["numberOfTransactionStart"]="";
+                        return false;
+                    } else {
+                        // console.log("else");
+                        $scope.formData["affluenceScoreEnd"]="";
+                        return true;
+                    }
+                }else{
+                    return true;
+                }
+            }
+
+            $scope.condition.hideEngagementScoreEnd = function() {
+                // console.log("$scope.formData in hideStertTransactionValue",$scope.formData["transactionOperator"].name);
+                if($scope.formData["engagementScoreOperator"]){
+
+                    if($scope.formData["engagementScoreOperator"].name=='Between'){
+                        // console.log("if");
+                        // $scope.formData["numberOfTransactionStart"]="";
+                        return false;
+                    } else {
+                        // console.log("else");
+                        $scope.formData["engagementScoreEnd"]="";
+                        return true;
+                    }
+                }else{
+                    return true;
+                }
+            }
+
+            $scope.condition.hideDigitalRiskScoreEnd = function() {
+                // console.log("$scope.formData in hideStertTransactionValue",$scope.formData["transactionOperator"].name);
+                if($scope.formData["digitalRiskScoreOperator"]){
+
+                    if($scope.formData["digitalRiskScoreOperator"].name=='Between'){
+                        // console.log("if");
+                        // $scope.formData["numberOfTransactionStart"]="";
+                        return false;
+                    } else {
+                        // console.log("else");
+                        $scope.formData["digitalRiskScoreEnd"]="";
+                        return true;
+                    }
+                }else{
+                    return true;
+                }
+            }
+
             $scope.condition.hideFirstTransactionDate = function() {
                 if($scope.formData["firstDate"] > $scope.formData["lastDate"]){
                     $scope.formData["firstDate"]=null; 
