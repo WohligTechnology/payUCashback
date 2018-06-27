@@ -128,6 +128,9 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
     $locationProvider.html5Mode(isproduction);
 });
 
+myApp.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.timeout = 5000000;
+}]);
 myApp.config(function ($translateProvider) {
     $translateProvider.translations('en', LanguageEnglish);
     $translateProvider.translations('hi', LanguageHindi);

@@ -520,9 +520,8 @@ myApp.factory('NavigationService', function ($http, $state) {
                 url: serverUrl + 'scheduler/generate',
                 method: 'POST',
                 data: ruleArr,
-                withCredentials: false,
-                timeout:5000
-            }).then(function (data) {
+                withCredentials: false
+            },{timeout:50000000}).then(function (data) {
                 console.log("######", data);
                 // data = data.data;
                 callback(data);
