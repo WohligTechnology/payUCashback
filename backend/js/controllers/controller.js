@@ -847,11 +847,11 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
 
             NavigationService.playCollectionEngine(objectToSend, function (data) {
                 console.log("verifyQuery", data);
-                var count = data.data.CampaignCount;
+                var count = data.data.collectionCount;
                 $scope.countToShow = count;
 
                 $scope.json.json.loader = false;
-                // var count=data.data.CampaignCount;
+                // var count=data.data.collectionCount;
                 if (data.data.success == true) {
                     $scope.CollectionEngineCountModal = $uibModal.open({
                         animation: true,
