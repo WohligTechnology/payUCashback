@@ -69,10 +69,10 @@ var schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'FavourableDayOfWeek'
     }],
-    preferredRepaymentChannel:{
+    preferredRepaymentChannel:[{
         type: Schema.Types.ObjectId,
         ref: 'PreferredRepaymentChannel'
-    },
+    }],
     isDeleted:{
         type:Number,
         default: 0

@@ -2031,14 +2031,22 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                     delete singleCollectionEngine.siInfo;
                 }
             }
-
+            // preferred_repayment_channel=[];
             if(singleCollectionEngine.preferredRepaymentChannel){
-                if(singleCollectionEngine.preferredRepaymentChannel.name!="None"){
-                    singleCollectionEngine.preferred_repayment_channel=singleCollectionEngine.preferredRepaymentChannel.name;
-                }else{
-                    singleCollectionEngine.preferred_repayment_channel="";
-                }
+                // console.log("if inside singleCollectionEngine.preferredRepaymentChannel",singleCollectionEngine.preferredRepaymentChannel);
+                var preferred_repayment_channel=[];
+                angular.forEach(singleCollectionEngine.preferredRepaymentChannel, function(value, key) {
+                    preferred_repayment_channel.push(value.name);
+                  });
             }
+
+            // if(singleCollectionEngine.preferredRepaymentChannel){
+            //     if(singleCollectionEngine.preferredRepaymentChannel.name!="None"){
+            //         singleCollectionEngine.preferred_repayment_channel=singleCollectionEngine.preferredRepaymentChannel.name;
+            //     }else{
+            //         singleCollectionEngine.preferred_repayment_channel="";
+            //     }
+            // }
             if(singleCollectionEngine.previousRepaymentMode){
                 var previousRepaymentModeArray=[];
                 angular.forEach(singleCollectionEngine.previousRepaymentMode, function(value, key) {
@@ -2084,8 +2092,9 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             singleCollectionEngine.previousRepaymentModeArray=previousRepaymentModeArray;
             singleCollectionEngine.favourableTimeOfDayArray=favourableTimeOfDayArray;
             singleCollectionEngine.favourableDayOfWeekArray=favourableDayOfWeekArray;
+            singleCollectionEngine.preferred_repayment_channel=preferred_repayment_channel;
             objectToSend.collectionRule = singleCollectionEngine;
-            console.log("allSelectedCollectionEngines", objectToSend);
+            console.log("allSelectedCollectionEngines**************", objectToSend);
             return objectToSend;
         }
         $scope.viewMarketingRuleQueryModal = function (singleRule) {

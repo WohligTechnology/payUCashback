@@ -270,18 +270,18 @@
         "dropDownType": "multiple",
         "validation": ["", "", "trim"]
     }, {
-        "name": "Preferred Repayment Channel",
+        "name": "Preferred Repayment Channel ( Multiple Select )",
         "type": "tags",
         "tableRef": "preferredRepaymentChannel",
-        "placeholder": "Select Preferred Repayment Channel",
+        "placeholder": "Preferred Repayment Channel",
         "id": "preferredRepaymentChannel",
         "searchApi": "searchCall",
         "fieldType": "",
         "url": "PreferredRepaymentChannel/search",
         "dropDownField": "name",
         "view": true,
-        "dropDownType": "single",
-        "validation": ["", "", ""]
+        "dropDownType": "multiple",
+        "validation": ["", "", "trim"]
     }],
     "action": [{
         "name": "submit",
