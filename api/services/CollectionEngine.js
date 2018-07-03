@@ -73,6 +73,10 @@ var schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'PreferredRepaymentChannel'
     }],
+    mailerList: {
+        type: Schema.Types.ObjectId,
+        ref: 'MailerList'
+    },
     isDeleted:{
         type:Number,
         default: 0
@@ -121,6 +125,9 @@ schema.plugin(deepPopulate, {
                 },
                 'preferredRepaymentChannel':{
                     select:''
+                },
+                'mailerList':{
+                    select:''
                 }
             }
             });
@@ -128,7 +135,7 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('CollectionEngine', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'outstandingAmountOperator previousRepaymentAmountOperator previousRepaymentMode previousRepaymentDpdOperator dueSinceOperator prnDueAmountOperator favourableTimeOfDay favourableDayOfWeek preferredRepaymentChannel createdBy lastUpdatedBy', 'outstandingAmountOperator previousRepaymentAmountOperator previousRepaymentMode previousRepaymentDpdOperator dueSinceOperator prnDueAmountOperator favourableTimeOfDay favourableDayOfWeek preferredRepaymentChannel createdBy lastUpdatedBy'));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'outstandingAmountOperator previousRepaymentAmountOperator previousRepaymentMode previousRepaymentDpdOperator dueSinceOperator prnDueAmountOperator favourableTimeOfDay favourableDayOfWeek preferredRepaymentChannel mailerList createdBy lastUpdatedBy', 'outstandingAmountOperator previousRepaymentAmountOperator previousRepaymentMode previousRepaymentDpdOperator dueSinceOperator prnDueAmountOperator favourableTimeOfDay favourableDayOfWeek preferredRepaymentChannel mailerList createdBy lastUpdatedBy'));
 var model = {
 
     search: function (data, callback) {
@@ -158,7 +165,7 @@ var model = {
             }).sort({
                 createdAt: -1
             })
-            .populate('outstandingAmountOperator previousRepaymentAmountOperator previousRepaymentMode previousRepaymentDpdOperator dueSinceOperator prnDueAmountOperator favourableTimeOfDay favourableDayOfWeek preferredRepaymentChannel createdBy lastUpdatedBy')
+            .populate('outstandingAmountOperator previousRepaymentAmountOperator previousRepaymentMode previousRepaymentDpdOperator dueSinceOperator prnDueAmountOperator favourableTimeOfDay favourableDayOfWeek preferredRepaymentChannel mailerList createdBy lastUpdatedBy')
             .order(options)
             .keyword(options)
             .page(options,

@@ -326,6 +326,23 @@
         "view": true,
         "dropDownType": "multiple",
         "validation": ["", "", "trim"]
+    }, {
+        "name": "Mailer List",
+        "type": "heading",
+        "onlyHeading":true
+    }, {
+        "name": "Mailer List",
+        "type": "tags",
+        "tableRef": "mailerList",
+        "placeholder": "Select Mailer List",
+        "id": "mailerList",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "MailerList/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "single",
+        "validation": ["required", "", ""]
     }],
     "action": [{
         "name": "submit",

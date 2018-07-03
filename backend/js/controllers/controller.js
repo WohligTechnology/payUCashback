@@ -1800,6 +1800,12 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
             newObjectToReturn.el_endDate=onlyEligibilityEndDate;
             newObjectToReturn.downloadOption=objectToReturn.downloadOption;
             newObjectToReturn.txn_statuses=objectToReturn.transactionStatusString;
+
+            if(objectToReturn.mailerList){
+                newObjectToReturn.emailIds=objectToReturn.mailerList.emailIds;
+            }else{
+                newObjectToReturn.emailIds=null;
+            }
             return newObjectToReturn;
         }
 
@@ -2088,11 +2094,18 @@ myApp.controller('DashboardCtrl', function ($scope, TemplateService, NavigationS
                 singleCollectionEngine.prnDueAmountOperator=singleCollectionEngine.prnDueAmountOperator.name;
                 }
             }
+
+            if(singleCollectionEngine.mailerList.emailIds){
+                singleCollectionEngine.emailIds=singleCollectionEngine.mailerList.emailIds;
+            }else{
+                singleCollectionEngine.mailerList=null;
+            }
             
             singleCollectionEngine.previousRepaymentModeArray=previousRepaymentModeArray;
             singleCollectionEngine.favourableTimeOfDayArray=favourableTimeOfDayArray;
             singleCollectionEngine.favourableDayOfWeekArray=favourableDayOfWeekArray;
             singleCollectionEngine.preferred_repayment_channel=preferred_repayment_channel;
+            singleCollectionEngine.emailIds=singleCollectionEngine.mailerList.emailIds;
             objectToSend.collectionRule = singleCollectionEngine;
             console.log("allSelectedCollectionEngines**************", objectToSend);
             return objectToSend;

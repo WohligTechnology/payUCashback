@@ -119,6 +119,10 @@ var schema = new Schema({
     digitalRiskScoreEnd:{
         type:Number
     },
+    mailerList: {
+        type: Schema.Types.ObjectId,
+        ref: 'MailerList'
+    },
     isDeleted:{
         type:Number,
         default: 0
@@ -186,6 +190,9 @@ schema.plugin(deepPopulate, {
                 'lastTransactionDateOperator':{
                     select:'_id name'
                 },
+                'mailerList':{
+                    select:'_id name'
+                },
                 'createdBy': {
                     select: 'name _id email'
                 },
@@ -198,7 +205,7 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('MarketingRule', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator affluenceScoreOperator engagementScoreOperator digitalRiskScoreOperator createdBy lastUpdatedBy','merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator affluenceScoreOperator engagementScoreOperator digitalRiskScoreOperator createdBy lastUpdatedBy'));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator affluenceScoreOperator engagementScoreOperator digitalRiskScoreOperator mailerList createdBy lastUpdatedBy','merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator affluenceScoreOperator engagementScoreOperator digitalRiskScoreOperator mailerList createdBy lastUpdatedBy'));
 var model = {
 
     search: function (data, callback) {
@@ -228,7 +235,7 @@ var model = {
             }).sort({
                 createdAt: -1
             })
-            .populate('merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator affluenceScoreOperator engagementScoreOperator digitalRiskScoreOperator createdBy lastUpdatedBy')
+            .populate('merchant inclusive exclusive merchantCategory dayOfWeek paymentMode bankType deviceType checkoutType timeOfDay transactionOperator amountOperator firstTransactionDateOperator lastTransactionDateOperator affluenceScoreOperator engagementScoreOperator digitalRiskScoreOperator mailerList createdBy lastUpdatedBy')
             .order(options)
             .keyword(options)
             .page(options,

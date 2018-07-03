@@ -45,6 +45,10 @@ var schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Status'
     }],
+    mailerList: {
+        type: Schema.Types.ObjectId,
+        ref: 'MailerList'
+    },
     isDeleted: {
         type: Number,
         default: 0
@@ -78,6 +82,9 @@ schema.plugin(deepPopulate, {
         },
         'eligibilityStatus': {
             select: ''
+        },
+        'mailerList': {
+            select: ''
         }
     }
 });
@@ -85,7 +92,7 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('MarketingCampaign', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'eligibilityMerchant transactionMerchant eligibilityStatus transactionStatus createdBy lastUpdatedBy','eligibilityMerchant transactionMerchant eligibilityStatus transactionStatus createdBy lastUpdatedBy'));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'eligibilityMerchant transactionMerchant eligibilityStatus transactionStatus mailerList createdBy lastUpdatedBy','eligibilityMerchant transactionMerchant eligibilityStatus transactionStatus mailerList createdBy lastUpdatedBy'));
 var model = {
 
     search: function (data, callback) {
@@ -115,7 +122,7 @@ var model = {
             }).sort({
                 createdAt: -1
             })
-            .populate('eligibilityMerchant transactionMerchant eligibilityStatus transactionStatus createdBy lastUpdatedBy')
+            .populate('eligibilityMerchant transactionMerchant eligibilityStatus transactionStatus mailerList createdBy lastUpdatedBy')
             .order(options)
             .keyword(options)
             .page(options,

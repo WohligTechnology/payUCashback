@@ -118,6 +118,10 @@ var schema = new Schema({
         type: Number,
         default: 0
     },
+    mailerList: {
+        type: Schema.Types.ObjectId,
+        ref: 'MailerList'
+    },
     createdBy: {
         type: Schema.Types.ObjectId,
         ref: 'User'
@@ -148,6 +152,9 @@ schema.plugin(deepPopulate, {
         'transactionType': {
             select: 'name _id'
         },
+        'mailerList':{
+            select:''
+        },
         'createdBy': {
             select: 'name _id email'
         },
@@ -160,7 +167,7 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('Rule', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant applicableMerchant status transactionType createdBy lastUpdatedBy', 'merchant applicableMerchant status transactionType createdBy lastUpdatedBy'));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'merchant applicableMerchant status transactionType mailerList createdBy lastUpdatedBy', 'merchant applicableMerchant status transactionType mailerList createdBy lastUpdatedBy'));
 var model = {
 
     search: function (data, callback) {
